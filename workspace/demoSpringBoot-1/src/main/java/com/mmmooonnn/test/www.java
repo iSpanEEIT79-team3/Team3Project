@@ -4,6 +4,13 @@ public class www {
 	public static void main(String[] args) {
 		System.out.print("醜男停藥");
 		System.out.print("醜男停藥");
+		System.out.print("醜男停藥");
+		System.out.print("醜男停藥");
+		System.out.print("醜男停藥");
+		System.out.print("醜男停藥");
+		System.out.print("醜男停藥");
+		System.out.print("醜男停藥");
+		
 		
 
 	}
