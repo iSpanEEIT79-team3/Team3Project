@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>修改結果</title>
+</head>
+
+<body>
+	<div align="center">
+	       <h2>修改結果</h2>
+	       <div th:if="${emailExists != null}">
+	           <!-- 直接使用布尔值进行判断 -->
+	           <p th:if="${emailExists}" style="color: red;">該信箱已存在，請使用其他信箱。</p>
+	           <p th:unless="${emailExists}" style="color: green;">修改成功!</p>
+	       </div>
+	       <p th:if="${emailExists == null}">發生錯誤。</p>
+	       <a href="/html/allUsers.html">
+	           <button type="submit">確定</button>
+	       </a>
+	   </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
