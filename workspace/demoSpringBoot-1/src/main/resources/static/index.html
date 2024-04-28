@@ -171,7 +171,40 @@
     <script>
         //登入
         $('.login').click(function () {
-            window.location.href = "/html/OrdersForClient.html"
+            if (checkdate()) {
+                $.ajax({
+                    url: "/UserLogin",
+                    type: 'POST',
+                    date: {
+                        email: $('#email').val(),
+                        password: $('#password').val()
+                    },
+                    success: function () {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "送出確定",
+                            showConfirmButton: false,
+                            willClose: () => {
+                                window.location.href = "/html/OrdersForClient.html";
+                            }
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '信箱或密碼錯誤',
+                            text: '請重新輸入'
+                        });
+                    }
+                });
+            } else {
+                // 沒填寫完
+                Swal.fire({
+                    icon: 'error',
+                    title: '請輸入信箱及密碼'
+                });
+            }
         });
         //後台登入
         $('.backstage').click(function () {

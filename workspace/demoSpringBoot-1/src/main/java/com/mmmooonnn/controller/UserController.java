@@ -35,21 +35,19 @@ public class UserController {
 	@Autowired
 	private ResourceLoader resourceLoader;
 	
+	//搜尋全部
 	@GetMapping("/GetAllUser")
 	@ResponseBody
 	public List<UsersBeanNew> processActionGetAllUser() {
 //		ModelAndView modelAndView = new ModelAndView();
 		
 		List<UsersBeanNew> users = uService2.getAll();
-		
-		
-		System.out.println(users);
-//		modelAndView.addObject("users", users);
-	
+//		modelAndView.addObject(users);		
 		return users;
 	}
+	
 	@GetMapping("/back")
-	public String pppp() {
+	public String processActionGet() {
 		return "/back";
 	}
 	

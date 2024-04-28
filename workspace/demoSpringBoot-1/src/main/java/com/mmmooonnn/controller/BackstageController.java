@@ -46,7 +46,7 @@ public class BackstageController {
 	@GetMapping("/successLogin")
 	public ModelAndView getMethodName() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("forward:html/allUsers.html");
+		modelAndView.setViewName("/back");
 		return modelAndView;
 	}
 	
