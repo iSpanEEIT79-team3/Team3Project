@@ -1,31 +1,4 @@
-/* .navbar {
-    padding:1rem 2rem;
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    margin: 0;
-    top: 0;
-    left: 0;
-    margin-bottom: 20px;
-    background-color: #101010;
-  }
-  
-  .nav-item {
-    padding: 0 18px 18px 0;
-  }
-  
-  .nav-link {
-    font-size: 1.2rem;
-    font-weight: 400;
-  
-  }
- */
 
-
-
-
-
-  
 
   .nav-item :hover{
     color: #ffc100;
@@ -46,7 +19,7 @@
     margin: 0;
     top: 0;
     left: 0;
-    background-color: #101010;
+    background-color: #D4B572;
   }
   
   .nav-item {
