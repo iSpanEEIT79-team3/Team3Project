@@ -185,9 +185,9 @@
         $('.login').click(function () {
             if (checkdate()) {
                 $.ajax({
-                    url: "/UserLogin",
+                    url: "/userLogin",
                     type: 'POST',
-                    date: {
+                    data: {
                         email: $('#email').val(),
                         password: $('#password').val()
                     },

@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mmmooonnn.model.UserContactNew;
 import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.UsersService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -51,8 +55,22 @@ public class UserController {
 		return "/back";
 	}
 	
-	
-	
+	@PostMapping("/userLogin")
+	public ResponseEntity<String> processActionGetUser(@RequestParam("email") String email,
+													@RequestParam("password") String password,
+														HttpSession session){
+		System.out.println("進入UserLogin");
+		boolean result = uService2.isEmailExist(email);
+		System.out.println(result);
+		if(result) {
+			UsersBeanNew usersBean = uService2.findByEmail(email);
+			session.setAttribute("usersBean", usersBean);
+			return ResponseEntity.ok().body("登入成功");
+		}
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
+	}
+	//刪除單筆
 	@DeleteMapping("/DeleteUser")
 	public ModelAndView processActionDeleteUser(@RequestParam("idUser") Integer id) {
 		ModelAndView modelAndView = new ModelAndView();

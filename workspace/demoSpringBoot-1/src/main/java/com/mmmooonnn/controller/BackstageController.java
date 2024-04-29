@@ -29,7 +29,6 @@ public class BackstageController {
 	public ResponseEntity<String> processAction(@RequestParam("email") String email,
 												@RequestParam("password") String password,
 												HttpSession session){
-		System.out.println(email + " " + password);
 		if(bService.findUserByEmailPassword(email, password)) {
 			System.out.println("正確");
 			session.setAttribute("email", email);
