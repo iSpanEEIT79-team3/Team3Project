@@ -40,7 +40,7 @@
 				<td><input type="text" disabled value="${replyBean.ltBean.getLtId()}">
 			</tr>
 		</table>
-		<a class="btn" href="ReportSelectAll">返回首頁</a>
+		<a class="btn" href="ReplySelectAll">返回首頁</a>
 	</div>
 </body>
 </html>

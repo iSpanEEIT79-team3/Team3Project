@@ -1,4 +1,4 @@
-package com.ispan.controller;
+package com.mmmooonnn.controller;
 
 import java.util.List;
 
@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ispan.Dao.LTService;
-import com.ispan.Dao.ReportService;
-import com.ispan.model.LTBean;
-import com.ispan.model.ReportBean;
+import com.mmmooonnn.model.LTBean;
+import com.mmmooonnn.model.ReportBean;
+import com.mmmooonnn.service.LTService;
+import com.mmmooonnn.service.ReportService;
+
 
 @Controller
 public class ReportController {
@@ -26,9 +27,12 @@ public class ReportController {
 
 	@GetMapping("/ReportSelectId1.controller")
 	public String findByID1(@RequestParam("reportId") Integer reportId, Model m) {
+		System.out.println(reportId);
 		ReportBean resultBean = rp.findById(reportId);
+		System.out.println(resultBean);
+		
 		m.addAttribute("reportBean", resultBean);
-		return "ReportSelect.jsp";
+		return "forward:/WEB-INF/jsp/ReportSelect.jsp";
 
 	}
 
@@ -36,7 +40,7 @@ public class ReportController {
 	public String findByID(@RequestParam("reportId") Integer reportId, Model m) {
 		ReportBean resultBean = rp.findById(reportId);
 		m.addAttribute("reportBean", resultBean);
-		return "ReportUpdate.jsp";
+		return "forward:/WEB-INF/jsp/ReportUpdate.jsp";
 
 	}
 
@@ -45,7 +49,7 @@ public class ReportController {
 		List<ReportBean> reportList = rp.findReport();
 		m.addAttribute("reportBeans", reportList);
 
-		return "back.jsp?ReportSelectAll=true";
+		return "forward:/WEB-INF/jsp/ReportSelectAll.jsp";
 
 	}
 

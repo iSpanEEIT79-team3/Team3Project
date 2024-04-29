@@ -1,4 +1,4 @@
-package com.ispan.controller;
+package com.mmmooonnn.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ispan.Dao.LTService;
-import com.ispan.Dao.ReplyService;
-import com.ispan.model.LTBean;
-import com.ispan.model.ReplyBean;
+import com.mmmooonnn.model.LTBean;
+import com.mmmooonnn.model.ReplyBean;
+import com.mmmooonnn.service.LTService;
+import com.mmmooonnn.service.ReplyService;
+
+
 
 @Controller
 public class ReplyController {
@@ -35,14 +37,14 @@ public class ReplyController {
 		ReplyBean resultBean = ry.findByReplyId(replyId);
 		mm.addAttribute("replyBean",resultBean);
 		
-		return "ReplySelect.jsp";
+		return "forward:/WEB-INF/jsp/ReplySelect.jsp";
 	}
 	@GetMapping("/ReplySelectById.controller/{replyId}")
 	public String findByReplyIdup(@RequestParam("replyId") Integer replyId,Model m) {
 		ReplyBean resultBean = ry.findByReplyId(replyId);
 		m.addAttribute("replyBean",resultBean);
 		
-		return "ReplyUpdate.jsp";
+		return "forward:/WEB-INF/jsp/ReplyUpdate.jsp";
 	}	
 	
 	
@@ -51,7 +53,7 @@ public class ReplyController {
 			List<ReplyBean> replyList = ry.findReply();
 			m.addAttribute("replyBeans", replyList);
 			
-			return "back.jsp?ReplySelectAll=true";
+			return "forward:/WEB-INF/jsp/ReplySelectAll.jsp";
 			
 	}
 @PostMapping("Replyinsert.controller")
@@ -132,7 +134,7 @@ public ModelAndView InsertReply(
 		Set<ReplyBean> replyBeans = resultBean.getReplyBeans();
 		System.out.println("ReplyBeans"+resultBean.getReplyBeans());
 	    mm.addAttribute("replyBean", replyBeans);
-	    return "ReplySelectLTId.jsp";
+	    return "forward:/WEB-INF/jsp/ReplySelectLTId.jsp";
 	}
 }
 		

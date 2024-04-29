@@ -33,7 +33,7 @@
 				<td>檢舉內容</td>
 				<td><input type="text" disabled value="${reportBean.reportContent }">
 				<td>文章ID</td>
-				<td><input type="text" disabled value="${reportBean.ltBean.getLtId()}">
+				<td><input type="text" disabled value="${reportBean.LTId}">
 			</tr>
 		</table>
 		<a class="btn" href="ReplySelectAll">返回首頁</a>

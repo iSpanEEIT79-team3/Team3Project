@@ -12,6 +12,19 @@ body {
 	margin: 0;
 	padding: 0;
 }
+ button {
+        padding: 10px 20px;
+        background-color: #87ceeb;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s; /* 添加过渡效果 */
+    }
+
+    button:hover {
+        background-color: #4682b4; /* 鼠标悬停时颜色变为深蓝色 */
+    }
 
 .lt {
 	position: absolute;
@@ -28,7 +41,7 @@ body {
 .lt th, .lt td {
 	text-align: center;
 	padding: 8px;
-	border: 1px solid #ddd;
+	border: 1px solid #000000;
 	font-weight: bold;
 }
 
@@ -56,19 +69,35 @@ body {
 }
 
 .lt button.add {
-	background-color: #a8fefa; /* 天空藍 */
-	color: black;
+		padding: 8px 16px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: background-color 0.3s;
 }
 
 .lt button:hover {
 	opacity: 0.8;
 }
+.h22{
+	text-align:center;
+	}
 </style>
 </head>
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<div class="back-content"></div>	
 	<div class="lt">
-		<h2>檢舉</h2>
+		<div class="h22">
+		<h2 class="h2">檢舉區</h2>
+		
+		</div>
+	<div style="text-align: center; margin-top: 20px;">
+    <a href="LTSelectAll" style="text-decoration: none;">
+        <button id="returnButton" onclick="changeColor()">返回首頁</button>
+    </a>
+</div>
 		<form method="get" action="html/ReportInsert.html">
 			<button class="add" type="submit">新增</button>
 		</form>
@@ -93,10 +122,10 @@ body {
 					
 					
 					<td>
-						<form method="get" action="/ReportSelectId.controller/${items.reportId}">
-							<input type="hidden" name="reportId" value="${items.reportId}">
-							<button class="edit" type="submit">修改</button>
-						</form>
+<%-- 						<form method="get" action="/ReportSelectId.controller/${items.reportId}"> --%>
+<%-- 							<input type="hidden" name="reportId" value="${items.reportId}"> --%>
+<!-- 							<button class="edit" type="submit">修改</button> -->
+<!-- 						</form> -->
 						<form method="post" action="/ReportDelete.controller?reportId=${items.reportId}">
 							<input type="hidden" name="_method" value="DELETE">
 							<button class="delete" type="submit">刪除</button>
@@ -106,7 +135,16 @@ body {
 			</c:forEach>
 		</table>
 	</div>
-
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+			<script>
+				fetch('/back')
+					.then(response => response.text())
+					.then(html => {
+						//內容
+						$('.back-content').html(html);
+					})
+					.catch(error => console.error('Error fetching back.html', error));
+			</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButtons = document.querySelectorAll('.delete');

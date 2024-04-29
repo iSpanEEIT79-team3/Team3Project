@@ -1,4 +1,4 @@
-package com.ispan.controller;
+package com.mmmooonnn.controller;
 
 import java.io.File;
 import java.text.ParseException;
@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ispan.Dao.LTService;
-import com.ispan.model.LTBean;
+import com.mmmooonnn.model.LTBean;
+import com.mmmooonnn.service.LTService;
+
 
 
 @Controller
@@ -39,7 +40,7 @@ public class LTController {
 		System.out.println(resultBean);
 		mm.addAttribute("ltBean", resultBean);
 		
-		return "LTSelect.jsp";
+		return "forward:/WEB-INF/jsp/LTSelect.jsp";
 
 	}
 	
@@ -49,7 +50,7 @@ public class LTController {
 		System.out.println(resultBean);
 		m.addAttribute("ltBean", resultBean);
 		
-		return "LTUpdate.jsp";
+		return "forward:/WEB-INF/jsp/LTUpdate.jsp";
 
 	}
 
@@ -58,7 +59,7 @@ public class LTController {
 		List<LTBean> LTList = lt.findLT();
 		m.addAttribute("ltBeans", LTList);
 
-		return "back.jsp?LTSelectAll=true";
+		return "forward:/WEB-INF/jsp/LTSelectAll.jsp";
 
 	}
 

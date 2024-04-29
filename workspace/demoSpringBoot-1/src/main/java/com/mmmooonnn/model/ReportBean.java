@@ -1,4 +1,4 @@
-package com.ispan.model;
+package com.mmmooonnn.model;
 
 import org.springframework.stereotype.Component;
 

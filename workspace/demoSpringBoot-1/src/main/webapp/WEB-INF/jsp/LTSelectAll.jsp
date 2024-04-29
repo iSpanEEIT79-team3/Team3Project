@@ -75,7 +75,7 @@
 	.lt th, .lt td {
 		text-align: center;
 		padding: 8px;
-		border: 1px solid #ddd;
+		border: 1px solid #000000;
 		font-weight: bold;
 	}
 
@@ -120,6 +120,7 @@
 </head>
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<div class="back-content"></div>
 
 	<div class="lt">
 	<div class="h22">
@@ -174,7 +175,16 @@
 			</c:forEach>
 		</table>
 	</div>
-
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+			<script>
+				fetch('/back')
+					.then(response => response.text())
+					.then(html => {
+						//內容
+						$('.back-content').html(html);
+					})
+					.catch(error => console.error('Error fetching back.html', error));
+			</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
