@@ -12,8 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,12 +34,7 @@ public class MatchesBean implements Serializable {
 	private LocalDate matchdate;
 	@Column(name = "MATCH_SUCCESS")
 	private String matchsuccess;
-	@OneToOne
-	@JoinColumn(name = "USER1_ID", referencedColumnName = "USERID", insertable = false, updatable = false)
-	private UsersBeanNew user1;
-	@OneToOne
-	@JoinColumn(name = "USER2_ID", referencedColumnName = "USERID", insertable = false, updatable = false)
-	private UsersBeanNew user2;
+	
 
 	public Integer getMatchid() {
 		return matchid;
