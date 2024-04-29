@@ -1,4 +1,4 @@
-package com.mmmooonnn.service;
+package com.ispan.Dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmmooonnn.model.ReplyBean;
-import com.mmmooonnn.model.ReplyRepository;
+import com.ispan.model.ReplyBean;
 
 
 @Service
@@ -43,6 +42,9 @@ public class ReplyService {
 		ry.deleteById(ReplyId);
 		
 	}
-	
+	public List<ReplyBean> findID(Integer ltId){
+	return ry.findByID(ltId);
+
+}
 	
 }

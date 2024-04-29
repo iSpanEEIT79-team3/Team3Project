@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>搜尋單筆</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function validateForm() {
+            var replyIdInput = document.getElementById('reportId').value.trim();
+            if (replyIdInput === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '請輸入回覆ID再按確認😒',
+
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+    <style>
+        .btn {
+            background-color: #4DFFFF;
+            /* Green */
+            border: none;
+            color: black;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .SS {
+            background-color: #4DFFFF;
+            /* Green */
+            border: none;
+            color: black;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #fdf5e6">
+    <form method="get" action="/ReportSelectId1.controller" onsubmit="return validateForm()">
+        <h2>搜尋</h2>
+        輸入ID<input type="text" id="reportId" name="reportId" />
+        <input class="SS" type="submit" value="確定" />
+        <a class="btn" href="/ReportSelectAll">返回首頁</a>
+    </form>
+</body>
+
+</html>

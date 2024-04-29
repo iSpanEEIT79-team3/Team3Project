@@ -1,15 +1,20 @@
-package com.mmmooonnn.model;
+package com.ispan.model;
 
 
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,86 +37,112 @@ public class ReplyBean {
 	private Integer userId;
 //	private UserBean userBean;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "LTID")
-	@Column(name = "LTID")
-	private Integer LTId;
-//	private LTBean ltBean;
+	@ManyToOne
+	@JoinColumn(name = "LTID")
+	@JsonIgnore
+//	@Column(name = "LTID")
+//	private Integer LTId;
+	private LTBean ltBean;
 
 	public ReplyBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+
+	
+
 	public Integer getReplyId() {
 		return replyId;
 	}
+
+
+
 
 	public void setReplyId(Integer replyId) {
 		this.replyId = replyId;
 	}
 
+
+
+
 	public Date getReplytime() {
 		return replytime;
 	}
+
+
+
 
 	public void setReplytime(Date replytime) {
 		this.replytime = replytime;
 	}
 
+
+
+
 	public String getReplypost() {
 		return replypost;
 	}
+
+
+
 
 	public void setReplypost(String replypost) {
 		this.replypost = replypost;
 	}
 
+
+
+
 	public Integer getUserId() {
 		return userId;
 	}
+
+
+
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public Integer getLTId() {
-		return LTId;
+
+
+
+	public LTBean getLtBean() {
+		return ltBean;
 	}
 
-	public void setLTId(Integer lTId) {
-		LTId = lTId;
+
+
+
+	public void setLtBean(LTBean ltBean) {
+		this.ltBean = ltBean;
 	}
+
+
+
 
 	@Override
 	public String toString() {
 		return "ReplyBean [replyId=" + replyId + ", replytime=" + replytime + ", replypost=" + replypost + ", userId="
-				+ userId + ", LTId=" + LTId + "]";
+				+ userId + "]";
 	}
 
-	public ReplyBean(Integer replyId, Date replytime, String replypost, Integer userId, Integer lTId) {
+	public ReplyBean(Integer replyId, Date replytime, String replypost, Integer userId, LTBean ltBean) {
 		super();
 		this.replyId = replyId;
 		this.replytime = replytime;
 		this.replypost = replypost;
 		this.userId = userId;
-		LTId = lTId;
+		this.ltBean = ltBean;
 	}
 
-	public ReplyBean(Integer replyId, String replypost, Integer userId, Integer lTId) {
-		super();
-		this.replyId = replyId;
-		this.replypost = replypost;
-		this.userId = userId;
-		LTId = lTId;
-	}
-
-	public ReplyBean(Date replytime, String replypost, Integer userId, Integer lTId) {
+	public ReplyBean(Date replytime, String replypost, Integer userId, LTBean ltBean) {
 		super();
 		this.replytime = replytime;
 		this.replypost = replypost;
 		this.userId = userId;
-		LTId = lTId;
+		this.ltBean = ltBean;
 	}
 
 	

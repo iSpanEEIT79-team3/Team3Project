@@ -55,7 +55,7 @@
 						<td>文章內容</td>
 						<td><input type="text" name="content"
 							value="${ltBean.content}">
-<!-- 						<td>日期</td> -->
+						<td>日期</td>
 						<td><input type="hidden" name="date" value="${ltBean.date}"readonly>
 						<td>分類</td>
 						<td><input type="text" name="classify"
