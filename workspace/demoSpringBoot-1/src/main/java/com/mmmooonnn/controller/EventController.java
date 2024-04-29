@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,7 +50,22 @@ public class EventController{
 //	 透過使用@InitBinder註解和WebDataBinder類別來實現參數轉換
 //	 
 	
-
+	//ajax查單筆用
+	 	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
+	 	@ResponseBody
+	    public Event ajaxFindEvenDataByID(@PathVariable("evenID") Integer evenId) {
+	 		Event eventBean = eService.findEventById(evenId);
+	        return eventBean;
+	    }
+	 	
+	 	//ajax查全部
+	 	@GetMapping("/ajaxFindAll")
+	 	@ResponseBody
+	    public List<Event> ajaxFindAll() {
+	 		List<Event> eventBeans = eService.findAll();
+	        return eventBeans;
+	    }
+	 	
 	@GetMapping("/WSall")
 	public ModelAndView processFindASllAction() {
 		ModelAndView modelAndView = new ModelAndView();
