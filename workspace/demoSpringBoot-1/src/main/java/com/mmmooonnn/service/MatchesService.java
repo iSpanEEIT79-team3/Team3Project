@@ -1,3 +1,4 @@
+// MatchesService.java
 package com.mmmooonnn.service;
 
 import java.util.List;
@@ -11,22 +12,11 @@ import com.mmmooonnn.model.MatchesRepository;
 @Service
 public class MatchesService {
 
-    @Autowired
-    private MatchesRepository matchesRepository;
+	@Autowired
+	private MatchesRepository matchesRepository;
 
-    public List<MatchUserDetailsDTO> getMatchUserDetails() {
-        return matchesRepository.getMatchUserDetails();
-    }
+	public List<MatchUserDetailsDTO> getMatchesByStatus(String status) {
+		return matchesRepository.findMatchesByStatus(status);
+	}
 
-    public List<MatchUserDetailsDTO> getSuccessfulMatches() {
-        return matchesRepository.findSuccessfulMatches();
-    }
-
-    public List<MatchUserDetailsDTO> getPendingMatches() {
-        return matchesRepository.findPendingMatches();
-    }
-
-    public List<MatchUserDetailsDTO> getRejectedMatches() {
-        return matchesRepository.findRejectedMatches();
-    }
 }

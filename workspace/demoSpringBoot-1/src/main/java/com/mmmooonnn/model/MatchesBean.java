@@ -95,4 +95,7 @@ public class MatchesBean implements Serializable {
 		this.matchsuccess = matchsuccess;
 	}
 
+	public MatchesBean() {
+		super();
+	}
 }
