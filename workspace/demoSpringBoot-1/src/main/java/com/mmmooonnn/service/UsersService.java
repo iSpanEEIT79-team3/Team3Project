@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.model.UsersRepository;
+import com.mmmooonnn.model.UserContactNew;
 import com.mmmooonnn.model.UserContactRepository;
 
 import jakarta.transaction.Transactional;
@@ -21,9 +22,18 @@ public class UsersService {
 	@Autowired
 	private UsersRepository uRepository;
 	
+	//信箱是否存在
 	public boolean isEmailExist(String email) {
 		int resout = uContactRepository.countByEmail(email);
 		return resout>0;
+	}
+	public UsersBeanNew findByEmail(String email) {
+		UserContactNew userContactNew = uContactRepository.findByEmail(email);
+		Optional<UsersBeanNew> result = uRepository.findById(userContactNew.getContactId());
+		if(result.isPresent()) {
+			return result.get();
+		}
+		return null;
 	}
 	
 	public void insert(UsersBeanNew usersBeanNew) {
