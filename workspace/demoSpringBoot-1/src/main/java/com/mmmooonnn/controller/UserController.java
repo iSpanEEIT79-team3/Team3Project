@@ -2,8 +2,10 @@ package com.mmmooonnn.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import com.mmmooonnn.model.UserContactNew;
 import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.UsersService;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -38,6 +47,46 @@ public class UserController {
 	
 	@Autowired
 	private ResourceLoader resourceLoader;
+	
+	//test google api
+	@PostMapping("/googleLogin1")
+	public String googleLogin(@RequestParam("credential") String credential) {
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+				.setAudience(Collections.singletonList("324169347825-ejtqu1ldjjpi666j7dgroniv0r2vg2ok.apps.googleusercontent.com"))
+				.build();
+		
+		//驗證 credential 的完整性
+		try {
+			GoogleIdToken idToken = verifier.verify(credential);
+			if(idToken != null) {
+				Payload payload = idToken.getPayload();
+				
+				String userId = payload.getSubject();
+				System.out.println("User ID=" + userId);
+				
+				String email = payload.getEmail();
+				boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+				String name =(String) payload.get("name");
+				String pictureUrl =(String) payload.get("picture");
+				String locale =(String) payload.get("locale");
+				String familyName =(String) payload.get("family_name");
+				String givenName =(String) payload.get("given_name");
+				
+				System.out.println("email="+email);
+				System.out.println("name="+name);
+				System.out.println("picture="+pictureUrl);
+				System.out.println("locale="+locale);
+			}else {
+				System.out.println("Invalid ID token");
+			}
+		} catch (GeneralSecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "/back";
+	}
+	
 	
 	//搜尋全部
 	@GetMapping("/GetAllUser")
