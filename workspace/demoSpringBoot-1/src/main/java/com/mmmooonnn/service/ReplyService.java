@@ -1,5 +1,6 @@
 package com.mmmooonnn.service;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,9 @@ public class ReplyService {
 		ry.deleteById(ReplyId);
 		
 	}
-	
+	public List<ReplyBean> findID(Integer ltId){
+	return ry.findByID(ltId);
+
+}
 	
 }

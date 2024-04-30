@@ -41,27 +41,23 @@
 	<div align="center">
 		<h2>修改</h2>
 
-		<form action="/ReplyUpdate.controller" method="post">
+		<form action="/ReportUpdate.controller" method="post">
 		<input type="hidden" name="_method" value="put">
 				<table>
 					<tr>
-						<td>回復ID</td>
-						<td><input type="text" name="replyId" value="${replyBean.replyId}"
+						<td>檢舉ID</td>
+						<td><input type="text" name="reportId" value="${reportBean.reportId}"
 							readonly>
-						<td>回復時間</td>
-						<td><input type="text" name="replytime" value="${replyBean.replytime}"readonly>
-						<td>回覆內容</td>
-						<td><input type="text" name=replypost value="${replyBean.replypost }">
-						<td>使用者id</td>
-						<td><input type="text" name="userId" value="${replyBean.userId}">
+						<td>檢舉內容</td>
+						<td><input type="text" name=reportContent value="${reportBean.reportContent}">
 						<td>文章ID</td>
-						<td><input type="text" name="LTId" value="${replyBean.ltBean.getLtId()}"readonly>
+						<td><input type="text" name="LTId" value="${reportBean.ltBean.getLtId()}"readonly>
 						
 					</tr>
 
 				</table>
 			<input class=SS type="submit" value="確定" />
-			<a class="btn" href="/ReplySelectAll">返回首頁</a>
+			<a class="btn" href="/ReportSelectAll">返回首頁</a>
 		</form>
 	</div>
 	

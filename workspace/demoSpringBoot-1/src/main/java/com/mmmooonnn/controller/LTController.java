@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -63,6 +64,7 @@ public class LTController {
 	}
 
 	@PostMapping("/LTinsert.controller")
+	@ResponseBody
 	public ModelAndView InsertLT(@RequestParam("title") String title, @RequestParam("userId") String userId,
 			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content,
 			@RequestParam("classify") String classify) {
@@ -71,7 +73,7 @@ public class LTController {
 		try {
 			LTBean ltBean = new LTBean();
 			if (!picture.isEmpty()) {
-				String fileurl = "D:\\team3\\workspace\\demoSpringBoot-1\\src\\main\\webapp\\images";
+				String fileurl = "C:\\Spring\\workspace\\SpringMvcWork\\src\\main\\webapp\\images";
 				String fileName = picture.getOriginalFilename();
 
 				File fileurl1 = new File(fileurl, fileName);
@@ -114,12 +116,13 @@ public class LTController {
 
 	@PutMapping("/LTUpdate.controller")
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
+			@RequestParam("userId") String userId,
 			@RequestParam("date") String date,
 			@RequestParam("picture") String picture, @RequestParam("content") String content,
 			@RequestParam("classify") String classify) {
 
 		Integer LTID = Integer.parseInt(ltId);
-		Integer USERID = 1001;
+		Integer USERID = Integer.parseInt(userId);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
 	    Date parsedDate = null;
@@ -137,6 +140,9 @@ public class LTController {
 		return "redirect:LTSelectAll";
 
 	}
+	
+	
+	
 //	@GetMapping("/findtitle")
 //	public String findByTitle(@RequestParam("title") String title, Model mm) {
 //	    List<LTBean> ltBeans = lt.findByTitle(title);

@@ -28,16 +28,12 @@
 		<table>
 		
 			<tr>
-				<td>回復ID</td>
-				<td><input type="text" disabled value="${replyBean.replyId}">
-				<td>回復時間</td>
-				<td><input type="text" disabled value="${replyBean.replytime }">
-				<td>回覆內容</td>
-				<td><input type="text" disabled value="${replyBean.replypost }">
-				<td>使用者ID</td>
-				<td><input type="text" disabled value="${replyBean.userId}">
+				<td>檢舉ID</td>
+				<td><input type="text" disabled value="${reportBean.reportId}">
+				<td>檢舉內容</td>
+				<td><input type="text" disabled value="${reportBean.reportContent }">
 				<td>文章ID</td>
-				<td><input type="text" disabled value="${replyBean.ltBean.getLtId()}">
+				<td><input type="text" disabled value="${reportBean.LTId}">
 			</tr>
 		</table>
 		<a class="btn" href="ReplySelectAll">返回首頁</a>

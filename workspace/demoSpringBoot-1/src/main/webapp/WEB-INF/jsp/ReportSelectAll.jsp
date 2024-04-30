@@ -25,6 +25,7 @@ body {
     button:hover {
         background-color: #4682b4; /* 鼠标悬停时颜色变为深蓝色 */
     }
+
 .lt {
 	position: absolute;
 	left: 50%;
@@ -68,8 +69,12 @@ body {
 }
 
 .lt button.add {
-	background-color: #a8fefa; /* 天空藍 */
-	color: black;
+		padding: 8px 16px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: background-color 0.3s;
 }
 
 .lt button:hover {
@@ -82,52 +87,46 @@ body {
 </head>
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<div class="back-content"></div>
+	<div class="back-content"></div>	
 	<div class="lt">
-	<div class="h22">
-		<h2 class="h2">回復區</h2>
+		<div class="h22">
+		<h2 class="h2">檢舉區</h2>
 		
 		</div>
-		<div style="text-align: center; margin-top: 20px;">
+	<div style="text-align: center; margin-top: 20px;">
     <a href="LTSelectAll" style="text-decoration: none;">
         <button id="returnButton" onclick="changeColor()">返回首頁</button>
     </a>
 </div>
-		
-		
-		<form method="get" action="html/ReplyInsert.html">
+		<form method="get" action="html/ReportInsert.html">
 			<button class="add" type="submit">新增</button>
 		</form>
-	<br>
-			<form method="get" action="html/ReplySelect.html">
-				<input type="hidden" name="replyId" value="${items.replyId}">
+			<br>
+			<form method="get" action="html/ReportSelect.html">
+				<input type="hidden" name="reportId" value="${items.reportId}">
 				<button class="select" type="submit">搜尋</button>
 			</form>
 		<table border="1">
 			<tr style="background-color: #a8fefa">
-				<th>回復ID</th>
-				<th>回復時間</th>
-				<th>回覆內容</th>
-				<th>使用者ID</th>
+				<th>檢舉ID</th>
+				<th>檢舉內容</th>
 				<th>文章ID</th>
 				<th>操作</th>
 				
 			</tr>
-			<c:forEach items="${replyBeans}" var="items">
+			<c:forEach items="${reportBeans}" var="items">
 				<tr>
-					<td>${items.replyId}</td>
-					<td>${items.replytime}</td>
-					<td>${items.replypost}</td>
-					<td>${items.userId}</td>
-					<td>${items.ltBean.getLtId()}</td>
+					<td>${items.reportId}</td>
+					<td>${items.reportContent}</td>
+					<td>${items.LTId}</td>
 					
 					
 					<td>
-						<form method="get" action="/ReplySelectById.controller/${items.replyId}">
-							<input type="hidden" name="replyId" value="${items.replyId}">
-							<button class="edit" type="submit">修改</button>
-						</form>
-						<form method="post" action="/ReplyDelete.controller?replyId=${items.replyId}">
+<%-- 						<form method="get" action="/ReportSelectId.controller/${items.reportId}"> --%>
+<%-- 							<input type="hidden" name="reportId" value="${items.reportId}"> --%>
+<!-- 							<button class="edit" type="submit">修改</button> -->
+<!-- 						</form> -->
+						<form method="post" action="/ReportDelete.controller?reportId=${items.reportId}">
 							<input type="hidden" name="_method" value="DELETE">
 							<button class="delete" type="submit">刪除</button>
 						</form>
@@ -173,7 +172,7 @@ body {
         });
     });
 </script>		
-		
+	
 	
 </body>
 </html>
