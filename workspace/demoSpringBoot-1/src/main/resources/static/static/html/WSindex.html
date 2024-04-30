@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>功能</title>
+    <style>
+        .container {
+            width: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>工作坊活動日期查詢</h2>
+        <div class="function">
+            <button class="WSGetAllEmps">查詢所有資料</button>
+            <p></p>
+ 			<form method="post" action="../WSSearchByDate" onsubmit="return validateForm()">
+				日期 : <input type="text" id="COURSE_DATE" name="COURSE_DATE" /><button name="type" value="select">查詢</button>
+								
+			</form>
+			      
+			
+			<br>
+       <button class="add">新增資料</button>
+            <p></p>
+
+        </div>
+
+
+    </div>
+    <script>
+    function validateForm() {
+        var COURSE_DATE = document.getElementById("COURSE_DATE").value;
+     
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(COURSE_DATE)) {
+            alert("日期必須標示為 YYYY-MM-DD 格式!");
+            return false;
+        }
+
+        return true;
+
+    }
+        const add = document.querySelector('.add')
+        add.addEventListener('click', function () {
+            location.href = 'WSinsert.html'
+        })
+
+        
+
+        const getAll = document.querySelector('.WSGetAllEmps')
+        getAll.addEventListener('click', function () {
+            location.href = '../WSall'
+        })
+        
+        
+    </script>
+</body>
+
+</html>
