@@ -21,7 +21,10 @@ import com.mmmooonnn.model.Orders;
 import com.mmmooonnn.model.OrdersRepository;
 import com.mmmooonnn.model.UserContactNew;
 import com.mmmooonnn.model.UserContactRepository;
+import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.model.UsersRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class OrdersController {
@@ -108,8 +111,12 @@ public class OrdersController {
 	}
 	
 	@GetMapping("/OrdersList")
-	public List<Orders> OrdersList(Integer contactId) {
-		contactId=1001;
+	public List<Orders> OrdersList(HttpSession session) {
+		System.out.println("session="+session);
+		UsersBeanNew u1 = (UsersBeanNew)session.getAttribute("usersBean");
+		System.out.println("u1:"+u1);
+		int contactId=u1.getUserId();
+		System.out.println("contactId="+contactId);
 		List<Orders> ordersList=ordersDao.findByUserContactNew_ContactId(contactId);
 		System.out.print(ordersList);
 		return ordersList;
