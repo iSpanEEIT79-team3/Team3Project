@@ -1,5 +1,6 @@
 package com.mmmooonnn.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,19 +77,22 @@ public class CoursesController {
 
 	@PostMapping("/insert")
 	public String Insert(
-		  @RequestParam("courseID") int courseID,
-		  @RequestParam("courseName") String courseName,
-          @RequestParam("description") String description,
-          @RequestParam("startDate") String startDate,
-          @RequestParam("endDate") String endDate,
-          @RequestParam("deadlineDate") String deadlineDate,
-          @RequestParam("price") double price,
-          @RequestParam("teacherName") String teacherName,
-          @RequestParam("teacherContact") String teacherContact,
-          @RequestParam("enrollmentCount") int enrollmentCount,
-          @RequestParam("maxCapacity") int maxCapacity,
-          @RequestParam("courseImage") String courseImage) {
-          CoursesBean coursesBean = new CoursesBean(courseID, courseName, description, startDate, endDate, deadlineDate, price, teacherName, teacherContact, enrollmentCount, maxCapacity, courseImage);
+			 @RequestParam("idUser") int idUser,
+			 @RequestParam("productId") int productId,
+		      @RequestParam("courseName") String courseName,
+		      @RequestParam("description") String description,
+		      @RequestParam("courseType") String courseType,
+		      @RequestParam("startDate") Date startDate,
+		      @RequestParam("endDate") Date endDate,
+		      @RequestParam("deadlineDate") Date deadlineDate,
+		      @RequestParam("location") String location,
+		      @RequestParam("price") double price,
+		      @RequestParam("teacherName") String teacherName,
+		      @RequestParam("teacherContact") String teacherContact,
+		      @RequestParam("enrollmentCount") int enrollmentCount,
+		      @RequestParam("maxCapacity") int maxCapacity,
+		      @RequestParam("courseImage") String courseImage) {
+	    CoursesBean coursesBean = new CoursesBean(idUser, productId, courseName, description, courseType, startDate, endDate, deadlineDate, location, price, teacherName, teacherContact, enrollmentCount, maxCapacity, courseImage);
 		cService.insert(coursesBean);
 		return "redirect:GetAllCourses";
 	}
