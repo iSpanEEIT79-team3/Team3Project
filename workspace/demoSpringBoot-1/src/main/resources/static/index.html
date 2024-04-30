@@ -103,7 +103,7 @@
 
         .login,
         .register {
-            width: 150px;
+            width: 110px;
             height: 40px;
             margin-top: 25px;
             margin-right: 15px;
@@ -126,6 +126,10 @@
 
         }
 
+        .g_id_signin {
+            width: 360px;
+        }
+
         .backstage {
             width: 100px;
             margin-left: 35px;
@@ -143,6 +147,7 @@
             /* 動畫時間 */
         }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
@@ -174,13 +179,41 @@
         <button class="login">登入</button>
         <button class="register">註冊會員</button>
         <button class="backstage">後台登入</button>
+        <span id="GOOGLE_STATUS_1"></span>
+        <br><br>
+        <div id="g_id_onload" data-client_id="324169347825-ejtqu1ldjjpi666j7dgroniv0r2vg2ok.apps.googleusercontent.com"
+            data-callback="onSignIn1"></div>
+        <div class="g_id_signin" data-type="standard"></div>
+
 
 
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        //Google登入
+        function onSignIn1(response) {
+            var credential = response.credential,
+                profile = JSON.parse(decodeURIComponent(escape(window.atob(credential.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))))), // 對 JWT 進行解碼
+                target = document.getElementById("GOOGLE_STATUS_1"),
+                html = "";
+
+            html += "ID: " + profile.sub + "<br/>";
+            html += "會員暱稱： " + profile.name + "<br/>";
+            html += "會員頭像：" + profile.picture + "<br/>";
+            html += "會員 email：" + profile.email + "<br/>";
+            target.innerHTML = html;
+        }
+
+
+
+
+
+
+
+
         //登入
         $('.login').click(function () {
             if (checkdate()) {
