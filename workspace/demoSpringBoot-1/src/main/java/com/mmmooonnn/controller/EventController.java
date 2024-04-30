@@ -112,7 +112,7 @@ public class EventController{
                               @RequestParam("EVENT_PRICE") int eventPrice,
                               @RequestParam("EVENT_ADDRES") String eventLocation,
                               @RequestParam("ORGANIZER") String organizer,
-                              @RequestParam("PICTURE") MultipartFile[] picture) {
+                              @RequestParam("PICTURE") MultipartFile[] pictures) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		Event eventBean = new Event();
@@ -140,7 +140,7 @@ public class EventController{
       //圖片
       		try {
       			
-      			 for (MultipartFile file : files) {
+      			 for (MultipartFile picture : pictures) {
 
       			if(!picture.isEmpty()) {
       				String fileName = picture.getOriginalFilename();
@@ -155,7 +155,7 @@ public class EventController{
       		        // 將檔案寫入本機
       		        picture.transferTo(uploadedFile);      			 
       			    eventBean.setPicture("/images/"+fileName);
-      			}
+      			}}
       		} catch (IllegalStateException e) {
       			e.printStackTrace();
       		} catch (IOException e) {
