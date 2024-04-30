@@ -33,7 +33,6 @@ import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.UsersService;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -48,43 +47,58 @@ public class UserController {
 	@Autowired
 	private ResourceLoader resourceLoader;
 	
-	//test google api
+	//google api
 	@PostMapping("/googleLogin1")
-	public String googleLogin(@RequestParam("credential") String credential) {
+	public ModelAndView googleLogin(@RequestParam("credential") String credential,
+									HttpSession session) {
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
 				.setAudience(Collections.singletonList("324169347825-ejtqu1ldjjpi666j7dgroniv0r2vg2ok.apps.googleusercontent.com"))
 				.build();
-		
+		ModelAndView modelAndView = new ModelAndView();
 		//驗證 credential 的完整性
 		try {
 			GoogleIdToken idToken = verifier.verify(credential);
 			if(idToken != null) {
 				Payload payload = idToken.getPayload();
 				
-				String userId = payload.getSubject();
-				System.out.println("User ID=" + userId);
-				
+//				String userId = payload.getSubject();
+//				System.out.println("User ID=" + userId);
+				//判定是否新增會員
 				String email = payload.getEmail();
-				boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-				String name =(String) payload.get("name");
-				String pictureUrl =(String) payload.get("picture");
-				String locale =(String) payload.get("locale");
-				String familyName =(String) payload.get("family_name");
-				String givenName =(String) payload.get("given_name");
-				
-				System.out.println("email="+email);
-				System.out.println("name="+name);
-				System.out.println("picture="+pictureUrl);
-				System.out.println("locale="+locale);
+				if(!uService2.isEmailExist(email)) {
+					UserContactNew user  = new UserContactNew();
+					UsersBeanNew usersBean = new UsersBeanNew();
+					
+					user.setName((String) payload.get("name"));
+					user.setEmail(email);
+					usersBean.setPicture((String)payload.get("picture"));
+					usersBean.setUserContact(user);
+					usersBean.setPermission(0);
+					usersBean.setThirdPartyLogin(1);
+					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					uService2.insert(usersBean);
+					return modelAndView;
+				}else {
+					UsersBeanNew usersBean = uService2.findByEmail(email);
+					session.setAttribute("usersBean", usersBean);
+					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					return modelAndView;
+				}
+					
 			}else {
 				System.out.println("Invalid ID token");
+				
+				modelAndView.setViewName("redirect:/index.html");
+				return modelAndView;
 			}
 		} catch (GeneralSecurityException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/back";
+		modelAndView.setViewName("redirect:/index.html");
+		return modelAndView;
+		
 	}
 	
 	
@@ -201,8 +215,9 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("user:"+user);
 		usersBean.setUserContact(user);
+		usersBean.setThirdPartyLogin(0);
+		usersBean.setPermission(0);
 		System.out.println(usersBean);
 		if(uService2.isEmailExist(user.getEmail())) {
 			System.out.println("比對信箱");
@@ -309,6 +324,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 		usersBean.setUserContact(user);
+		usersBean.setThirdPartyLogin(0);
 			System.out.println(user);
 			if(user.getEmail() != "") {
 				uService2.insert(usersBean);	
