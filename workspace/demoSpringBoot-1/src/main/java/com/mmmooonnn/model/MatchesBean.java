@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.mmmooonnn.model;
 
 import java.io.Serializable;

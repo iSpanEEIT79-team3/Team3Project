@@ -36,7 +36,7 @@
 				<td><input type="text" disabled value="${reportBean.LTId}">
 			</tr>
 		</table>
-		<a class="btn" href="ReplySelectAll">返回首頁</a>
+		<a class="btn" href="ReportSelectAll">返回首頁</a>
 	</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.mmmooonnn.model;
+/*package com.mmmooonnn.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -155,3 +155,4 @@ public class MatchBean implements Serializable {
 	}
 
 }
+*/

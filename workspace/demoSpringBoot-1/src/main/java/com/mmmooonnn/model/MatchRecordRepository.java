@@ -1,4 +1,4 @@
-package com.mmmooonnn.model;
+/*package com.mmmooonnn.model;
 
 import java.util.List;
 
@@ -13,4 +13,4 @@ public interface MatchRecordRepository extends JpaRepository<MatchRecordBean, In
 			@Param("specifiedUserId") int specifiedUserId);
 
 	
-}
+}*/
