@@ -43,11 +43,11 @@ public class LTService {
 		lt.deleteById(ltId);
 	}
 	
-//	
-////	public List<LTBean> findByTitle(String title){
-////		return lt.findByTitle(title);
-////		
-////	}
+	
+	public List<LTBean> findByTitle(String title){
+		return lt.findByTitle(title);
+		
+	}
 
 	
 }

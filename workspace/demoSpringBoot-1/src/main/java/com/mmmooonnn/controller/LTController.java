@@ -143,10 +143,10 @@ public class LTController {
 	
 	
 	
-//	@GetMapping("/findtitle")
-//	public String findByTitle(@RequestParam("title") String title, Model mm) {
-//	    List<LTBean> ltBeans = lt.findByTitle(title);
-//	    mm.addAttribute("ltBeans", ltBeans);
-//	    return "title.jsp";
-//	}
+	@GetMapping("/findtitle")
+	public String findByTitle(@RequestParam("title") String title, Model mm) {
+	    List<LTBean> ltBeans = lt.findByTitle(title);
+	    mm.addAttribute("ltBeans", ltBeans);
+	    return "forward:/WEB-INF/jsp/LTTitle.jsp";
+	}
 }

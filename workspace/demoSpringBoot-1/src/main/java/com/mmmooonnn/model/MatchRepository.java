@@ -1,4 +1,4 @@
-package com.mmmooonnn.model;
+/*package com.mmmooonnn.model;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,3 +11,4 @@ public interface MatchRepository extends JpaRepository<MatchBean, Integer> {
 	public  Optional<MatchBean> findMatchByEmail(String email);
 	
 }
+*/

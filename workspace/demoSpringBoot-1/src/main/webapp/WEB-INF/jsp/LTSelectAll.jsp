@@ -130,6 +130,10 @@
 		<form method="get" action="/ReplySelectAll">
 			<button class="REPLY" type="submit">回復區</button>
 		</form>
+			<form method="get" action="html/LTTitle.html">
+			<button class="title" type="submit">模糊查詢</button>
+		</form>
+		
 		<form method="get" action="/ReportSelectAll">
 			<button class="REPORT" type="submit">檢舉區</button>
 		</form>
