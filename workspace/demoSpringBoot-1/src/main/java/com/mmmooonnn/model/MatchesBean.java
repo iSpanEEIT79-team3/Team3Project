@@ -97,6 +97,9 @@ public class MatchesBean implements Serializable {
 	public MatchesBean() {
 		super();
 	}
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> cab2fc881333d3a464a42d44177fe7e97a6e1424
 }
