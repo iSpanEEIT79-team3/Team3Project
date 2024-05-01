@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>新增</title>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<style>
+		.btn {
+			background-color: #4DFFFF;
+			border: none;
+			color: black;
+			padding: 8px 16px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 14px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 8px;
+		}
+	</style>
+</head>
+
+<body style="background-color: #fdf5e6">
+
+	<div align="center"></div>
+
+	<h2>新增</h2>
+
+	<form method="post" action="/ReportReplyinsert.controller" onsubmit="return validateForm();">
+
+		<p>
+			檢舉內容:<input type="text" name="reportContent" />
+		</p>
+
+		<p>
+			回復id:<input type="text" name="replyId" />
+		</p>
+
+		<input class="btn" type="submit" value="確定" />
+
+	</form>
+
+	<script>
+		function validateForm() {
+			var reportContentInput = document.getElementsByName('reportContent')[0].value.trim();
+
+			var LTIdInput = document.getElementsByName('replyId')[0].value.trim();
+
+			if (reportContentInput === '' || LTIdInput === '') {
+				Swal.fire({
+					icon: 'warning',
+					title: '請輸入完整資訊😒',
+					showConfirmButton: false,
+					timer: 1500
+				});
+				return false;
+			}
+			return true;
+		}
+	</script>
+
+</body>
+
+</html>

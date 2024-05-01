@@ -90,38 +90,35 @@ body {
 	<div class="back-content"></div>	
 	<div class="lt">
 		<div class="h22">
-		<h2 class="h2">文章檢舉區</h2>
+		<h2 class="h2">回復檢舉區</h2>
 		
 		</div>
-		<form method="get" action="/ReportReplySelectAll">
-			<button class="REPORTREPLY" type="submit">留言檢舉區</button>
-		</form>
 	<div style="text-align: center; margin-top: 20px;">
     <a href="LTSelectAll" style="text-decoration: none;">
         <button id="returnButton" onclick="changeColor()">返回首頁</button>
     </a>
 </div>
-		<form method="get" action="html/ReportInsert.html">
+		<form method="get" action="html/ReportReplyInsert.html">
 			<button class="add" type="submit">新增</button>
 		</form>
 			<br>
-			<form method="get" action="html/ReportSelect.html">
-				<input type="hidden" name="reportId" value="${items.reportId}">
+			<form method="get" action="html/ReportReplySelect.html">
+				<input type="hidden" name="reportReplyId" value="${items.reportReplyId}">
 				<button class="select" type="submit">搜尋</button>
 			</form>
 		<table border="1">
 			<tr style="background-color: #a8fefa">
 				<th>檢舉ID</th>
 				<th>檢舉內容</th>
-				<th>文章ID</th>
+				<th>回復ID</th>
 				<th>操作</th>
 				
 			</tr>
-			<c:forEach items="${reportBeans}" var="items">
+			<c:forEach items="${reportreplyBeans}" var="items">
 				<tr>
-					<td>${items.reportId}</td>
+					<td>${items.reportReplyId}</td>
 					<td>${items.reportContent}</td>
-					<td>${items.LTId}</td>
+					<td>${items.replyId}</td>
 					
 					
 					<td>
@@ -129,7 +126,7 @@ body {
 <%-- 							<input type="hidden" name="reportId" value="${items.reportId}"> --%>
 <!-- 							<button class="edit" type="submit">修改</button> -->
 <!-- 						</form> -->
-						<form method="post" action="/ReportDelete.controller?reportId=${items.reportId}">
+						<form method="post" action="/ReportReplyDelete.controller?reportReplyId=${items.reportReplyId}">
 							<input type="hidden" name="_method" value="DELETE">
 							<button class="delete" type="submit">刪除</button>
 						</form>
