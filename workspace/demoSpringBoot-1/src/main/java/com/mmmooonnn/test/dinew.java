@@ -1,12 +1,15 @@
 package com.mmmooonnn.test;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class dinew {
 	public static void main(String[] args) {
 
-		System.out.print("eeit79都是噁南");
-
-		System.out.print("醜男停藥");
-		System.out.print("醜男停藥");
+		
+		String password = "123456";
+		
+		String newPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		System.out.println(newPassword);
 		
 
 	}

@@ -37,6 +37,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 
+
 @Controller
 public class UserController {
 	
@@ -48,26 +49,6 @@ public class UserController {
 	@Autowired
 	private ResourceLoader resourceLoader;
 	
-	//bcrypt
-	@GetMapping("/test10")
-	@ResponseBody
-	public String test() {
-		String password = "123456";
-		
-		//加密
-		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-		System.out.println(encondPassword);
-		
-		//驗證 
-		boolean flag = BCrypt.checkpw(password, encondPassword);
-		System.out.println(flag);
-		
-		//錯誤驗證
-		flag =BCrypt.checkpw("111111", encondPassword);
-		System.out.println(flag);
-		System.out.println("--------------");
-		return "test success";
-	}
 	//google login
 	@PostMapping("/googleLogin1")
 	public ModelAndView googleLogin(@RequestParam("credential") String credential,
@@ -119,7 +100,35 @@ public class UserController {
 		}
 		modelAndView.setViewName("redirect:/index.html");
 		return modelAndView;
-		
+	}
+	
+	//管理者登入
+	@PostMapping("/backstage")
+	public ResponseEntity<String> backstage(@RequestParam("email") String email,
+							@RequestParam("password") String password,
+							HttpSession session) {
+		System.out.println("進入backstageLogin");
+		boolean result = uService2.isEmailExist(email);
+		if(result) {
+			
+			UsersBeanNew usersBean = uService2.findByEmail(email);
+			boolean flag = BCrypt.checkpw(password,usersBean.getPassword());
+			if(flag && usersBean.getPermission()==1) {
+				session.setAttribute("email", email);
+				return ResponseEntity.ok().body("登入成功");
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
+
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
+	}
+	
+	//管理者登入成功
+	@GetMapping("/successLogin")
+	public ModelAndView getMethodName() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/back");
+		return modelAndView;
 	}
 	
 	
@@ -145,13 +154,18 @@ public class UserController {
 														HttpSession session){
 		System.out.println("進入UserLogin");
 		boolean result = uService2.isEmailExist(email);
-		System.out.println(result);
-		if(result) {
-			UsersBeanNew usersBean = uService2.findByEmail(email);
-			session.setAttribute("usersBean", usersBean);
-			return ResponseEntity.ok().body("登入成功");
-		}
 		
+		if(result) {
+			
+			UsersBeanNew usersBean = uService2.findByEmail(email);
+			boolean flag = BCrypt.checkpw(password,usersBean.getPassword());
+			if(flag) {
+				session.setAttribute("usersBean", usersBean);
+				return ResponseEntity.ok().body("登入成功");
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
+
+		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
 	}
 	//刪除單筆
@@ -194,7 +208,11 @@ public class UserController {
 		usersBean.setNickName(nickName);
 		usersBean.setGender(gender);
 		user.setEmail(email);
-		usersBean.setPassword(password);
+		
+		//密碼加密 bcrypt		
+		//加密
+		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());		
+		usersBean.setPassword(encondPassword);
 		
 		if(birthday != null) {
 			String dateUser =birthday;
@@ -298,7 +316,8 @@ public class UserController {
 		usersBean.setNickName(nickName);
 		usersBean.setGender(gender);
 		user.setEmail(email);
-		usersBean.setPassword(password);
+		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());		
+		usersBean.setPassword(encondPassword);
 		
 		if(birthday != null) {
 			String dateUser =birthday;
@@ -344,8 +363,11 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		user.setContactId(id);
+		
 		usersBean.setUserContact(user);
 		usersBean.setThirdPartyLogin(0);
+		usersBean.setPermission(0);
 			System.out.println(user);
 			if(user.getEmail() != "") {
 				uService2.insert(usersBean);	
