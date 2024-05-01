@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,27 @@ public class UserController {
 	@Autowired
 	private ResourceLoader resourceLoader;
 	
-	//google api
+	//bcrypt
+	@GetMapping("/test10")
+	@ResponseBody
+	public String test() {
+		String password = "123456";
+		
+		//加密
+		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		System.out.println(encondPassword);
+		
+		//驗證 
+		boolean flag = BCrypt.checkpw(password, encondPassword);
+		System.out.println(flag);
+		
+		//錯誤驗證
+		flag =BCrypt.checkpw("111111", encondPassword);
+		System.out.println(flag);
+		System.out.println("--------------");
+		return "test success";
+	}
+	//google login
 	@PostMapping("/googleLogin1")
 	public ModelAndView googleLogin(@RequestParam("credential") String credential,
 									HttpSession session) {
