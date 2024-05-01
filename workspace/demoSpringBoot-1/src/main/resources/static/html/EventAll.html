@@ -175,11 +175,11 @@
           console.log(data[key]);//就可以看到有幾個key=有幾筆資料,data[key].eventName再用.就取那筆資料的資料
           
           $('#cards').append(`<div class="col"> <div class="card"  style="width:340px ;height: 450px;">
-                    <img class="card-img-top img-fluid" src="${data[key].picture}" alt="Card image"
-                      style="max-width: 200px; max-height: 250px;">
+                    <img class="card-img-top img-fluid object-fit" src="${data[key].picture}" alt="Card image"
+                      style="object-fit max-width: 200px; max-height: 250px;">
 
                     <div class="card-body  d-flex flex-column">
-                      <h4 class="card-title mb-0">${data[key].eventName}<br>(workshop+party)
+                      <h4 class="card-title neon-yellow mb-0">${data[key].eventName}<br>(workshop+party)
                       </h4>
                       <div class="mt-auto">
                         <a href="EventDetail.html?ID=${data[key].eventId}">
@@ -200,6 +200,7 @@
 
     // <button type="submit" class="btn btn-primary">詳細內容</button>
     // </form>
+    
   </script>
 
 </body>

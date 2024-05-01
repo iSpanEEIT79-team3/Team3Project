@@ -41,14 +41,14 @@ public class EventController{
 	
 	 @InitBinder
 	    public void initBinder(WebDataBinder binder) {
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        dateFormat.setLenient(false);
 	        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	    }
 	 
 //	 在Controller中加入自訂的參數轉換器
 //	 透過使用@InitBinder註解和WebDataBinder類別來實現參數轉換
-//	 
+	 
 	
 	//ajax查單筆用
 	 	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
@@ -105,7 +105,7 @@ public class EventController{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		Event eventBean = new Event();
-        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         LocalDate startDate = LocalDate.parse(startTime, date);
         eventBean.setStartTime(java.sql.Date.valueOf(startDate));
@@ -179,7 +179,7 @@ public class EventController{
 		ModelAndView modelAndView = new ModelAndView();
 		
 		eventBean.setEventId(EventId);
-		DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
       LocalDate startDate = LocalDate.parse(startTime, date);
       eventBean.setStartTime(java.sql.Date.valueOf(startDate));

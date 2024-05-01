@@ -44,15 +44,17 @@
 		活動地址 : <input type="text" id="EVENT_ADDRES" name="EVENT_ADDRES" /><br><br>
 		組織者 : <input type="text" id="ORGANIZER" name="ORGANIZER" /><br><br>
 		圖片 : <input type="file" id="PICTURE" name="PICTURE" /><br><br>
+		
+		<button type="reset"
+							class="my-reset-data-btn btn btn-outline-primary">清除</button>
+		<button type="button" id="fillData"
+							class="fastfilldata btn btn-outline-primary">一鍵輸入</button>
 		<button type="button" onclick="upload()">確定</button>
 		
-		 <input type="file" name="files" id="fileInput" multiple accept="image/*" onchange="previewImages(event)" style="display: none;">
-        <label for="fileInput">選擇圖片</label>
-        <div id="imagePreview"></div>
-        <button type="button" onclick="uploadAndSubmit()">上傳並提交</button>
+
 	</form>
 	
-<div id="onLoadImage">
+
 
 </div>
 
@@ -60,55 +62,32 @@
 </body>
 
 <script>
-        function chooseFiles() {
-            document.getElementById('fileInput').click();
-        }
 
-        function previewImages(event) {
-            var preview = document.getElementById('imagePreview');
-            preview.innerHTML = '';
-            var files = event.target.files;
 
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var reader = new FileReader();
 
-                reader.onload = function (event) {
-                    var img = document.createElement('img');
-                    img.src = event.target.result;
-                    img.style.width = '100px'; // 設置圖片寬度
-                    img.style.height = 'auto'; // 根據寬度自動調整高度
-                    preview.appendChild(img);
-                }
+//<!--  新增資料: 一鍵輸入 -->
+const url = "http://localhost:8080/html/WSinsert.html";
 
-                reader.readAsDataURL(file);
-            }
-        }
+const btnFilldata = document.querySelector(".fastfilldata-data-btn");
 
-        function uploadAndSubmit() {
-            var formData = new FormData();
-            var fileInput = document.getElementById('fileInput');
-            var files = fileInput.files;
+document.getElementById("fillData").addEventListener("click", fillData);
 
-            for (var i = 0; i < files.length; i++) {
-                formData.append('files', files[i]);
-            }
+function fillData() {
 
-            fetch('/upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('文件上傳成功');
-                    // 文件上傳成功後，提交表單
-                    document.getElementById('myForm').submit();
-                } else {
-                    console.log('文件上傳失敗');
-                }
-            })
-            .catch(error => console.error('文件上傳出錯:', error));
-        }
+    document.getElementById("EVENT_NAME").value = "Swing Rhythms";
+    document.getElementById("SIGNUP_STARTIME").value = "2023-02-08";
+    document.getElementById("SIGNUP_ENDTIME").value = "2023-03-08";
+    document.getElementById("EVENT_STARTIME").value =  "2023-04-08";
+    document.getElementById("EVENT_ENDTIME").value = "2023-04-10";
+    document.getElementById("EVENT_DETAIL").value = "Program:BALBOA workshop with MELANIE & ALBERT";
+    document.getElementById("EVENT_CATEGORY").value = "BALBOA";
+    document.getElementById("EVENT_PRICE").value = "500";
+    document.getElementById("EVENT_ADDRES").value = "Big Apple studio 復興教室";
+    document.getElementById("ORGANIZER").value = "Big Apple";
+  
+}
+
+
     </script>
 
 

@@ -35,7 +35,7 @@
 
   .dropdown-item, .dropdown-menu  {
     background-color: #101010;
-    color: white;
+    color: #BF3F41;;
     margin: 0;
 }
 
@@ -55,7 +55,7 @@
   }
   
   .dropdown-menu a {
-    color: white;
+    color: #BF3F41;;
     text-decoration: none;
     display: block;
     text-align: left;
