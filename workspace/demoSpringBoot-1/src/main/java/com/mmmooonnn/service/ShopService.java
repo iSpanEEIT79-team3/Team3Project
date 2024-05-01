@@ -31,13 +31,13 @@ public class ShopService {
 	                  .orElse(Collections.emptyList()); // 如果 Optional 为空，则返回空列表
 	}
 	
-    public List<ShopBean> findByProductType(String productType) {
-        return sRepos.findByproducttype(productType);
+    public List<ShopBean> findByProductType(String ProductType) {
+        return sRepos.findByProductType(ProductType);
     }
 
-    public List<ShopBean> findByproductnameContaining(String productName) {
+    public List<ShopBean> findByproductnameContaining(String ProductName) {
 //        return sRepos.findByproductname(productName);
-        return sRepos.findByproductnameContaining(productName);
+        return sRepos.findByProductNameContaining(ProductName);
     }
     
 	public void insert(ShopBean shopBean) {
@@ -49,9 +49,10 @@ public class ShopService {
 	}
 	
 	public void deleteById(Integer productid) {
+
 		sRepos.deleteById(productid);
 	}
-    
-    
+
+ 
 }
 

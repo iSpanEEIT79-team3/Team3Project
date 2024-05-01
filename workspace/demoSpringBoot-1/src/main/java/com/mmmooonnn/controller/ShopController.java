@@ -4,13 +4,17 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mmmooonnn.model.ShopBean;
+import com.mmmooonnn.service.ShopImgService;
 import com.mmmooonnn.service.ShopService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +25,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 public class ShopController {
 
     
     @Autowired
     private ShopService sService;
+    
+    @Autowired
+    private ShopImgService shopImgService;
 
 //搜尋全部
     @GetMapping("/getall")
@@ -59,62 +66,61 @@ public class ShopController {
     	}
     
 //刪除
-    @PostMapping("/del")
-    public String del(Model model,
-            @RequestParam(value = "productid", required = false) Integer productid) {
-     
-    	sService.deleteById(productid);
-    		
-    		return "forward:/WEB-INF/jsp/GetAllShops.jsp";
+    @DeleteMapping("/delete/{productid}")
+    public String del(@PathVariable Integer productid) {
+    	sService.deleteById(productid); 
+    		return "刪除成功:" + productid;
+//    		return "forward:/WEB-INF/jsp/GetAllShops.jsp";
 }
     
+    
+    
+    //庫存刪除
     @PostMapping("/addShop")
     public String addShop(Model model,
                           @RequestParam(value="productname", required=true) String productname,
                           @RequestParam(value="productintroduce", required=true) String productintroduce,
                           @RequestParam(value="productprice", required=true) Integer productprice,
-                          @RequestParam(value="productquantity", required=true) Integer productquantity,
                           @RequestParam(value="producttype", required=true) String producttype) {
-        // 创建一个新的商品对象并设置属性值
     	ShopBean newShop = new ShopBean();
-        newShop.setProductname(productname);
-        newShop.setProductintroduce(productintroduce);
-        newShop.setProductprice(productprice);
-        newShop.setProductquantity(productquantity);
-        newShop.setProducttype(producttype);
+        newShop.setProductName(productname);
+        newShop.setProductIntroduce(productintroduce);
+        newShop.setProductPrice(productprice);
+        newShop.setProductType(producttype);
         
-        // 调用 DAO 层的方法将新商品保存到数据库中
         sService.insert(newShop);
         
-        // 返回到商品列表页面
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
-        
     } 
  
-   // Restful method update = putMapping, patchMapping
-    @PostMapping("/update")
-    public String updateShop(Model model,
+    //Restful method update = putMapping, patchMapping
+    //responseEntity 是回傳有沒有成功更新 需要在return回傳是否更新成功
+    @PutMapping("/update")
+    public ResponseEntity<String> updateShop(Model model,
             								 @RequestParam("productid") Integer productid,
                                              @RequestParam("productname") String productname,
                                              @RequestParam("productintroduce") String productintroduce,
                                              @RequestParam("productprice") Integer productprice,
-                                             @RequestParam("productquantity") Integer productquantity,
                                              @RequestParam("producttype") String producttype) {
     	List<ShopBean> shopList = sService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
     	ShopBean shop = shopList.get(0);
         if (shop != null) {
-            // 更新商品信息
-            shop.setProductname(productname);
-            shop.setProductintroduce(productintroduce);
-            shop.setProductprice(productprice);
-            shop.setProductquantity(productquantity);
-            shop.setProducttype(producttype);
-            // 保存更新后的商品信息
+            //更新商品
+            shop.setProductName(productname);
+            shop.setProductIntroduce(productintroduce);
+            shop.setProductPrice(productprice);
+            shop.setProductType(producttype);
+            //保存更新後的訊息
             sService.update(shop);
+            return ResponseEntity.ok("更新成功");
+    }else {
+        // 如果未找到商品，返回相应的状态码和消息
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未找到商品");
     }
-        return "forward:/WEB-INF/jsp/GetAllShops.jsp";
 }
 
+    
+    
     @PostMapping("/uploadphoto")
     public ResponseEntity<String> uploadPhoto(@RequestParam("productid") Integer productid,
                                               @RequestParam("productimg") MultipartFile file) {
@@ -124,7 +130,7 @@ public class ShopController {
 
         try {
             // 设置保存图片文件的目录路径
-            String uploadDir = "D:/team3/workspace/demoSpringBoot-1/src/main/webapp/img";
+            String uploadDir = "C:/action/workspace/demoSpringBoot-1/src/main/webapp/img";
             // 如果目录不存在，则创建目录
             File dir = new File(uploadDir);
             if (!dir.exists()) {
@@ -143,7 +149,7 @@ public class ShopController {
         	List<ShopBean> shopList = sService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
         	ShopBean shop = shopList.get(0);
             if (shop != null) {
-                shop.setProductimg(Imgpath); // 设置图片路径
+                shop.setProductImg(Imgpath); // 设置图片路径
                 sService.update(shop); // 更新数据库中的记录
                 return ResponseEntity.ok("Upload successful");
             } else {
