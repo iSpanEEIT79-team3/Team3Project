@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.mmmooonnn.controller;
 
 import java.util.List;

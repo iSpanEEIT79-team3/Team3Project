@@ -17,7 +17,7 @@
 
 .REPLY {
   position: absolute;
-  top: 50px; /* 调整按钮距离顶部的距离 */
+  top: 10px; /* 调整按钮距离顶部的距离 */
   left: 50%;
   transform: translateX(-50%);
   background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
@@ -37,7 +37,7 @@
 
 .REPORT {
   position: absolute;
-  top: 100px; /* 调整按钮距离顶部的距离 */
+  top: 65px; /* 调整按钮距离顶部的距离 */
   left: 50%;
   transform: translateX(-50%);
   background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
@@ -52,6 +52,25 @@
 }
 
 .REPORT:hover {
+  background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
+}
+.title {
+  position: absolute;
+  top: 125px; /* 调整按钮距离顶部的距离 */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: none; /* 移除过渡效果 */
+  outline: none; /* 去除默认轮廓 */
+}
+
+.title:hover {
   background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
 }
 
@@ -113,9 +132,7 @@
 		font-size: inherit;
 		text-decoration: none;
 	}
-	.h22{
-	text-align:center;
-	}
+	
 </style>
 </head>
 <body>

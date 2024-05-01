@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.model.LTRepository;
@@ -44,7 +45,7 @@ public class LTService {
 	}
 	
 	
-	public List<LTBean> findByTitle(String title){
+	public List<LTBean> findByTitle(@RequestParam String title){
 		return lt.findByTitle(title);
 		
 	}
