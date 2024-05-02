@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .main {
+            min-height: 55vh;
+            /* 让 .slant 至少占据整个视口高度 */
+
+        }
+
+       
+    </style>
+    <title>範本</title>
+</head>
+
+<body>
+
+
+    <div class="container-fluid" style="margin-top: 150px;">
+        <h2 class="text-center">標題</h2>
+    </div>
+    <!-- <section> -->
+    <div class="main">
+        
+    </div>
+
+    <script>
+      
+        fetch('basic.html')
+            .then(response => response.text())
+            .then(html => {
+                document.body.innerHTML += html;
+            });
+
+        
+    </script>
+
+</body>
+
+</html>
