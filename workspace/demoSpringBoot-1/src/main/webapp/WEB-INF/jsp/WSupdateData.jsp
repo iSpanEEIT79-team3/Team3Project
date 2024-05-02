@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8 "
 	pageEncoding="UTF-8" isErrorPage="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%!@SuppressWarnings("unchecked")%>
 <!DOCTYPE html>
 <html>
@@ -34,26 +35,31 @@ img {
 						value="${eventBean.eventId}" readonly name="PRODUCTID"></td>
 				</tr>
 				<tr>
+					<td>活動名稱</td>
+					<td><input type="text"
+						value="${eventBean.eventName}" name="EVENT_NAME"></td>
+				</tr>
+				<tr>
 					<td>報名開始日期</td>
-					<td><input type="text" value="${eventBean.signupStartime}"
-						name="SIGNUP_STARTIME"></td>
+					<td><input type="datetime-local"
+						value="${eventBean.signupStartime}" name="SIGNUP_STARTIME"></td>
 				</tr>
 				<tr>
 					<td>報名結束日期</td>
-					<td><input type="text" value="${eventBean.signupEndtime}"
-						name="SIGNUP_ENDTIME"></td>
+					<td><input type="datetime-local"
+						value="${eventBean.signupEndtime}" name="SIGNUP_ENDTIME"></td>
 				</tr>
 				<tr>
 					<td>活動開始時間</td>
-					<td><input type="text" value="${eventBean.startTime}"
-						name="EVENT_STARTIME"></td>
+					<td><input type="datetime-local"
+						value="${eventBean.startTime}" name="EVENT_STARTIME"></td>
 				</tr>
 				<tr>
 					<td>活動結束時間</td>
-					<td><input type="text" value="${eventBean.endTime}"
+					<td><input type="datetime-local" value="${eventBean.endTime}"
 						name="EVENT_ENDTIME"></td>
 				</tr>
-				
+
 				<tr>
 					<td>活動詳細資料</td>
 					<td><input type="text" value="${eventBean.eventDetail}"

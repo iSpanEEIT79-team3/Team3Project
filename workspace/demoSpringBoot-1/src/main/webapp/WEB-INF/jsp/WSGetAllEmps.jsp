@@ -84,13 +84,13 @@ tr {
 						<td>${evBean.eventId}</td>
 						<td>${evBean.eventName}</td>
 						<td><fmt:formatDate value="${evBean.signupStartime}"
-								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td><fmt:formatDate value="${evBean.signupEndtime}"
-								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td><fmt:formatDate value="${evBean.startTime}"
-								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td><fmt:formatDate value="${evBean.endTime}"
-								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								pattern="yyyy-MM-dd HH:mm" /></td>
 
 						<td>${evBean.eventDetail}</td>
 						<td>${evBean.eventCategory}</td>
