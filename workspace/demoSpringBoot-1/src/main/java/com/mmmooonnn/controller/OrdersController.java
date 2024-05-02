@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mmmooonnn.model.OrderDetail;
 import com.mmmooonnn.model.Orders;
 import com.mmmooonnn.model.OrdersRepository;
@@ -59,7 +61,7 @@ public class OrdersController {
 
 	@PostMapping("/orders")
 	@Transactional
-	public void addOrder(@RequestBody Orders order) {
+	public Orders addOrder(@RequestBody Orders order) {
 		System.out.println("order="+order);
 		System.out.println("UserContactNew="+order.getUserContactNew());
 		int ContactId =order.getUserContactNew().getContactId();
@@ -88,8 +90,11 @@ public class OrdersController {
 	        totalPrice =totalPrice+orderDetails.get(i).getOrderTotalPrice();
 	    }
 	    order.setTotalPrice(totalPrice);
-	    // 保存订单
+
 	    ordersDao.save(order);
+	   
+		return order;
+
 	}
 
 	@DeleteMapping("/orders/{id}")
