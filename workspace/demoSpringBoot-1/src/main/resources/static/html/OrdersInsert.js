@@ -47,18 +47,20 @@ function addOrderDetail() {
     orderDetailDiv.innerHTML = `
         <label for="productNum">Product Num:</label>
         <input type="text" class="productNum" name="productNum">
+        <br>
         
         <label for="productName">Product Name:</label>
         <input type="text" class="productName" name="productName">
-        
+        <br>
         <label for="productPrice">Product Price:</label>
         <input type="text" class="productPrice" name="productPrice">
-        
+        <br>
         <label for="productQuantity">Product Quantity:</label>
         <input type="text" class="productQuantity" name="productQuantity">
-        
+        <br>
         <label for="orderTotalPrice">Order Total Price:</label>
         <input type="text" class="orderTotalPrice" name="orderTotalPrice">
+        
          <button type="button" onclick="removeOrderDetail(this)">刪除</button>
     `;
     orderDetailForm.appendChild(orderDetailDiv);
