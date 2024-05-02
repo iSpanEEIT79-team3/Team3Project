@@ -30,7 +30,7 @@
             <th>用戶2圖片</th>
         </tr>
         <!-- 遍歷匹配列表，顯示每個匹配的詳細信息 -->
-        <c:forEach items="${matches}" var="match">
+         <c:forEach items="${matches}" var="matchUserDetails">
             <tr>
                 <td>${match.matchid}</td>
                 <td>${match.user1id}</td>
