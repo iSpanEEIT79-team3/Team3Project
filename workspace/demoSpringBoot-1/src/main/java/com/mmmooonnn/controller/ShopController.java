@@ -39,34 +39,35 @@ public class ShopController {
     private ShopImgService shopImgService;
 
 //搜尋全部
-    @GetMapping("/getall")
+    @GetMapping("/getAll")
     public String getAll(Model model) {
     	List<ShopBean> shops = shopService.findAll();
         model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
-//    @GetMapping("/getAllTest")
-//    public Map<String, Object> getAllTest(Model model) {
-//    	List<ShopBean> shops = shopService.findAll();
-//    	List<ShopImgBean> shopImgs = shopImgService.findAll();
-//    	
-//        Map<String, Object> responseData = new HashMap<>();
-//
-//        responseData.put("shopData", shops);
-//        responseData.put("imgData", shopImgs);
-    
-//        這邊的return會回傳一筆資料 這筆資料會有兩個陣列 如果把資料合併成傳一個陣列 參考 shopimgcontroller /getAllImg
-//        return responseData;
-//    }
+ 
+    @GetMapping("/getAllTest")
+    public Map<String, Object> getAllTest(Model model) {
+    	List<ShopBean> shops = shopService.findAll();
+    	List<ShopImgBean> shopImgs = shopImgService.findAll();
+    	
+        Map<String, Object> responseData = new HashMap<>();
 
-//用no搜尋
+        responseData.put("shopData", shops);
+        responseData.put("imgData", shopImgs);
+    
+       //這邊的return會回傳一筆資料 這筆資料會有兩個陣列 如果把資料合併成傳一個陣列 參考 shopimgcontroller /getAllImg
+        return responseData;
+    }
+
+//用id搜尋
     @PostMapping("/findByproductid")
     public String FindById(Model model,@RequestParam(value = "productid", required = false) Integer productid) {
     	List<ShopBean> shops = shopService.findById(productid);
         model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
-//用product搜尋   
+//用商品名name搜尋   
     @PostMapping("/findByproductname")
     public String FindByProduct(Model model,@RequestParam(value = "productname", required = false) String productname) {
     	//List<ShopBean> shops = sService.findByProductName(productname);
@@ -74,7 +75,7 @@ public class ShopController {
     	model.addAttribute("shops", shops);
     	return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     }
-//用producttype搜尋
+//用類別type搜尋
     @PostMapping("/findByproducttype")
     public String FindByproducttype(Model model,@RequestParam(value = "producttype", required = false) String producttype) {
     	List<ShopBean> shops = shopService.findByProductType(producttype);
@@ -83,7 +84,7 @@ public class ShopController {
     	}
     
 //刪除
-    @DeleteMapping("/delete/{productid}")
+    @DeleteMapping("/deleteShop/{productid}")
     public String del(@PathVariable Integer productid) {
     	shopService.deleteById(productid); 
     		return "刪除成功:" + productid;
