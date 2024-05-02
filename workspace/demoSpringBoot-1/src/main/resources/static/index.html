@@ -115,17 +115,6 @@
             background-color: #EAC100;
         }
 
-        .loginPass {
-            width: 100px;
-            margin-left: 230px;
-            border: 0;
-            border-radius: 20px;
-            font-size: larger;
-            font-weight: bold;
-            background-color: #EAC100;
-
-        }
-
         .backstage {
             width: 100px;
             margin-left: 35px;
@@ -169,7 +158,6 @@
         <input type="password" name="password" id="password" required>
         <br>
         <input type="checkbox" name="" id="showPassword"><label for="showPassword">顯示密碼</label>
-        <button class="loginPass">一鍵輸入</button>
         <br>
         <button class="login">登入</button>
         <button class="register">註冊會員</button>
@@ -185,9 +173,9 @@
         $('.login').click(function () {
             if (checkdate()) {
                 $.ajax({
-                    url: "/userLogin",
+                    url: "/UserLogin",
                     type: 'POST',
-                    data: {
+                    date: {
                         email: $('#email').val(),
                         password: $('#password').val()
                     },
@@ -275,11 +263,6 @@
             }
             return true;
         }
-        //一鍵輸入
-        $('.loginPass').click(function () {
-            $('#email').val('mhou6vm0@gmail.com');
-            $('#password').val('123456');
-        })
     </script>
 </body>
 
