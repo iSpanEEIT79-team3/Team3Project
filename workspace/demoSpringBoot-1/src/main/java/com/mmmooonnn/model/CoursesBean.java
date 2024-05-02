@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Component
@@ -40,14 +42,17 @@ public class CoursesBean implements Serializable {
     private String courseType;
 
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "START_DATE")
     private Date startDate;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "END_DATE")
     private Date endDate;
-
-	@JsonFormat(pattern = "yyyy-MM-dd")
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DEADLINE_DATE")
     private Date deadlineDate;
 
