@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .main {
+      min-height: 55vh;
+      /* 让 .main至少占据整个视口高度 */
+
+    }
+  </style>
+  <title>JFSwing</title>
+</head>
+
+<body>
+  <div class="frontPage"></div>
+
+  <!-- Title -->
+  <div class="container-fluid" style="margin-top: 150px;">
+    <h2 class="text-center">標題</h2>
+  </div>
+  <!-- <section> -->
+  <div class="main">
+    <h2 class="text-center"></h2>
+  </div>
+  <div class="footPage"></div>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script>
+    $(function () {
+      fetch('/html/frontPage.html')
+        .then(response => response.text())
+        .then(html => {
+          //內容
+          $('.frontPage').html(html);
+        })
+        .catch(error => console.error('Error fetching frontPage.html', error));
+
+      fetch('/html/footPage.html')
+        .then(response => response.text())
+        .then(html => {
+          //內容
+          $('.footPage').html(html);
+        })
+        .catch(error => console.error('Error fetching footPage.html', error));
+    })
+  </script>
+</body>
+
+</html>
