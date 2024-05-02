@@ -9,130 +9,130 @@
 <meta charset="UTF-8">
 <title>全部文章</title>
 <style>
-	body {
-		overflow: auto;
-		margin: 0;
-		padding: 0;
-	}
+body {
+	overflow: auto;
+	margin: 0;
+	padding: 0;
+}
 
 .REPLY {
-  position: absolute;
-  top: 10px; /* 调整按钮距离顶部的距离 */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: none; /* 移除过渡效果 */
-  outline: none; /* 去除默认轮廓 */
+	position: absolute;
+	top: 10px; /* 调整按钮距离顶部的距离 */
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
+	color: white;
+	padding: 10px 16px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: none; /* 移除过渡效果 */
+	outline: none; /* 去除默认轮廓 */
 }
 
 .REPLY:hover {
-  background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
+	background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
 }
 
 .REPORT {
-  position: absolute;
-  top: 65px; /* 调整按钮距离顶部的距离 */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: none; /* 移除过渡效果 */
-  outline: none; /* 去除默认轮廓 */
+	position: absolute;
+	top: 65px; /* 调整按钮距离顶部的距离 */
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
+	color: white;
+	padding: 10px 16px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: none; /* 移除过渡效果 */
+	outline: none; /* 去除默认轮廓 */
 }
 
 .REPORT:hover {
-  background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
+	background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
 }
+
 .title {
-  position: absolute;
-  top: 125px; /* 调整按钮距离顶部的距离 */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: none; /* 移除过渡效果 */
-  outline: none; /* 去除默认轮廓 */
+	position: absolute;
+	top: 125px; /* 调整按钮距离顶部的距离 */
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #87CEEB; /* 设置按钮颜色为浅蓝色 */
+	color: white;
+	padding: 10px 16px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: none; /* 移除过渡效果 */
+	outline: none; /* 去除默认轮廓 */
 }
 
 .title:hover {
-  background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
+	background-color: #4DFFFF; /* 悬停时改变按钮颜色 */
 }
 
-	.lt img {
-		max-width: 250px;
-		height: auto;
-	}
+.lt img {
+	max-width: 250px;
+	height: auto;
+}
 
-	.lt {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 50%;
-	}
+.lt {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 50%;
+}
 
-	.lt table {
-		width: 110%;
-		border-collapse: collapse;
-	}
+.lt table {
+	width: 110%;
+	border-collapse: collapse;
+}
 
-	.lt th, .lt td {
-		text-align: center;
-		padding: 8px;
-		border: 1px solid #000000;
-		font-weight: bold;
-	}
+.lt th, .lt td {
+	text-align: center;
+	padding: 8px;
+	border: 1px solid #000000;
+	font-weight: bold;
+}
 
-	.lt th {
-		background-color: #a8fefa;
-	}
+.lt th {
+	background-color: #a8fefa;
+}
 
-	.lt button {
-		padding: 10px 16px;
-		border: none;
-		cursor: pointer;
-		border-radius: 4px;
-		font-size: 14px;
-		transition: none;
-		outline: none;
-	}
+.lt button {
+	padding: 10px 16px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: none;
+	outline: none;
+}
 
-	.lt button.edit {
-		background-color: #87ceeb; /* 浅蓝色 */
-		color: white;
-	}
+.lt button.edit {
+	background-color: #87ceeb; /* 浅蓝色 */
+	color: white;
+}
 
-	.lt button.delete {
-		background-color: #ffa500; /* 橙色 */
-		color: white;
-	}
+.lt button.delete {
+	background-color: #ffa500; /* 橙色 */
+	color: white;
+}
 
-	.lt button.add {
-		background-color: #a8fefa;
-		color: black;
-	}
+.lt button.add {
+	background-color: #a8fefa;
+	color: black;
+}
 
-	.lt td a {
-		color: inherit;
-		font-size: inherit;
-		text-decoration: none;
-	}
-	
+.lt td a {
+	color: inherit;
+	font-size: inherit;
+	text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -140,21 +140,21 @@
 	<div class="back-content"></div>
 
 	<div class="lt">
-	<div class="h22">
-		<h2 class="h2">互動區</h2>
-		
+		<div class="h22">
+			<h2 class="h2">互動區</h2>
+
 		</div>
 		<form method="get" action="/ReplySelectAll">
 			<button class="REPLY" type="submit">回復區</button>
 		</form>
-			<form method="get" action="html/LTTitle.html">
+		<form method="get" action="html/LTTitle.html">
 			<button class="title" type="submit">模糊查詢</button>
 		</form>
-		
+
 		<form method="get" action="/ReportSelectAll">
 			<button class="REPORT" type="submit">檢舉區</button>
 		</form>
-		
+
 		<form method="get" action="html/LTInsert.html">
 			<button class="add" type="submit">新增</button>
 		</form>
@@ -187,17 +187,25 @@
 						<form method="Get" action="/LTSelectById.controller/${items.ltId}">
 							<button class="edit" type="submit">修改</button>
 						</form>
-						<form method="post" action="/LTDeleteById.controller?ltId=${items.ltId}">
+						<form method="post"
+							action="/LTDeleteById.controller?ltId=${items.ltId}">
 							<input type="hidden" name="_method" value="DELETE">
 							<button class="delete" type="submit">刪除</button>
 						</form>
+						<form method="post" action="/Likeinsert.controller">
+							<input type="hidden" name="userId" value="${items.userId}"> <input
+								type="hidden" name="ltId" value="${items.ltId}">
+							<button class="like" type="submit">讚</button>
+
+						</form>
 					</td>
+
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-			<script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script>
 				fetch('/back')
 					.then(response => response.text())
 					.then(html => {
@@ -207,7 +215,7 @@
 					.catch(error => console.error('Error fetching back.html', error));
 			</script>
 
-<script>
+	<script>
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButtons = document.querySelectorAll('.delete');
 

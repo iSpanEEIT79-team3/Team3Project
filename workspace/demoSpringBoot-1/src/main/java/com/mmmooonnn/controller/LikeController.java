@@ -16,86 +16,70 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.model.LikeBean;
 import com.mmmooonnn.service.LikeService;
 
 @Controller
+
 public class LikeController {
-@Autowired
- private LikeService lr;
+	@Autowired
+	private LikeService lr;
 
+	@GetMapping("/LikeSelectById.controller")
+	public String findByLikeId(@RequestParam("likeId") Integer likeId, Model mm) {
+		LikeBean resultBean = lr.findByLikeId(likeId);
+		mm.addAttribute("likeBean", resultBean);
 
-@GetMapping("/LikeSelectById.controller")
-public String findByLikeId(@RequestParam("likeId") Integer likeId, Model mm) {
-	LikeBean resultBean = lr.findByLikeId(likeId);
-	mm.addAttribute("likeBean", resultBean);
-	
-	return null;
+		return null;
 
-}
-@GetMapping("/LikeSelectAll")
-public String LikeSelectAll(Model m) {
-	List<LikeBean> LikeList =lr.findLike();
-	m.addAttribute("likeBeans", LikeList);
+	}
 
-	return null;
+	@GetMapping("/LikeSelectAll")
+	public String LikeSelectAll(Model m) {
+		List<LikeBean> LikeList = lr.findLike();
+		m.addAttribute("likeBeans", LikeList);
 
-}
-@PostMapping("/Likeinsert.controller")
-@ResponseBody
-public ModelAndView InsertLike(@RequestParam("userId") Integer userId,
-		@RequestParam("ltId") Integer ltId) {
-	ModelAndView mv = new ModelAndView();
+		return null;
 
-	
+	}
+
+	@PostMapping("/Likeinsert.controller")
+	@ResponseBody
+	public ModelAndView InsertLike(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
+
 		LikeBean likeBean = new LikeBean();
 		likeBean.setLtId(ltId);
 		likeBean.setUserId(userId);
 
-		lr.insertLike(likeBean);
+		  LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
+		    if (existingLike != null) {
+		        // 如果已存在相同的记录，则不执行插入操作，直接返回
+		        return new ModelAndView("redirect:LTSelectAll");
+		    }
+
+		    // 否则，执行插入操作
+		   
+
+		    return new ModelAndView("redirect:LTSelectAll");
+		}
+
 	
+
+	@DeleteMapping("/LTDeleteByLikeId.controller")
+	public String deleteBYLikeId(@RequestParam("likeId") Integer likeId) {
+
+		lr.deleteByLikeId(likeId);
 		return null;
 
-}
-@DeleteMapping("/LTDeleteByLikeId.controller")
-public String deleteBYLikeId(@RequestParam("likeId") Integer likeId) {
+	}
 
-	lr.deleteByLikeId(likeId);
-	return null;
-	
-}
-@PutMapping("/LikeUpdate.controller")
-public String update(@RequestParam("userId") Integer userId,
-		@RequestParam("ltId") Integer ltId) {
+	@PutMapping("/LikeUpdate.controller")
+	public String update(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
 
-	LikeBean likeBean = new LikeBean(userId,ltId);
-    lr.update(likeBean);
-	return null;
+		LikeBean likeBean = new LikeBean(userId, ltId);
+		lr.update(likeBean);
+		return null;
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 }

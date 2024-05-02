@@ -45,5 +45,7 @@ public class LikeService {
 		lr.deleteById(likeId);
 
 	}
-
+	public LikeBean findByUserIdAndLtId(Integer userId, Integer ltId) {
+        return lr.findByUserIdAndLtId(userId, ltId);
+    }
 }
