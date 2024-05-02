@@ -1,8 +1,5 @@
 package com.mmmooonnn.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +50,9 @@ public class LikeController {
 
 		  LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
 		    if (existingLike != null) {
-		        // 如果已存在相同的记录，则不执行插入操作，直接返回
 		        return new ModelAndView("redirect:LTSelectAll");
 		    }
 
-		    // 否则，执行插入操作
 		   
 
 		    return new ModelAndView("redirect:LTSelectAll");

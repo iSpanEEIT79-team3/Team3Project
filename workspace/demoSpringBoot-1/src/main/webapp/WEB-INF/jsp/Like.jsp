@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>Like Page</title>
     <style>
-        /* 按赞按钮的样式 */
         .like-button {
             background-color: #87CEEB;
             color: white;
@@ -27,7 +26,6 @@
 <body>
 111111
 
-    <!-- 设置一个隐藏字段来存储 userId -->
     <input type="hidden" id="userId" value="${userId}">
 
     <script>
