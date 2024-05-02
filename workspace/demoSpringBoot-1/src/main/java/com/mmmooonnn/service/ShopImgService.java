@@ -17,33 +17,37 @@ import jakarta.transaction.Transactional;
 public class ShopImgService {
 	
 	@Autowired
-	private ShopImgRepository siRepos;
+	private ShopImgRepository shopImgRepos;
 	
 	public List<ShopImgBean> findAll(){
-		return siRepos.findAll();
+		return shopImgRepos.findAll();
 	}
 	
     // 獲取所有的 ShopImgBean
     public List<ShopImgBean> findAllShopImgBeans() {
-        return siRepos.findAll();
+        return shopImgRepos.findAll();
     }
 
     
 	public List<ShopImgBean> findByProductId(Integer productId) {
-		return siRepos.findByProductId(productId);
+		return shopImgRepos.findByProductId(productId);
+	}
+	
+	public List<ShopImgBean> findByImageId(Integer imageId){
+		return shopImgRepos.findByImageId(imageId);
 	}
     
 	
 	public void insert(ShopImgBean shopImgBean) {
-		siRepos.save(shopImgBean);
+		shopImgRepos.save(shopImgBean);
 	}
 	
 	public void update(ShopImgBean shopImgBean) {
-		siRepos.save(shopImgBean);
+		shopImgRepos.save(shopImgBean);
 	}
 	
 	public void deleteById(Integer imageId) {
 
-		siRepos.deleteById(imageId);
+		shopImgRepos.deleteById(imageId);
 	}
 }

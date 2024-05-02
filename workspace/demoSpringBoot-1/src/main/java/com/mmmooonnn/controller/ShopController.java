@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mmmooonnn.model.ShopBean;
+import com.mmmooonnn.model.ShopImgBean;
 import com.mmmooonnn.service.ShopImgService;
 import com.mmmooonnn.service.ShopService;
 
@@ -23,14 +24,16 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ShopController {
 
     
     @Autowired
-    private ShopService sService;
+    private ShopService shopService;
     
     @Autowired
     private ShopImgService shopImgService;
@@ -38,14 +41,28 @@ public class ShopController {
 //搜尋全部
     @GetMapping("/getall")
     public String getAll(Model model) {
-    	List<ShopBean> shops = sService.findAll();
+    	List<ShopBean> shops = shopService.findAll();
         model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
+//    @GetMapping("/getAllTest")
+//    public Map<String, Object> getAllTest(Model model) {
+//    	List<ShopBean> shops = shopService.findAll();
+//    	List<ShopImgBean> shopImgs = shopImgService.findAll();
+//    	
+//        Map<String, Object> responseData = new HashMap<>();
+//
+//        responseData.put("shopData", shops);
+//        responseData.put("imgData", shopImgs);
+    
+//        這邊的return會回傳一筆資料 這筆資料會有兩個陣列 如果把資料合併成傳一個陣列 參考 shopimgcontroller /getAllImg
+//        return responseData;
+//    }
+
 //用no搜尋
     @PostMapping("/findByproductid")
     public String FindById(Model model,@RequestParam(value = "productid", required = false) Integer productid) {
-    	List<ShopBean> shops = sService.findById(productid);
+    	List<ShopBean> shops = shopService.findById(productid);
         model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
@@ -53,14 +70,14 @@ public class ShopController {
     @PostMapping("/findByproductname")
     public String FindByProduct(Model model,@RequestParam(value = "productname", required = false) String productname) {
     	//List<ShopBean> shops = sService.findByProductName(productname);
-    	List<ShopBean> shops = sService.findByproductnameContaining(productname);
+    	List<ShopBean> shops = shopService.findByproductnameContaining(productname);
     	model.addAttribute("shops", shops);
     	return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     }
 //用producttype搜尋
     @PostMapping("/findByproducttype")
     public String FindByproducttype(Model model,@RequestParam(value = "producttype", required = false) String producttype) {
-    	List<ShopBean> shops = sService.findByProductType(producttype);
+    	List<ShopBean> shops = shopService.findByProductType(producttype);
         model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
@@ -68,14 +85,13 @@ public class ShopController {
 //刪除
     @DeleteMapping("/delete/{productid}")
     public String del(@PathVariable Integer productid) {
-    	sService.deleteById(productid); 
+    	shopService.deleteById(productid); 
     		return "刪除成功:" + productid;
 //    		return "forward:/WEB-INF/jsp/GetAllShops.jsp";
 }
     
     
     
-    //庫存刪除
     @PostMapping("/addShop")
     public String addShop(Model model,
                           @RequestParam(value="productname", required=true) String productname,
@@ -88,7 +104,7 @@ public class ShopController {
         newShop.setProductPrice(productprice);
         newShop.setProductType(producttype);
         
-        sService.insert(newShop);
+        shopService.insert(newShop);
         
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     } 
@@ -102,7 +118,7 @@ public class ShopController {
                                              @RequestParam("productintroduce") String productintroduce,
                                              @RequestParam("productprice") Integer productprice,
                                              @RequestParam("producttype") String producttype) {
-    	List<ShopBean> shopList = sService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
+    	List<ShopBean> shopList = shopService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
     	ShopBean shop = shopList.get(0);
         if (shop != null) {
             //更新商品
@@ -111,7 +127,7 @@ public class ShopController {
             shop.setProductPrice(productprice);
             shop.setProductType(producttype);
             //保存更新後的訊息
-            sService.update(shop);
+            shopService.update(shop);
             return ResponseEntity.ok("更新成功");
     }else {
         // 如果未找到商品，返回相应的状态码和消息
@@ -129,9 +145,10 @@ public class ShopController {
         }
 
         try {
-            // 设置保存图片文件的目录路径
+            //設置保存圖片的目標路徑
+        	//是否可以抓到最上面 做宣告 方便修改路徑
             String uploadDir = "C:/action/workspace/demoSpringBoot-1/src/main/webapp/img";
-            // 如果目录不存在，则创建目录
+            //如果目錄不存在 創建目錄
             File dir = new File(uploadDir);
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -146,11 +163,11 @@ public class ShopController {
             String Imgpath = "img/" + file.getOriginalFilename();
             
             // 图片上传成功，保存图片路径到数据库
-        	List<ShopBean> shopList = sService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
+        	List<ShopBean> shopList = shopService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
         	ShopBean shop = shopList.get(0);
             if (shop != null) {
                 shop.setProductImg(Imgpath); // 设置图片路径
-                sService.update(shop); // 更新数据库中的记录
+                shopService.update(shop); // 更新数据库中的记录
                 return ResponseEntity.ok("Upload successful");
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Shop not found");

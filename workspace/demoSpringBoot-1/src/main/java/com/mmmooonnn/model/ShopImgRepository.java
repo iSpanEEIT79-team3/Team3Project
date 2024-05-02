@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ShopImgRepository extends JpaRepository<ShopImgBean, Integer>{
 	
 	List<ShopImgBean> findByProductId(Integer productId);
+	List<ShopImgBean> findByImageId(Integer imageId);
 	
 }

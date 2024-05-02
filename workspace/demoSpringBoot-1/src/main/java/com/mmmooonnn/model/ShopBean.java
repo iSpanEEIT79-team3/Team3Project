@@ -22,7 +22,8 @@ import jakarta.persistence.Table;
 @Component
 public class ShopBean {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JoinColumn(name = "product_id")
 	private Integer productId;
 	@Column(name = "product_name")

@@ -15,11 +15,12 @@ import jakarta.persistence.Table;
 @Component
 public class ShopImgBean {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "image_id")
 	private Integer imageId;
-	@Column(name = "product_id")
 	
+	@Column(name = "product_id")
 	private Integer productId;
 	
 	@Column(name = "product_images") 
