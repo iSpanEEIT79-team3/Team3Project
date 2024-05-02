@@ -34,10 +34,10 @@
 	<form method="post" action="/WSinsert" id="myForm" enctype="multipart/form-data">
 
 		輸入活動名稱 : <input type="text" id="EVENT_NAME" name="EVENT_NAME" /><br><br>
-		報名開始日期 : <input type="date" id="SIGNUP_STARTIME" name="SIGNUP_STARTIME" /><br><br>
-		報名結束日期 : <input type="date" id="SIGNUP_ENDTIME" name="SIGNUP_ENDTIME" /><br><br>
-		活動開始時間 : <input type="date" id="EVENT_STARTIME" name="EVENT_STARTIME" /><br><br>
-		活動結束時間 : <input type="date" id="EVENT_ENDTIME" name="EVENT_ENDTIME" /><br><br>
+		報名開始日期 : <input type="datetime-local" id="SIGNUP_STARTIME" name="SIGNUP_STARTIME" /><br><br>
+		報名結束日期 : <input type="datetime-local" id="SIGNUP_ENDTIME" name="SIGNUP_ENDTIME" /><br><br>
+		活動開始時間 : <input type="datetime-local" id="EVENT_STARTIME" name="EVENT_STARTIME" /><br><br>
+		活動結束時間 : <input type="datetime-local" id="EVENT_ENDTIME" name="EVENT_ENDTIME" /><br><br>
 		活動詳細資料 : <input type="text" id="EVENT_DETAIL" name="EVENT_DETAIL" /><br><br>
 		活動種類 : <input type="text" id="EVENT_CATEGORY" name="EVENT_CATEGORY" /><br><br>
 		報名金額 : <input type="text" id="EVENT_PRICE" name="EVENT_PRICE" /><br><br>
@@ -75,10 +75,10 @@ document.getElementById("fillData").addEventListener("click", fillData);
 function fillData() {
 
     document.getElementById("EVENT_NAME").value = "Swing Rhythms";
-    document.getElementById("SIGNUP_STARTIME").value = "2023-02-08";
-    document.getElementById("SIGNUP_ENDTIME").value = "2023-03-08";
-    document.getElementById("EVENT_STARTIME").value =  "2023-04-08";
-    document.getElementById("EVENT_ENDTIME").value = "2023-04-10";
+    document.getElementById("SIGNUP_STARTIME").value = "2024-05-01T09:18";
+    document.getElementById("SIGNUP_ENDTIME").value = "2024-05-16T00:00";
+    document.getElementById("EVENT_STARTIME").value =  "2024-05-24T09:00";
+    document.getElementById("EVENT_ENDTIME").value = "2024-05-26T00:00";
     document.getElementById("EVENT_DETAIL").value = "Program:BALBOA workshop with MELANIE & ALBERT";
     document.getElementById("EVENT_CATEGORY").value = "BALBOA";
     document.getElementById("EVENT_PRICE").value = "500";
