@@ -14,4 +14,5 @@ public interface UserContactRepository extends JpaRepository<UserContactNew, Int
     int countByEmail(String email);
 	
 	UserContactNew findByEmail(String email);
+	
 }

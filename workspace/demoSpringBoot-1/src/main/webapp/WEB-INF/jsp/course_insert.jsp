@@ -31,19 +31,27 @@
         <form method="post" action="${pageContext.request.contextPath}/insert" >
             <table>
                 <tr>
-                    <td>課程編號:</td>
-                    <td><input type="text" name="courseID" required /></td>
+                    <td>用戶ID:</td>
+                    <td><input type="text" name="idUser" required /></td>
+                </tr>
+                <tr>
+                    <td>產品ID:</td>
+                    <td><input type="text" name="productId" required /></td>
                 </tr>
                 <tr>
                     <td>課程名稱:</td>
                     <td><input type="text" name="courseName" required /></td>
                 </tr>
                 <tr>
-                    <td>課程描述:</td>
+                    <td>描述:</td>
                     <td><input type="text" name="description" /></td>
                 </tr>
                 <tr>
-                    <td>開課日期:</td>
+                    <td>課程類型:</td>
+                    <td><input type="text" name="courseType" required /></td>
+                </tr>
+                <tr>
+                    <td>開始日期:</td>
                     <td><input type="date" name="startDate" required /></td>
                 </tr>
                 <tr>
@@ -51,23 +59,27 @@
                     <td><input type="date" name="endDate" required /></td>
                 </tr>
                 <tr>
-                    <td>報名截止日期:</td>
+                    <td>截止日期:</td>
                     <td><input type="date" name="deadlineDate" required /></td>
+                </tr>
+                <tr>
+                    <td>地點:</td>
+                    <td><input type="text" name="location" required /></td>
                 </tr>
                 <tr>
                     <td>價格:</td>
                     <td><input type="number" name="price" step="0.01" required /></td>
                 </tr>
                 <tr>
-                    <td>老師姓名:</td>
+                    <td>教師名稱:</td>
                     <td><input type="text" name="teacherName" required /></td>
                 </tr>
                 <tr>
-                    <td>老師聯絡方式:</td>
+                    <td>教師聯繫方式:</td>
                     <td><input type="text" name="teacherContact" /></td>
                 </tr>
                 <tr>
-                    <td>已報名人數:</td>
+                    <td>報名人數:</td>
                     <td><input type="number" name="enrollmentCount" required /></td>
                 </tr>
                 <tr>
@@ -79,7 +91,7 @@
                     <td><input type="text" name="courseImage" /></td>
                 </tr>
                 <tr>
-            		<input type="submit" value="Insert">
+                    <td><input type="submit" value="Insert"></td>
                 </tr>
             </table>
         </form>

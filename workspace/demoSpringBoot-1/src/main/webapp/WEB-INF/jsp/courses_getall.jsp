@@ -85,45 +85,46 @@
 				<h2>課程資料</h2>
 				<div class="box">
 					<table>
-						<tr>
-							<th>課程ID</th>
-							<th>課程名稱</th>
-							<th>課程描述</th>
-							<th>開課日期</th>
-							<th>結束日期</th>
-							<th>報名截止日</th>
-							<th>課程價格</th>
-							<th>教師姓名</th>
-							<th>教師聯絡方式</th>
-							<th>報名人數</th>
-							<th>上限人數</th>
-							<th>課程圖片</th>
-						</tr>
+        <tr>
+            <th>用戶ID</th>
+            <th>產品ID</th>
+            <th>課程名稱</th>
+            <th>描述</th>
+            <th>課程類型</th>
+            <th>開始日期</th>
+            <th>結束日期</th>
+            <th>截止日期</th>
+            <th>地點</th>
+            <th>價格</th>
+            <th>教師名稱</th>
+            <th>教師聯繫方式</th>
+            <th>報名人數</th>
+            <th>最大容量</th>
+            <th>課程圖片</th>
+        </tr>
 						<c:forEach items="${Courses}" var="course">
 							<tr>
 
-								<td>${course.courseID}</td>
-								<td>${course.courseName}</td>
-								<td>${course.description}</td>
+                <td>${course.idUser}</td>
+                <td>${course.productId}</td>
+                <td>${course.courseName}</td>
+                <td>${course.description}</td>
+                <td>${course.courseType}</td>
 								<td>${course.startDate}</td>
 								<td>${course.endDate}</td>
 								<td>${course.deadlineDate}</td>
-								<td>${course.price}</td>
-								<td>${course.teacherName}</td>
-								<td>${course.teacherContact}</td>
-								<td>${course.enrollmentCount}</td>
-								<td>${course.maxCapacity}</td>
-								<td>${course.courseImage}</td>
+                <td>${course.location}</td>
+                <td>${course.price}</td>
+                <td>${course.teacherName}</td>
+                <td>${course.teacherContact}</td>
+                <td>${course.enrollmentCount}</td>
+                <td>${course.maxCapacity}</td>
 
-								<td><a href="/GetCourseById/${course.courseID}"><button>修改</button></a></td>
-								<!--                     <td><form method="get" action="/GetCourseById">
+								<td><a href="/GetCourseById/${course.productId}"><button>修改</button></a></td>
 
-                    <input type="hidden" name="courseID" value="${course.courseID}">
-                                    <button type="submit" class="test">修改</button>
-                                </form>  -->
 
 								<td>
-									<form method="post" action="/DeleteById?courseID=${course.courseID}">
+    									<form method="post" action="/DeleteById?courseID=${course.productId}">
 										<input type="hidden" name="_method" value="DELETE">
 
 										<button type="submit" class="test">刪除</button>

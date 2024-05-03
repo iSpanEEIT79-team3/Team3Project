@@ -77,7 +77,7 @@ public class PayController {
 	}
 
 	@PostMapping("/PayResult")
-	public void PayResult(@RequestBody MultiValueMap<String, String> payResult) {
+	public ResponseEntity<String> PayResult(@RequestBody MultiValueMap<String, String> payResult) {
 		System.out.println("payResult:" + payResult + "666666666666666666666666");
 		String rtnCode = payResult.getFirst("RtnCode");
 		String orderId=payResult.getFirst("MerchantTradeNo");
@@ -94,17 +94,17 @@ public class PayController {
 			ordersDao.save(order);
 		}
 		System.out.println("...............................");
-		String url = "https://payment-stage.ecPay.com.tw/Cashier/AioCheckOut/V5";
-		String response = "1|OK";
-		
-		RestTemplate restTemplate = new RestTemplate();		
+		//String url = "https://payment-stage.ecPay.com.tw/Cashier/AioCheckOut/V5";
+		//String response = "1|OK";
+		//return "1|OK";
+		/*RestTemplate restTemplate = new RestTemplate();		
 		 HttpEntity<String> entity = new HttpEntity<>(response);
 	        //發送請求
 	     ResponseEntity<String> payresult = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 	     String responseBody = payresult.getBody();
-	        System.out.println("Response: " + responseBody);
+	        System.out.println("Response: " + responseBody);*/
 
-
+		return ResponseEntity.ok().body("1|OK");
 	}
 	
 	

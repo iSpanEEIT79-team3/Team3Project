@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>今晚想找尋舞伴嗎?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>想找尋舞伴嗎?</h1>
+
+    <h2>新增會員資料</h2>
+    <form method="post" action="/MatchInsert" enctype="multipart/form-data">
+      <input type="hidden" name="action" value="insert">
+      <input type="text" name="name" placeholder="姓名">
+      <input type="text" name="email" placeholder="信箱">
+      <input type="text" name="password" placeholder="密碼">
+      <input type="text" name="gender" placeholder="性別">
+      <input type="text" name="birthday" placeholder="生日">
+      <input type="text" name="location" placeholder="地址">
+      <input type="text" name="bio" placeholder="簡介">
+      上傳照片<input type="file" name="profile_picture" placeholder="照片">
+
+      <input type="text" name="age" placeholder="年齡">
+      <input type="submit" value="註冊">
+    </form>
+
+
+
+  </div>
+
+</body>
+
+</html>

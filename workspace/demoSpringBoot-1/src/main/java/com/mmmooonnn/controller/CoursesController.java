@@ -1,5 +1,6 @@
 package com.mmmooonnn.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,7 @@ public class CoursesController {
 		return modelAndView;
 	}
 	
-//    @GetMapping("/GetCourseById")
-//    public ModelAndView findCourseById(@RequestParam("courseID") Integer id) {
-//    	
-//        ModelAndView modelAndView = new ModelAndView("course_get_id.jsp");
-//
-//    	CoursesBean coursesBean	= cService.findCourseById(id);
-//    	modelAndView.addObject("Courses", coursesBean);
-//    	
-//		return modelAndView;
-//	}
+
     @GetMapping("/GetCourseById/{id}")
 	public String findCourseById(@PathVariable("id") int id ,Model m){
     	
@@ -76,19 +68,22 @@ public class CoursesController {
 
 	@PostMapping("/insert")
 	public String Insert(
-		  @RequestParam("courseID") int courseID,
-		  @RequestParam("courseName") String courseName,
-          @RequestParam("description") String description,
-          @RequestParam("startDate") String startDate,
-          @RequestParam("endDate") String endDate,
-          @RequestParam("deadlineDate") String deadlineDate,
-          @RequestParam("price") double price,
-          @RequestParam("teacherName") String teacherName,
-          @RequestParam("teacherContact") String teacherContact,
-          @RequestParam("enrollmentCount") int enrollmentCount,
-          @RequestParam("maxCapacity") int maxCapacity,
-          @RequestParam("courseImage") String courseImage) {
-          CoursesBean coursesBean = new CoursesBean(courseID, courseName, description, startDate, endDate, deadlineDate, price, teacherName, teacherContact, enrollmentCount, maxCapacity, courseImage);
+			 @RequestParam("idUser") int idUser,
+			 @RequestParam("productId") int productId,
+		      @RequestParam("courseName") String courseName,
+		      @RequestParam("description") String description,
+		      @RequestParam("courseType") String courseType,
+		      @RequestParam("startDate") Date startDate,
+		      @RequestParam("endDate") Date endDate,
+		      @RequestParam("deadlineDate") Date deadlineDate,
+		      @RequestParam("location") String location,
+		      @RequestParam("price") double price,
+		      @RequestParam("teacherName") String teacherName,
+		      @RequestParam("teacherContact") String teacherContact,
+		      @RequestParam("enrollmentCount") int enrollmentCount,
+		      @RequestParam("maxCapacity") int maxCapacity,
+		      @RequestParam("courseImage") String courseImage) {
+	    CoursesBean coursesBean = new CoursesBean(idUser, productId, courseName, description, courseType, startDate, endDate, deadlineDate, location, price, teacherName, teacherContact, enrollmentCount, maxCapacity, courseImage);
 		cService.insert(coursesBean);
 		return "redirect:GetAllCourses";
 	}
@@ -100,66 +95,3 @@ public class CoursesController {
     return "back.jsp";
 	}
 }
-
-    // 更新課程資訊
-//    @PostMapping("/Update")
-//    public String update(@RequestParam("courseID") int courseID,
-//            @RequestParam("courseName") String courseName,
-//            @RequestParam("description") String description,
-//            @RequestParam("startDate") String startDate,
-//            @RequestParam("endDate") String endDate,
-//            @RequestParam("deadlineDate") String deadlineDate,
-//            @RequestParam("price") double price,
-//            @RequestParam("teacherName") String teacherName,
-//            @RequestParam("teacherContact") String teacherContact,
-//            @RequestParam("enrollmentCount") int enrollmentCount,
-//            @RequestParam("maxCapacity") int maxCapacity,
-//            @RequestParam("courseImage") String courseImage) {
-//      
-//    	try {
-//            CoursesBean coursesBean = new CoursesBean(courseID, courseName, description, startDate, endDate, deadlineDate, price, teacherName, teacherContact, enrollmentCount, maxCapacity, courseImage);
-//            cService.update(coursesBean); // 執行更新
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return "course_update.jsp";
-//        }
-//        return "redirect:/GetAllCourses";
-//    }
-//    
-
-//    // 添加新課程
-//    @PostMapping("/Insert")
-//    public ModelAndView insertCourse(@RequestParam("courseName") String courseName,
-//            @RequestParam("description") String description,
-//            @RequestParam("startDate") String startDate,
-//            @RequestParam("endDate") String endDate,
-//            @RequestParam("deadlineDate") String deadlineDate,
-//            @RequestParam("price") double price,
-//            @RequestParam("teacherName") String teacherName,
-//            @RequestParam("teacherContact") String teacherContact,
-//            @RequestParam("enrollmentCount") int enrollmentCount,
-//            @RequestParam("maxCapacity") int maxCapacity,
-//            @RequestParam("courseImage") String courseImage) {
-//ModelAndView mv = new ModelAndView("/jsp/course_insert.jsp");
-//try {
-//CoursesBean course = new CoursesBean();
-//course.setCourseName(courseName);
-//course.setDescription(description);
-//course.setStartDate(startDate);
-//course.setEndDate(endDate);
-//course.setDeadlineDate(deadlineDate);
-//course.setPrice(price);
-//course.setTeacherName(teacherName);
-//course.setTeacherContact(teacherContact);
-//course.setEnrollmentCount(enrollmentCount);
-//course.setMaxCapacity(maxCapacity);
-//course.setCourseImage(courseImage);
-//cService.update(course); // 執行更新
-//
-//} catch (Exception e) {
-//e.printStackTrace();
-//mv.addObject("errorMessage", "新增課程時發生錯誤：" + e.getMessage());
-//}
-//        return new ModelAndView("redirect:/GetAllCourses");
-//    }
-//}

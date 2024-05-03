@@ -115,9 +115,20 @@
             background-color: #EAC100;
         }
 
+        .g_id_signin {
+            width: 360px;
+            margin-top: 25px;
+            border: 0;
+            border-radius: 20px;
+            font-size: larger;
+            font-weight: bold;
+            color: white;
+            background-color: #EAC100;
+        }
+
         .loginPass {
             width: 100px;
-            margin-left: 230px;
+            margin-left: 375px;
             border: 0;
             border-radius: 20px;
             font-size: larger;
@@ -169,6 +180,14 @@
         <input type="password" name="password" id="password" required>
         <br>
         <input type="checkbox" name="" id="showPassword"><label for="showPassword">顯示密碼</label>
+
+        <div id="g_id_onload" data-client_id="324169347825-ejtqu1ldjjpi666j7dgroniv0r2vg2ok.apps.googleusercontent.com"
+            data-context="signin" data-ux_mode="popup" data-login_uri="http://localhost:8080/googleLogin1"
+            data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+            data-text="signin_with" data-size="large" data-locale="zh-TW" data-logo_alignment="left">
+        </div>
         <button class="loginPass">一鍵輸入</button>
         <br>
         <button class="login">登入</button>
@@ -178,6 +197,7 @@
 
     </div>
 
+    <script src="https://accounts.google.com/gsi/client?zh=TW" async></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -185,9 +205,9 @@
         $('.login').click(function () {
             if (checkdate()) {
                 $.ajax({
-                    url: "/userLogin",
+                    url: "/UserLogin",
                     type: 'POST',
-                    data: {
+                    date: {
                         email: $('#email').val(),
                         password: $('#password').val()
                     },
@@ -275,11 +295,6 @@
             }
             return true;
         }
-        //一鍵輸入
-        $('.loginPass').click(function () {
-            $('#email').val('mhou6vm0@gmail.com');
-            $('#password').val('123456');
-        })
     </script>
 </body>
 

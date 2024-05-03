@@ -90,9 +90,12 @@ body {
 	<div class="back-content"></div>	
 	<div class="lt">
 		<div class="h22">
-		<h2 class="h2">檢舉區</h2>
+		<h2 class="h2">文章檢舉區</h2>
 		
 		</div>
+		<form method="get" action="/ReportReplySelectAll">
+			<button class="REPORTREPLY" type="submit">留言檢舉區</button>
+		</form>
 	<div style="text-align: center; margin-top: 20px;">
     <a href="LTSelectAll" style="text-decoration: none;">
         <button id="returnButton" onclick="changeColor()">返回首頁</button>

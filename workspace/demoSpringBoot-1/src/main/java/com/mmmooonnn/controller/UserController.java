@@ -2,10 +2,13 @@ package com.mmmooonnn.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
@@ -21,11 +24,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import com.mmmooonnn.model.UserContactNew;
 import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.UsersService;
 
 import jakarta.servlet.http.HttpSession;
+
+
 
 
 @Controller
@@ -38,6 +48,89 @@ public class UserController {
 	
 	@Autowired
 	private ResourceLoader resourceLoader;
+	
+	//google login
+	@PostMapping("/googleLogin1")
+	public ModelAndView googleLogin(@RequestParam("credential") String credential,
+									HttpSession session) {
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+				.setAudience(Collections.singletonList("324169347825-ejtqu1ldjjpi666j7dgroniv0r2vg2ok.apps.googleusercontent.com"))
+				.build();
+		ModelAndView modelAndView = new ModelAndView();
+		//驗證 credential 的完整性
+		try {
+			GoogleIdToken idToken = verifier.verify(credential);
+			if(idToken != null) {
+				Payload payload = idToken.getPayload();
+				
+//				String userId = payload.getSubject();
+//				System.out.println("User ID=" + userId);
+				//判定是否新增會員
+				String email = payload.getEmail();
+				if(!uService2.isEmailExist(email)) {
+					UserContactNew user  = new UserContactNew();
+					UsersBeanNew usersBean = new UsersBeanNew();
+					
+					user.setName((String) payload.get("name"));
+					user.setEmail(email);
+					usersBean.setPicture((String)payload.get("picture"));
+					usersBean.setUserContact(user);
+					usersBean.setPermission(0);
+					usersBean.setThirdPartyLogin(1);
+					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					uService2.insert(usersBean);
+					return modelAndView;
+				}else {
+					UsersBeanNew usersBean = uService2.findByEmail(email);
+					session.setAttribute("usersBean", usersBean);
+					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					return modelAndView;
+				}
+					
+			}else {
+				System.out.println("Invalid ID token");
+				
+				modelAndView.setViewName("redirect:/index.html");
+				return modelAndView;
+			}
+		} catch (GeneralSecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		modelAndView.setViewName("redirect:/index.html");
+		return modelAndView;
+	}
+	
+	//管理者登入
+	@PostMapping("/backstage")
+	public ResponseEntity<String> backstage(@RequestParam("email") String email,
+							@RequestParam("password") String password,
+							HttpSession session) {
+		System.out.println("進入backstageLogin");
+		boolean result = uService2.isEmailExist(email);
+		if(result) {
+			
+			UsersBeanNew usersBean = uService2.findByEmail(email);
+			boolean flag = BCrypt.checkpw(password,usersBean.getPassword());
+			if(flag && usersBean.getPermission()==1) {
+				session.setAttribute("email", email);
+				return ResponseEntity.ok().body("登入成功");
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
+
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
+	}
+	
+	//管理者登入成功
+	@GetMapping("/successLogin")
+	public ModelAndView getMethodName() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/back");
+		return modelAndView;
+	}
+	
 	
 	//搜尋全部
 	@GetMapping("/GetAllUser")
@@ -54,6 +147,10 @@ public class UserController {
 	public String processActionGet() {
 		return "/back";
 	}
+	@GetMapping("/back2")
+	public String processActionGet2() {
+		return "redirect:/html/footPage.html";
+	}
 	
 	@PostMapping("/userLogin")
 	public ResponseEntity<String> processActionGetUser(@RequestParam("email") String email,
@@ -61,13 +158,18 @@ public class UserController {
 														HttpSession session){
 		System.out.println("進入UserLogin");
 		boolean result = uService2.isEmailExist(email);
-		System.out.println(result);
-		if(result) {
-			UsersBeanNew usersBean = uService2.findByEmail(email);
-			session.setAttribute("usersBean", usersBean);
-			return ResponseEntity.ok().body("登入成功");
-		}
 		
+		if(result) {
+			
+			UsersBeanNew usersBean = uService2.findByEmail(email);
+			boolean flag = BCrypt.checkpw(password,usersBean.getPassword());
+			if(flag) {
+				session.setAttribute("usersBean", usersBean);
+				return ResponseEntity.ok().body("登入成功");
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
+
+		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
 	}
 	//刪除單筆
@@ -110,7 +212,11 @@ public class UserController {
 		usersBean.setNickName(nickName);
 		usersBean.setGender(gender);
 		user.setEmail(email);
-		usersBean.setPassword(password);
+		
+		//密碼加密 bcrypt		
+		//加密
+		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());		
+		usersBean.setPassword(encondPassword);
 		
 		if(birthday != null) {
 			String dateUser =birthday;
@@ -152,8 +258,9 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("user:"+user);
 		usersBean.setUserContact(user);
+		usersBean.setThirdPartyLogin(0);
+		usersBean.setPermission(0);
 		System.out.println(usersBean);
 		if(uService2.isEmailExist(user.getEmail())) {
 			System.out.println("比對信箱");
@@ -213,7 +320,8 @@ public class UserController {
 		usersBean.setNickName(nickName);
 		usersBean.setGender(gender);
 		user.setEmail(email);
-		usersBean.setPassword(password);
+		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());		
+		usersBean.setPassword(encondPassword);
 		
 		if(birthday != null) {
 			String dateUser =birthday;
@@ -259,7 +367,11 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		user.setContactId(id);
+		
 		usersBean.setUserContact(user);
+		usersBean.setThirdPartyLogin(0);
+		usersBean.setPermission(0);
 			System.out.println(user);
 			if(user.getEmail() != "") {
 				uService2.insert(usersBean);	
