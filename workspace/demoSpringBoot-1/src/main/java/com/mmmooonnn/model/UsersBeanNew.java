@@ -44,102 +44,102 @@ public class UsersBeanNew {
 	private String danceAge;
 	@Column(name="USERPICTURE")
 	private String picture;
-	
+	@Column(name="THIRDPARTYLOGIN")
+	private Integer thirdPartyLogin;
+	@Column(name="PERMISSION")
+	private Integer permission;
 	
 	 @OneToOne(cascade = CascadeType.ALL)
 	 @JoinColumn(name = "FK_CONTACTID")
 	 private UserContactNew userContact;
 
-
 	public Integer getUserId() {
 		return userId;
 	}
-
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-
 	public String getNickName() {
 		return nickName;
 	}
-
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
 
-
 	public String getGender() {
 		return gender;
 	}
-
 
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
-
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
 	public LocalDate getBirthday() {
 		return birthday;
 	}
-
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
-
 	public String getDanceCharacter() {
 		return danceCharacter;
 	}
-
 
 	public void setDanceCharacter(String danceCharacter) {
 		this.danceCharacter = danceCharacter;
 	}
 
-
 	public String getDanceAge() {
 		return danceAge;
 	}
-
 
 	public void setDanceAge(String danceAge) {
 		this.danceAge = danceAge;
 	}
 
-
 	public String getPicture() {
 		return picture;
 	}
-
 
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 
+	public Integer getThirdPartyLogin() {
+		return thirdPartyLogin;
+	}
+
+	public void setThirdPartyLogin(Integer thirdPartyLogin) {
+		this.thirdPartyLogin = thirdPartyLogin;
+	}
+
+	public Integer getPermission() {
+		return permission;
+	}
+
+	public void setPermission(Integer permission) {
+		this.permission = permission;
+	}
 
 	public UserContactNew getUserContact() {
 		return userContact;
 	}
 
-
 	public void setUserContact(UserContactNew userContact) {
 		this.userContact = userContact;
 	}
-
 
 	@Override
 	public String toString() {
@@ -160,11 +160,18 @@ public class UsersBeanNew {
 		builder.append(danceAge);
 		builder.append(", picture=");
 		builder.append(picture);
+		builder.append(", thirdPartyLogin=");
+		builder.append(thirdPartyLogin);
+		builder.append(", permission=");
+		builder.append(permission);
 		builder.append(", userContact=");
 		builder.append(userContact);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
+	 
 	
 	
 	

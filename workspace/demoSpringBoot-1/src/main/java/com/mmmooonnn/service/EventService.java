@@ -58,7 +58,8 @@ public class EventService {
 		
 		return null;
 	}
-	
+
+	// insert
 //	沒有id就新增+有id就update
 	public void saveEvent(Event evBean) {
 		 eRepos.save(evBean);

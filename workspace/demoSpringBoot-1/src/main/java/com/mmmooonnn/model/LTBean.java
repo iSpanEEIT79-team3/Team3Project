@@ -171,4 +171,7 @@ public class LTBean implements Serializable {
 		this.classify = classify;
 	}
 
+
+	
+
 }

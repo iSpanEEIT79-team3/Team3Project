@@ -50,34 +50,17 @@ fetch("/orders", {
 		// 遍歷數據and創立表格
 		data.forEach(function(order) {
 			console.log(order);
+
 			let row = tbody.insertRow();
-			/*let data = {};
-			let flds = ['orderId', 'userContact.idUser', 'totalPrice', ...];
-			for (let fld of flds) {
-				row.insertCell(index).innerHTML = order....;
-			}*/
-			data[0] = order.orderId;
+			let flds = [order.orderId, order.userContactNew.contactId, order.totalPrice, order.payStatus, order.shippingStatus, order.orderDate, order.shippingDate, order.payDeadline, order.orderNote];
+			for (let i = 0; i < flds.length; i++) {
+				row.insertCell(i).innerHTML = flds[i];
+
+			}
 			// 插入內容
-			row.insertCell(0).innerHTML = order.orderId;
-			row.insertCell(1).innerHTML = order.userContactNew.contactId;
-			row.insertCell(2).innerHTML = order.totalPrice;
-			row.insertCell(3).innerHTML = order.payStatus;
-			row.insertCell(4).innerHTML = order.shippingStatus;
-			row.insertCell(5).innerHTML = order.orderDate;
-			row.insertCell(6).innerHTML = order.shippingDate;
-			row.insertCell(7).innerHTML = order.payDeadline;
-			row.insertCell(8).innerHTML = order.orderNote;
-
-
-			row.insertCell(9).innerHTML = '<button onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
-			//row.insertCell(9).innerHTML = `<button onclick="updateOrder(${JSON.stringify(order)})">更改</button>`;
-			//row.insertCell(9).innerHTML = '<button onclick="updateOrder('+this.order+')">更改</button>';
-			//row.insertCell(9).innerHTML = '<button onclick="updateOrder(' + JSON.stringify(order) + ')">更改</button>';
-			row.insertCell(10).innerHTML = '<button onclick="deleteOrder(' + order.orderId + ')">刪除</button>';
-			/*row.insertCell(11).innerHTML = '<button onclick="readmore( ' + JSON.stringify(order.orderDetails).replace(/"/g, '&quot;')+ +')
-			+ 'JSON.stringify(order.User).replace(/"/g, '&quot;')
-			+ '})">詳細資料</button>';*/
-			row.insertCell(11).innerHTML = '<button onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
+			row.insertCell(flds.length).innerHTML = '<button onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
+			row.insertCell(flds.length+1).innerHTML = '<button onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
+			row.insertCell(flds.length+2).innerHTML = '<button onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
 		});
 	})
 
