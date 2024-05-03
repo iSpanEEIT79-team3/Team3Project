@@ -65,10 +65,9 @@ public class EventController {
 	
 	//收藏活動寄email
 	  @PostMapping("/eventCollection")
-	  @ResponseBody
 	    public String EventCollection(
 	    		@RequestParam("EVENT_STARTIME") String EventDate ,   
-	    		@RequestParam("EVENT_NAME") String EventName,Model m) 
+	    		@RequestParam("EVENT_NAME") String EventName) 
 	         {
 		  
 	            String receivers = "emil62y7@gmail.com";
@@ -76,7 +75,7 @@ public class EventController {
 	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + EventDate +"活動名稱為："+ EventName + "\n期待您的蒞臨！";
 	            String From = "JFSwing搖擺舞教室<emil62y7@gmail.com>";
 	            eService.sendPlainText(receivers, subject, content,From);
-	            return "forward:http://localhost:8080/html/EventDetail.html?ID=300024";
+	            return "forward:/html/EventDetail.html?ID=300024";
 	        }
 	
 
