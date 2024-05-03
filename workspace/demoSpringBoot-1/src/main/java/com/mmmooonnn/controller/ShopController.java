@@ -84,14 +84,15 @@ public class ShopController {
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
     
-//刪除
-    @DeleteMapping("/deleteShop/{productid}")
-    public String del(@PathVariable Integer productid) {
-    	shopService.deleteById(productid); 
-    		return "刪除成功:" + productid;
+
+    @DeleteMapping("/deleteShop")
+    public ResponseEntity<String> del(@RequestParam Integer productId) {
+    	shopService.deleteById(productId); 
+    	return ResponseEntity.ok("ok");
 //    		return "forward:/WEB-INF/jsp/GetAllShops.jsp";
 }
-    
+
+   
     
     
     @PostMapping("/addShop")
