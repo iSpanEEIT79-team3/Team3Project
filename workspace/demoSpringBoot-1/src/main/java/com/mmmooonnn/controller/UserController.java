@@ -147,13 +147,9 @@ public class UserController {
 	public String processActionGet() {
 		return "/back";
 	}
-	@GetMapping("/back2")
-	public String processActionGet2() {
-		return "redirect:/html/footPage.html";
-	}
 	
-	@PostMapping("/userLogin")
-	public ResponseEntity<String> processActionGetUser(@RequestParam("email") String email,
+	@PostMapping("/UsersLogin")
+	public ResponseEntity<String> usersLogin(@RequestParam("email") String email,
 													@RequestParam("password") String password,
 														HttpSession session){
 		System.out.println("進入UserLogin");
