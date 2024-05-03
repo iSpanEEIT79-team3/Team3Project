@@ -49,6 +49,10 @@ public class LTService {
 		return lt.findByTitle(title);
 		
 	}
-
+	LTService likeService;
+	  public Integer getLikeCount(Integer ltId) {
+			// 使用 LikeService 中的方法獲取按讚數量
+	        return likeService.getLikeCount(ltId);
+	    }
 	
 }
