@@ -68,7 +68,7 @@ public class PayController {
 		obj.setReturnURL("https://c160-118-168-85-64.ngrok-free.app/PayResult");
 		obj.setNeedExtraPaidInfo("N");
 		// 商店轉跳網址 (Optional)
-		obj.setClientBackURL("http://localhost:8080/html/OrdersForClient.html");
+		obj.setClientBackURL("http://localhost:8080/html/OrderForClient.html");
 		String form=all.aioCheckOut(obj, null);
 		System.out.print(form);
 		return form;

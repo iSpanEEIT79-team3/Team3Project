@@ -77,13 +77,13 @@ public class UserController {
 					usersBean.setUserContact(user);
 					usersBean.setPermission(0);
 					usersBean.setThirdPartyLogin(1);
-					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					modelAndView.setViewName("redirect:/html/OrderForClient.html");
 					uService2.insert(usersBean);
 					return modelAndView;
 				}else {
 					UsersBeanNew usersBean = uService2.findByEmail(email);
 					session.setAttribute("usersBean", usersBean);
-					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					modelAndView.setViewName("redirect:/html/OrderForClient.html");
 					return modelAndView;
 				}
 					
@@ -147,13 +147,9 @@ public class UserController {
 	public String processActionGet() {
 		return "/back";
 	}
-	@GetMapping("/back2")
-	public String processActionGet2() {
-		return "redirect:/html/footPage.html";
-	}
 	
 	@PostMapping("/userLogin")
-	public ResponseEntity<String> processActionGetUser(@RequestParam("email") String email,
+	public ResponseEntity<String> processActionGetUser123(@RequestParam("email") String email,
 													@RequestParam("password") String password,
 														HttpSession session){
 		System.out.println("進入UserLogin");

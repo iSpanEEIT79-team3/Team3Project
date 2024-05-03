@@ -173,9 +173,9 @@
         $('.login').click(function () {
             if (checkdate()) {
                 $.ajax({
-                    url: "/UserLogin",
+                    url: "/userLogin",
                     type: 'POST',
-                    date: {
+                    data: {
                         email: $('#email').val(),
                         password: $('#password').val()
                     },
@@ -186,7 +186,7 @@
                             title: "送出確定",
                             showConfirmButton: false,
                             willClose: () => {
-                                window.location.href = "/html/OrdersForClient.html";
+                                window.location.href = "/html/OrderForClient.html";
                             }
                         });
                     },
