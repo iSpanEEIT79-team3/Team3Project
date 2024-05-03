@@ -145,7 +145,7 @@ public class UserController {
 	
 	@GetMapping("/back")
 	public String processActionGet() {
-		return "redirect:/html/frontPage.html";
+		return "/back";
 	}
 	@GetMapping("/back2")
 	public String processActionGet2() {
