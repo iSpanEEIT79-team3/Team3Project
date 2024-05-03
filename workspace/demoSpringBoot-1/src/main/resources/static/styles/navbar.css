@@ -1,11 +1,14 @@
+/* 鼠標移動導覽列*/
 .nav-item :hover {
   color: rgb(255, 128, 128);
   cursor: pointer;
-  background-color: #101010;
+  background-color: #B15A5E;
+  border-radius: 10px;
 }
 
 .navbar a {
   color: #ff2600a2;
+  border-radius: 10px;
 }
 
 
@@ -39,29 +42,15 @@
   margin: 0;
 }
 
-.dropdown-menu:hover {
-  display: block;
-  color: #101010;
-  background: transparent;
-  /* z-index: 100; */
-}
 
 
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  background-color: #101010;
-  z-index: 1000;
-}
+
+
 
 .dropdown-menu a {
-  color: #BF3F41;
+  color: white;
   ;
   text-decoration: none;
   display: block;
   text-align: left;
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
 }
