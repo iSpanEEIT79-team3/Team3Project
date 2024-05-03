@@ -2,6 +2,7 @@ package com.mmmooonnn.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -20,102 +22,92 @@ import jakarta.persistence.Table;
 @Component
 public class ShopBean {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "productid")
-	private Integer productid;
-	@Column(name = "productimg") 
-	private String productimg;
-	@Column(name = "productname")
-	private String productname;
-	@Column(name = "productprice")
-	private Integer productprice;
-	@Column(name = "productintroduce")
-	private String productintroduce;
-	@Column(name = "producttype")
-	private String producttype;
-	@Column(name = "productquantity")
-	private Integer productquantity;
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JoinColumn(name = "product_id")
+	private Integer productId;
+	@Column(name = "product_name")
+	private String productName;
+	@Column(name = "product_img") 
+	private String productImg;
+	@Column(name = "product_price")
+	private Integer productPrice;
+	@Column(name = "product_introduce")
+	private String productIntroduce;
+	@Column(name = "product_type")
+	private String productType;
 	
-	@OneToMany(mappedBy = "shopBean",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private List<ShopImgBean> shopImgBeanList=new ArrayList<>();
 	
 	public ShopBean() {
 		
 	}
-	
-	
-	public ShopBean(Integer productid, String productimg, String productname, Integer productprice,
-			String productintroduce, String producttype, Integer productquantity) {
+	public ShopBean(Integer productId, String productName, String productImg, Integer productPrice,
+			String productIntroduce, String productType) {
 		super();
-		this.productid = productid;
-		this.productimg = productimg;
-		this.productname = productname;
-		this.productprice = productprice;
-		this.productintroduce = productintroduce;
-		this.producttype = producttype;
-		this.productquantity = productquantity;
+		this.productId = productId;
+		this.productName = productName;
+		this.productImg = productImg;
+		this.productPrice = productPrice;
+		this.productIntroduce = productIntroduce;
+		this.productType = productType;
 	}
 
-	public Integer getProductid() {
-		return productid;
+	public Integer getProductId() {
+		return productId;
 	}
 
-	public void setProductid(Integer productid) {
-		this.productid = productid;
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 
-	public String getProductimg() {
-		return productimg;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setProductimg(String productimg) {
-		this.productimg = productimg;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public String getProductname() {
-		return productname;
+	public String getProductImg() {
+		return productImg;
 	}
 
-	public void setProductname(String productname) {
-		this.productname = productname;
+	public void setProductImg(String productImg) {
+		this.productImg = productImg;
 	}
 
-	public Integer getProductprice() {
-		return productprice;
+	public Integer getProductPrice() {
+		return productPrice;
 	}
 
-	public void setProductprice(Integer productprice) {
-		this.productprice = productprice;
+	public void setProductPrice(Integer productPrice) {
+		this.productPrice = productPrice;
 	}
 
-	public String getProductintroduce() {
-		return productintroduce;
+	public String getProductIntroduce() {
+		return productIntroduce;
 	}
 
-	public void setProductintroduce(String productintroduce) {
-		this.productintroduce = productintroduce;
+	public void setProductIntroduce(String productIntroduce) {
+		this.productIntroduce = productIntroduce;
 	}
 
-	public String getProducttype() {
-		return producttype;
+	public String getProductType() {
+		return productType;
 	}
 
-	public void setProducttype(String producttype) {
-		this.producttype = producttype;
+	public void setProductType(String productType) {
+		this.productType = productType;
 	}
 
-	public Integer getProductquantity() {
-		return productquantity;
-	}
-
-	public void setProductquantity(Integer productquantity) {
-		this.productquantity = productquantity;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "ShopBean [productid=" + productid + ", productimg=" + productimg + ", productname=" + productname
-				+ ", productprice=" + productprice + ", productintroduce=" + productintroduce + ", producttype="
-				+ producttype + ", productquantity=" + productquantity + "]";
+		return "ShopBean [productId=" + productId + ", productName=" + productName + ", productImg=" + productImg
+				+ ", productPrice=" + productPrice + ", productIntroduce=" + productIntroduce + ", productType="
+				+ productType + "]";
 	}
+	
+	
+
 }
