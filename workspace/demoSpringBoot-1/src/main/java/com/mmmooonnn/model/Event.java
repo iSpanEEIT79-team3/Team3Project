@@ -38,27 +38,27 @@ public class Event {
 	private String eventName;
 	
 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="SIGNUP_STARTIME")
 	private Date signupStartime;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="SIGNUP_ENDTIME")
 	private Date signupEndtime;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="EVENT_STARTIME")
 	private Date startTime;
 	
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="EVENT_ENDTIME")
 	private Date endTime;
@@ -83,11 +83,11 @@ public class Event {
 	
 	
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EventPictures> eventPictures = new ArrayList<>();	
-
-	
+//	@JsonManagedReference
+//	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+//	private List<EventPictures> eventPictures = new ArrayList<>();	
+//
+//	
 	
 	public Event() {
 	
