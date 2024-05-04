@@ -38,8 +38,8 @@
                 <td><input type="text" disabled value="${ltBean.date}"></td>
                 <td>照片</td>
                 <td><input type="text" disabled value="${ltBean.picture}"></td>
-                <td>分類</td>
-                <td><input type="text" disabled value="${ltBean.classify}"></td>
+                <td>讚</td>
+                <td><input type="text" disabled value="${ltBean.saveLike}"></td>
             </tr>
         </table>
         <a class="btn" href="LTSelectAll">返回首頁</a>

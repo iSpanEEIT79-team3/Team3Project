@@ -75,7 +75,7 @@
                     <th>使用者ID</th>
                     <th>文章內容</th>
                     <th>日期</th>
-                    <th>分類</th>
+                    <th>讚</th>
                     <th>照片</th>
                 </tr>
                 <c:forEach items="${ltBeans}" var="items">
@@ -85,7 +85,7 @@
                         <td>${items.userId}</td>
                         <td>${items.content}</td>
                         <td>${items.date}</td>
-                        <td>${items.classify}</td>
+                        <td>${items.saveLike}</td>
                         <td><img src="${items.picture}"></td>
                     </tr>
                 </c:forEach>

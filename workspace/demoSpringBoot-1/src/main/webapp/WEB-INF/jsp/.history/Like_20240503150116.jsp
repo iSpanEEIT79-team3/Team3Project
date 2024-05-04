@@ -47,22 +47,22 @@
                             var articleId = button.getAttribute('data-article-id');
                             console.log(userId, ltId);
                             // 向后端发送按赞请求
-//                             fetch('/Likeinsert.controller', {
-//                                 method: 'POST',
-//                                 headers: {
-//                                     'Content-Type': 'application/x-www-form-urlencoded'
-//                                 },
-//                                 body: 'userId=' + userId + 'ltId='
-//                             })
-//                                 .then(response => response.text())
-//                                 .then(result => {
-//                                     // 处理后端的响应，例如刷新页面或者显示提示信息
-//                                     console.log(result);
-//                                 })
-//                                 .catch(error => console.error('Error:', error));
-//                         });
-//                     });
+                            fetch('/Likeinsert.controller', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: 'userId=' + userId + 'ltId='
+                            })
+                                .then(response => response.text())
+                                .then(result => {
+                                    // 处理后端的响应，例如刷新页面或者显示提示信息
+                                    console.log(result);
+                                })
+                                .catch(error => console.error('Error:', error));
+                        });
                     });
+                });
             </script>
         </body>
 

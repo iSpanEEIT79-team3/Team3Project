@@ -57,9 +57,9 @@
 							value="${ltBean.content}">
 						<td>日期</td>
 						<td><input type="hidden" name="date" value="${ltBean.date}"readonly>
-						<td>分類</td>
-						<td><input type="text" name="classify"
-							value="${ltBean.classify}">
+						<td>讚</td>
+						<td><input type="text" name="saveLike"
+							value="${ltBean.saveLike}">
 						<td>照片</td>
 						<td><input type="text" name="picture"
 							value="${ltBean.picture}">

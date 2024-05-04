@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +33,7 @@ import com.mmmooonnn.service.LikeService;
 
 // @MultipartConfig(location =
 // "C:/Spring/workspace/SpringMVC/src/main/webapp/images")
-public class LTController {
+public class LTController2 {
 
 	@Autowired
 	private LTService lt;
@@ -38,7 +41,7 @@ public class LTController {
 	private LikeService lr;
 
 	
-	@GetMapping("/LTSelectById1.controller")
+	@GetMapping("/LTSelectById12.controller")
 	public String findByLTId(@RequestParam("ltId") Integer ltId, Model mm) {
 		LTBean resultBean = lt.findByLTId(ltId);
 		System.out.println(resultBean);
@@ -48,7 +51,7 @@ public class LTController {
 
 	}
 	
-	@GetMapping("/LTSelectById.controller/{ltId}")
+	@GetMapping("/LTSelectById2.controller/{ltId}")
 	public String findByLTIdup(@PathVariable  Integer ltId, Model m) {
 		LTBean resultBean = lt.findByLTId(ltId);
 		System.out.println(resultBean);
@@ -58,18 +61,18 @@ public class LTController {
 
 	}
 
-	@GetMapping("/LTSelectAll")
+	@GetMapping("/LTSelectAll2")
 	public String LTSelectAll(Model m) {
 		List<LTBean> LTList = lt.findLT();
 		m.addAttribute("ltBeans", LTList);
 
-		return "forward:/WEB-INF/jsp/LTSelectAll.jsp";
+		return "forward:/WEB-INF/jsp/LTSelectAll2.jsp";
 
 	}
 	
 
 
-	@PostMapping("/LTinsert.controller")
+	@PostMapping("/LTinsert1.controller")
 	@ResponseBody
 	public ModelAndView InsertLT(@RequestParam("title") String title, @RequestParam("userId") String userId,
 			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
@@ -114,13 +117,13 @@ public class LTController {
 		return mv;
 	}
 
-	@DeleteMapping("/LTDeleteById.controller")
+	@DeleteMapping("/LTDeleteById1.controller")
 	public String deleteBYLTId(@RequestParam("ltId") Integer ltId) {
 		lt.deleteById(ltId);
 		return "redirect:LTSelectAll";
 	}
 
-	@PutMapping("/LTUpdate.controller")
+	@PutMapping("/LTUpdate11.controller")
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
 			@RequestParam("userId") String userId,
 			@RequestParam("date") String date,
@@ -149,7 +152,7 @@ public class LTController {
 	
 	
 	
-	@GetMapping("/findtitle")
+	@GetMapping("/findtitle1")
 	public String findByTitle(@RequestParam("title") String title, Model mm) {
 	    List<LTBean> ltBeans = lt.findByTitle(title);
 	    mm.addAttribute("ltBeans", ltBeans);
@@ -184,5 +187,11 @@ public class LTController {
 //	    return mv;
 //	}
 
+	@GetMapping("LTIndex")
+	public String ltIndex() {
+		
+		return "forward:/WEB-INF/jsp/LTIndex.jsp";
+	}
+	
 	
 }

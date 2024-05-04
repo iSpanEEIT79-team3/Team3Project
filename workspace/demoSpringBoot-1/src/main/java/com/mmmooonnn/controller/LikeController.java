@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.model.LikeBean;
+import com.mmmooonnn.service.LTService;
 import com.mmmooonnn.service.LikeService;
 
 @Controller
@@ -21,6 +23,8 @@ import com.mmmooonnn.service.LikeService;
 public class LikeController {
 	@Autowired
 	private LikeService lr;
+	@Autowired
+	private LTService lt;
 
 	@GetMapping("/LikeSelectById.controller")
 	public String findByLikeId(@RequestParam("likeId") Integer likeId, Model mm) {
@@ -44,21 +48,49 @@ public class LikeController {
 	@ResponseBody
 	public ModelAndView InsertLike(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
 
+		System.out.println("1=" + ltId);
+		System.out.println("2=" + userId);
+
+		LTBean ltBean1 = lt.findByLTId(ltId);
+		System.out.println("ltBean1=" + ltBean1);
+		Integer like = ltBean1.getSaveLike();
+		int num = like + 1;
+		ltBean1.setSaveLike(num);
+		//lt.update(ltBean1);
+
 		LikeBean likeBean = new LikeBean();
 		likeBean.setLtId(ltId);
 		likeBean.setUserId(userId);
+		System.out.println("likebean=" + likeBean);
 
-		  LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
-		    if (existingLike != null) {
-		        return new ModelAndView("redirect:LTSelectAll");
-		    }
+		
+		
+			try {
+				lr.update(likeBean);
+				lt.update(ltBean1);
+			} catch (Exception e) {
+				Integer like1 = ltBean1.getSaveLike();
+				System.out.println(like1);
 
-		   
+				int num1 = like1 - 2 ;
+				ltBean1 .setSaveLike(num1);
+				lt.update(ltBean1);
+				lr.deleteByUserIdAndLtId(userId, ltId);
+			}
 
-		    return new ModelAndView("redirect:LTSelectAll");
-		}
 
 	
+		
+
+//	
+//			  LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
+//			  System.out.println(existingLike);
+//			    if (existingLike != null) {
+//		        return new ModelAndView("redirect:LTSelectAll");
+//		    }
+
+		return new ModelAndView("redirect:LTSelectAll");
+	}
 
 	@DeleteMapping("/LTDeleteByLikeId.controller")
 	public String deleteBYLikeId(@RequestParam("likeId") Integer likeId) {

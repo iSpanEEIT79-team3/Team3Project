@@ -95,6 +95,11 @@ public class LikeService {
 	        LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
 	        return existingLike != null;
 	    }
-	}
 
-
+	    public void deleteByUserIdAndLtId(Integer userId, Integer ltId) {
+	        LikeBean likeBean = lr.findByUserIdAndLtId(userId, ltId);
+	        if (likeBean != null) {
+	            lr.delete(likeBean);
+	        }
+	    }
+}

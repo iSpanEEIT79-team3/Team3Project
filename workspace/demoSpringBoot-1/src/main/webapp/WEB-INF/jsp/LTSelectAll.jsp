@@ -170,7 +170,7 @@ body {
 				<th>使用者ID</th>
 				<th>輸入文章內容</th>
 				<th>日期</th>
-				<th>分類</th>
+				<th>讚</th>
 				<th>照片</th>
 				<th>操作</th>
 			</tr>
@@ -181,7 +181,7 @@ body {
 					<td>${items.userId}</td>
 					<td>${items.content}</td>
 					<td>${items.date}</td>
-					<td>${items.classify}</td>
+					<td>${items.saveLike}</td>
 					<td><img src="${items.picture}"></td>
 					<td>
 						<form method="Get" action="/LTSelectById.controller/${items.ltId}">
@@ -192,7 +192,7 @@ body {
 							<input type="hidden" name="_method" value="DELETE">
 							<button class="delete" type="submit">刪除</button>
 						</form>
-						<form method="post" action="/Likeinsert.controller">
+						<form method="POST" action="/Likeinsert.controller">
 							<input type="hidden" name="userId" value="${items.userId}"> <input
 								type="hidden" name="ltId" value="${items.ltId}">
 							<button class="like" type="submit">讚</button>
