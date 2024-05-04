@@ -21,6 +21,9 @@ CREATE TABLE Photos (
 
 );
 
+
+
+
 insert into EVENT values('Charleston Movement','2024-05-06','2024-05-16','2024-06-15','2024-06-17','Concert with THREE COOL CATS',
 'LINDY','400','Asi幸福站','JFSwing','/images/bubble.jpg');
 insert into EVENT values('Jazz Feet Weekend','2024-06-01','2024-06-20','2024-08-08','2024-08-11','Nathan&Meti&Andante',
@@ -37,7 +40,33 @@ insert into EVENT values('Live Band Foreast','2024-9-18 10:00:00','2024-09-28 12
 select*from EVENT;
 drop table EVENT;
 
+select * from order3
+select * from ORDER_DETAILS
+drop table order3
+drop table ORDER_DETAILS
 
+    CREATE TABLE ORDER3 (
+    ORDER_ID BIGINT PRIMARY KEY ,
+    FK_CONTACTID INT,
+    TOTAL_PRICE INT,
+    PAY_STATUS NVARCHAR(20),
+    SHIPPING_STATUS NVARCHAR(20),
+    ORDER_DATE NVARCHAR(20),
+    SHIPPING_DATE NVARCHAR(20),
+    PAY_DEADLINE NVARCHAR(20),
+    ORDER_NOTE NVARCHAR(100),
+    FOREIGN KEY (FK_CONTACTID) REFERENCES USERCONTACTNEW(CONTACTID)
+);
+CREATE TABLE ORDER_DETAILS (
+     ORDER_DETAIL_ID BIGINT,
+    ORDER_ID BIGINT,
+    PRODUCT_NUM INT,
+    PRODUCT_NAME NVARCHAR(20),
+    PRODUCT_PRICE INT,
+    PRODUCT_QUANTITY INT,
+    ORDER_TOTALPRICE INT,
+     FOREIGN KEY (ORDER_ID) REFERENCES ORDER3(ORDER_ID) 
+);
 
 
 --VIEW跟資料庫內容是不同的
