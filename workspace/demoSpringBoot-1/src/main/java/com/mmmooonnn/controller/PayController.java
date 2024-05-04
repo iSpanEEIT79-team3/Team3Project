@@ -44,6 +44,8 @@ public class PayController {
 	//forLinePay
 	private Orders order;
 	
+	
+	//綠界付款
 	@GetMapping("/PayTest/{id}")
 	@ResponseBody
 	public String test(@PathVariable("id") Long id){
@@ -75,7 +77,9 @@ public class PayController {
         //return form;
 
 	}
-
+	
+	
+	//綠界回傳
 	@PostMapping("/PayResult")
 	public ResponseEntity<String> PayResult(@RequestBody MultiValueMap<String, String> payResult) {
 		System.out.println("payResult:" + payResult + "666666666666666666666666");
@@ -107,7 +111,7 @@ public class PayController {
 		return ResponseEntity.ok().body("1|OK");
 	}
 	
-	
+	//linepay付款
 	@PostMapping("/LinePayTest/{id}")
 	public String LinePayTest(@PathVariable("id") Long id) {
 		order=ordersDao.getById(id);
@@ -166,6 +170,9 @@ public class PayController {
         return null;
       
 	}
+	
+	
+	//Linepay check		
 	@PostMapping("/LinePayCheck/{TranId}")
 	public void LinePayCheck(@PathVariable("TranId") Long TranId) {
 		System.out.println("TranId="+TranId);

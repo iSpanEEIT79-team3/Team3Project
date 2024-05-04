@@ -45,23 +45,24 @@ function addOrderDetail() {
 	let orderDetailDiv = document.createElement('div');
 	orderDetailDiv.className = 'orderDetail';
 	orderDetailDiv.innerHTML = `
-        <label for="productNum">Product Num:</label>
+        <label for="productNum">產品編號:</label>
         <input type="text" class="productNum" name="productNum">
         <br>
         
-        <label for="productName">Product Name:</label>
+        <label for="productName">產品名稱:</label>
         <input type="text" class="productName" name="productName">
         <br>
-        <label for="productPrice">Product Price:</label>
+        <label for="productPrice">商品價格:</label>
         <input type="text" class="productPrice" name="productPrice">
         <br>
-        <label for="productQuantity">Product Quantity:</label>
+        <label for="productQuantity">商品數量:</label>
         <input type="text" class="productQuantity" name="productQuantity">
         <br>
-        <label for="orderTotalPrice">Order Total Price:</label>
+        <label for="orderTotalPrice">商品總價:</label>
         <input type="text" class="orderTotalPrice" name="orderTotalPrice">
         
          <button type="button" onclick="removeOrderDetail(this)">刪除</button>
+         <hr>
     `;
 	orderDetailForm.appendChild(orderDetailDiv);
 
@@ -73,24 +74,22 @@ function submitForm(event) {
 	event.preventDefault();
 
 	let formData = [];
-	let orderDetailForms = document.querySelectorAll('.orderDetailForm'); // 选择所有订单详情表单
-	orderDetailForms.forEach(form => {
+	document.querySelectorAll('.orderDetailForm').forEach(form => {
 		let formDataItem = {};
-		let inputs = form.querySelectorAll('input'); // 选择当前表单中的所有输入框
-		inputs.forEach(input => {
+		form.querySelectorAll('input').forEach(input => {
 			formDataItem[input.name] = input.value;
 		});
-		formData.push(formDataItem); // 将当前订单详情的数据添加到 formData 数组中
+		formData.push(formDataItem);
 	});
-	let orderNote = orderNoteInput.value;
-	let idUsers = idUsersInput.value;
+
 	let data = {
-		"userContactNew": { "contactId": idUsers },
-		"orderNote": orderNote,
+		"userContactNew": { "contactId": idUsersInput.value },
+		"orderNote": orderNoteInput.value,
 		"orderDetails": formData
 	};
-	let json = JSON.stringify(data);
-	console.log(json);
+
+	console.log(data);
+
 	console.log("------------------");
 
 	fetch('http://localhost:8080/orders', {
@@ -98,7 +97,7 @@ function submitForm(event) {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: json
+		body: JSON.stringify(data)
 	})
 		.then(response => {
 			if (!response.ok) {

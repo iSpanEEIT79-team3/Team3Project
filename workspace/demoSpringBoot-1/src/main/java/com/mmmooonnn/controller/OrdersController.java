@@ -43,13 +43,7 @@ public class OrdersController {
 	
 	
 	
-	@GetMapping("/test")
-	public void test(){
-		System.out.println(ordersDao);
-		System.out.println(UsersDao);
-		System.out.println(UsersDao.findAll());
-		}
-
+	//查詢所有訂單
 	@GetMapping("/orders")
 	public List<Orders> Allorders() {
 	    List<Orders> ordersList = ordersDao.findAll();
@@ -58,7 +52,9 @@ public class OrdersController {
 
 	    return ordersList;
 	}
-
+	
+	
+	//新增訂單
 	@PostMapping("/orders")
 	@Transactional
 	public Orders addOrder(@RequestBody Orders order) {
@@ -96,13 +92,17 @@ public class OrdersController {
 		return order;
 
 	}
-
+	
+	
+	//刪除訂單
 	@DeleteMapping("/orders/{id}")
 	@Transactional
 	public void deleteOrder(@PathVariable("id") Long id) {
 		ordersDao.deleteById(id);
 	}
-
+	
+	
+	//更新訂單
 	@PutMapping("/orders/{id}")
 	@Transactional
 	public void updateOrder(@PathVariable("id") Long id, @RequestBody Orders order) {
@@ -115,6 +115,8 @@ public class OrdersController {
 
 	}
 	
+	
+	//透過USERID從session找訂單
 	@GetMapping("/OrdersList")
 	public List<Orders> OrdersList(HttpSession session) {
 		System.out.println("session="+session);

@@ -1,16 +1,6 @@
 /**
  * 
  */
-/**
- * 
- */
-/**
- * 
- */
-
-
-
-
 
 let table = document.createElement('table');
 table.setAttribute('border', '1');
@@ -42,7 +32,7 @@ table.appendChild(tbody);
 document.querySelector('.main').appendChild(table);
 
 //document.body.appendChild(table);
-// 使用fetch從Servlet取得JSON數據
+
 fetch("/OrdersList", {
 	method: "GET", headers: {
 		'Content-Type': 'application/json', 'Cache-Control': 'no-cache'
