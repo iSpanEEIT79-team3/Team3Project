@@ -23,13 +23,7 @@ public class ShopImgService {
 		return shopImgRepos.findAll();
 	}
 	
-    // 獲取所有的 ShopImgBean
-    public List<ShopImgBean> findAllShopImgBeans() {
-        return shopImgRepos.findAll();
-    }
-
-    
-	public List<ShopImgBean> findByProductId(Integer productId) {
+	public List<ShopImgBean> findById(Integer productId) {
 		return shopImgRepos.findByProductId(productId);
 	}
 	
