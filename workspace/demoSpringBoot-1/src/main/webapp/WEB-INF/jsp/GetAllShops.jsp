@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>              
         <!DOCTYPE html>
         <html>
 
@@ -67,7 +67,6 @@
                         <h2>查詢商品編號</h2>
                         <form method="post" action="/findByproductid">
                             輸入欲查詢的商品編號 : <input type="text" name="productId" />
-                            <p>
                                 <input type="submit" value="確定" />
                         </form>
                     </div>
@@ -133,7 +132,12 @@
                         <td style="width:100px;">${shop.productName}</td>
                         <td style="width:125px;">${shop.productIntroduce}</td>
                         <td style="width:75px;">${shop.productPrice}</td>
-                        <td style="width:75px;"></td>
+                        <td style="width:75px;">
+                        	<form method="post" action="/findByproductid">
+						    	<input type="hidden" name="productId" value="${shop.productId}" />
+						    	<button type="submit">查詢庫存</button>
+							</form>
+                        </td>
                         <td style="width:75px;">${shop.productType}</td>
                         <td><button onclick="editRow(${shop.productId})">修改</button></td>
                         <td><button onclick="deleteProduct(${shop.productId})">刪除</button></td>
@@ -169,6 +173,25 @@
                 </table>
                </c:if>
 <!-- /庫存 -->
+<!-- 圖片 -->
+				<c:if test="${fn:length(shops) == 1}">
+                <table class="tablecontainer" border="1">       
+             		<th>商品編號</th>
+                    <th>圖片</th> 
+                    <th>修改</th> 
+                    <th>刪除</th> 
+                	<c:forEach items="${shopImgs}" var="shop" varStatus="s">
+                            <input type="hidden" name="productId" value="${shop.productId}" />
+                    <tr class="row" data-no="ShopImg">
+                    	<td>${shop.productId}</td>
+                        <td style="width:75px;">${shop.productImages}</td>
+                        <td><button onclick="editQuan(${shop.productId})">修改</button></td>
+                        <td><button onclick="deleteProduct(${shop.productId})">刪除</button></td>
+                    </tr>
+                    </c:forEach>
+                </table>
+               </c:if>
+<!-- /圖片 -->
                 <br>
 				<c:if test="${fn:length(shops) != 1}">
                 <button onclick="addProductRow()">新增商品(未實作)</button>
@@ -213,7 +236,6 @@
                 		productName: $('tr[data-no="' + productId + '"] td:eq(2)').text().trim(),
                         productIntroduce: $('tr[data-no="' + productId + '"] td:eq(3)').text().trim(),
                         productPrice: $('tr[data-no="' + productId + '"] td:eq(4)').text().trim(),
-                        productquantity: $('tr[data-no="' + productId + '"] td:eq(5)').text().trim(),
                         productType: $('tr[data-no="' + productId + '"] td:eq(6)').text().trim()
                 };
                 // 創建下拉式選單的 HTML 字串
@@ -226,7 +248,6 @@
                 $('tr[data-no="' + productId + '"] td:eq(2)').html('<input type="text" style="width:75px;" value="' + originalValues[productId].productName + '" name="productName">');
                 $('tr[data-no="' + productId + '"] td:eq(3)').html('<input type="text" style="width:100px;" value="' + originalValues[productId].productIntroduce + '" name="productIntroduce">');
                 $('tr[data-no="' + productId + '"] td:eq(4)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].productPrice + '" name="productPrice">');
-                $('tr[data-no="' + productId + '"] td:eq(5)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].productquantity + '" name="productquantity">');
                 $('tr[data-no="' + productId + '"] td:eq(6)').html(selectHTML);
                 //刪除 修改和刪除按鈕
                 $('tr[data-no="' + productId + '"] td:last-child').remove();
@@ -268,7 +289,6 @@
                 var productName = $('tr[data-no="' + productId + '"] input[name="productName"]').val();
                 var productIntroduce = $('tr[data-no="' + productId + '"] input[name="productIntroduce"]').val();
                 var productPrice = $('tr[data-no="' + productId + '"] input[name="productPrice"]').val();
-                var productquantity = $('tr[data-no="' + productId + '"] input[name="productquantity"]').val();
                 var productType = $('tr[data-no="' + productId + '"] select[name="productType"]').val();
 
                 $.ajax({
@@ -279,7 +299,6 @@
                         productName: productName,
                         productIntroduce: productIntroduce,
                         productPrice: productPrice,
-                        productquantity: productquantity,
                         productType: productType
                     },
                     success: function (response) {
@@ -323,11 +342,10 @@
 //還原表格 修改商品 >> 按下確認 (應該可以合併去updateRow的function)
             function restoreRow(productId) {
                 // 將表格還原為原始狀態
-                $('tr[data-no="' + productId + '"] td:eq(1)').html($('tr[data-no="' + productId + '"] input[name="productName"]').val());
-                $('tr[data-no="' + productId + '"] td:eq(2)').html($('tr[data-no="' + productId + '"] input[name="productIntroduce"]').val());
-                $('tr[data-no="' + productId + '"] td:eq(3)').html($('tr[data-no="' + productId + '"] input[name="productPrice"]').val());
-                $('tr[data-no="' + productId + '"] td:eq(4)').html($('tr[data-no="' + productId + '"] input[name="productquantity"]').val());
-                $('tr[data-no="' + productId + '"] td:eq(5)').html($('tr[data-no="' + productId + '"] select[name="productType"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(2)').html($('tr[data-no="' + productId + '"] input[name="productName"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(3)').html($('tr[data-no="' + productId + '"] input[name="productIntroduce"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(4)').html($('tr[data-no="' + productId + '"] input[name="productPrice"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(6)').html($('tr[data-no="' + productId + '"] select[name="productType"]').val());
 
 
                 // 移除修改按鈕和刪除按鈕
@@ -340,11 +358,10 @@
             }
 //還原表格 修改商品 >> 按下取消
             function cancelrestoreRow(productId) {
-                $('tr[data-no="' + productId + '"] td:eq(1)').html(originalValues[productId].productName);
-                $('tr[data-no="' + productId + '"] td:eq(2)').html(originalValues[productId].productIntroduce);
-                $('tr[data-no="' + productId + '"] td:eq(3)').html(originalValues[productId].productPrice);
-                $('tr[data-no="' + productId + '"] td:eq(4)').html(originalValues[productId].productquantity);
-                $('tr[data-no="' + productId + '"] td:eq(5)').html(originalValues[productId].productType);
+                $('tr[data-no="' + productId + '"] td:eq(2)').html(originalValues[productId].productName);
+                $('tr[data-no="' + productId + '"] td:eq(3)').html(originalValues[productId].productIntroduce);
+                $('tr[data-no="' + productId + '"] td:eq(4)').html(originalValues[productId].productPrice);
+                $('tr[data-no="' + productId + '"] td:eq(6)').html(originalValues[productId].productType);
 
                 // 显示修改按钮和删除按钮
                 $('tr[data-no="' + productId + '"] td:last-child').remove();
