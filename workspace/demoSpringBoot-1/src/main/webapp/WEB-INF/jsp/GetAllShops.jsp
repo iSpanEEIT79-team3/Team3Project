@@ -122,7 +122,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <div class="upload-container">
-                                            <input type="file" name="productImg" />
+                                            <input type="file" name="productImg"/>
                                             <button onclick="uploadphoto(${shop.productId})">上傳</button>
                                         </div>
                                     </c:otherwise>
@@ -172,24 +172,33 @@
                     </c:forEach>
                 </table>
                </c:if>
+               
 <!-- /庫存 -->
 <!-- 圖片 -->
+
+<!-- 刪除function要改 -->
+<!-- 上傳圖片 多圖script controller-->
+
+
+
 				<c:if test="${fn:length(shops) == 1}">
                 <table class="tablecontainer" border="1">       
              		<th>商品編號</th>
                     <th>圖片</th> 
-                    <th>修改</th> 
                     <th>刪除</th> 
                 	<c:forEach items="${shopImgs}" var="shop" varStatus="s">
                             <input type="hidden" name="productId" value="${shop.productId}" />
                     <tr class="row" data-no="ShopImg">
                     	<td>${shop.productId}</td>
                         <td style="width:75px;">${shop.productImages}</td>
-                        <td><button onclick="editQuan(${shop.productId})">修改</button></td>
                         <td><button onclick="deleteProduct(${shop.productId})">刪除</button></td>
                     </tr>
                     </c:forEach>
                 </table>
+                    <div class="upload-container">
+                    	<input type="file" name="productImg" multiple/>
+                    	<button onclick="uploadphoto(${shop.productId})">上傳</button>
+                    </div>
                </c:if>
 <!-- /圖片 -->
                 <br>

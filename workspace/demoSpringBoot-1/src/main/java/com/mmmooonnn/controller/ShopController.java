@@ -34,8 +34,16 @@ import java.util.Map;
 
 @Controller
 public class ShopController {
-
-    
+//getAll 			get123 re.GetAllShops
+//getAllShop		get123 re.Shops
+//findByproductid
+//findByproductname
+//findByproducttype
+//
+//
+//
+//
+//
     @Autowired
     private ShopService shopService;
     
@@ -46,7 +54,6 @@ public class ShopController {
     private ShopQuantityService shopQuanService;
 
 //搜尋全部
-
     @GetMapping("/getAll")
     public String getAll(Model model) {
     	List<ShopBean> shops = shopService.findAll();
@@ -77,7 +84,6 @@ public class ShopController {
         model.addAttribute("shops", shops);
         model.addAttribute("shopImgs", shopImgs);
         model.addAttribute("shopQuan", shopQuan);
-        model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
 //用商品名name搜尋   
@@ -116,6 +122,8 @@ public class ShopController {
     	    productId = shop.getProductId();
     	    count++;
     	}
+    	
+    	//判斷是否只有一筆 要在前端輸出所有資訊的 有多筆就只要丟商品資訊
     	if(count==1) {
     		shopImgs = shopImgService.findById(productId);
     		shopQuan = shopQuanService.findById(productId);
@@ -176,7 +184,16 @@ public class ShopController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未找到商品");
     }
 }
-
+    @GetMapping("/Shopproduct/{productId}")
+    public String FindShopById(Model model,@RequestParam(value = "productId", required = false) Integer productId) {
+    	List<ShopBean> shops = shopService.findById(productId);
+    	List<ShopImgBean> shopImgs = shopImgService.findById(productId);
+    	List<ShopQuantityBean> shopQuan = shopQuanService.findById(productId);
+        model.addAttribute("shops", shops);
+        model.addAttribute("shopImgs", shopImgs);
+        model.addAttribute("shopQuan", shopQuan);
+        return "forward:/WEB-INF/jsp/GetAllShops.jsp";
+    }
     
     
     @PostMapping("/uploadphoto")

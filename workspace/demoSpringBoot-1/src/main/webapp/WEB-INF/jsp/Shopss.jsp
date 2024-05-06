@@ -10,51 +10,6 @@
     <style>
         .main {
             min-height: 55vh;
-
-        }
-       .product-container {
-            display: flex;
-            flex-wrap: wrap;
-		    justify-content: center; /* 將所有商品置中對齊 */
-		    margin: 0 auto; /* 將整個商品容器置中 */
-        }
-        .product {
-            width: 20%;
-            border: 1px solid #ccc;
-            padding: 30px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-                /* 基本样式 */
-        .ulType {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            text-align: center;
-        }
-        li {
-            /*float: left;*/
-            display: inline-block;
-        }
-        li + li {
-            border-left: 1px solid gray; /* 添加右边框作为分隔符 */
-            margin-left: -9px; /* 间距 */
-        }
-
-        li a {
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 10px 30px;
-            text-decoration: none;
-            position: relative;
-        }
-
-        li a:hover {
-            background-color: #f0ede5;
-        }
        
     </style>
 	<!-- Bootstrap CSS -->
@@ -88,37 +43,7 @@
     <!-- <section> -->
     <div class="main">    
  
-<div class="ulType">  
-	<ul>
-    <li><a href="#outerwear">外套</a></li>
-    <li><a href="#clothing">衣服</a></li>
-    <li><a href="#pants">褲子</a></li>
-	</ul>
-</div> 
 
-<!-- 確定分類數量 --><!-- controller找分類 return shop.jsp -->
-<!-- 新jsp 放詳細資料 -->
-
-
-
-
-
-
-
-
-
-     <div class="product-container">
-        <c:forEach items="${shops}" var="shop">
-            <div class="product">
-            <a href="<c:url value='/Shopproduct/${shop.productId}'/>">
-                <img src="${shop.productImg}" alt="${shop.productName} Image">
-                <p>${shop.productName}</p>
-            </a>
-                <p>NT$ ${shop.productPrice}</p>
-                <!-- 其他商品相關資訊 -->
-            </div>
-        </c:forEach>
-    </div>
         
 
     </div>
