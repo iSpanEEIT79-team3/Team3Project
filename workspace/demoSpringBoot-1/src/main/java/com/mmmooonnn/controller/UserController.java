@@ -77,20 +77,20 @@ public class UserController {
 					usersBean.setUserContact(user);
 					usersBean.setPermission(0);
 					usersBean.setThirdPartyLogin(1);
-					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					modelAndView.setViewName("redirect:/html/frontPage.html");
 					uService2.insert(usersBean);
 					return modelAndView;
 				}else {
 					UsersBeanNew usersBean = uService2.findByEmail(email);
 					session.setAttribute("usersBean", usersBean);
-					modelAndView.setViewName("redirect:/html/OrdersForClient.html");
+					modelAndView.setViewName("redirect:/html/frontPage.html");
 					return modelAndView;
 				}
 					
 			}else {
 				System.out.println("Invalid ID token");
 				
-				modelAndView.setViewName("redirect:/index.html");
+				modelAndView.setViewName("redirect:/html/UserLoginTest.html");
 				return modelAndView;
 			}
 		} catch (GeneralSecurityException e) {
@@ -98,7 +98,7 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		modelAndView.setViewName("redirect:/index.html");
+		modelAndView.setViewName("redirect:/html/UserLoginTest.html");
 		return modelAndView;
 	}
 	
@@ -131,6 +131,11 @@ public class UserController {
 		return modelAndView;
 	}
 	
+	//前端點選會員登入
+	@GetMapping("/UserLogin")
+	public String processActionLogin() {
+		return "redirect:/index.html";
+	}
 	
 	//搜尋全部
 	@GetMapping("/GetAllUser")
