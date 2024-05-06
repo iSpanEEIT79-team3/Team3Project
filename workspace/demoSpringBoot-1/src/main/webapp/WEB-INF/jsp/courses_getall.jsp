@@ -7,6 +7,11 @@
 			<meta charset="UTF-8">
 			<title>所有課程</title>
 			<style>
+			    .course-image {
+        max-width: 88px; /* Set the maximum width */
+        max-height: 88px; /* Set the maximum height */
+        /* Add other styles as needed */
+    }
 				lt-container {
 					overflow: auto;
 					/* 清除浮動 */
@@ -110,15 +115,17 @@
                 <td>${course.courseName}</td>
                 <td>${course.description}</td>
                 <td>${course.courseType}</td>
-								<td>${course.startDate}</td>
-								<td>${course.endDate}</td>
-								<td>${course.deadlineDate}</td>
+				<td>${course.startDate}</td>
+				<td>${course.endDate}</td>
+				<td>${course.deadlineDate}</td>
                 <td>${course.location}</td>
                 <td>${course.price}</td>
                 <td>${course.teacherName}</td>
                 <td>${course.teacherContact}</td>
                 <td>${course.enrollmentCount}</td>
                 <td>${course.maxCapacity}</td>
+				<td><img src="${course.courseImage}" style="width: 100px; height: 100px;"></td>
+				
 
 								<td><a href="/GetCourseById/${course.productId}"><button>修改</button></a></td>
 

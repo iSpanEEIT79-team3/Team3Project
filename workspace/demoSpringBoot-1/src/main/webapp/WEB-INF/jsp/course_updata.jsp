@@ -31,7 +31,7 @@
     <body style="background-color: #fdf5e6;">
     <div>
         <h1>更新課程</h1>
-    	<form method="post" action="${pageContext.request.contextPath}/upd">
+    	<form method="post" action="${pageContext.request.contextPath}/upd" enctype="multipart/form-data">
 <table>
     <tr>
         <td>產品ID:</td>
@@ -39,7 +39,7 @@
     </tr>
     <tr>
         <td>用戶ID:</td>
-        <td><input type="text" name="idUser" value="${course.idUser}" ></td>
+        <td><input  style="background-color: #7B7B7B; type="text" name="idUser" value="${course.idUser}"  readonly name="idUser" ></td>
     </tr>
     <tr>
         <td>課程名稱:</td>
@@ -91,7 +91,7 @@
     </tr>
     <tr>
         <td>課程圖片:</td>
-        <td><input type="text" name="courseImage" value="${course.courseImage}"></td>
+       <td><input type="file" name="courseImage"></td>
     </tr>
 </table>
             <input type="submit" value="Update Course">

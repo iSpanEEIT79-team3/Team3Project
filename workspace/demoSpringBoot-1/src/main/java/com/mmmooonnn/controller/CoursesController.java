@@ -1,5 +1,7 @@
 package com.mmmooonnn.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.CoursesBean;
@@ -66,27 +69,70 @@ public class CoursesController {
         return "forward:WEB-INF/jsp/course_insert.jsp";
     }
 
-	@PostMapping("/insert")
-	public String Insert(
-			 @RequestParam("idUser") int idUser,
-			 @RequestParam("productId") int productId,
-		      @RequestParam("courseName") String courseName,
-		      @RequestParam("description") String description,
-		      @RequestParam("courseType") String courseType,
-		      @RequestParam("startDate") Date startDate,
-		      @RequestParam("endDate") Date endDate,
-		      @RequestParam("deadlineDate") Date deadlineDate,
-		      @RequestParam("location") String location,
-		      @RequestParam("price") double price,
-		      @RequestParam("teacherName") String teacherName,
-		      @RequestParam("teacherContact") String teacherContact,
-		      @RequestParam("enrollmentCount") int enrollmentCount,
-		      @RequestParam("maxCapacity") int maxCapacity,
-		      @RequestParam("courseImage") String courseImage) {
-	    CoursesBean coursesBean = new CoursesBean(idUser, productId, courseName, description, courseType, startDate, endDate, deadlineDate, location, price, teacherName, teacherContact, enrollmentCount, maxCapacity, courseImage);
-		cService.insert(coursesBean);
-		return "redirect:GetAllCourses";
-	}
+    @PostMapping("/insert")
+    public String Insert(
+        @RequestParam("idUser") int idUser,
+        @RequestParam("productId") int productId,
+        @RequestParam("courseName") String courseName,
+        @RequestParam("description") String description,
+        @RequestParam("courseType") String courseType,
+        @RequestParam("startDate") Date startDate,
+        @RequestParam("endDate") Date endDate,
+        @RequestParam("deadlineDate") Date deadlineDate,
+        @RequestParam("location") String location,
+        @RequestParam("price") double price,
+        @RequestParam("teacherName") String teacherName,
+        @RequestParam("teacherContact") String teacherContact,
+        @RequestParam("enrollmentCount") int enrollmentCount,
+        @RequestParam("maxCapacity") int maxCapacity,
+        @RequestParam("courseImage") MultipartFile courseImage) {
+
+        CoursesBean coursesBean = new CoursesBean();
+
+        // 统一的图片保存路径，与LTController使用相同的路径
+        String imagesDir = "C:\\Team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
+        
+        System.out.println(courseImage);
+        if (!courseImage.isEmpty()) {
+            try {
+                // 生成文件名和保存路径
+                String filename = courseImage.getOriginalFilename();
+                File imagePath = new File(imagesDir, filename);
+
+                // 保存文件到指定路径
+                courseImage.transferTo(imagePath);
+
+                // 设置课程图片的引用路径
+                coursesBean.setCourseImage("/images/" + filename);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // 异常处理逻辑，可以进行日志记录、错误反馈等
+            }
+        }
+
+        // 设置其他属性
+        coursesBean.setIdUser(idUser);
+        coursesBean.setProductId(productId);
+        coursesBean.setCourseName(courseName);
+        coursesBean.setDescription(description);
+        coursesBean.setCourseType(courseType);
+        coursesBean.setStartDate(startDate);
+        coursesBean.setEndDate(endDate);
+        coursesBean.setDeadlineDate(deadlineDate);
+        coursesBean.setLocation(location);
+        coursesBean.setPrice(price);
+        coursesBean.setTeacherName(teacherName);
+        coursesBean.setTeacherContact(teacherContact);
+        coursesBean.setEnrollmentCount(enrollmentCount);
+        coursesBean.setMaxCapacity(maxCapacity);
+
+       System.out.println(coursesBean);
+        // 插入课程信息到数据库
+        cService.insert(coursesBean);
+
+        return "redirect:GetAllCourses";
+    }
+
 	
 
 
