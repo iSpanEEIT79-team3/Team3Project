@@ -31,6 +31,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.mmmooonnn.model.UserContactNew;
 import com.mmmooonnn.model.UsersBeanNew;
+import com.mmmooonnn.service.MailService;
 import com.mmmooonnn.service.UsersService;
 
 import jakarta.servlet.http.HttpSession;
@@ -48,6 +49,22 @@ public class UserController {
 	
 	@Autowired
 	private ResourceLoader resourceLoader;
+	
+	@Autowired
+	private MailService mailService;
+	
+	//忘記密碼
+	@GetMapping("mailTest")
+	public void processActionMail() {
+		String email = "ash1235ash@gmail.com";
+		String subject = "test";
+		String content = "你好";
+		
+		
+		mailService.sendPlainText(email, subject, content);
+		System.out.println("email send ok");
+		
+	}
 	
 	//google login
 	@PostMapping("/googleLogin1")
