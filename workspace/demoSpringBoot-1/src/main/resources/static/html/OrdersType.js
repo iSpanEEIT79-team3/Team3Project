@@ -1,6 +1,9 @@
 /**
  * 
  */
+/**
+ * 
+ */
 
 let table = document.createElement('table');
 table.setAttribute('border', '1');
@@ -92,3 +95,7 @@ function LinePayNow(orderId) {
     window.location.href = url;
     })
 }
+
+
+
+

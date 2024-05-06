@@ -50,22 +50,35 @@ body {
 	border-radius: 50%
 }
 
-.button-group {
+
+
+.button-status {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
-.button-group button {
+
+.button-status button:hover {
+    background-color: #003740; /* 悬停时的背景颜色 */
+}
+
+.button-status  button {
 	background-color: #B15A5E;
 	color: white;
 	border: none;
 	padding: 10px 20px;
 	margin-right: 10px;
 	cursor: pointer;
+	 border-radius: 20px;
 }
 
-.button-group button.active {
-	background-color: #003740;
+
+
+.formbutton {
+	background-color: #DA9679;
+	color: white;
+	cursor: pointer;
+	border-radius: 10px;
 }
 
 table {
