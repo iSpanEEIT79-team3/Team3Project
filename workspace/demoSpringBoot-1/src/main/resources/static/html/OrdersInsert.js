@@ -34,9 +34,12 @@ parentForm.appendChild(orderNoteInput);
 parentForm.appendChild(submitButton);
 
 // 将父表单添加到页面中
+//document.body.appendChild(parentForm);
+// 获取 ID 为 "OrderInsert" 的容器元素
+let container = document.getElementById("OrderInsert");
 
-document.body.appendChild(parentForm);
-
+// 将 parentForm 添加为容器的子元素
+container.appendChild(parentForm);
 // 添加订单详情
 function addOrderDetail() {
 	let orderDetailForm = document.createElement('form');
