@@ -8,9 +8,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface MatchesRepository extends JpaRepository<MatchesBean, Integer> {
 
-    @Query("SELECT u FROM UsersBeanNew u WHERE u.userId NOT IN "
-    		+ "(SELECT m.user2id FROM MatchesBean m WHERE m.user1id = :userid) AND u.userId <> :userid")
-    List<UsersBeanNew> findMatchesByStatus(@Param("userid") Integer userid);
+   
+	
+//	@Query(value = ("SELECT * FROM matches "))
+	
+	
+	
+	
 }
 
 //	@Query("SELECT NEW com.mmmooonnn.model.MatchUserDetailsDTO("

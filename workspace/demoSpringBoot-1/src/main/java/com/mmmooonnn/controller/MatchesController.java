@@ -15,6 +15,8 @@ import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.MatchesService;
 import com.mmmooonnn.service.UsersService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 //@RequestMapping("/api/matches")
 public class MatchesController {
@@ -30,8 +32,10 @@ public class MatchesController {
 
 //	@RequestMapping("/index")
 	@GetMapping("/matchIndex")
-	public String index(@RequestParam Integer userid, Model model) {
-		 List<UsersBeanNew> matches = matchesService.getMatchesByStatus(userid);
+	public String index(HttpSession session, Model model) {
+		UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+		System.out.println(user);
+		 List<UsersBeanNew> matches = matchesService.getMatchesByStatus(user.getUserId());
 		 System.out.println(matches);
 	        model.addAttribute("matches", matches);
 		return "forward:/WEB-INF/jsp/test.jsp";

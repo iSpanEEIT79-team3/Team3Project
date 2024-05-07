@@ -37,8 +37,7 @@ FROM sys.foreign_keys
 WHERE referenced_object_id = OBJECT_ID('ORDER3');
 
 --新增後端帳戶
-INSERT INTO USERCONTACTNEW (USERNAME, USEREMAIL, USERPHONE, USERADDRESS)
-VALUES 
+
     ('王大明', 'john.doe@example.com', '1234567890', '台北市中正區忠孝西路一段1號'),
     ('林小美', 'jane.smith@example.com', '0987654321', '新北市板橋區文化路2段2號'),
     ('張小偉', 'michael.johnson@example.com', '1112223333', '台中市西區中美街3號'),
