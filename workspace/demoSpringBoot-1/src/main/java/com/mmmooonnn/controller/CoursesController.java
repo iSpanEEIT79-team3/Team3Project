@@ -72,7 +72,7 @@ public class CoursesController {
     @PostMapping("/insert")
     public String Insert(
         @RequestParam("idUser") int idUser,
-        @RequestParam("productId") int productId,
+        //@RequestParam("productId") int productId,
         @RequestParam("courseName") String courseName,
         @RequestParam("description") String description,
         @RequestParam("courseType") String courseType,
@@ -89,30 +89,23 @@ public class CoursesController {
 
         CoursesBean coursesBean = new CoursesBean();
 
-        // 统一的图片保存路径，与LTController使用相同的路径
-        String imagesDir = "C:\\Team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
-        
-        System.out.println(courseImage);
-        if (!courseImage.isEmpty()) {
+
+        // 处理文件上传
+        if (courseImage != null && !courseImage.isEmpty()) {
             try {
-                // 生成文件名和保存路径
-                String filename = courseImage.getOriginalFilename();
+                String imagesDir = "C:\\Team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
+                String filename = System.currentTimeMillis() + "_" + courseImage.getOriginalFilename();
                 File imagePath = new File(imagesDir, filename);
-
-                // 保存文件到指定路径
                 courseImage.transferTo(imagePath);
-
-                // 设置课程图片的引用路径
-                coursesBean.setCourseImage("/images/" + filename);
+                coursesBean.setCourseImage("/images/" + filename); // 设置文件名到课程对象
             } catch (IOException e) {
                 e.printStackTrace();
-                // 异常处理逻辑，可以进行日志记录、错误反馈等
+                return "redirect:/error"; // 重定向到错误页面
             }
         }
-
         // 设置其他属性
         coursesBean.setIdUser(idUser);
-        coursesBean.setProductId(productId);
+        //coursesBean.setProductId(productId);
         coursesBean.setCourseName(courseName);
         coursesBean.setDescription(description);
         coursesBean.setCourseType(courseType);
@@ -125,6 +118,7 @@ public class CoursesController {
         coursesBean.setTeacherContact(teacherContact);
         coursesBean.setEnrollmentCount(enrollmentCount);
         coursesBean.setMaxCapacity(maxCapacity);
+
 
        System.out.println(coursesBean);
         // 插入课程信息到数据库

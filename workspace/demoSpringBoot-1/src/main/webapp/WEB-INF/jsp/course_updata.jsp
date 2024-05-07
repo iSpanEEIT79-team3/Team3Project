@@ -12,7 +12,6 @@
         margin: 5px; /* Space around elements */
         cursor: pointer; /* Makes it clear that the element is clickable */
         font-size: 16px; /* Text size within the elements */
-        
     }
 
 
@@ -31,7 +30,7 @@
     <body style="background-color: #fdf5e6;">
     <div>
         <h1>更新課程</h1>
-    	<form method="post" action="${pageContext.request.contextPath}/upd" enctype="multipart/form-data">
+    	<form method="post" action="${pageContext.request.contextPath}/upd">
 <table>
     <tr>
         <td>產品ID:</td>
@@ -39,7 +38,7 @@
     </tr>
     <tr>
         <td>用戶ID:</td>
-        <td><input  style="background-color: #7B7B7B; type="text" name="idUser" value="${course.idUser}"  readonly name="idUser" ></td>
+        <td><input type="text" name="idUser" value="${course.idUser}" ></td>
     </tr>
     <tr>
         <td>課程名稱:</td>
@@ -55,15 +54,15 @@
     </tr>
     <tr>
         <td>開始日期:</td>
-        <td><input type="date" name="startDate" value="${course.startDate}"></td>
+        <td><input type="text" name="startDate" value="${course.startDate}"></td>
     </tr>
     <tr>
         <td>結束日期:</td>
-        <td><input type="date" name="endDate" value="${course.endDate}"></td>
+        <td><input type="text" name="endDate" value="${course.endDate}"></td>
     </tr>
     <tr>
         <td>截止日期:</td>
-        <td><input type="date" name="deadlineDate" value="${course.deadlineDate}"></td>
+        <td><input type="text" name="deadlineDate" value="${course.deadlineDate}"></td>
     </tr>
     <tr>
         <td>地點:</td>
@@ -91,8 +90,12 @@
     </tr>
     <tr>
         <td>課程圖片:</td>
-       <td><input type="file" name="courseImage"></td>
-    </tr>
+    <td>
+        <!-- 显示当前课程图片 -->
+        <img src="${course.courseImage}" width="100" height="100" alt="Course Image">
+        <!-- 文件选择输入框 -->
+        <input type="file" name="courseImage">
+    </td>
 </table>
             <input type="submit" value="Update Course">
         </form>
