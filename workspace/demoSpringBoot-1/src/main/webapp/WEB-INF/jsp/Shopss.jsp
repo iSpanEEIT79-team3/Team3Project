@@ -43,7 +43,14 @@
     <!-- <section> -->
     <div class="main">    
  
-
+	<p>這邊是shopss.jsp</p>
+	
+	<c:forEach items="${shops}" var="shop">
+	    <td style="width:100px;">${shop.productName}</td>
+	    <td style="width:125px;">${shop.productIntroduce}</td>
+	    <td style="width:75px;">${shop.productPrice}</td>
+	    <td style="width:75px;">${shop.productType}</td>
+    </c:forEach>
         
 
     </div>
@@ -52,7 +59,7 @@
 	        </script>
     <script>
       
-        fetch('html/basic.html')
+        fetch('../html/basic.html')
             .then(response => response.text())
             .then(html => {
                 document.body.innerHTML += html;

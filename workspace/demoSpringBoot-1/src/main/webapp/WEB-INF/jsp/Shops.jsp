@@ -19,7 +19,7 @@
 		    margin: 0 auto; /* 將整個商品容器置中 */
         }
         .product {
-            width: 20%;
+            width: 21%;
             border: 1px solid #ccc;
             padding: 30px;
             margin-bottom: 20px;

@@ -24,11 +24,11 @@
                 }
 
                 .confirm-button {
-                    align="center"
+                    text-align: center;
                 }
 
                 .upload-container {
-                    margin-left: 80px;
+                    margin: 0 0 0 80px;
                 }
 
                 .container {
@@ -59,7 +59,7 @@
 
         <body style="background-color:#fdf5e6">
 
-                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <div align="center">
                     <div class="leftcontainer"></div>
                 <div class="container">
@@ -105,8 +105,12 @@
                         <th>商品名稱</th>
                         <th>詳細介紹</th>
                         <th>價格</th>
-                        <th>庫存</th>
                         <th>分類</th>
+                        <th>xsSize</th>
+	                    <th>sSize</th>
+	                    <th>mSize</th>
+	                    <th>lSize</th> 
+	                    <th>xlSize</th>
                         <th>修改</th>
                         <th>刪除</th>
 						
@@ -132,13 +136,16 @@
                         <td style="width:100px;">${shop.productName}</td>
                         <td style="width:125px;">${shop.productIntroduce}</td>
                         <td style="width:75px;">${shop.productPrice}</td>
-                        <td style="width:75px;">
-                        	<form method="post" action="/findByproductid">
-						    	<input type="hidden" name="productId" value="${shop.productId}" />
-						    	<button type="submit">查詢庫存</button>
-							</form>
-                        </td>
                         <td style="width:75px;">${shop.productType}</td>
+                        <c:forEach items="${shopQuan}" var="shopQuan" varStatus="s">
+	                        <c:if test="${shop.productId == shopQuan.productId}">
+		                        <td style="width:75px;">${shopQuan.xsSize}</td>
+		                        <td style="width:75px;">${shopQuan.sSize}</td>
+		                        <td style="width:75px;">${shopQuan.mSize}</td>
+		                        <td style="width:75px;">${shopQuan.lSize}</td>
+		                        <td style="width:75px;">${shopQuan.xlSize}</td>
+	                        </c:if>
+                        </c:forEach>
                         <td><button onclick="editRow(${shop.productId})">修改</button></td>
                         <td><button onclick="deleteProduct(${shop.productId})">刪除</button></td>
                         <c:set var="count" value="${s.count}" />
@@ -146,34 +153,6 @@
                     </c:forEach>
                 </table>
 <!-- /商品 -->               
-<!-- 庫存 -->             
-				<c:if test="${fn:length(shops) == 1}">
-                <table class="tablecontainer" border="1">       
-             		<th>商品編號</th>
-                    <th>xsSize</th>
-                    <th>sSize</th>
-                    <th>mSize</th>
-                    <th>lSize</th> 
-                    <th>xlSize</th> 
-                    <th>修改</th> 
-                    <th>刪除</th> 
-                	<c:forEach items="${shopQuan}" var="shop" varStatus="s">
-                            <input type="hidden" name="productId" value="${shop.productId}" />
-                    <tr class="row" data-no="Quan">
-                    	<td>${shop.productId}</td>
-                        <td style="width:75px;">${shop.xsSize}</td>
-                        <td style="width:75px;">${shop.sSize}</td>
-                        <td style="width:75px;">${shop.mSize}</td>
-                        <td style="width:75px;">${shop.lSize}</td>
-                        <td style="width:75px;">${shop.xlSize}</td>
-                        <td><button onclick="editQuan(${shop.productId})">修改</button></td>
-                        <td><button onclick="deleteProduct(${shop.productId})">刪除</button></td>
-                    </tr>
-                    </c:forEach>
-                </table>
-               </c:if>
-               
-<!-- /庫存 -->
 <!-- 圖片 -->
 
 <!-- 刪除function要改 -->
@@ -211,8 +190,9 @@
                 </form>
             </div>
         </body>
-        <script>
-
+        
+        
+<script>
 //刪除
             function deleteProduct(productId) {
             	//跳出對話框
@@ -245,7 +225,12 @@
                 		productName: $('tr[data-no="' + productId + '"] td:eq(2)').text().trim(),
                         productIntroduce: $('tr[data-no="' + productId + '"] td:eq(3)').text().trim(),
                         productPrice: $('tr[data-no="' + productId + '"] td:eq(4)').text().trim(),
-                        productType: $('tr[data-no="' + productId + '"] td:eq(6)').text().trim()
+                        productType: $('tr[data-no="' + productId + '"] td:eq(5)').text().trim(),
+                        xsSize: $('tr[data-no="' + productId + '"] td:eq(6)').text().trim(),
+                        sSize: $('tr[data-no="' + productId + '"] td:eq(7)').text().trim(),
+                        mSize: $('tr[data-no="' + productId + '"] td:eq(8)').text().trim(),
+                        lSize: $('tr[data-no="' + productId + '"] td:eq(9)').text().trim(),
+                        xlSize: $('tr[data-no="' + productId + '"] td:eq(10)').text().trim()
                 };
                 // 創建下拉式選單的 HTML 字串
                 var selectHTML = '<select style="width:50px;" name="productType">';
@@ -257,7 +242,12 @@
                 $('tr[data-no="' + productId + '"] td:eq(2)').html('<input type="text" style="width:75px;" value="' + originalValues[productId].productName + '" name="productName">');
                 $('tr[data-no="' + productId + '"] td:eq(3)').html('<input type="text" style="width:100px;" value="' + originalValues[productId].productIntroduce + '" name="productIntroduce">');
                 $('tr[data-no="' + productId + '"] td:eq(4)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].productPrice + '" name="productPrice">');
-                $('tr[data-no="' + productId + '"] td:eq(6)').html(selectHTML);
+                $('tr[data-no="' + productId + '"] td:eq(5)').html(selectHTML);
+                $('tr[data-no="' + productId + '"] td:eq(6)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].xsSize + '" name="xsSize">');
+                $('tr[data-no="' + productId + '"] td:eq(7)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].sSize + '" name="sSize">');
+                $('tr[data-no="' + productId + '"] td:eq(8)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].mSize + '" name="mSize">');
+                $('tr[data-no="' + productId + '"] td:eq(9)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].lSize + '" name="lSize">');
+                $('tr[data-no="' + productId + '"] td:eq(10)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].xlSize + '" name="xlSize">');
                 //刪除 修改和刪除按鈕
                 $('tr[data-no="' + productId + '"] td:last-child').remove();
                 $('tr[data-no="' + productId + '"] td:last-child').remove();
@@ -265,33 +255,6 @@
                 $('tr[data-no="' + productId + '"]').append('<td><button class="confirm-button" onclick="updateRow(' + productId + ')">確定</button>');
                 $('tr[data-no="' + productId + '"]').append('<td><button class="confirm-button" onclick="cancelrestoreRow(' + productId + ')">取消</button>');
             }
-//修改庫存
-            var QuanoriginalValues = {};
-            function editQuan(productId) {
-                // 將該行的商品標題、商品介紹和商品價格轉換為可編輯狀態
-                QuanoriginalValues[productId] = {
-                		xsSize: $('tr[data-no="Quan"] td:eq(1)').text().trim(),
-                		sSize: $('tr[data-no="Quan"] td:eq(2)').text().trim(),
-                		mSize: $('tr[data-no="Quan"] td:eq(3)').text().trim(),
-                		lSize: $('tr[data-no="Quan"] td:eq(4)').text().trim(),
-                		xlSize: $('tr[data-no="Quan"] td:eq(5)').text().trim()
-                };
-
-
-                $('tr[data-no="Quan"] td:eq(1)').html('<input type="text" style="width:75px;" value="' + QuanoriginalValues[productId].xsSize + '" name="xsSize">');
-                $('tr[data-no="Quan"] td:eq(2)').html('<input type="text" style="width:100px;" value="' + QuanoriginalValues[productId].sSize + '" name="sSize">');
-                $('tr[data-no="Quan"] td:eq(3)').html('<input type="text" style="width:50px;" value="' + QuanoriginalValues[productId].mSize + '" name="mSize">');
-                $('tr[data-no="Quan"] td:eq(4)').html('<input type="text" style="width:50px;" value="' + QuanoriginalValues[productId].lSize + '" name="lSize">');
-                $('tr[data-no="Quan"] td:eq(5)').html('<input type="text" style="width:50px;" value="' + QuanoriginalValues[productId].xlSize + '" name="xlSize">');
-                //刪除 修改和刪除按鈕
-                $('tr[data-no="Quan"] td:last-child').remove();
-                $('tr[data-no="Quan"] td:last-child').remove();
-                // 添加確定按鈕
-                $('tr[data-no="Quan"]').append('<td><button class="confirm-button" onclick="QuanupdateRow(' + productId + ')">確定</button>');
-                $('tr[data-no="Quan"]').append('<td><button class="confirm-button" onclick="QuancancelrestoreRow(' + productId + ')">取消</button>');
-            }
-
-
 //修改商品 >> 按下確認
             function updateRow(productId) {
                 // 獲取新的商品標題、商品介紹和商品價格的值
@@ -299,6 +262,11 @@
                 var productIntroduce = $('tr[data-no="' + productId + '"] input[name="productIntroduce"]').val();
                 var productPrice = $('tr[data-no="' + productId + '"] input[name="productPrice"]').val();
                 var productType = $('tr[data-no="' + productId + '"] select[name="productType"]').val();
+                var xsSize= $('tr[data-no="' + productId + '"] input[name="xsSize"]').val();
+                var sSize= $('tr[data-no="' + productId + '"] input[name="sSize"]').val();
+                var mSize= $('tr[data-no="' + productId + '"] input[name="mSize"]').val();
+                var lSize = $('tr[data-no="' + productId + '"] input[name="lSize"]').val();
+                var xlSize= $('tr[data-no="' + productId + '"] input[name="xlSize"]').val();
 
                 $.ajax({
                     type: 'PUT',
@@ -308,40 +276,16 @@
                         productName: productName,
                         productIntroduce: productIntroduce,
                         productPrice: productPrice,
-                        productType: productType
+                        productType: productType,
+                        xsSize:xsSize,
+                        sSize:sSize,
+                        mSize:mSize,
+                        lSize:lSize,
+                        xlSize:xlSize
                     },
                     success: function (response) {
                         // 更新成功後，將表格還原
                         restoreRow(productId);
-                    },
-                    error: function () {
-                        alert('發生錯誤');
-                    }
-                });
-            }
-//修改庫存 >> 按下確認
-            function QuanupdateRow(productId) {
-                // 獲取新的商品標題、商品介紹和商品價格的值
-                var xsSize = $('tr[data-no="Quan"] input[name="xsSize"]').val();
-                var sSize = $('tr[data-no="Quan"] input[name="sSize"]').val();
-                var mSize = $('tr[data-no="Quan"] input[name="mSize"]').val();
-                var lSize = $('tr[data-no="Quan"] input[name="lSize"]').val();
-                var xlSize = $('tr[data-no="Quan"] input[name="xlSize"]').val();
-
-                $.ajax({
-                    type: 'PUT',
-                    url: 'updateQuan', //Servlet路徑
-                    data: {
-                    	productId: productId,
-                    	xsSize: xsSize,
-                    	sSize: sSize,
-                    	mSize: mSize,
-                    	lSize: lSize,
-                    	xlSize: xlSize,
-                    },
-                    success: function (response) {
-                        // 更新成功後，將表格還原
-                        QuanrestoreRow(productId);
                     },
                     error: function () {
                         alert('發生錯誤');
@@ -354,8 +298,12 @@
                 $('tr[data-no="' + productId + '"] td:eq(2)').html($('tr[data-no="' + productId + '"] input[name="productName"]').val());
                 $('tr[data-no="' + productId + '"] td:eq(3)').html($('tr[data-no="' + productId + '"] input[name="productIntroduce"]').val());
                 $('tr[data-no="' + productId + '"] td:eq(4)').html($('tr[data-no="' + productId + '"] input[name="productPrice"]').val());
-                $('tr[data-no="' + productId + '"] td:eq(6)').html($('tr[data-no="' + productId + '"] select[name="productType"]').val());
-
+                $('tr[data-no="' + productId + '"] td:eq(5)').html($('tr[data-no="' + productId + '"] select[name="productType"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(6)').html($('tr[data-no="' + productId + '"] input[name="xsSize"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(7)').html($('tr[data-no="' + productId + '"] input[name="sSize"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(8)').html($('tr[data-no="' + productId + '"] input[name="mSize"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(9)').html($('tr[data-no="' + productId + '"] input[name="lSize"]').val());
+                $('tr[data-no="' + productId + '"] td:eq(10)').html($('tr[data-no="' + productId + '"] input[name="xlSize"]').val());
 
                 // 移除修改按鈕和刪除按鈕
                 $('tr[data-no="' + productId + '"] td:last-child').remove();
@@ -370,8 +318,13 @@
                 $('tr[data-no="' + productId + '"] td:eq(2)').html(originalValues[productId].productName);
                 $('tr[data-no="' + productId + '"] td:eq(3)').html(originalValues[productId].productIntroduce);
                 $('tr[data-no="' + productId + '"] td:eq(4)').html(originalValues[productId].productPrice);
-                $('tr[data-no="' + productId + '"] td:eq(6)').html(originalValues[productId].productType);
-
+                $('tr[data-no="' + productId + '"] td:eq(5)').html(originalValues[productId].productType);
+                $('tr[data-no="' + productId + '"] td:eq(6)').html(originalValues[productId].xsSize);
+                $('tr[data-no="' + productId + '"] td:eq(7)').html(originalValues[productId].sSize);
+                $('tr[data-no="' + productId + '"] td:eq(8)').html(originalValues[productId].mSize);
+                $('tr[data-no="' + productId + '"] td:eq(9)').html(originalValues[productId].lSize);
+                $('tr[data-no="' + productId + '"] td:eq(10)').html(originalValues[productId].xlSize);
+                                                                                                           
                 // 显示修改按钮和删除按钮
                 $('tr[data-no="' + productId + '"] td:last-child').remove();
                 $('tr[data-no="' + productId + '"] td:last-child').remove();
@@ -380,44 +333,7 @@
                 $('tr[data-no="' + productId + '"]').append('<td><button class="confirm-button" onclick="editRow(' + productId + ')">修改</button>');
                 $('tr[data-no="' + productId + '"]').append('<td><button class="confirm-button" onclick="deleteProduct(' + productId + ')">刪除</button>');
             }
-//還原表格 修改庫存 >> 按下確認
-            function QuanrestoreRow(productId) {
-                // 將表格還原為原始狀態
-                $('tr[data-no="Quan"] td:eq(1)').html($('tr[data-no="Quan"] input[name="xsSize"]').val());
-                $('tr[data-no="Quan"] td:eq(2)').html($('tr[data-no="Quan"] input[name="sSize"]').val());
-                $('tr[data-no="Quan"] td:eq(3)').html($('tr[data-no="Quan"] input[name="mSize"]').val());
-                $('tr[data-no="Quan"] td:eq(4)').html($('tr[data-no="Quan"] input[name="lSize"]').val());
-                $('tr[data-no="Quan"] td:eq(5)').html($('tr[data-no="Quan"] input[name="xlSize"]').val());
-
-
-                // 移除修改按鈕和刪除按鈕
-                $('tr[data-no="Quan"] td:last-child').remove();
-                $('tr[data-no="Quan"] td:last-child').remove();
-
-                // 增加確定按鈕和輸入元素
-                $('tr[data-no="Quan"]').append('<td><button class="confirm-button" onclick="editQuan(' + productId + ')">修改</button>');
-                $('tr[data-no="Quan"]').append('<td><button class="confirm-button" onclick="deleteProduct(' + productId + ')">刪除</button>');
-            }
-//還原表格 修改庫存 >> 按下取消
-            function QuancancelrestoreRow(productId) {
-                $('tr[data-no="Quan"] td:eq(1)').html(QuanoriginalValues[productId].xsSize);
-                $('tr[data-no="Quan"] td:eq(2)').html(QuanoriginalValues[productId].sSize);
-                $('tr[data-no="Quan"] td:eq(3)').html(QuanoriginalValues[productId].mSize);
-                $('tr[data-no="Quan"] td:eq(4)').html(QuanoriginalValues[productId].lSize);
-                $('tr[data-no="Quan"] td:eq(5)').html(QuanoriginalValues[productId].xlSize);
-
-                // 显示修改按钮和删除按钮
-                $('tr[data-no="Quan"] td:last-child').remove();
-                $('tr[data-no="Quan"] td:last-child').remove();
-
-                // 移除确认按钮和输入元素
-                $('tr[data-no="Quan"]').append('<td><button class="confirm-button" onclick="editQuan(' + productId + ')">修改</button>');
-                $('tr[data-no="Quan"]').append('<td><button class="confirm-button" onclick="deleteProduct(' + productId + ')">刪除</button>');
-            }
-
-
-            //新增
-
+//新增商品
             function addProductRow() {
                 // 在表格最後一行插入新的行
                 $('table').append('<tr class="row" data-no="-1">' +
@@ -425,9 +341,13 @@
                     '<td name="newImg"></td>' +
                     '<td><input type="text" style="width:75px;" name="newProduct"></td>' +
                     '<td><input type="text" style="width:100px;" name="newIntroduce"></td>' +
-                    '<td><input type="text" style="width:100px;" name="newProductquantity"></td>' +
-                    '<td><input type="text" style="width:50px;" name="newMoney"></td>' +
-                    '<td><select name="newShoptype"><option value="狗狗">狗狗</option><option value="貓咪">貓咪</option><option value="老鼠">老鼠</option></select></td>' +
+                    '<td><input type="text" style="width:50px;" name="productPrice"></td>' +
+                    '<td><select name="productType"><option value="狗狗">狗狗</option><option value="貓咪">貓咪</option><option value="老鼠">老鼠</option></select></td>' +
+                    '<td><input type="text" style="width:50px;" name="xsSize"></td>' +
+                    '<td><input type="text" style="width:50px;" name="sSize"></td>' +
+                    '<td><input type="text" style="width:50px;" name="mSize"></td>' +
+                    '<td><input type="text" style="width:50px;" name="lSize"></td>' +
+                    '<td><input type="text" style="width:50px;" name="xlSize"></td>' +
                     '<td><button onclick="saveNewProduct()">確定</button></td>' +
                     '<td><button onclick="cancelNewProduct()">取消</button></td>' +
                     '</tr>');
@@ -438,9 +358,13 @@
                 // 獲取新商品的值
                 var newProduct = $('input[name="newProduct"]').val();
                 var newIntroduce = $('input[name="newIntroduce"]').val();
-                var newMoney = $('input[name="newMoney"]').val();
-                var newProductquantity = $('input[name="newProductquantity"]').val();
-                var newShoptype = $('select[name="newShoptype"]').val();
+                var productPrice = $('input[name="productPrice"]').val();
+                var productType = $('select[name="productType"]').val();
+                var xsSize = $('input[name="xsSize"]').val();
+                var sSize = $('input[name="sSize"]').val();
+                var mSize = $('input[name="mSize"]').val();
+                var lSize = $('input[name="lSize"]').val();
+                var xlSize = $('input[name="xlSize"]').val();
 
                 $.ajax({
                     type: 'POST',
@@ -448,9 +372,13 @@
                     data: {
                         productName: newProduct,
                         productIntroduce: newIntroduce,
-                        productPrice: newMoney,
-                        productquantity: newProductquantity,
-                        productType: newShoptype
+                        productPrice: productPrice,
+                        productType: productType,
+                        xsSize:xsSize,
+                        sSize:sSize,
+                        mSize:mSize, 
+                        lSize:lSize,
+                        xlSize:xlSize
                     },
                     success: function (response) {
                         alert('新增成功');
