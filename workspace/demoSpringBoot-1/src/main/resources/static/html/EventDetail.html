@@ -218,38 +218,35 @@
         // 		console.log(buydata);
 
 
-        function buy() {
-            var url = "http://localhost:8080/orders"; // 請求的 URL
+       function buy() {
+    var url = "http://localhost:8080/orders"; // 請求的 URL
 
+    fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        var jsonObject = {
+            productNum: data.eventId,
+            productName: data.eventName,
+            productPrice: data.eventPrice,
+            productQuantity: '1',
+            orderTotalPrice: data.eventPrice
+        };
+        console.log(jsonObject);
 
-            fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
-                return response.json();
-            }).then(function (data) {
+        // 使用 fetch 函數發送 POST 請求
+        fetch(url, {
+            method: "POST", // 使用 POST 方法
+            body: JSON.stringify(jsonObject), // 將 JSON 數據轉換為字符串並指定為請求主體
+            headers: new Headers({
+                "Content-Type": "application/json", // 指定 Content-Type 為 application/json
+            }),
+        })
+        .then((res) => res.json()) // 解析服務器的 JSON 響應
+        .catch((error) => console.error("Error:", error)) // 處理錯誤
+        .then((response) => console.log("Success:", response)); // 處理成功響應
+    });
+}
 
-                var jsonObject =
-                {
-                    productNum: data.eventId,
-                    productName: data.eventName,
-                    productPrice: data.eventPrice,
-                    productQuantity: '1',
-                    orderTotalPrice: data.eventPrice
-                }
-                console.log(jsonObject);
-
-            });
-
-            // 使用 fetch 函數發送 POST 請求
-            fetch(url, {
-                method: "POST", // 使用 POST 方法
-                body: JSON.stringify(jsonObject), // 將 JSON 數據轉換為字符串並指定為請求主體
-                headers: new Headers({
-                    "Content-Type": "application/json", // 指定 Content-Type 為 application/json
-                }),
-            })
-                .then((res) => res.json()) // 解析服務器的 JSON 響應
-                .catch((error) => console.error("Error:", error)) // 處理錯誤
-                .then((response) => console.log("Success:", response)); // 處理成功響應
-        }
     </script>
 
     <script>
