@@ -2,75 +2,76 @@
 <html>
 
 <head>
-  <meta name="description"
-    content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-  <title>JFSwing後台</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Main CSS-->
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <!-- Font-icon css-->
-  <link rel="stylesheet" type="text/css"
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-     
+<meta name="description"
+	content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+<title>JFSwing後台</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Main CSS-->
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<!-- Font-icon css-->
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
-    
-    	
-     <main class="app-content">
-  <div class="app-title">標題</div>
-  <div class="row">
-        <div class="col-md-12">
-          <div class="tile">
-            <div class="tile-body">
-              
-              <table class="table table-hover table-bordered" id="sampleTable">
-              </table>
-              <script src="OrdersSelectAll.js" ></script>
-            </div>
-          </div>
-        </div>
-      </div>
 
-  </main>
-   
-    
-    
-    
-              
-    
-    
-    
-     
-      <!-- Data table plugin-->
 
- <script src="js/jquery-3.2.1.min.js" ></script>
-  <script src="js/popper.min.js" ></script>
-  <script src="js/bootstrap.min.js" ></script>
-  <script src="js/main.js" ></script>
-  <!-- The javascript plugin to display page loading on top-->
-  <script src="js/plugins/pace.min.js" ></script>
-  <!-- Page specific javascripts-->
-  <script type="text/javascript" src="js/plugins/chart.js" ></script>
-  <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js" ></script>
-  <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js" ></script>
-  
-  <script type="text/javascript" ></script>
-  
-    <script defer>
+	<main class="app-content">
+		<div class="app-title"><h1>訂單管理</h1></div>
+		<div class="row">
+		<div class="tile" id="OrderInsert"></div>
+		
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="tile-body">
 
-    fetch('exampleBack.html')
-    .then(response => response.text())
-    .then(html => {
-        document.body.innerHTML += html;
-        $('#sampleTable').DataTable(); 
-    });
+						<table class="table table-hover table-bordered" id="sampleTable">
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </script>
-    
-    
+	</main>
+
+
+
+
+
+
+
+
+
+	<!-- Data table plugin-->
+
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
+	<!-- The javascript plugin to display page loading on top-->
+	<script src="js/plugins/pace.min.js"></script>
+	<!-- Page specific javascripts-->
+	<script type="text/javascript" src="js/plugins/chart.js"></script>
+	<script type="text/javascript"
+		src="js/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="js/plugins/dataTables.bootstrap.min.js"></script>
+
+	<script type="text/javascript"></script>
+
+	
+	 <script src="OrdersReadMore.js"></script>
+    <script src="OrdersUpdate.js"></script>
+    <script src="OrdersSelectAll.js"></script>
+    <script src="OrdersInsert.js"></script>
+
+
+
 </body>
 
 </html>

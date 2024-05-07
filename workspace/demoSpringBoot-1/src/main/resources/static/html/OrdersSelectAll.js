@@ -11,7 +11,7 @@ table.setAttribute('border', '1');
 
 // 創建表頭
 let thead = document.createElement('thead');
-thead.style.backgroundColor = '#a8fefa';
+thead.style.backgroundColor = '#EEBA7E';
 let headerRow = thead.insertRow();
 headerRow.innerHTML = '<th>訂單編號</th>' +
 	'<th>會員編號</th>' +
@@ -58,10 +58,16 @@ fetch("/orders", {
 
 			}
 			// 插入內容
-			row.insertCell(flds.length).innerHTML = '<button onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
-			row.insertCell(flds.length+1).innerHTML = '<button onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
-			row.insertCell(flds.length+2).innerHTML = '<button onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
+			row.insertCell(flds.length).innerHTML = '<button class="btn btn-primary" onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
+			row.insertCell(flds.length+1).innerHTML = '<button class="btn btn-primary" onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
+			row.insertCell(flds.length+2).innerHTML = '<button class="btn btn-primary" onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
 		});
+		   fetch('exampleBack.html')
+    .then(response => response.text())
+    .then(html => {
+        document.body.innerHTML += html;
+        $('#sampleTable').DataTable(); 
+    });
 	})
 
 	.catch(function(error) {
