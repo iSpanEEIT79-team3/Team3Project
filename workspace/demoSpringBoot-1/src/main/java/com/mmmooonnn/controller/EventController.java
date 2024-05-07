@@ -66,16 +66,20 @@ public class EventController {
 	//收藏活動寄email
 	  @PostMapping("/eventCollection")
 	    public String EventCollection(
-	    		@RequestParam("EVENT_STARTIME") String EventDate ,   
-	    		@RequestParam("EVENT_NAME") String EventName) 
+	    		@RequestParam("EVENT_STARTIME") String eventDate ,   
+	    		@RequestParam("EVENT_NAME") String eventName) 
 	         {
+		 
+		  System.out.println("6666666666" + eventName);
 		  
 	            String receivers = "emil62y7@gmail.com";
 	            String subject ="活動收藏成功";
-	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + EventDate +"活動名稱為："+ EventName + "\n期待您的蒞臨！";
+	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + eventDate +"活動名稱為："+ eventName + "\n期待您的蒞臨！";
 	            String From = "JFSwing搖擺舞教室<emil62y7@gmail.com>";
+	            
+	            System.out.println(content);
 	            eService.sendPlainText(receivers, subject, content,From);
-	            return "forward:/html/EventDetail.html?ID=300024";
+	           return 
 	        }
 	
 

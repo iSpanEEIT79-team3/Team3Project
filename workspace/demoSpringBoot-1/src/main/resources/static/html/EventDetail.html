@@ -89,14 +89,14 @@
 
 
                     <form id="eventCollectionForm" action="../eventCollection" method="post">
-                        <!-- $('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" value=${data.startTime}> -->
-                        <!--             		    <input type="hidden" name="EVENT_NAME" value=${data.eventName}>`) -->
+<!--                         <input type="hidden" id="eventDate" name="EVENT_STARTIME" value=${data.startTime}>  -->
+<!--                          <input type="hidden" id="eventName" name="EVENT_NAME" value=${data.eventName}> -->
                         <button  class="btn btn-primary" type="submit">收藏活動到email</button>
                     </form>
                     <!-- 					<a href="/eventCollection"> -->
                     <!-- 						<button  class="btn btn-primary">收藏活動到email</button> -->
                     <!-- 					</a> -->
-                    <a href="../eventCollection"><button>收藏活動到email</button></a>
+                  
                 </div>
 
                 <div class="row">
@@ -145,8 +145,8 @@
                 return response.json();
             }).then(function (data) {
 
-                $('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" value=${data.startTime}>
-            		    <input type="hidden" name="EVENT_NAME" value=${data.eventName}>`)
+                $('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
+            		    <input type="hidden"  value=${data.eventName} name="EVENT_NAME" >`)
 
                 $('#fetchPicture').append(`<img src="${data.picture}"
                         class="d-block" style="width:100%">`)
