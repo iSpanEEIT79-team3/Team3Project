@@ -82,3 +82,14 @@ SET NICKNAME = 'JohnDoe123',
     THIRDPARTYLOGIN = 0,
     PERMISSION = 1
 WHERE FK_CONTACTID = 1001;
+
+
+--紀錄用戶請求發送郵件時 生成的token信息 以及產生時間，判斷連結是否正確以及失效
+create table mailVali(
+	id int identity(1,1) not null PRIMARY KEY,
+	email varchar(max)  null,
+	sid varchar(max)  null,
+	outTime BIGINT null
+)
+
+drop table pm_validate;

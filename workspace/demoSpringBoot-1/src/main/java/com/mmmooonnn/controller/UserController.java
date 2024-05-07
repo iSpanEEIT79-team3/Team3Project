@@ -54,7 +54,7 @@ public class UserController {
 	private MailService mailService;
 	
 	//忘記密碼
-	@GetMapping("mailTest")
+	@GetMapping("forgetMail")
 	public void processActionMail() {
 		String email = "ash1235ash@gmail.com";
 		String subject = "test";
@@ -140,19 +140,6 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
 	}
 	
-	//管理者登入成功
-	@GetMapping("/successLogin")
-	public ModelAndView getMethodName() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/back");
-		return modelAndView;
-	}
-	
-	//前端點選會員登入
-	@GetMapping("/UserLogin")
-	public String processActionLogin() {
-		return "redirect:/index.html";
-	}
 	
 	//搜尋全部
 	@GetMapping("/GetAllUser")
@@ -165,26 +152,25 @@ public class UserController {
 		return users;
 	}
 	
-	@GetMapping("/back")
-	public String processActionGet() {
-		return "/back";
-	}
 	
 	
+	//會員登入
 	@PostMapping("/UsersLogin")
 	public ResponseEntity<String> usersLogin(@RequestParam("email") String email,
 													@RequestParam("password") String password,
 														HttpSession session){
 		System.out.println("進入UserLogin");
 		boolean result = uService2.isEmailExist(email);
-		
+		System.out.println(result);
 		if(result) {
 			
 			UsersBeanNew usersBean = uService2.findByEmail(email);
 			boolean flag = BCrypt.checkpw(password,usersBean.getPassword());
 			if(flag) {
 				session.setAttribute("usersBean", usersBean);
+				System.out.println("登入成功");
 				return ResponseEntity.ok().body("登入成功");
+				
 			}
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱或者密碼錯誤");
 
