@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mmmooonnn.model.Event;
 import com.mmmooonnn.service.EventService;
 
+
 @Controller
 @SessionAttributes(names = { "eventBeans" })
 public class EventController {
@@ -61,6 +62,26 @@ public class EventController {
 		List<Event> eventBeans = eService.findAll();
 		return eventBeans;
 	}
+	
+	//收藏活動寄email
+	  @PostMapping("/eventCollection")
+	    public String EventCollection(
+	    		@RequestParam("EVENT_STARTIME") String eventDate ,   
+	    		@RequestParam("EVENT_NAME") String eventName) 
+	         {
+		 
+		  System.out.println("6666666666" + eventName);
+		  
+	            String receivers = "emil62y7@gmail.com";
+	            String subject ="活動收藏成功";
+	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + eventDate +"活動名稱為："+ eventName + "\n期待您的蒞臨！";
+	            String From = "JFSwing搖擺舞教室<emil62y7@gmail.com>";
+	            
+	            System.out.println(content);
+	            eService.sendPlainText(receivers, subject, content,From);
+	           return 
+	        }
+	
 
 	@GetMapping("/WSall")
 	public ModelAndView processFindASllAction() {

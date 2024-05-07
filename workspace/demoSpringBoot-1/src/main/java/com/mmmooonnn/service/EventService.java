@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.mmmooonnn.model.Event;
@@ -23,6 +25,24 @@ public class EventService {
 		
 	}
 	
+	
+	
+	@Autowired
+    private JavaMailSender mailSender;
+    
+    public void sendPlainText(String receivers, String subject, String content,String From ) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(receivers);
+        message.setSubject(subject);
+        message.setText(content);
+        message.setFrom(From);
+
+        mailSender.send(message);
+    }
+    
+    
+    
+    
 
 	public EventService(EventRepository eRepos) {
 		this.eRepos = eRepos;
