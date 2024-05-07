@@ -4,10 +4,10 @@
 /**
  * 
  */
-
-let table = document.createElement('table');
+let table = document.getElementById("sampleTable");
+//let table = document.createElement('table');
 table.setAttribute('border', '1');
-table.setAttribute('id', 'orderTable');
+//table.setAttribute('id', 'orderTable');
 
 // 創建表頭
 let thead = document.createElement('thead');
@@ -28,12 +28,12 @@ headerRow.innerHTML = '<th>訂單編號</th>' +
 table.appendChild(thead);
 
 // 創建表格主體
-let tbody = document.createElement('tbody');
-tbody.setAttribute('id', 'orderTableBody');
+let tbody = document.createElement("tbody");
+//tbody.setAttribute('id', 'orderTableBody');
 table.appendChild(tbody);
 
 // 將表格添加到 body 中
-document.body.appendChild(table);
+//document.body.appendChild(table);
 // 使用fetch從Servlet取得JSON數據
 fetch("/orders", {
 	method: "GET", headers: {
