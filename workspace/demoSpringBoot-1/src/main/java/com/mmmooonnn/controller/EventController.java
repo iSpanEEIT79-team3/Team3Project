@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -29,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mmmooonnn.model.Event;
 import com.mmmooonnn.service.EventService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @SessionAttributes(names = { "eventBeans" })
@@ -37,15 +40,32 @@ public class EventController {
 	@Autowired
 	EventService eService;
 
-//	 @InitBinder
-//	    public void initBinder(WebDataBinder binder) {
-//	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-//	        dateFormat.setLenient(false);
-//	        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-//	    }
+	 @PostMapping("/purchase")
+	    public ResponseEntity<?> purchaseProduct(@RequestParam("productId") Long productId,
+	                                             @RequestParam("contactId") Long userId ,HttpSession session) {
+	        // 检查用户登录状态
+//	        if (!userService.isUserLoggedIn(userId)) {
+//	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户未登录");
+//	        }
 
-//	 在Controller中加入自訂的參數轉換器
-//	 透過使用@InitBinder註解和WebDataBinder類別來實現參數轉換
+	        // 检查库存
+//	        Product product = productService.getProductById(productId);
+//	        if (product == null || product.getStock() <= 0) {
+//	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("商品库存不足");
+//	        }
+
+	        // 扣除用户账户金额（示例中省略）
+
+	        // 插入购买记录到数据库中
+	        Event purchase = new Event();
+//	        purchase.setUserId(userId);
+//	        purchase.setProductId(productId);
+//	        purchase.setPurchaseTime(new Date());
+//	        eService.addPurchase(purchase);
+
+	        // 返回购买成功的响应
+	        return ResponseEntity.ok("购买成功");
+	    }
 
 	// ajax查單筆用
 	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
@@ -59,7 +79,7 @@ public class EventController {
 	@GetMapping("/ajaxFindAll")
 	@ResponseBody
 	public List<Event> ajaxFindAll() {
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		return eventBeans;
 	}
 	
@@ -87,7 +107,7 @@ public class EventController {
 	public ModelAndView processFindASllAction() {
 		ModelAndView modelAndView = new ModelAndView();
 
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		System.out.println(eventBeans);
 		modelAndView.addObject("eventBeans", eventBeans);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
@@ -250,7 +270,7 @@ public class EventController {
 
 		eService.updateEvent(eventBean);
 
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 
 		modelAndView.addObject("eventBeans", eventBeans);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
@@ -262,7 +282,7 @@ public class EventController {
 		ModelAndView modelAndView = new ModelAndView();
 		eService.deleteById(eventId);
 
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		modelAndView.addObject("eventBeans", eventBeans);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
 		return modelAndView;

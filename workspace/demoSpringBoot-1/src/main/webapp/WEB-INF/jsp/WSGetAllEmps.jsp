@@ -45,7 +45,7 @@ tr {
 </head>
 
 <body style='background-color: #fdf5e6'>
-	<div class="back-content"></div>
+	<div class="back-content banner-container"></div>
 
 	<div class="center">
 		<h2>活動資訊</h2>

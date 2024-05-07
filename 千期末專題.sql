@@ -21,6 +21,9 @@ CREATE TABLE Photos (
 
 );
 
+SELECT * FROM EVENT ORDER BY EVENT_STARTIME ASC;
+--ASC表示升序排序，DESC表示降序排序。
+
 insert into EVENT values('查爾斯頓搬到台灣','2024-05-06','2024-05-16','2024-06-15','2024-06-17','Concert with THREE COOL CATS',
 'LINDY','400','Asi幸福站','JFSwing','/images/bubble.jpg');
 insert into EVENT values('爵士腳週末','2024-06-01','2024-06-20','2024-08-08','2024-08-11','Nathan&Meti&Andante',
