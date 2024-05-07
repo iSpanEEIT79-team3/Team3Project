@@ -11,7 +11,8 @@ function readmore(order) {
 		
         let newDiv = document.createElement("div");
         newDiv.setAttribute("id", "readMoreDiv");
-        document.body.appendChild(newDiv);       
+        document.querySelector('.main').appendChild(newDiv);
+        //document.body.appendChild(newDiv);       
         order.orderDetails.forEach(function(detail) {
             newDiv.append(displayJsonAsForm(detail));
         });

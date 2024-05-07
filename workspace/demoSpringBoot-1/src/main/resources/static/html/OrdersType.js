@@ -4,13 +4,6 @@
 /**
  * 
  */
-/**
- * 
- */
-
-
-
-
 
 let table = document.createElement('table');
 table.setAttribute('border', '1');
@@ -38,9 +31,11 @@ let tbody = document.createElement('tbody');
 tbody.setAttribute('id', 'orderTableBody');
 table.appendChild(tbody);
 
-// 將表格添加到 body 中
-document.body.appendChild(table);
-// 使用fetch從Servlet取得JSON數據
+// 將表格添加到 main 中
+document.querySelector('.main').appendChild(table);
+
+//document.body.appendChild(table);
+
 fetch("/OrdersList", {
 	method: "GET", headers: {
 		'Content-Type': 'application/json', 'Cache-Control': 'no-cache'
@@ -56,14 +51,8 @@ fetch("/OrdersList", {
 		// 遍歷數據and創立表格
 		data.forEach(function(order) {
 			console.log(order);
-			let row = tbody.insertRow();
-			/*let data = {};
-			let flds = ['orderId', 'userContact.idUser', 'totalPrice', ...];
-			for (let fld of flds) {
-				row.insertCell(index).innerHTML = order....;
-			}*/
-			//data[0] = order.orderId;
-			// 插入內容
+			let row = document.getElementById("orderTableBody").insertRow();
+			//let row = tbody.insertRow();
 			row.insertCell(0).innerHTML = order.orderId;
 			row.insertCell(1).innerHTML = order.userContactNew.contactId;
 			row.insertCell(2).innerHTML = order.totalPrice;
@@ -106,3 +95,7 @@ function LinePayNow(orderId) {
     window.location.href = url;
     })
 }
+
+
+
+
