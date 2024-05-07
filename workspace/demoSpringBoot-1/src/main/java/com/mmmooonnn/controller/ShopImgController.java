@@ -45,7 +45,7 @@ public class ShopImgController {
         List<ShopBean> shopData = shopService.findById(productId);
         
         // 使用商品ID查找對應的所有圖片資料
-        List<ShopImgBean> imgData = shopImgService.findByProductId(productId);
+        List<ShopImgBean> imgData = shopImgService.findById(productId);
         
         // 將資料存儲在 Map 中
         Map<String, Object> responseData = new HashMap<>();
@@ -91,7 +91,7 @@ public class ShopImgController {
     @PostMapping("/findByImgproductid/{productId}")
     //public String FindById(Model model,@RequestParam(value = "productId", required = false) Integer productId) {
     public List<ShopImgBean> FindById(@PathVariable Integer productId) {
-    	List<ShopImgBean> shops = shopImgService.findByProductId(productId);
+    	List<ShopImgBean> shops = shopImgService.findById(productId);
     	
     	return shops;
     	
@@ -145,7 +145,7 @@ public class ShopImgController {
         String Imgpath = "img/" + file.getOriginalFilename();
         
         // 图片上传成功，保存图片路径到数据库
-    	List<ShopImgBean> shopList = shopImgService.findByProductId(productId); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
+    	List<ShopImgBean> shopList = shopImgService.findById(productId); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
     	ShopImgBean shop = shopList.get(0);
         if (shop != null) {
             shop.setProductImages(Imgpath); // 设置图片路径

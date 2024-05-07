@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mmmooonnn.model.ShopBean;
 import com.mmmooonnn.model.ShopImgBean;
+import com.mmmooonnn.model.ShopQuantityBean;
 import com.mmmooonnn.service.ShopImgService;
+import com.mmmooonnn.service.ShopQuantityService;
 import com.mmmooonnn.service.ShopService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,86 +27,132 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class ShopController {
-
-    
+//getAll 			get123 re.GetAllShops
+//getAllShop		get123 re.Shops
+//findByproductid
+//findByproductname
+//findByproducttype
+//
+//
+//
+//
+//
     @Autowired
     private ShopService shopService;
     
     @Autowired
     private ShopImgService shopImgService;
+    
+    @Autowired
+    private ShopQuantityService shopQuanService;
 
 //搜尋全部
     @GetMapping("/getAll")
     public String getAll(Model model) {
     	List<ShopBean> shops = shopService.findAll();
+    	List<ShopImgBean> shopImgs = shopImgService.findAll();
+    	List<ShopQuantityBean> shopQuan = shopQuanService.findAll();
         model.addAttribute("shops", shops);
+        model.addAttribute("shopImgs", shopImgs);
+        model.addAttribute("shopQuan", shopQuan);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
- 
-    @GetMapping("/getAllTest")
-    public Map<String, Object> getAllTest(Model model) {
+    @GetMapping("/getAllShop")
+    public String getAllShop(Model model) {
     	List<ShopBean> shops = shopService.findAll();
     	List<ShopImgBean> shopImgs = shopImgService.findAll();
-    	
-        Map<String, Object> responseData = new HashMap<>();
-
-        responseData.put("shopData", shops);
-        responseData.put("imgData", shopImgs);
-    
-       //這邊的return會回傳一筆資料 這筆資料會有兩個陣列 如果把資料合併成傳一個陣列 參考 shopimgcontroller /getAllImg
-        return responseData;
-    }
+    	List<ShopQuantityBean> shopQuan = shopQuanService.findAll();
+        model.addAttribute("shops", shops);
+        model.addAttribute("shopImgs", shopImgs);
+        model.addAttribute("shopQuan", shopQuan);
+        return "forward:/WEB-INF/jsp/Shops.jsp";
+    	}
 
 //用id搜尋
     @PostMapping("/findByproductid")
-    public String FindById(Model model,@RequestParam(value = "productid", required = false) Integer productid) {
-    	List<ShopBean> shops = shopService.findById(productid);
+    public String FindById(Model model,@RequestParam(value = "productId", required = false) Integer productId) {
+    	List<ShopBean> shops = shopService.findById(productId);
+    	List<ShopImgBean> shopImgs = shopImgService.findById(productId);
+    	List<ShopQuantityBean> shopQuan = shopQuanService.findById(productId);
         model.addAttribute("shops", shops);
+        model.addAttribute("shopImgs", shopImgs);
+        model.addAttribute("shopQuan", shopQuan);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
 //用商品名name搜尋   
     @PostMapping("/findByproductname")
-    public String FindByProduct(Model model,@RequestParam(value = "productname", required = false) String productname) {
-    	//List<ShopBean> shops = sService.findByProductName(productname);
-    	List<ShopBean> shops = shopService.findByproductnameContaining(productname);
+    public String FindByProduct(Model model,@RequestParam(value = "productName", required = false) String productName) {
+    	List<ShopBean> shops = shopService.findByproductnameContaining(productName);
+    	int productId = 0;
+    	int count=0;
+        List<ShopImgBean> shopImgs = new ArrayList<>();
+        List<ShopQuantityBean> shopQuan = new ArrayList<>();
+        
+    	for (ShopBean shop : shops) {
+    	    productId = shop.getProductId();
+    	    count++;
+    	}
+    	if(count==1) {
+    		shopImgs = shopImgService.findById(productId);
+    		shopQuan = shopQuanService.findById(productId);
+    		model.addAttribute("shopImgs", shopImgs);
+    		model.addAttribute("shopQuan", shopQuan);
+    	}
+    	
     	model.addAttribute("shops", shops);
     	return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     }
 //用類別type搜尋
     @PostMapping("/findByproducttype")
-    public String FindByproducttype(Model model,@RequestParam(value = "producttype", required = false) String producttype) {
-    	List<ShopBean> shops = shopService.findByProductType(producttype);
+    public String FindByproducttype(Model model,@RequestParam(value = "productType", required = false) String productType) {
+    	List<ShopBean> shops = shopService.findByProductType(productType);
+    	int productId = 0;
+    	int count=0;
+        List<ShopImgBean> shopImgs = new ArrayList<>();
+        List<ShopQuantityBean> shopQuan = new ArrayList<>();
+        
+    	for (ShopBean shop : shops) {
+    	    productId = shop.getProductId();
+    	    count++;
+    	}
+    	
+    	//判斷是否只有一筆 要在前端輸出所有資訊的 有多筆就只要丟商品資訊
+    	if(count==1) {
+    		shopImgs = shopImgService.findById(productId);
+    		shopQuan = shopQuanService.findById(productId);
+    		model.addAttribute("shopImgs", shopImgs);
+    		model.addAttribute("shopQuan", shopQuan);
+    	}
         model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
     
-//刪除
-    @DeleteMapping("/deleteShop/{productid}")
-    public String del(@PathVariable Integer productid) {
-    	shopService.deleteById(productid); 
-    		return "刪除成功:" + productid;
+
+    @DeleteMapping("/deleteShop")
+    public ResponseEntity<String> del(@RequestParam Integer productId) {
+    	shopService.deleteById(productId); 
+    	return ResponseEntity.ok("ok");
 //    		return "forward:/WEB-INF/jsp/GetAllShops.jsp";
 }
-    
-    
-    
+
     @PostMapping("/addShop")
     public String addShop(Model model,
-                          @RequestParam(value="productname", required=true) String productname,
-                          @RequestParam(value="productintroduce", required=true) String productintroduce,
-                          @RequestParam(value="productprice", required=true) Integer productprice,
-                          @RequestParam(value="producttype", required=true) String producttype) {
+                          @RequestParam(value="productName", required=true) String productName,
+                          @RequestParam(value="productIntroduce", required=true) String productIntroduce,
+                          @RequestParam(value="productPrice", required=true) Integer productPrice,
+                          @RequestParam(value="productType", required=true) String productType) {
     	ShopBean newShop = new ShopBean();
-        newShop.setProductName(productname);
-        newShop.setProductIntroduce(productintroduce);
-        newShop.setProductPrice(productprice);
-        newShop.setProductType(producttype);
+        newShop.setProductName(productName);
+        newShop.setProductIntroduce(productIntroduce);
+        newShop.setProductPrice(productPrice);
+        newShop.setProductType(productType);
         
         shopService.insert(newShop);
         
@@ -115,19 +163,19 @@ public class ShopController {
     //responseEntity 是回傳有沒有成功更新 需要在return回傳是否更新成功
     @PutMapping("/update")
     public ResponseEntity<String> updateShop(Model model,
-            								 @RequestParam("productid") Integer productid,
-                                             @RequestParam("productname") String productname,
-                                             @RequestParam("productintroduce") String productintroduce,
-                                             @RequestParam("productprice") Integer productprice,
-                                             @RequestParam("producttype") String producttype) {
-    	List<ShopBean> shopList = shopService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
+            								 @RequestParam("productId") Integer productId,
+                                             @RequestParam("productName") String productName,
+                                             @RequestParam("productIntroduce") String productIntroduce,
+                                             @RequestParam("productPrice") Integer productPrice,
+                                             @RequestParam("productType") String productType) {
+    	List<ShopBean> shopList = shopService.findById(productId); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
     	ShopBean shop = shopList.get(0);
         if (shop != null) {
             //更新商品
-            shop.setProductName(productname);
-            shop.setProductIntroduce(productintroduce);
-            shop.setProductPrice(productprice);
-            shop.setProductType(producttype);
+            shop.setProductName(productName);
+            shop.setProductIntroduce(productIntroduce);
+            shop.setProductPrice(productPrice);
+            shop.setProductType(productType);
             //保存更新後的訊息
             shopService.update(shop);
             return ResponseEntity.ok("更新成功");
@@ -136,11 +184,20 @@ public class ShopController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未找到商品");
     }
 }
-
+    @GetMapping("/Shopproduct/{productId}")
+    public String FindShopById(Model model,@RequestParam(value = "productId", required = false) Integer productId) {
+    	List<ShopBean> shops = shopService.findById(productId);
+    	List<ShopImgBean> shopImgs = shopImgService.findById(productId);
+    	List<ShopQuantityBean> shopQuan = shopQuanService.findById(productId);
+        model.addAttribute("shops", shops);
+        model.addAttribute("shopImgs", shopImgs);
+        model.addAttribute("shopQuan", shopQuan);
+        return "forward:/WEB-INF/jsp/GetAllShops.jsp";
+    }
     
     
     @PostMapping("/uploadphoto")
-    public ResponseEntity<String> uploadPhoto(@RequestParam("productid") Integer productid,
+    public ResponseEntity<String> uploadPhoto(@RequestParam("productId") Integer productId,
                                               @RequestParam("productimg") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Please select a file to upload");
@@ -165,7 +222,7 @@ public class ShopController {
             String Imgpath = "img/" + file.getOriginalFilename();
             
             // 图片上传成功，保存图片路径到数据库
-        	List<ShopBean> shopList = shopService.findById(productid); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
+        	List<ShopBean> shopList = shopService.findById(productId); //找該no的數據 回傳過來的是list<shop> 再抓取list第1筆資料
         	ShopBean shop = shopList.get(0);
             if (shop != null) {
                 shop.setProductImg(Imgpath); // 设置图片路径
