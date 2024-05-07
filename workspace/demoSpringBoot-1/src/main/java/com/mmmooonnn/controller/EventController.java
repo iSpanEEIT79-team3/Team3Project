@@ -79,7 +79,7 @@ public class EventController {
 	            
 	            System.out.println(content);
 	            eService.sendPlainText(receivers, subject, content,From);
-	           return 
+	           return "successCollection.html";
 	        }
 	
 

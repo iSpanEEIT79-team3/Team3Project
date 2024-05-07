@@ -146,7 +146,7 @@
             }).then(function (data) {
 
                 $('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
-            		    <input type="hidden"  value=${data.eventName} name="EVENT_NAME" >`)
+            		    <input type="hidden" id="eventName" value=${data.eventName} name="EVENT_NAME" >`)
 
                 $('#fetchPicture').append(`<img src="${data.picture}"
                         class="d-block" style="width:100%">`)
