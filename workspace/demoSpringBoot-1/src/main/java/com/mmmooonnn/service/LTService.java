@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,5 +57,13 @@ public class LTService {
 			// 使用 LikeService 中的方法獲取按讚數量
 	        return likeService.getLikeCount(ltId);
 	    }
-	
+	  public void updateLikeCount(Integer ltId, Integer saveLike) {
+		    LTBean ltBean = lt.findById(ltId).orElse(null);
+		    if (ltBean != null) {
+		        ltBean.setSaveLike(saveLike);
+		        lt.save(ltBean);
+		    }
+		}
+
+	 
 }

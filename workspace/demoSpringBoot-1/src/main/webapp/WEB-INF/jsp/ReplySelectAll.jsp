@@ -103,8 +103,11 @@ body {
 				<input type="hidden" name="replyId" value="${items.replyId}">
 				<button class="select" type="submit">搜尋</button>
 			</form>
+			
+			<!-- 貼文 -->
 		<table border="1">
 			<tr style="background-color: #a8fefa">
+			<!-- 可以刪除 -->
 				<th>回復ID</th>
 				<th>回復時間</th>
 				<th>回覆內容</th>

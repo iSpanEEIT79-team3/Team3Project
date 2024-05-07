@@ -55,13 +55,13 @@ public class ReportController {
 
 	@PostMapping("/Reportinsert.controller")
 	public ModelAndView InsertReport(@RequestParam("reportContent") String reportContent,
-			@RequestParam("LTId") Integer LTId, Model m) {
+			@RequestParam("ltId") Integer ltId, Model m) {
 
 		ModelAndView mv = new ModelAndView("redirect:ReportSelectAll");
 
-		LTBean ltBean = lt.findByLTId(LTId);
+		LTBean ltBean = lt.findByLTId(ltId);
 		ReportBean reportBean = new ReportBean();
-		reportBean.setLTId(LTId);
+		reportBean.setLTId(ltId);
 		reportBean.setReportContent(reportContent);
 		rp.InsertReport(reportBean);
 		m.addAttribute("reportBean", reportBean);

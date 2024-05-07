@@ -33,7 +33,7 @@ public class ReplyController {
 
 	@GetMapping("/ReplySelectById1.controller")
 	public String findByReplyId(@RequestParam("replyId") Integer replyId,Model mm) {
-		
+		//呼叫主文加到MODEL
 		ReplyBean resultBean = ry.findByReplyId(replyId);
 		mm.addAttribute("replyBean",resultBean);
 		

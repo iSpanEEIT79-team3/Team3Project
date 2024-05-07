@@ -46,20 +46,12 @@ public class LTBean implements Serializable {
 	private String picture;
 	@Column(name = "CONTENT")
 	private String content;
-	@Column(name = "CLASSIFY")
-	private String classify;
+	@Column(name = "SAVELIKE")
+	private Integer saveLike;
 
 	public LTBean() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Set<ReplyBean> getReplyBeans() {
-		return ReplyBeans;
-	}
-
-	public void setReplyBeans(Set<ReplyBean> replyBeans) {
-		ReplyBeans = replyBeans;
 	}
 
 	public Integer getLtId() {
@@ -68,6 +60,14 @@ public class LTBean implements Serializable {
 
 	public void setLtId(Integer ltId) {
 		this.ltId = ltId;
+	}
+
+	public Set<ReplyBean> getReplyBeans() {
+		return ReplyBeans;
+	}
+
+	public void setReplyBeans(Set<ReplyBean> replyBeans) {
+		ReplyBeans = replyBeans;
 	}
 
 	public String getTitle() {
@@ -110,47 +110,49 @@ public class LTBean implements Serializable {
 		this.content = content;
 	}
 
-	public String getClassify() {
-		return classify;
+	public Integer getSaveLike() {
+		return saveLike;
 	}
 
-	public void setClassify(String classify) {
-		this.classify = classify;
+	public void setSaveLike(Integer saveLike) {
+		this.saveLike = saveLike;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
 	public String toString() {
-		return "LTBean [ReplyBeans=" + ReplyBeans + ", ltId=" + ltId + ", title=" + title + ", userId=" + userId
-				+ ", date=" + date + ", picture=" + picture + ", content=" + content + ", classify=" + classify + "]";
+		return "LTBean [ltId=" + ltId + ", ReplyBeans=" + ReplyBeans + ", title=" + title + ", userId=" + userId
+				+ ", date=" + date + ", picture=" + picture + ", content=" + content + ", saveLike=" + saveLike + "]";
 	}
 
-	public LTBean(Set<ReplyBean> replyBeans, Integer ltId, String title, Integer userId, Date date, String picture,
-			String content, String classify) {
+	public LTBean(Integer ltId, Set<ReplyBean> replyBeans, String title, Integer userId, Date date, String picture,
+			String content, Integer saveLike) {
 		super();
-		ReplyBeans = replyBeans;
 		this.ltId = ltId;
-		this.title = title;
-		this.userId = userId;
-		this.date = date;
-		this.picture = picture;
-		this.content = content;
-		this.classify = classify;
-	}
-
-	public LTBean(Set<ReplyBean> replyBeans, String title, Integer userId, Date date, String picture, String content,
-			String classify) {
-		super();
 		ReplyBeans = replyBeans;
 		this.title = title;
 		this.userId = userId;
 		this.date = date;
 		this.picture = picture;
 		this.content = content;
-		this.classify = classify;
+		this.saveLike = saveLike;
+	}
+
+	public LTBean(String title, Integer userId, Date date, String picture, String content, Integer saveLike) {
+		super();
+		this.title = title;
+		this.userId = userId;
+		this.date = date;
+		this.picture = picture;
+		this.content = content;
+		this.saveLike = saveLike;
 	}
 
 	public LTBean(Integer ltId, String title, Integer userId, Date date, String picture, String content,
-			String classify) {
+			Integer saveLike) {
 		super();
 		this.ltId = ltId;
 		this.title = title;
@@ -158,18 +160,10 @@ public class LTBean implements Serializable {
 		this.date = date;
 		this.picture = picture;
 		this.content = content;
-		this.classify = classify;
+		this.saveLike = saveLike;
 	}
 
-	public LTBean(String title, Integer userId, Date date, String picture, String content, String classify) {
-		super();
-		this.title = title;
-		this.userId = userId;
-		this.date = date;
-		this.picture = picture;
-		this.content = content;
-		this.classify = classify;
-	}
+	
 
 
 	

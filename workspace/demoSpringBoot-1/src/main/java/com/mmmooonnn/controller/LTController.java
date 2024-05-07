@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.service.LTService;
+import com.mmmooonnn.service.LikeService;
 
 
 
@@ -32,6 +33,8 @@ public class LTController {
 
 	@Autowired
 	private LTService lt;
+	@Autowired
+	private LikeService lr;
 
 	
 	@GetMapping("/LTSelectById1.controller")
@@ -62,12 +65,14 @@ public class LTController {
 		return "forward:/WEB-INF/jsp/LTSelectAll.jsp";
 
 	}
+	
+
 
 	@PostMapping("/LTinsert.controller")
 	@ResponseBody
 	public ModelAndView InsertLT(@RequestParam("title") String title, @RequestParam("userId") String userId,
-			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content,
-			@RequestParam("classify") String classify) {
+			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
+			/*@RequestParam("saveLike") Integer saveLike*/) {
 		ModelAndView mv = new ModelAndView();
 
 		try {
@@ -84,15 +89,8 @@ public class LTController {
 			ltBean.setTitle(title);
 			ltBean.setUserId(Integer.parseInt(userId));
 			ltBean.setContent(content);
-			ltBean.setClassify(classify);
+			ltBean.setSaveLike(0);
 			 Date DATE = new Date(System.currentTimeMillis());
-//			LocalDateTime localTime = LocalDateTime.now();
-//
-//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//			String formattedTime = localTime.format(formatter);
-//
-//			LocalDateTime parsedTime = LocalDateTime.parse(formattedTime, formatter);
-//			java.sql.Date sqlDate = java.sql.Date.valueOf(parsedTime.toLocalDate());
 
 			ltBean.setDate(DATE);
 			lt.insertLT(ltBean);
@@ -119,7 +117,7 @@ public class LTController {
 			@RequestParam("userId") String userId,
 			@RequestParam("date") String date,
 			@RequestParam("picture") String picture, @RequestParam("content") String content,
-			@RequestParam("classify") String classify) {
+			@RequestParam("saveLike") Integer saveLike) {
 
 		Integer LTID = Integer.parseInt(ltId);
 		Integer USERID = Integer.parseInt(userId);
@@ -135,7 +133,7 @@ public class LTController {
 	    
 		
 
-		LTBean ltBean = new LTBean(LTID, title, USERID, parsedDate, picture, content, classify);
+		LTBean ltBean = new LTBean(LTID, title, USERID, parsedDate, picture, content, saveLike);
 		lt.update(ltBean);
 		return "redirect:LTSelectAll";
 
@@ -149,4 +147,34 @@ public class LTController {
 	    mm.addAttribute("ltBeans", ltBeans);
 	    return "forward:/WEB-INF/jsp/LTTitle.jsp";
 	}
+	
+//	@PostMapping("/Likeinsert1.controller")
+//	public ModelAndView InsertLike(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
+//	    ModelAndView mv = new ModelAndView();
+//
+//	    // 檢查是否已經按過讚
+//	    LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
+//	    if (existingLike != null) {
+//	        // 如果已經按過讚，則取消按讚
+//	        lr.deleteByUserIdAndLtId(userId, ltId);
+//	        // 更新文章的按讚數量
+//	        int likeCount = lr.getLikeCount(ltId);
+//	        lt.updateLikeCount(ltId, likeCount - 1);
+//	    } else {
+//	        // 如果還未按讚，則新增一條按讚紀錄
+//	        LikeBean newLike = new LikeBean();
+//	        newLike.setUserId(userId);
+//	        newLike.setLtId(ltId);
+//	        lr.insertLike(newLike);
+//	        // 更新文章的按讚數量
+//	        int likeCount = lr.getLikeCount(ltId);
+//	        lt.updateLikeCount(ltId, likeCount + 1);
+//	    }
+//
+//	    // 重定向到該文章的頁面
+//	    mv.setViewName("redirect:/LTSelectById.controller?ltId=" + ltId);
+//	    return mv;
+//	}
+
+	
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- JS Bundle for BS  -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+
+	<h2>新增</h2>
+	<form method="post" action="/LTinsertFront.controller" enctype="multipart/form-data"
+		onsubmit="return validateForm();">
+
+		<div class="form-group">
+			<label for="title">輸入標題:</label>
+			<input type="text" id="title" name="title" />
+		</div>
+
+		<div class="form-group">
+			<label for="userId">輸入使用者id:</label>
+			<input type="text" id="userId" name="userId" />
+		</div>
+
+		<div class="form-group">
+			<label for="content">輸入文章內容:</label>
+			<input type="text" id="content" name="content" />
+		</div>
+
+		<div class="form-group">
+			<label for="picture">上傳圖片:</label>
+			<input type="file" id="picture" name="picture" />
+		</div>
+
+		<div class="btn-container">
+			<input class="btn" type="submit" value="確定" />
+			<a class="btn" href="/LTSelectAll">返回首頁</a>
+		</div>
+
+	</form>
+	</div>
+
+	<script>
+		function validateForm() {
+			var titleInput = document.getElementById('title').value.trim();
+			var userIdInput = document.getElementById('userId').value.trim();
+			var contentInput = document.getElementById('content').value.trim();
+
+			if (titleInput === '' || userIdInput === '' || contentInput === '') {
+				Swal.fire({
+					icon: 'warning',
+					title: '請確保標題、ID、文章內容都已輸入😒😒😒',
+					showConfirmButton: false,
+					timer: 1500
+				});
+				return false;
+			}
+			return true;
+		}
+		fetch('/html/basic.html')
+			.then(response => response.text())
+			.then(html => {
+				document.body.innerHTML += html;
+			});
+	</script>
+</body>
+
+</html>
