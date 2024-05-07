@@ -25,21 +25,25 @@ import com.mmmooonnn.service.ReplyService;
 
 
 @Controller
-public class ReplyController {
+public class ReplyControllerFront {
 	@Autowired
 	private ReplyService ry;
 	@Autowired
 	private LTService lt;
 
-	@GetMapping("/ReplySelectById1.controller")
-	public String findByReplyId(@RequestParam("replyId") Integer replyId,Model mm) {
+	@GetMapping("/ReplySelectByIdFront.controller")
+	public String findByReplyId(@RequestParam("replyId") Integer replyId,Integer ltId,Model mm) {
 		//呼叫主文加到MODEL
-		ReplyBean resultBean = ry.findByReplyId(replyId);
-		mm.addAttribute("replyBean",resultBean);
+		LTBean resultBean = lt.findByLTId(ltId);
 		
-		return "forward:/WEB-INF/jsp/ReplySelect.jsp";
+		ReplyBean resultBean1 = ry.findByReplyId(replyId);
+		mm.addAttribute("replyBean",resultBean);
+		mm.addAttribute("ltBeans", resultBean1);
+
+		
+		return "forward:/WEB-INF/jsp/ReplySelectFront.jsp";
 	}
-	@GetMapping("/ReplySelectById.controller/{replyId}")
+	@GetMapping("/ReplySelectByIdFront.controller/{replyId}")
 	public String findByReplyIdup(@RequestParam("replyId") Integer replyId,Model m) {
 		ReplyBean resultBean = ry.findByReplyId(replyId);
 		m.addAttribute("replyBean",resultBean);
@@ -48,15 +52,16 @@ public class ReplyController {
 	}	
 	
 	
-@GetMapping("/ReplySelectAll")
+@GetMapping("/ReplySelectAllFront")
 	public String findReply(Model m) {
 			List<ReplyBean> replyList = ry.findReply();
+			
 			m.addAttribute("replyBeans", replyList);
 			
-			return "forward:/WEB-INF/jsp/ReplySelectAll.jsp";
+			return "forward:/WEB-INF/jsp/ReplySelectAllFront.jsp";
 			
 	}
-@PostMapping("Replyinsert.controller")
+@PostMapping("ReplyinsertFront.controller")
 public ModelAndView InsertReply(
 		@RequestParam("userId") Integer userId,
 		@RequestParam("replypost") String replypost, 
@@ -85,7 +90,7 @@ public ModelAndView InsertReply(
 }
 
 		
-@DeleteMapping("/ReplyDelete.controller")
+@DeleteMapping("/ReplyDeleteFront.controller")
     public String deleteBYReplyId(@RequestParam("replyId") Integer replyId) {
        ry.deleteBYReplyId(replyId);
        return"redirect:ReplySelectAll";
@@ -93,7 +98,7 @@ public ModelAndView InsertReply(
 	
     }
     
- @PutMapping("/ReplyUpdate.controller")
+ @PutMapping("/ReplyUpdateFront.controller")
     public String update(@RequestParam("replyId") String replyId,
             @RequestParam("userId") String userId,
             @RequestParam("LTId") Integer ltId,
@@ -123,7 +128,7 @@ public ModelAndView InsertReply(
 		return "redirect:ReplySelectAll";
     }
 		
-	@GetMapping("/findLTID/{ltId}")
+	@GetMapping("/findLTIDFront/{ltId}")
 	public String findByID(@PathVariable("ltId") Integer ltId,Model mm) 
 	{
 		System.out.println("ltId:"+ltId);
@@ -134,7 +139,8 @@ public ModelAndView InsertReply(
 		Set<ReplyBean> replyBeans = resultBean.getReplyBeans();
 		System.out.println("ReplyBeans"+resultBean.getReplyBeans());
 	    mm.addAttribute("replyBean", replyBeans);
-	    return "forward:/WEB-INF/jsp/ReplySelectLTId.jsp";
+		mm.addAttribute("items", resultBean);
+	    return "forward:/WEB-INF/jsp/ReplySelectLTIdFront.jsp";
 	}
 }
 		

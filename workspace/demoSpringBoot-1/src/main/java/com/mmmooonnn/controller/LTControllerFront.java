@@ -33,7 +33,7 @@ import com.mmmooonnn.service.LikeService;
 
 // @MultipartConfig(location =
 // "C:/Spring/workspace/SpringMVC/src/main/webapp/images")
-public class LTController2 {
+public class LTControllerFront {
 
 	@Autowired
 	private LTService lt;
@@ -41,7 +41,7 @@ public class LTController2 {
 	private LikeService lr;
 
 	
-	@GetMapping("/LTSelectById12.controller")
+	@GetMapping("/LTSelectById1Front.controller")
 	public String findByLTId(@RequestParam("ltId") Integer ltId, Model mm) {
 		LTBean resultBean = lt.findByLTId(ltId);
 		System.out.println(resultBean);
@@ -51,7 +51,7 @@ public class LTController2 {
 
 	}
 	
-	@GetMapping("/LTSelectById2.controller/{ltId}")
+	@GetMapping("/LTSelectByIdFront.controller/{ltId}")
 	public String findByLTIdup(@PathVariable  Integer ltId, Model m) {
 		LTBean resultBean = lt.findByLTId(ltId);
 		System.out.println(resultBean);
@@ -61,18 +61,18 @@ public class LTController2 {
 
 	}
 
-	@GetMapping("/LTSelectAll2")
+	@GetMapping("/LTSelectAllFront")
 	public String LTSelectAll(Model m) {
 		List<LTBean> LTList = lt.findLT();
 		m.addAttribute("ltBeans", LTList);
 
-		return "forward:/WEB-INF/jsp/LTSelectAll2.jsp";
+		return "forward:/WEB-INF/jsp/LTSelectAllFront.jsp";
 
 	}
 	
 
 
-	@PostMapping("/LTinsert1.controller")
+	@PostMapping("/LTinsertFront.controller")
 	@ResponseBody
 	public ModelAndView InsertLT(@RequestParam("title") String title, @RequestParam("userId") String userId,
 			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
@@ -95,13 +95,6 @@ public class LTController2 {
 			ltBean.setContent(content);
 			ltBean.setSaveLike(0);
 			 Date DATE = new Date(System.currentTimeMillis());
-//			LocalDateTime localTime = LocalDateTime.now();
-//
-//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//			String formattedTime = localTime.format(formatter);
-//
-//			LocalDateTime parsedTime = LocalDateTime.parse(formattedTime, formatter);
-//			java.sql.Date sqlDate = java.sql.Date.valueOf(parsedTime.toLocalDate());
 
 			ltBean.setDate(DATE);
 			lt.insertLT(ltBean);
@@ -112,18 +105,18 @@ public class LTController2 {
 			mv.addObject("errorMessage", "An error occurred: " + e.getMessage());
 
 		}
-		mv.setViewName("redirect:LTSelectAll");
+		mv.setViewName("redirect:LTSelectAllFront");
 
 		return mv;
 	}
 
-	@DeleteMapping("/LTDeleteById1.controller")
+	@DeleteMapping("/LTDeleteByIdFront.controller")
 	public String deleteBYLTId(@RequestParam("ltId") Integer ltId) {
 		lt.deleteById(ltId);
-		return "redirect:LTSelectAll";
+		return "redirect:LTSelectAllFront";
 	}
 
-	@PutMapping("/LTUpdate11.controller")
+	@PutMapping("/LTUpdateFront.controller")
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
 			@RequestParam("userId") String userId,
 			@RequestParam("date") String date,
@@ -152,11 +145,11 @@ public class LTController2 {
 	
 	
 	
-	@GetMapping("/findtitle1")
+	@GetMapping("/findtitleFront")
 	public String findByTitle(@RequestParam("title") String title, Model mm) {
 	    List<LTBean> ltBeans = lt.findByTitle(title);
 	    mm.addAttribute("ltBeans", ltBeans);
-	    return "forward:/WEB-INF/jsp/LTTitle.jsp";
+		return "forward:/WEB-INF/jsp/LTSelectAllFront.jsp";
 	}
 	
 //	@PostMapping("/Likeinsert1.controller")

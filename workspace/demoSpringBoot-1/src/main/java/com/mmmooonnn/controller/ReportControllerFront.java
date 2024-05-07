@@ -19,13 +19,13 @@ import com.mmmooonnn.service.ReportService;
 
 
 @Controller
-public class ReportController {
+public class ReportControllerFront {
 	@Autowired
 	private ReportService rp;
 	@Autowired
 	private LTService lt;
 
-	@GetMapping("/ReportSelectId1.controller")
+	@GetMapping("/ReportSelectId1Front.controller")
 	public String findByID1(@RequestParam("reportId") Integer reportId, Model m) {
 		System.out.println(reportId);
 		ReportBean resultBean = rp.findById(reportId);
@@ -36,7 +36,7 @@ public class ReportController {
 
 	}
 
-	@GetMapping("/ReportSelectId.controller/{reportId}")
+	@GetMapping("/ReportSelectIdFront.controller/{reportId}")
 	public String findByID(@RequestParam("reportId") Integer reportId, Model m) {
 		ReportBean resultBean = rp.findById(reportId);
 		m.addAttribute("reportBean", resultBean);
@@ -44,7 +44,7 @@ public class ReportController {
 
 	}
 
-	@GetMapping("/ReportSelectAll")
+	@GetMapping("/ReportSelectAllFront")
 	public String findReport(Model m) {
 		List<ReportBean> reportList = rp.findReport();
 		m.addAttribute("reportBeans", reportList);
@@ -53,11 +53,11 @@ public class ReportController {
 
 	}
 
-	@PostMapping("/Reportinsert.controller")
+	@PostMapping("/ReportinsertFront.controller")
 	public ModelAndView InsertReport(@RequestParam("reportContent") String reportContent,
 			@RequestParam("ltId") Integer ltId, Model m) {
 
-		ModelAndView mv = new ModelAndView("redirect:ReportSelectAll");
+		ModelAndView mv = new ModelAndView("redirect:LTSelectAllFront");
 
 		LTBean ltBean = lt.findByLTId(ltId);
 		ReportBean reportBean = new ReportBean();
@@ -69,7 +69,7 @@ public class ReportController {
 		return mv;
 	}
 
-	@DeleteMapping("/ReportDelete.controller")
+	@DeleteMapping("/ReportDeleteFront.controller")
 	public String deleteByReportId(@RequestParam("reportId") Integer reportId) {
 		ReportBean reb = rp.findById(reportId);
 		 Integer delete = reb.getLTId();
@@ -78,10 +78,10 @@ public class ReportController {
 		
 		
 
-		return "redirect:ReportSelectAll";
+		return "redirect:ReportSelectAllFront";
 	}
 
-	@PutMapping("/ReportUpdate.controller")
+	@PutMapping("/ReportUpdateFront.controller")
 	public String update(@RequestParam("reportId") Integer reportId,
 			@RequestParam("reportContent") String reportContent, @RequestParam("LTId") Integer ltId) {
 
@@ -93,7 +93,7 @@ public class ReportController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "redirect:ReportSelectAll";
+		return "redirect:ReportSelectAllFront";
 	}
 
 }

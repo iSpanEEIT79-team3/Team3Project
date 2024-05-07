@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.LTBean;
-import com.mmmooonnn.model.LikeBean;
 import com.mmmooonnn.service.LTService;
 import com.mmmooonnn.service.LikeService;
 
@@ -92,13 +91,6 @@ public class LTController {
 			ltBean.setContent(content);
 			ltBean.setSaveLike(0);
 			 Date DATE = new Date(System.currentTimeMillis());
-//			LocalDateTime localTime = LocalDateTime.now();
-//
-//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//			String formattedTime = localTime.format(formatter);
-//
-//			LocalDateTime parsedTime = LocalDateTime.parse(formattedTime, formatter);
-//			java.sql.Date sqlDate = java.sql.Date.valueOf(parsedTime.toLocalDate());
 
 			ltBean.setDate(DATE);
 			lt.insertLT(ltBean);
