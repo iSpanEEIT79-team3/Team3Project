@@ -94,17 +94,17 @@
 
 					<div class="row">
 						<div class="col">
-						<form id="eventCollectionForm" action="../eventCollection" method="post">
+					
 							<button onclick="buy()" class="btn btn-primary">立即報名</button>
-							</form>
-
+							<button id="buy123">立即報名</button>
 						</div>
 						<div class="col">
 
-							<form id="eventCollectionForm" action="../eventCollection"
-								method="post">
-								<!--                         <input type="hidden" id="eventDate" name="EVENT_STARTIME" value=${data.startTime}>  -->
-								<!--                          <input type="hidden" id="eventName" name="EVENT_NAME" value=${data.eventName}> -->
+							<form id="eventCollectionForm" >
+<!-- 							action="../eventCollection" -->
+<!-- 								method="post" -->
+<!-- 								                        <input type="hidden" id="eventDate" name="EVENT_STARTIME" value=${startTime}>  -->
+<!-- 								                         <input type="hidden" id="eventName" name="EVENT_NAME" value=${eventName}> -->
 								<button class="btn btn-primary" type="submit">收藏活動到email</button>
 							</form>
 						</div>
@@ -125,13 +125,9 @@
 			</div>
 		</div>
 	</div>
+	
 
-	<script>
-        function eventCollection() {
-            var form = document.getElementById("eventCollectionForm");
-            form.submit();
-        }
-    </script>
+	
 
 
 
@@ -142,10 +138,29 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
+		
+		
+		<script>const element = document.querySelector('#buy123');
+		element.addEventListener('click', onClick) // 設置為點擊之後呼叫函式
+		function onClick() {
+		  alert('click!')
+		}</script>
 
 	<script src="Timer.js"></script>
 	<!-- Timer -->
+<script>
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
 
+	var evenID = urlParams.get("ID");
+
+
+	console.log(evenID);
+	$(function(){
+		
+		getTimer();
+	}); //windows.onload
+	</script>
 	<script>
 
         // const queryString = window.location.search;
@@ -217,22 +232,16 @@
 
     </script>
 	<script>
-        //     function buy(){
 
-        // 		fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
-        //             return response.json();
-        // 	}).then(function (data) {
+console.log("AAAAAAA")
+        console.log(document.getElementById("buy123"));
+        
 
-        // 		var buydata=
-        // 		{productNum:data.eventId, 
-        // 		productName:data.eventName,
-        //         productPrice:data.eventPrice,
-        //         productQuantity: "1",
-        //         orderTotalPrice: data.eventPrice}
-
-        // 	});
-        // 		console.log(buydata);
-
+        $("#buy123").on("click", function(event){
+          console.log("onbuybuttomclick");
+          event.preventDefault();
+        //    buy();
+        });
 
        function buy() {
     var url = "http://localhost:8080/orders"; // 請求的 URL
@@ -264,14 +273,63 @@
 }
 
     </script>
+    
+    <script>
+	
+	$(document).ready(function(){
+	    $("#eventCollectionForm").submit(function(event){  
+	        // 阻止表單默認提交行為
+	        event.preventDefault();
+
+	        // 獲取表單數據
+	        var eventDate = $("#eventDate").val();
+	        var eventName = $("#eventName").val();
+
+	        // 發送Ajax請求
+	        $.ajax({
+	            type: "POST",
+	            url: "/eventCollection",
+	            data: {
+	                EVENT_STARTIME: eventDate,
+	                EVENT_NAME: eventName
+	            },
+	            success: function(response){
+	                // 成功處理返回的數據
+	                console.log("活動收藏成功");
+	                alert("活動收藏成功");
+	            },
+	            error: function(xhr, status, error){
+	                // 處理錯誤情況
+	                console.error("活動收藏失敗:", error);
+	                alert("活動收藏失敗");
+	            }
+	        });
+	    });
+	});
+
+
+        function eventCollection() {
+            var form = document.getElementById("eventCollectionForm");
+            form.submit();
+        }
+        
+    </script>
 
 	<script>
 
-        fetch('basic.html')
-            .then(response => response.text())
-            .then(html => {
-                document.body.innerHTML += html;
-            });
+//         fetch('basic.html')
+//             .then(response => response.text())
+//             .then(html => {
+//                 document.body.innerHTML += html;
+//             });
+fetch('basic.html')
+    .then(response => response.text())
+    .then(html => {
+        document.body.insertAdjacentHTML('beforeend', html);
+    });
+
+
+
 
 
     </script>

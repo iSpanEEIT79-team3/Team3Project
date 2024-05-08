@@ -85,7 +85,8 @@ public class EventController {
 	
 	//收藏活動寄email
 	  @PostMapping("/eventCollection")
-	    public String EventCollection(
+		@ResponseBody
+	    public ResponseEntity EventCollection(
 	    		@RequestParam("EVENT_STARTIME") String eventDate ,   
 	    		@RequestParam("EVENT_NAME") String eventName) 
 	         {
@@ -99,7 +100,8 @@ public class EventController {
 	            
 	            System.out.println(content);
 	            eService.sendPlainText(receivers, subject, content,From);
-	           return "successCollection.html";
+//	           return "successCollection.html";
+	            return ResponseEntity.ok().body("good");
 	        }
 	
 
