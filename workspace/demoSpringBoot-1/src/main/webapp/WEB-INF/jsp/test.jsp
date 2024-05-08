@@ -187,8 +187,8 @@
 									alt="User Image" class="img">
 								<div class="button-container">
 									<form action="/createMatch" method="post">
-										<input type="hidden" name="user1Id" value="${userId1}">
-										<input type="hidden" name="user2Id" value="${userId2}">
+										<input type="hidden" name="userId1" value="${loginuser.userId}">
+										<input type="hidden" name="userId2" value="${user.userId}">
 										<button type="submit" style="background: #f99;"
 											class="heart-button">&#x2665;</button>
 									</form>
