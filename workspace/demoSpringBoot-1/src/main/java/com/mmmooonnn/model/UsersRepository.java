@@ -14,7 +14,7 @@ public interface UsersRepository extends JpaRepository<UsersBeanNew, Integer> {
 //
 
 	@Query(value ="SELECT * FROM usersnew "
-			+   "WHERE userId not in (SELECT user2_id FROM matches WHERE userId = :userid) and userId <> :userid" , nativeQuery = true)
+			+   "WHERE userId not in (SELECT user2_id FROM matches WHERE user1_id = :userid) and userId <> :userid" , nativeQuery = true)
 		List<UsersBeanNew> findMatchesByStatus(@Param("userid") Integer userid);
 	
 
