@@ -12,49 +12,40 @@
             min-height: 55vh;
 
         }
-       .product-container {
-            display: flex;
-            flex-wrap: wrap;
-		    justify-content: center; /* 將所有商品置中對齊 */
-		    margin: 0 auto; /* 將整個商品容器置中 */
-        }
-        .product {
-            width: 21%;
-            border: 1px solid #ccc;
-            padding: 30px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+/*        .product-container { */
+/*             display: flex; */
+/*             flex-wrap: wrap; */
+/* 		    justify-content: center; /* 將所有商品置中對齊 */ */
+/* 		    margin: 0 auto; /* 將整個商品容器置中 */ */
+/*         } */
+/*         .product { */
+/*             width: 21%; */
+/*             border: 1px solid #ccc; */
+/*             padding: 30px; */
+/*             margin-bottom: 20px; */
+/*             text-align: center; */
+/*         } */
         
-                /* 基本样式 */
-        .ulType {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            text-align: center;
-        }
-        li {
-            /*float: left;*/
-            display: inline-block;
-        }
-        li + li {
-            border-left: 1px solid gray; /* 添加右边框作为分隔符 */
-            margin-left: -9px; /* 间距 */
-        }
-
-        li a {
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 10px 30px;
-            text-decoration: none;
-            position: relative;
-        }
-
-        li a:hover {
-            background-color: #f0ede5;
-        }
+        
+/*         .container { */
+/*     width: 100%; */
+/*     padding-right: 15px; */
+/*     padding-left: 15px; */
+/*     margin-right: auto; */
+/*     margin-left: auto; */
+/* } */
+section {
+    display: block;
+    unicode-bidi: isolate;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
        
     </style>
 	<!-- Bootstrap CSS -->
@@ -75,7 +66,7 @@
 	    <!-- JS Bundle for BS  -->
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
 	        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-	        </script>
+	    </script>
     <title>範本</title>
 </head>
 
@@ -88,25 +79,43 @@
     <!-- <section> -->
     <div class="main">    
  
-<div class="ulType">  
-	<ul>
-    <li><a href="#outerwear">外套</a></li>
-    <li><a href="#clothing">衣服</a></li>
-    <li><a href="#pants">褲子</a></li>
-	</ul>
-</div> 
-
-<!-- 確定分類數量 --><!-- controller找分類 return shop.jsp -->
-<!-- 新jsp 放詳細資料 -->
 
 
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row property__gallery" id="MixItUp06FF61" style="">
+        
+        <c:forEach items="${shops}" var="shop">
+            <div class="col-lg-3 col-md-4 col-sm-6 mix women" style="">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="${shop.productImg}" style="background-image: url(&quot;${shop.productImg}&quot;);">
+                        <ul class="product__hover">
+                            <li><a href="${shop.productImg}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="/Shopproduct/${shop.productId}">${shop.productName}</a></h6>
+                        <div class="product__price">NT$ ${shop.productPrice}</div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+
+
+
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
 
 
 
 
 
-
-
+<%-- 
      <div class="product-container">
         <c:forEach items="${shops}" var="shop">
             <div class="product">
@@ -115,11 +124,11 @@
                 <p>${shop.productName}</p>
             </a>
                 <p>NT$ ${shop.productPrice}</p>
-                <!-- 其他商品相關資訊 -->
+                其他商品相關資訊
             </div>
         </c:forEach>
     </div>
-        
+--%>
 
     </div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
