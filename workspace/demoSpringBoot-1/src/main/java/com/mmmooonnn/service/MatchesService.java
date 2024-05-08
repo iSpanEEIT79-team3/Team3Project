@@ -22,5 +22,9 @@ public class MatchesService {
 	public List<UsersBeanNew> getMatchesByStatus(Integer userid) {
 		return usersRepository.findMatchesByStatus(userid);
 	}
+	
+	 public void createMatch(Integer userId1, Integer userId2) {
+	        matchesRepository.createMatch(userId1, userId2);
+	    }
 
 }

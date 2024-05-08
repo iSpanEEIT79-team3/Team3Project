@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,6 +40,11 @@ public class MatchesController {
 		 System.out.println(matches);
 	        model.addAttribute("matches", matches);
 		return "forward:/WEB-INF/jsp/test.jsp";
+	}
+	@PostMapping("/createMatch")
+	public String createMatch(@RequestParam("user1Id") Integer userId1, @RequestParam("user2Id") Integer userId2) {
+	    matchesService.createMatch(userId1, userId2);
+	    return "redirect:/matchIndex"; // 重定向到顯示配對結果的頁面
 	}
 	 
 	

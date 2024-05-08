@@ -3,17 +3,26 @@ package com.mmmooonnn.model;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import jakarta.transaction.Transactional;
 
 public interface MatchesRepository extends JpaRepository<MatchesBean, Integer> {
 
    
-	
-//	@Query(value = ("SELECT * FROM matches "))
-	
-	
-	
+	@Modifying
+    @Transactional
+	   
+	    @Query(value = "INSERT INTO matches (user1_id, user2_id, match_date, match_success, match_status) VALUES (:userId1, :userId2, CURRENT_TIMESTAMP, '3' ,'Y')", nativeQuery = true)
+	    void createMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
+
+	    @Modifying
+	    @Transactional
+	    @Query(value = "UPDATE matches SET match_status = 'N' WHERE user1_id = :userId1 AND user2_id = :userId2", nativeQuery = true)
+	    void cancelMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
+
 	
 }
 

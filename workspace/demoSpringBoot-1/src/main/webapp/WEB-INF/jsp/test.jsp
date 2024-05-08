@@ -173,38 +173,45 @@
 	</div>
 
 
-<table class="big-table">
-    <c:forEach items="${matches}" var="user" varStatus="loop">
-        <c:if test="${loop.index % 3 == 0}">
-            <tr>
-        </c:if>
-        <td>
-            <table class="small-table">
-                <tr>
-                    <td>
-                        <div class="user-container">
-                            <img id="user_image_${loop.index}" src="${user.picture}" alt="User Image" class="img">
-                            <div class="button-container">
-                                <button type="submit" style="background: #f99;" class="heart-button">&#x2665;</button>
-                                <button type="reset" style="background: #99f;" class="x-button">&#x2716;</button>
-                            </div>
-                            <div id="user_details_${loop.index}" class="user-details">
-                                <p>Nickname: ${user.nickName}</p>
-                                <p>Gender: ${user.gender}</p>
-                                <p>Birthday: ${user.birthday}</p>
-                                <p>Dance Character: ${user.danceCharacter}</p>
-                                <p>Dance Age: ${user.danceAge}</p>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <c:if test="${loop.index % 3 == 2 || loop.last}">
-            </tr>
-        </c:if>
-    </c:forEach>
-</table>
+	<table class="big-table">
+		<c:forEach items="${matches}" var="user" varStatus="loop">
+			<c:if test="${loop.index % 3 == 0}">
+				<tr>
+			</c:if>
+			<td>
+				<table class="small-table">
+					<tr>
+						<td>
+							<div class="user-container">
+								<img id="user_image_${loop.index}" src="${user.picture}"
+									alt="User Image" class="img">
+								<div class="button-container">
+									<form action="/createMatch" method="post">
+										<input type="hidden" name="user1Id" value="${userId1}">
+										<input type="hidden" name="user2Id" value="${userId2}">
+										<button type="submit" style="background: #f99;"
+											class="heart-button">&#x2665;</button>
+									</form>
+
+									<button type="reset" style="background: #99f;" class="x-button">&#x2716;</button>
+								</div>
+								<div id="user_details_${loop.index}" class="user-details">
+									<p>Nickname: ${user.nickName}</p>
+									<p>Gender: ${user.gender}</p>
+									<p>Birthday: ${user.birthday}</p>
+									<p>Dance Character: ${user.danceCharacter}</p>
+									<p>Dance Age: ${user.danceAge}</p>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<c:if test="${loop.index % 3 == 2 || loop.last}">
+				</tr>
+			</c:if>
+		</c:forEach>
+	</table>
 
 	<style>
 .user-container {
@@ -240,7 +247,6 @@
 	border: 1px solid black;
 	border-radius: 20px;
 }
-
 
 .user-container:hover .user-details {
 	display: block;
