@@ -17,15 +17,19 @@ import com.mmmooonnn.model.CoursesBean;
 public class CoursesService {
 	@Autowired
 	private CourseRepository courseRepos;
+	
 	public void insert(CoursesBean course) {
 		courseRepos.save(course);
 	}
+	
 	public void update(CoursesBean course) {
 		courseRepos.save(course);
 	}
+	
 	public void deleteById(Integer id) {
 		courseRepos.deleteById(id);
 	}
+	
 	public CoursesBean findCourseById(Integer id) {
 		Optional<CoursesBean> result = courseRepos.findById(id);
 		if(result.isPresent()) {
@@ -33,6 +37,7 @@ public class CoursesService {
 		}
 		return null;
 	}
+	
 	public List<CoursesBean> getAll(){
 		return courseRepos.findAll();
 	}

@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,35 @@ public class CoursesController {
 		return modelAndView;
 	}
 	
+	//html getall所有
+
+	@RestController
+	@RequestMapping("/api")
+	public class CourseApiController {
+	    @Autowired
+	    private CoursesService cService;
+
+	    // 获取所有课程的API
+	    @GetMapping("/courses")
+	    public ResponseEntity<List<CoursesBean>> getAllCourses() {
+	        List<CoursesBean> courses = cService.getAll();
+	        return ResponseEntity.ok(courses);  // 返回JSON格式的课程列表
+	    }
+	}
+	
+	//Thymeleaf html getall所有
+	@GetMapping("/findAllCourses")
+	public ModelAndView findAllCourses() {
+	    ModelAndView mav = new ModelAndView("courses_getall"); // 修改視圖名稱為 "courses_getall"
+	    try {
+	        List<CoursesBean> courses = cService.getAll();
+	        mav.addObject("Courses", courses); // 將課程列表添加到 ModelAndView 中
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return mav;
+	}
+
 	//getid後修改
     @GetMapping("/GetCourseById/{id}")
 	public String findCourseById(@PathVariable("id") int id ,Model m){
@@ -41,14 +71,28 @@ public class CoursesController {
     //getid後得到詳細資料
     @GetMapping("/courseDetails/{id}")
     public String getCourseDetails(@PathVariable("id") int id, Model model) {
+    	CoursesBean course = cService.findCourseById(id);
+    	if (course != null) {
+    		model.addAttribute("course", course);
+    		return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
+    	}
+    	return "redirect:/error";  // Redirect to an error page if no course is found
+    }
+    
+    // 根据课程ID获取课程详细信息
+    @GetMapping("/courses/detail/{id}")
+    public ModelAndView getCourseDetails(@PathVariable("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
         CoursesBean course = cService.findCourseById(id);
         if (course != null) {
-            model.addAttribute("course", course);
-            return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
+            modelAndView.addObject("course", course);
+            modelAndView.setViewName("html/CoursesDetail.html");
+        } else {
+            modelAndView.setViewName("redirect:/error");  // Redirect to an error page if no course is found
         }
-        return "redirect:/error";  // Redirect to an error page if no course is found
+        return modelAndView;
     }
-
+    
     
 	//修改
 	@PostMapping("/upd")

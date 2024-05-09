@@ -35,6 +35,69 @@
     integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
     crossorigin="anonymous"></script>
   <style>
+    .course-image {
+      max-width: 88px;
+      /* Set the maximum width */
+      max-height: 88px;
+      /* Set the maximum height */
+      /* Add other styles as needed */
+    }
+
+    lt-container {
+      overflow: auto;
+      /* 清除浮動 */
+    }
+
+    /*
+.lt {
+	position: absolute;
+	left: 580px;
+	float: center;
+	width: 50%;
+}*/
+
+    .lt-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .lt th,
+    .lt td {
+      text-align: center;
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .lt th {
+      background-color: #d8dbd9;
+      padding: 3px;
+
+    }
+
+    input,
+    button {
+      /* Apply styles to both input and button elements */
+      border: 0;
+      background-color: #4f85a6;
+      color: #fff;
+      border-radius: 10px;
+      padding: 8px 16px;
+      /* Adjust padding to your liking */
+      cursor: pointer;
+      /* Makes it clear that the element is clickable */
+    }
+
+    input:hover,
+    button:hover a {
+      text-decoration: none;
+      /* Removes underline from links */
+    }
+
+    .table {
+      padding: 3px;
+
+    }
+
     .separator {
       width: 1px;
       /* 寬度為 1px */
@@ -86,7 +149,7 @@
 
     }
   </style>
-  </style>
+
   <title>Eternals Landing Website</title>
 </head>
 
@@ -169,7 +232,55 @@
   <!-- 課程 -->
   <div style="height: 82px"> </div>
 
-  <div>
+  <div class="container mt-5">
+    <h1>All Courses</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>用戶ID</th>
+          <th>產品ID</th>
+          <th>課程名稱</th>
+          <th>描述</th>
+          <th>課程類型</th>
+          <th>開始日期</th>
+          <th>結束日期</th>
+          <th>截止日期</th>
+          <th>地點</th>
+          <th>價格</th>
+          <th>教師名稱</th>
+          <th>教師聯繫方式</th>
+          <th>報名人數</th>
+          <th>最大容量</th>
+          <th>課程圖片</th>
+          <th>修改</th>
+          <th>刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="course : ${courses}">
+          <td th:text="${course.idUser}"></td>
+          <td>
+            <a th:href="@{/courseDetails/{id}(id=${course.productId})}" th:text="${course.productId}"></a>
+          </td>
+          <td th:text="${course.courseName}"></td>
+          <td th:text="${course.description}"></td>
+          <td th:text="${course.courseType}"></td>
+          <td th:text="${#dates.format(course.startDate, 'yyyy-MM-dd')}"></td>
+          <td th:text="${#dates.format(course.endDate, 'yyyy-MM-dd')}"></td>
+          <td th:text="${#dates.format(course.deadlineDate, 'yyyy-MM-dd')}"></td>
+          <td th:text="${course.location}"></td>
+          <td th:text="${course.price}"></td>
+          <td th:text="${course.teacherName}"></td>
+          <td th:text="${course.teacherContact}"></td>
+          <td th:text="${course.enrollmentCount}"></td>
+          <td th:text="${course.maxCapacity}"></td>
+          <td>
+            <img th:src="@{${course.courseImage}}" style="width: 100px; height: 100px;">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
 
 
 
@@ -188,21 +299,29 @@
       <div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
       <h6 class="d-flex align-items-center">一段美好的開始</h3>
     </div>
+
     <div class="d-flex text-center" style="width: 1900px;height:  400px;">
 
       <div class="active ratio" style="width: 600px;">
         <!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
+        <td>${course.productId}</td>
 
-        <img src="../images/CATQQ.png" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
+        <img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
           style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
       </div>
 
 
       <div class="active ratio" style="width: 600px;">
+        <!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
+        <td>${course.productId}</td>
+
         <img src="../images/CATQQ.png" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
           style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
       </div>
       <div class="active ratio" style="width: 600px;">
+        <!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
+        <td>${course.productId}</td>
+
         <img src="../images/CATQQ.png" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
           style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
       </div>
@@ -255,6 +374,8 @@
             <p>
               帶來如詩如畫的舞蹈饗宴。
             </p>
+            <!-- <td>${course.teacherName}</td> -->
+
             <h4><a class="text-reset" href="">李舞妍</a></h4>
           </div>
         </div>
@@ -271,6 +392,8 @@
             <p>
               讓每個人都感受到舞蹈的力量。
             </p>
+            <!-- <td>${course.teacherName}</td> -->
+
             <h4><a class="text-reset" href="">張舞風</a></h4>
           </div>
         </div>
@@ -287,6 +410,8 @@
             <p>
               如飄逸的雲彩般，輕盈而自由地穿越舞台。
             </p>
+            <!-- <td>${course.teacherName}</td> -->
+
             <h4><a class="text-reset" href="">王舞雲</a></h4>
           </div>
         </div>
@@ -348,16 +473,17 @@
                 <div class="portfolio-hover">
                   <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                 </div>
-                <img class="img-fluid" src="../images/CATQQ.png" alt="..." />
+                <img class="img-fluid" src="${course.courseImage}" alt="..." />
               </a>
               <div class="portfolio-caption">
                 <!-- 放入 ${course.courseName}-->
-
-                <h4>中級 Swing 舞課程：
+                ${course.courseName}
+                <h4>
                 </h4>
                 <!-- 放入${course.description}-->
 
-                <h6>適合已具一定 Swing 舞基礎的學員。我們將深入學習 Swing 舞的技術細節和舞蹈組合，提升學員的舞蹈技巧和舞台表現能力。
+                <h6>
+                  ${course.description}
                 </h6>
               </div>
             </div>
