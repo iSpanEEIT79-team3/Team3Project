@@ -72,14 +72,38 @@ public class EventController {
 	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
 	@ResponseBody
 	public Event ajaxFindEvenDataByID(@PathVariable("evenID") Integer evenId,HttpSession session) {
-		UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
-		System.out.println(user.getUserId());
-//		m.addAttribute("userId",user.getUserId());
-		Integer userId=user.getUserId();
-		Event eventBean = eService.findEventById(evenId);
-		eventBean.setUserId(userId);
-	System.out.println(eventBean);
-		return eventBean;
+		
+		try {
+			System.out.println(456);
+			UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+			Integer userId=user.getUserId();
+			Event eventBean = eService.findEventById(evenId);
+			eventBean.setUserId(userId);
+		System.out.println(eventBean);
+			return eventBean;
+		    
+		} catch (Exception e) {
+		    
+			System.out.println(123);
+			Event eventBean = eService.findEventById(evenId);
+			
+			return eventBean;
+		
+		}
+		
+		
+		
+		 
+//			 System.out.println(456);
+//		//UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+//		System.out.println(user.getUserId());
+////		m.addAttribute("userId",user.getUserId());
+//		Integer userId=user.getUserId();
+//		Event eventBean = eService.findEventById(evenId);
+//		eventBean.setUserId(userId);
+//	System.out.println(eventBean);
+//		return eventBean;
+		 
 	}
 	
 //	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
