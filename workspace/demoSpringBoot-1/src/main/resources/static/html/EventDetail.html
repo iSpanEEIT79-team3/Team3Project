@@ -298,12 +298,13 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 					success: function (response) {
 						// 成功處理返回的數據
 						console.log("活動收藏成功");
-						alert("活動收藏成功");
+
+						swal.fire("Success", "活動收藏成功", "success");
 					},
 					error: function (xhr, status, error) {
 						// 處理錯誤情況
 						console.error("活動收藏失敗:", error);
-						alert("活動收藏失敗");
+						swal.fire("Error", "活動收藏失敗", "error");
 					}
 				});
 			});
