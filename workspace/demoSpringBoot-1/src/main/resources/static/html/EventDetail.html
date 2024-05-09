@@ -96,7 +96,7 @@
 						<div class="col">
 					
 							<button onclick="buy()" class="btn btn-primary">立即報名</button>
-							<button id="buy123">立即報名</button>
+						
 						</div>
 						<div class="col">
 
@@ -140,11 +140,7 @@
 		crossorigin="anonymous"></script>
 		
 		
-		<script>const element = document.querySelector('#buy123');
-		element.addEventListener('click', onClick) // 設置為點擊之後呼叫函式
-		function onClick() {
-		  alert('click!')
-		}</script>
+		
 
 	<script src="Timer.js"></script>
 	<!-- Timer -->
@@ -175,9 +171,11 @@
             fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
                 return response.json();
             }).then(function (data) {
+            	console.log("data="+data);
+            	console.log("userId="+data.userId)
 
                 $('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
-            		    <input type="hidden" id="eventName" value=${data.eventName} name="EVENT_NAME" >`)
+            		    <input type="hidden" id="eventName" value=${data.eventName} name="EVENT_NAME">`)
 
                 $('#fetchPicture').append(`<img src="${data.picture}"
                         class="d-block" style="width:100%">`)
@@ -250,18 +248,26 @@ console.log("AAAAAAA")
         return response.json();
     }).then(function (data) {
         var jsonObject = {
+        	
             productNum: data.eventId,
             productName: data.eventName,
             productPrice: data.eventPrice,
             productQuantity: '1',
             orderTotalPrice: data.eventPrice
         };
+        
         console.log(jsonObject);
+        let dataTest = {
+        		"userContactNew": { "contactId": data.userId },
+        		"orderNote": "",
+        		"orderDetails":[ jsonObject]
+        	};
 
+        
         // 使用 fetch 函數發送 POST 請求
         fetch(url, {
             method: "POST", // 使用 POST 方法
-            body: JSON.stringify(jsonObject), // 將 JSON 數據轉換為字符串並指定為請求主體
+            body: JSON.stringify(dataTest), // 將 JSON 數據轉換為字符串並指定為請求主體
             headers: new Headers({
                 "Content-Type": "application/json", // 指定 Content-Type 為 application/json
             }),

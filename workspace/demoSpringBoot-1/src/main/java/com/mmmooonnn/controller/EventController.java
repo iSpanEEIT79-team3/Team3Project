@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.Event;
+import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.EventService;
 
 import jakarta.servlet.http.HttpSession;
@@ -66,23 +67,41 @@ public class EventController {
 	        // 返回购买成功的响应
 	        return ResponseEntity.ok("购买成功");
 	    }
-
+//前台
 	// ajax查單筆用
 	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
 	@ResponseBody
-	public Event ajaxFindEvenDataByID(@PathVariable("evenID") Integer evenId) {
+	public Event ajaxFindEvenDataByID(@PathVariable("evenID") Integer evenId,HttpSession session) {
+		UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+		System.out.println(user.getUserId());
+//		m.addAttribute("userId",user.getUserId());
+		Integer userId=user.getUserId();
 		Event eventBean = eService.findEventById(evenId);
+		eventBean.setUserId(userId);
+	System.out.println(eventBean);
 		return eventBean;
 	}
-
+	
+//	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
+//	@ResponseBody
+//	public Event BuyAction(@PathVariable("evenID") Integer evenId,HttpSession session) {
+//		UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+////		m.addAttribute("userId",user.getUserId());
+//		
+//		Event eventBean = eService.findEventById(evenId);
+//		return eventBean;
+//	}
+	
+	//前台
 	// ajax查全部
 	@GetMapping("/ajaxFindAll")
 	@ResponseBody
 	public List<Event> ajaxFindAll() {
 		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
+		System.out.println(eventBeans);
 		return eventBeans;
 	}
-	
+	//前台	
 	//收藏活動寄email
 	  @PostMapping("/eventCollection")
 		@ResponseBody
@@ -208,6 +227,18 @@ public class EventController {
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSupdateData.jsp");
 		return modelAndView;
 	}
+	
+	//前台的controller
+//	@PostMapping
+//	@ResponseBody
+//	public Event buyAction(@RequestParam("PRODUCTID") int EventId,@RequestParam("EVENT_NAME") String eventName,@RequestParam("EVENT_PRICE") int eventPrice,@RequestParam("EVENT_PRICE") int eventPrice) {
+//		Event eventBean = eService.findEventById(evenId);
+//		
+//		return eventBean;
+//	}
+//	
+	
+	
 
 	@PutMapping("/WSupdate")
 	public ModelAndView UpdateAction(@RequestParam("PRODUCTID") int EventId,

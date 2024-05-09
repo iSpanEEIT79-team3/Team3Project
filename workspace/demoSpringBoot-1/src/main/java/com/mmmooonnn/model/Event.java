@@ -20,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 
 
 
@@ -34,8 +35,24 @@ public class Event {
 	@Column(name="PRODUCTID")
 	private Integer eventId;
 	
+	
+	@Transient
+	private Integer userId;
+	
+	
+	public Integer getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
 	@Column(name="EVENT_NAME")
 	private String eventName;
+	
 	
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
@@ -93,14 +110,16 @@ public class Event {
 	
 	}
 
-	
+
+
 
 	@Override
 	public String toString() {
-		return "Event [eventId=" + eventId + ", eventName=" + eventName + ", signupStartime=" + signupStartime
-				+ ", signupEndtime=" + signupEndtime + ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", eventDetail=" + eventDetail + ", eventCategory=" + eventCategory + ", eventPrice=" + eventPrice
-				+ ", eventLocation=" + eventLocation + ", Organizer=" + Organizer + ", Picture=" + Picture + "]";
+		return "Event [eventId=" + eventId + ", userId=" + userId + ", eventName=" + eventName + ", signupStartime="
+				+ signupStartime + ", signupEndtime=" + signupEndtime + ", startTime=" + startTime + ", endTime="
+				+ endTime + ", eventDetail=" + eventDetail + ", eventCategory=" + eventCategory + ", eventPrice="
+				+ eventPrice + ", eventLocation=" + eventLocation + ", Organizer=" + Organizer + ", Picture=" + Picture
+				+ "]";
 	}
 
 
