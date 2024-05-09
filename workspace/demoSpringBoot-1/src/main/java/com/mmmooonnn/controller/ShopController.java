@@ -74,6 +74,16 @@ public class ShopController {
         model.addAttribute("shopQuan", shopQuan);
         return "forward:/WEB-INF/jsp/Shops.jsp";
     	}
+    @GetMapping("/getAllShopTest")
+    public String getAllShopTest(Model model) {
+    	List<ShopBean> shops = shopService.findAll();
+    	List<ShopImgBean> shopImgs = shopImgService.findAll();
+    	List<ShopQuantityBean> shopQuan = shopQuanService.findAll();
+    	model.addAttribute("shops", shops);
+    	model.addAttribute("shopImgs", shopImgs);
+    	model.addAttribute("shopQuan", shopQuan);
+    	return "forward:/WEB-INF/jsp/front/shop/Shops.jsp";
+    }
 
 //用id搜尋
     @PostMapping("/findByproductid")
