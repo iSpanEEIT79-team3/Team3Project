@@ -190,7 +190,7 @@
 										<input type="hidden" name="userId1" value="${loginuser.userId}">
 										<input type="hidden" name="userId2" value="${user.userId}">
 										<input type="hidden" name="matchSuccess" value="2">
-										<input type="hidden" name="matchStatus" value="Waiting">
+										<input type="hidden" name="matchStatus" value="Y">
 										
 										<button type="submit" style="background: #f99;"
 											class="heart-button">&#x2665;</button>

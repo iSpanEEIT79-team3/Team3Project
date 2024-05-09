@@ -22,6 +22,11 @@ public interface MatchesRepository extends JpaRepository<MatchesBean, Integer> {
 	@Query(value = "UPDATE matches SET match_status = 'N' WHERE user1_id = :userId1 AND user2_id = :userId2", nativeQuery = true)
 	void cancelMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
 
+	
+	@Query(value = "SELECT * FROM matches WHERE user1_id = :userId1 AND user2_id = :userId2 AND match_status = 'Y'", nativeQuery = true)
+	List<MatchesBean> findMatches(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
+
+	
 }
 
 //	@Query("SELECT NEW com.mmmooonnn.model.MatchUserDetailsDTO("
