@@ -189,11 +189,19 @@
 									<form action="/createMatch" method="post">
 										<input type="hidden" name="userId1" value="${loginuser.userId}">
 										<input type="hidden" name="userId2" value="${user.userId}">
+										<input type="hidden" name="matchSuccess" value="2">
+										<input type="hidden" name="matchStatus" value="Waiting">
+										
 										<button type="submit" style="background: #f99;"
 											class="heart-button">&#x2665;</button>
 									</form>
-
-									<button type="reset" style="background: #99f;" class="x-button">&#x2716;</button>
+									<form action="/createMatch" method="post">
+										<input type="hidden" name="userId1" value="${loginuser.userId}">
+										<input type="hidden" name="userId2" value="${user.userId}">
+										<input type="hidden" name="matchSuccess" value="0">
+										<input type="hidden" name="matchStatus" value="N">
+									<button type="submit" style="background: #99f;" class="x-button">&#x2716;</button>
+									</form>
 								</div>
 								<div id="user_details_${loop.index}" class="user-details">
 									<p>Nickname: ${user.nickName}</p>

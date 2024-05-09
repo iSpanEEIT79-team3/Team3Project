@@ -27,27 +27,25 @@ public class MatchesController {
 	@Autowired
 	private UsersService usersService3;
 
-
-
-
-
 //	@RequestMapping("/index")
 	@GetMapping("/matchIndex")
 	public String index(HttpSession session, Model model) {
-		UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
 		System.out.println(user);
-		 List<UsersBeanNew> matches = matchesService.getMatchesByStatus(user.getUserId());
-		 System.out.println(matches);
-	        model.addAttribute("matches", matches);
-	        model.addAttribute("loginuser", user);
+		List<UsersBeanNew> matches = matchesService.getMatchesByStatus(user.getUserId());
+		System.out.println(matches);
+		model.addAttribute("matches", matches);
+		model.addAttribute("loginuser", user);
 		return "forward:/WEB-INF/jsp/test.jsp";
 	}
+
 	@PostMapping("/createMatch")
-	public String createMatch(@RequestParam("userId1") Integer userId1, @RequestParam("userId2") Integer userId2) {
-	    matchesService.createMatch(userId1, userId2);
-	    return "redirect:/matchIndex"; // 重定向到顯示配對結果的頁面
+	public String createMatch(@RequestParam("userId1") Integer userId1, @RequestParam("userId2") Integer userId2,
+			@RequestParam("matchSuccess") String matchSuccess, @RequestParam("matchStatus") String matchStatus) {
+
+		matchesService.createMatch(userId1, userId2, matchSuccess, matchStatus);
+
+		return "redirect:/matchIndex"; // 重定向到顯示配對結果的頁面
 	}
-	 
-	
-	
+
 }

@@ -11,22 +11,18 @@ import jakarta.transaction.Transactional;
 
 public interface MatchesRepository extends JpaRepository<MatchesBean, Integer> {
 
-	 
-	
-	    @Modifying
-	    @Transactional
-	    @Query(value = "INSERT INTO matches (user1_id, user2_id, match_date, match_success, match_status) VALUES (:userId1, :userId2, CURRENT_TIMESTAMP, '3', 'Y')", nativeQuery = true)
-	    void createMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
-	 
-	 
-	 
-	    @Modifying
-	    @Transactional
-	    @Query(value = "UPDATE matches SET match_status = 'N' WHERE user1_id = :userId1 AND user2_id = :userId2", nativeQuery = true)
-	    void cancelMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO matches (user1_id, user2_id, match_date, match_success, match_status) VALUES (:userId1, :userId2, CURRENT_TIMESTAMP, :matchSuccess, :matchStatus)", nativeQuery = true)
+	void createMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2,
+			@Param("matchSuccess") String matchSuccess, @Param("matchStatus") String matchStatus);
 
-}	
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE matches SET match_status = 'N' WHERE user1_id = :userId1 AND user2_id = :userId2", nativeQuery = true)
+	void cancelMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
 
+}
 
 //	@Query("SELECT NEW com.mmmooonnn.model.MatchUserDetailsDTO("
 //			+ "m.matchid, m.user1id, m.user2id, m.matchdate, m.matchsuccess, "

@@ -23,8 +23,8 @@ public class MatchesService {
 		return usersRepository.findMatchesByStatus(userid);
 	}
 	
-	 public void createMatch(Integer userId1, Integer userId2) {
-	        matchesRepository.createMatch(userId1, userId2);
+	 public void createMatch(Integer userId1, Integer userId2, String matchSuccess, String matchStatus) {
+	        matchesRepository.createMatch(userId1, userId2, matchSuccess, matchStatus);
 	    }
 
 }
