@@ -85,11 +85,12 @@ WHERE FK_CONTACTID = 1001;
 
 
 --紀錄用戶請求發送郵件時 生成的token信息 以及產生時間，判斷連結是否正確以及失效
-create table mailVali(
+create table usertoken(
 	id int identity(1,1) not null PRIMARY KEY,
-	email varchar(max)  null,
-	sid varchar(max)  null,
-	outTime BIGINT null
+	userid int null,
+	token varchar(max)  null,
+	out_time datetime2 null
+	CONSTRAINT uc_userid UNIQUE (userid)
 )
-
-drop table pm_validate;
+select * from usertoken;
+drop table usertoken;

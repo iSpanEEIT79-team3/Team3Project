@@ -1,7 +1,6 @@
 package com.mmmooonnn.model;
 
-
-import org.springframework.stereotype.Component;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,19 +9,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Component
-@Table(name = "mailVali")
-public class ValidateBean {
+@Table(name = "usertoken")
+public class UserTokenBean {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String email;
+	private Integer userid;
 	
-	private String sid;
+	private String token;
 	
-	private long outTime;
+	private Timestamp outTime;
 
 	public Integer getId() {
 		return id;
@@ -32,48 +30,43 @@ public class ValidateBean {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public Integer getUserid() {
+		return userid;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 
-	public String getSid() {
-		return sid;
+	public String getToken() {
+		return token;
 	}
 
-	public void setSid(String sid) {
-		this.sid = sid;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
-	public long getOutTime() {
+	public Timestamp getOutTime() {
 		return outTime;
 	}
 
-	public void setOutTime(long outTime) {
+	public void setOutTime(Timestamp outTime) {
 		this.outTime = outTime;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ValidateBean [id=");
+		builder.append("UserTokenBean [id=");
 		builder.append(id);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", sid=");
-		builder.append(sid);
+		builder.append(", userid=");
+		builder.append(userid);
+		builder.append(", token=");
+		builder.append(token);
 		builder.append(", outTime=");
 		builder.append(outTime);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-
-	
-	
-	
 
 }

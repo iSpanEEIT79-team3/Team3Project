@@ -4,7 +4,6 @@ package com.mmmooonnn.service;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,8 +18,8 @@ public class MailService {
 	
 	@Autowired
     private JavaMailSender sender;
-    @Value("${spring.mail.username}")
-    private String from;
+ 
+    private String from = "JFSwing <mhou6vm0@gmail.com>";
     
     /**
      * 发送纯文本的简单邮件
@@ -47,7 +46,7 @@ public class MailService {
      * @param subject
      * @param content
      */
-    public void sendHtmlMail(String to, String subject, String content){
+    public void sendHtmlMail(String subject, String content,String to){
         MimeMessage message = sender.createMimeMessage();
         try {
             //true表示需要创建一个multipart message

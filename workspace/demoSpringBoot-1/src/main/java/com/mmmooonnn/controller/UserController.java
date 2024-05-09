@@ -3,11 +3,17 @@ package com.mmmooonnn.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -30,10 +36,13 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.mmmooonnn.model.UserContactNew;
+import com.mmmooonnn.model.UserTokenBean;
 import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.MailService;
+import com.mmmooonnn.service.UserTokenService;
 import com.mmmooonnn.service.UsersService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -53,16 +62,102 @@ public class UserController {
 	@Autowired
 	private MailService mailService;
 	
+	@Autowired
+	private UserTokenService userTokenService;
+	
+	@Autowired
+    private HttpServletRequest request;
+	
 	//忘記密碼
 	@GetMapping("forgetMail")
-	public void processActionMail() {
-		String email = "ash1235ash@gmail.com";
-		String subject = "test";
-		String content = "你好";
+	@ResponseBody
+	public Map<String, String> processActionMail(@RequestParam("email") String email) {
+		UsersBeanNew user = uService2.findByEmail(email);
+		Map<String, String> map = new HashMap<String, String>(); 
+		String msg = "";
+		if(user == null) {
+			msg = "此信箱不存在，請重新輸入或新增會員";
+			map.put("msg", msg);
+			return map;
+		}
 		
+		try {
+			String secretKey = UUID.randomUUID().toString(); //密鑰
+			Timestamp outDate = new Timestamp(System.currentTimeMillis()+30601000); // 30分鐘後過期
+			long date = outDate.getTime()/1000*1000; //忽略毫秒數
+			
+			
+			UserTokenBean userToken = new UserTokenBean();
+			userToken.setUserid(user.getUserId());
+			userToken.setToken(secretKey);
+			userToken.setOutTime(outDate);
+			
+			try {
+				userTokenService.insert(userToken);
+			} catch (Exception e) {
+				Optional<UserTokenBean> result = userTokenService.findByUserid(user.getUserId());
+				System.out.println(result.get());
+				UserTokenBean userTokenBean = result.get();
+				userTokenBean.setOutTime(outDate);
+				userTokenBean.setToken(secretKey);
+				userTokenService.insert(userTokenBean);
+			}
+			
+			String key = user.getUserContact().getName()+"$"+date+"$"+secretKey; //數字簽名
+			String digitalSignature = DigestUtils.md5Hex(key);
+			
+			String basePath = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath()) +"/";
+			String resetPassHref = basePath + "resetpassword?sid=" + digitalSignature + "&userEmail=" + email ;
+			String emailContent = "請勿回覆此郵件。點擊下面的連結來重設密碼：<br/><a href=" + resetPassHref + " target='_BLANK'>點擊我重設密碼</a>" +
+                    "<br/>提示：此郵件的連結將在30分鐘後失效，若需要重新申請找回密碼，請重新操作。";
+	        System.out.println(resetPassHref);
+	        
+	        mailService.sendHtmlMail("重置密碼", emailContent, "mhou6vm0@gmail.com");
+	        msg = "操作成功,已經發送找回密碼連結到您的信箱。请在30分钟内重置密碼";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg="信箱不存在，未知錯誤，聯繫管理員";
+		}
 		
-		mailService.sendPlainText(email, subject, content);
-		System.out.println("email send ok");
+		return map;
+	
+	}
+	//修改密碼畫面
+	@GetMapping("/resetpassword")
+	public ModelAndView checkResetLink(String sid, String userEmail) {
+		ModelAndView model = new ModelAndView("error");
+		String msg = "";
+		if(sid.equals("") || userEmail.equals("")) {
+			msg = "連結不完整，請重新生成";
+			model.addObject("msg",msg);
+			return model;
+		}
+		
+		UsersBeanNew user = uService2.findByEmail(userEmail);
+		System.out.println(user);
+		System.out.println(userTokenService.findByUserid(user.getUserId()).get().getOutTime());
+		Timestamp outDate = userTokenService.findByUserid(user.getUserId()).get().getOutTime();
+		
+		if(outDate.getTime() <= System.currentTimeMillis()) { //表示過期
+			msg="連結已經過期，請重新申請找回密碼";
+			model.addObject("msg",msg);
+			return model;
+		}
+		
+		String key = user.getUserContact().getName() + "$" + outDate.getTime()/1000*1000+"$"+userTokenService.findByUserid(user.getUserId()).get().getToken();
+		String digitalSignature = DigestUtils.md5Hex(key);
+		System.out.println(key+"\t"+digitalSignature);
+		if(!digitalSignature.equals(sid)) {
+			msg="連結不正確，是否已經過期? 請重新申請";
+			model.addObject("msg",msg);
+			return model;
+		}
+		
+		model.setViewName("forward:/front/user/ResetPassword.html");
+		model.addObject("userEmail",userEmail);
+		
+		return model;
 		
 	}
 	
