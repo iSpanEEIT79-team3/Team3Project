@@ -41,80 +41,35 @@ public class EventController {
 	@Autowired
 	EventService eService;
 
-	 @PostMapping("/purchase")
-	    public ResponseEntity<?> purchaseProduct(@RequestParam("productId") Long productId,
-	                                             @RequestParam("contactId") Long userId ,HttpSession session) {
-	        // 检查用户登录状态
-//	        if (!userService.isUserLoggedIn(userId)) {
-//	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户未登录");
-//	        }
-
-	        // 检查库存
-//	        Product product = productService.getProductById(productId);
-//	        if (product == null || product.getStock() <= 0) {
-//	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("商品库存不足");
-//	        }
-
-	        // 扣除用户账户金额（示例中省略）
-
-	        // 插入购买记录到数据库中
-	        Event purchase = new Event();
-//	        purchase.setUserId(userId);
-//	        purchase.setProductId(productId);
-//	        purchase.setPurchaseTime(new Date());
-//	        eService.addPurchase(purchase);
-
-	        // 返回购买成功的响应
-	        return ResponseEntity.ok("购买成功");
-	    }
+	 
 //前台
 	// ajax查單筆用
 	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
 	@ResponseBody
 	public Event ajaxFindEvenDataByID(@PathVariable("evenID") Integer evenId,HttpSession session) {
 		
-		try {
+		if (session != null && session.getAttribute("usersBean") != null) {
 			System.out.println(456);
 			UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
 			Integer userId=user.getUserId();
+			
 			Event eventBean = eService.findEventById(evenId);
+			
 			eventBean.setUserId(userId);
 		System.out.println(eventBean);
+		
 			return eventBean;
 		    
-		} catch (Exception e) {
-		    
+		} else {		    
 			System.out.println(123);
 			Event eventBean = eService.findEventById(evenId);
 			
 			return eventBean;
 		
 		}
+	}	
 		
-		
-		
-		 
-//			 System.out.println(456);
-//		//UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
-//		System.out.println(user.getUserId());
-////		m.addAttribute("userId",user.getUserId());
-//		Integer userId=user.getUserId();
-//		Event eventBean = eService.findEventById(evenId);
-//		eventBean.setUserId(userId);
-//	System.out.println(eventBean);
-//		return eventBean;
-		 
-	}
 	
-//	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
-//	@ResponseBody
-//	public Event BuyAction(@PathVariable("evenID") Integer evenId,HttpSession session) {
-//		UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
-////		m.addAttribute("userId",user.getUserId());
-//		
-//		Event eventBean = eService.findEventById(evenId);
-//		return eventBean;
-//	}
 	
 	//前台
 	// ajax查全部
@@ -131,15 +86,17 @@ public class EventController {
 		@ResponseBody
 	    public ResponseEntity EventCollection(
 	    		@RequestParam("EVENT_STARTIME") String eventDate ,   
-	    		@RequestParam("EVENT_NAME") String eventName) 
+	    		@RequestParam("EVENT_NAME") String eventName,HttpSession session) 
 	         {
-		 
+			UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+			String userEmail=user.getUserContact().getEmail();
+			
 		  System.out.println("6666666666" + eventName);
 		  
-	            String receivers = "emil62y7@gmail.com";
+	            String receivers = userEmail;
 	            String subject ="活動收藏成功";
-	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + eventDate +"活動名稱為："+ eventName + "\n期待您的蒞臨！";
-	            String From = "JFSwing搖擺舞教室<emil62y7@gmail.com>";
+	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + eventDate +"活動名稱為：\""+ eventName + "\"\n期待您的蒞臨！";
+	            String From = "JFSwing搖擺舞教室<mhou6vm0@gmail.com>";
 	            
 	            System.out.println(content);
 	            eService.sendPlainText(receivers, subject, content,From);
