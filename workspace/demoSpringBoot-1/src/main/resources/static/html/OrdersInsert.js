@@ -107,9 +107,9 @@ function submitForm(event) {
 				order.shippingDate,
 				order.payDeadline,
 				order.orderNote,
-				'<button onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>',
-				'<button onclick="deleteOrder(' + order.orderId + ')">刪除</button>',
-				'<button onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>'
+				'<button class="btn btn-primary onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>',
+				'<button class="btn btn-primary onclick="deleteOrder(' + order.orderId + ')">刪除</button>',
+				'<button class="btn btn-primary onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>'
 			];
 
 			// 使用 DataTable API 添加新行

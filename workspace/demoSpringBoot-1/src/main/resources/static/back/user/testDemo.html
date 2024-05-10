@@ -16,6 +16,27 @@
 </head>
 
 <body class="app sidebar-mini rtl pace-done">
+    <main class="app-content">
+        <div class="app-title">
+            <h1>大標題</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-title">
+                        <h2>小標題</h2>
+                    </div>
+                    <div class="tile-body">內容本人
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
 
     <!-- Essential javascripts for application to work-->
     <script src="../js/jquery-3.2.1.min.js"></script>
@@ -36,17 +57,17 @@
             });
 
 
-			
-			 function 	RWDTest() {
-			             //let RWD = document.getElementsByClassName("RWDTest");
-			             let RWD = document.body;
-			             if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
-			                 RWD.className = "app sidebar-mini rtl pace-done";
-			             } else {
-			                 RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
-			             }
-			         }
-				 
+
+        function RWDTest() {
+            //let RWD = document.getElementsByClassName("RWDTest");
+            let RWD = document.body;
+            if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+                RWD.className = "app sidebar-mini rtl pace-done";
+            } else {
+                RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+            }
+        }
+
     </script>
 
 </body>
