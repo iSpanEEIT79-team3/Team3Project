@@ -17,14 +17,19 @@ public interface MatchesRepository extends JpaRepository<MatchesBean, Integer> {
 	void createMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2,
 			@Param("matchSuccess") String matchSuccess, @Param("matchStatus") String matchStatus);
 
-	@Modifying
-	@Transactional
-	@Query(value = "UPDATE matches SET match_status = 'N' WHERE user1_id = :userId1 AND user2_id = :userId2", nativeQuery = true)
-	void cancelMatch(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
+	
 
 	
-	@Query(value = "SELECT * FROM matches WHERE user1_id = :userId1 AND user2_id = :userId2 AND match_status = 'Y'", nativeQuery = true)
-	List<MatchesBean> findMatches(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
+	@Query("SELECT NEW com.mmmooonnn.model.MatchUserDetailsDTO"
+	        + "(m.matchid, m.user1id, m.user2id, m.matchdate, m.matchsuccess, m.matchstatus, "
+	        + "u2.nickName, u2.gender, u2.birthday, u2.danceCharacter, u2.danceAge, u2.picture) "
+	        + "FROM MatchesBean m JOIN UsersBeanNew u2 ON m.user2id = u2.userId "
+	        + "WHERE m.user1id = :userid AND m.matchstatus = 'Y'")
+	List<MatchUserDetailsDTO> findMatches(@Param("userid") Integer userid);
+
+
+	@Query(value = "SELECT MATCH_ID, USER1_ID, USER2_ID, MATCH_DATE, MATCH_SUCCESS, MATCH_STATUS, NICKNAME, GENDER, BIRTHDAY, DANCECHARACTER, DANCEAGE, USERPICTURE FROM matches WHERE USER1_ID = :userId1 AND USER2_ID = :userId2 AND MATCH_STATUS = 'Y'", nativeQuery = true)
+	List<MatchUserDetailsDTO> findMatchUserDetails(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
 
 	
 }

@@ -29,7 +29,7 @@ public class MatchesService {
 	        matchesRepository.createMatch(userId1, userId2, matchSuccess, matchStatus);
 	    }
 
-	 public List<MatchesBean> getMatches(Integer userId1, Integer userId2){
-		    return matchesRepository.findMatches(userId1, userId2);
+	 public List<MatchUserDetailsDTO> getMatches(Integer userid){
+		    return matchesRepository.findMatches(userid);
 		}
 }

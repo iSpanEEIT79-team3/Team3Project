@@ -51,24 +51,26 @@ public class MatchesController {
 
 		return "redirect:/matchIndex"; // 重定向到顯示配對結果的頁面
 	}
-	
+
 	@GetMapping("/matches")
 	public String getMatch(HttpSession session, Model model) {
-	    UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
-	   
-	    
-	    // 获取当前用户ID
-	    Integer userId = user.getUserId();
-	    
-	    // 查找与当前用户相关的匹配
-	    List<MatchesBean> isMatch = matchesService.getMatches(userId, userId);
-	    System.out.println(isMatch);
-	    
-	    // 设置模型属性
-	    model.addAttribute("isMatch", isMatch);
-	    model.addAttribute("loginuser", user);
-	    
-	    
-	    return "forward:/WEB-INF/jsp/isMatch.jsp";
+		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+
+		List<MatchUserDetailsDTO> isMatch = null;
+
+		Integer userId = user.getUserId();
+		System.out.println(userId);
+		try {
+			isMatch = matchesService.getMatches(userId);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(isMatch);
+
+		model.addAttribute("isMatch", isMatch);
+		model.addAttribute("loginuser", user);
+
+		return "forward:/WEB-INF/jsp/isMatch.jsp";
 	}
 }
