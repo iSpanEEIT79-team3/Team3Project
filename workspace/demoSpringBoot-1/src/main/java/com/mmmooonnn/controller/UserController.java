@@ -68,25 +68,42 @@ public class UserController {
 	@Autowired
     private HttpServletRequest request;
 	
-	//忘記密碼
-	@GetMapping("forgetMail")
-	@ResponseBody
-	public Map<String, String> processActionMail(@RequestParam("email") String email) {
-		UsersBeanNew user = uService2.findByEmail(email);
-		Map<String, String> map = new HashMap<String, String>(); 
-		String msg = "";
-		if(user == null) {
-			msg = "此信箱不存在，請重新輸入或新增會員";
-			map.put("msg", msg);
-			return map;
+	//會員登出
+	@GetMapping("/loginOutUser")
+	public String processActionLogOut(HttpSession session) {
+		System.out.println("123");
+		session.setAttribute("usersBean", null);
+		System.out.println("登出");
+		return "redirect:/html/frontPage.html";
+	}
+	//查詢會員登入狀態
+	@GetMapping("/checkUserLogin")
+	public ResponseEntity<String> processActionCheckLogin(HttpSession session){
+		Object result = session.getAttribute("usersBean");
+		if(result != null) {
+			System.out.println("會員登入中");
+			return ResponseEntity.ok().body("登入成功");
+		}else {
+			System.out.println("未登入");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("未登入");
 		}
+	}
+	
+	//忘記密碼
+	@PostMapping("/forgetMail")
+	public ResponseEntity<String> processActionMail(@RequestParam("email") String email) {
 		
+		UsersBeanNew user;
+		try {
+			user = uService2.findByEmail(email);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱錯誤");
+		}
 		try {
 			String secretKey = UUID.randomUUID().toString(); //密鑰
 			Timestamp outDate = new Timestamp(System.currentTimeMillis()+30601000); // 30分鐘後過期
 			long date = outDate.getTime()/1000*1000; //忽略毫秒數
-			
-			
+					
 			UserTokenBean userToken = new UserTokenBean();
 			userToken.setUserid(user.getUserId());
 			userToken.setToken(secretKey);
@@ -113,14 +130,13 @@ public class UserController {
 	        System.out.println(resetPassHref);
 	        
 	        mailService.sendHtmlMail("重置密碼", emailContent, "mhou6vm0@gmail.com");
-	        msg = "操作成功,已經發送找回密碼連結到您的信箱。请在30分钟内重置密碼";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg="信箱不存在，未知錯誤，聯繫管理員";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱錯誤");
 		}
 		
-		return map;
+		return ResponseEntity.ok().body("登入成功");
 	
 	}
 	//修改密碼畫面
@@ -131,6 +147,7 @@ public class UserController {
 		if(sid.equals("") || userEmail.equals("")) {
 			msg = "連結不完整，請重新生成";
 			model.addObject("msg",msg);
+			System.out.println(msg);
 			return model;
 		}
 		
@@ -142,21 +159,23 @@ public class UserController {
 		if(outDate.getTime() <= System.currentTimeMillis()) { //表示過期
 			msg="連結已經過期，請重新申請找回密碼";
 			model.addObject("msg",msg);
+			System.out.println("連結已經過期，請重新申請找回密碼");
 			return model;
 		}
 		
 		String key = user.getUserContact().getName() + "$" + outDate.getTime()/1000*1000+"$"+userTokenService.findByUserid(user.getUserId()).get().getToken();
 		String digitalSignature = DigestUtils.md5Hex(key);
-		System.out.println(key+"\t"+digitalSignature);
+		
 		if(!digitalSignature.equals(sid)) {
 			msg="連結不正確，是否已經過期? 請重新申請";
 			model.addObject("msg",msg);
+			System.out.println("連結不正確，是否已經過期? 請重新申請");
 			return model;
 		}
 		
 		model.setViewName("forward:/front/user/ResetPassword.html");
 		model.addObject("userEmail",userEmail);
-		
+		System.out.println("成功");
 		return model;
 		
 	}

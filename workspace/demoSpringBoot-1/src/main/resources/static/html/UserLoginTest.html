@@ -88,7 +88,7 @@
                                     <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>請輸入您的會員信箱!</h3>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1" class="form-label">email</label>
-                                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                        <input type="email" class="form-control" id="forgetEmail" aria-describedby="emailHelp"
                                             placeholder="Email">
                                     </div>
 
@@ -135,8 +135,35 @@
             });
         });
         $('.forgetMail').click(function () {
-            let email = $('#email').val();
-            window.location.href = "/forgetMail?email=" + email;
+			$.ajax({
+			                   url: "/forgetMail",
+			                   type: 'POST',
+			                   data: {
+			                       email: $('#forgetEmail').val(),
+			                   },
+			                   success: function () {
+			                       Swal.fire({
+			                           position: "center",
+			                           icon: "success",
+			                           title: "送出確定",
+			                           showConfirmButton: true,
+									   confirmButtonColor: "#3085d6",
+									   confirmButtonText: "確定",
+									   allowOutsideClick: false // 防止用户点击外部关闭弹窗
+									   }).then((result) => {
+									       if (result.isConfirmed) {
+									           window.location.href = "/html/UserLoginTest.html";
+									   }
+			                       });
+			                   },
+			                   error: function () {
+			                       Swal.fire({
+			                           icon: 'error',
+			                           title: '信箱不存在，請重新輸入或註冊會員',
+			                           text: '請重新輸入'
+			                       });
+			                   }
+			               });
         })
 
     </script>

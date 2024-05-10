@@ -10,6 +10,15 @@
 
 
     <title>JFSwing</title>
+    <style>
+        #memberDropdown {
+            display: none;
+        }
+
+        #loginButton {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -80,12 +89,27 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="UserLoginTest.html"
-                            class="nav-link m-2 rounded-circle overflow-hidden align-self-center"
-                            style="width: 80px; display: inline-block;">
+                        <a href="UserLoginTest.html" id="loginButton"
+                            class="nav-link m-2 rounded-circle overflow-hidden align-self-center" style="width: 80px;">
                             登入
                         </a>
-
+                    </li>
+                    <li class="nav-item dropdown" id="memberDropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            會員
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item h3" href="#">會員資料</a></li>
+                            <li><a class="dropdown-item h3" href="#">課程紀錄</a></li>
+                            <li><a class="dropdown-item h3" href="#">活動紀錄</a></li>
+                            <li><a class="dropdown-item h3" href="#">商品紀錄</a></li>
+                            <li><a class="dropdown-item h3" href="#">課程紀錄</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item h3" id="logoutButton" href="/loginOutUser">登出</a></li>
+                        </ul>
                     </li>
 
                 </ul>
@@ -126,7 +150,6 @@
         </footer>
 
     </div>
-
 
 
 </body>

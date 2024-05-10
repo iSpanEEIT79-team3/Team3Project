@@ -19,7 +19,7 @@ public class PageContorller {
 		//前端點選會員登入
 		@GetMapping("/UserLogin")
 		public String processActionLogin() {
-			return "redirect:/html/OrderForClient.html";
+			return "redirect:/html/frontPage.html";
 		}
 		//代訂
 		@GetMapping("/back")

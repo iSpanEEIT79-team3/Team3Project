@@ -2,23 +2,13 @@
 <html lang="en">
 
 <head>
-  <meta name="description"
-    content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-  <title>JFSwing後台</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Main CSS-->
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <!-- Font-icon css-->
-  <link rel="stylesheet" type="text/css"
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
-<body class="app sidebar-mini rtl">
+<body>
   <!-- Navbar-->
   <header class="app-header"><a class="app-header__logo" href="index.html">JF Swing</a>
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" 	onclick="RWDTest()" href="#" data-toggle="sidebar"
       aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
@@ -75,18 +65,11 @@
 
     </ul>
   </aside>
-
-  <!-- Essential javascripts for application to work-->
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-  <!-- The javascript plugin to display page loading on top-->
-  <script src="js/plugins/pace.min.js"></script>
-  <!-- Page specific javascripts-->
-  <script type="text/javascript" src="js/plugins/chart.js"></script>
+  <table class="table" id="sampleTable"></table>
 
 
+  <!--   <script type="text/javascript">$('#sampleTable').DataTable();</script>-->
+ 
 </body>
 
 </html>
