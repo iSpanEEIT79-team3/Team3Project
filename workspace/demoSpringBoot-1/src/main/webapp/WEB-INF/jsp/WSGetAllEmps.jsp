@@ -11,6 +11,13 @@
 <head>
 <meta charset="UTF-8">
 <title>活動資訊</title>
+
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
 <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet">
@@ -135,6 +142,7 @@ tr {
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script
 		src="https://cdn.datatables.net/v/dt/dt-2.0.1/datatables.min.js"></script>
+		 
 		
 		<script src="
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
@@ -162,17 +170,38 @@ tr {
 </script>
 		
 		
-		
+		  <!-- Essential javascripts for application to work-->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="../js/plugins/pace.min.js"></script>
+    <!-- Page specific javascripts-->
+    <script type="text/javascript" src="../js/plugins/chart.js"></script>
+    <script type="text/javascript" src="../js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../js/plugins/dataTables.bootstrap.min.js"></script>
 
-	<script>
-                        fetch('/back')
-                            .then(response => response.text())
-                            .then(html => {
-                                //內容
-                                $('.back-content').html(html);
-                            })
-                            .catch(error => console.error('Error fetching back.html', error));
-                    </script>
+	 <script>
+        fetch('../exampleBack.html')
+            .then(response => response.text())
+            .then(html => {
+                document.body.insertAdjacentHTML('beforeend', html);
+            });
+
+
+
+        function RWDTest() {
+            //let RWD = document.getElementsByClassName("RWDTest");
+            let RWD = document.body;
+            if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+                RWD.className = "app sidebar-mini rtl pace-done";
+            } else {
+                RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+            }
+        }
+
+    </script>
 
 
 </body>
