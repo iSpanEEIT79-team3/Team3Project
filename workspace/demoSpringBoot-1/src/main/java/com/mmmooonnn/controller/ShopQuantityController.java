@@ -54,20 +54,7 @@ public class ShopQuantityController {
     	List<ShopQuantityBean> shops = shopQuanService.findById(productid);
     	return shops;
     	}
-
-//刪除	
-    @DeleteMapping("/deleteQuan/{productid}")
-    public String delQuan(@PathVariable Integer productid) {
-    	shopQuanService.deleteById(productid); 
-    	return "forward:/WEB-INF/jsp/GetAllShops.jsp";
-    }
-//TestFunction	
-    @DeleteMapping("/deleteQuanTest/{productid}")
-    public String delQuanTest(@PathVariable Integer productid) {
-    	shopQuanService.deleteById(productid); 
-    		return "刪除成功:" + productid;
-    }
-
+    
 //增
 	@PostMapping("/addShopQuan")
 	public String addShopQuan(Model model,

@@ -8,43 +8,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .main {
-            min-height: 55vh;
+         .main { 
+             min-height: 55vh; 
 
-        }
-        li {
-            /*float: left;*/
-            display: inline-block;
-        }
-        li + li {
-            border-left: 1px solid gray; /* 添加右边框作为分隔符 */
-            margin-left: -9px; /* 间距 */
-        }
-
-        li a {
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 10px 30px;
-            text-decoration: none;
-            position: relative;
-        }
-
-        li a:hover {
-            background-color: #f0ede5;
-        }
-        .product__item__pic {
-   	 	height: 360px;
-  	  	position: relative;
-   		overflow: hidden;
-		}
-		.set-bg {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top center;
-}
+	    }  
 
     </style>
+    <script src="front/shop/testtest.js"></script>
 	<!-- Bootstrap CSS -->
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
 	        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -54,6 +24,14 @@
 	    <link rel="preconnect" href="https://fonts.gstatic.com">
 	    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
 	
+	    <link rel="stylesheet" href="<!-- front/shop/shopcss -->/bootstrap.min.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/font-awesome.min.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/elegant-icons.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/jquery-ui.min.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/magnific-popup.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/owl.carousel.min.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/slicknav.min.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/style.css" type="text/css">
 	    <!-- For style(All CSS content) -->
 	    <link rel="stylesheet" type="text/css" href="../styles/home.css" />
 	    <link rel="stylesheet" type="text/css" href="../styles/footer.css" />
@@ -63,9 +41,7 @@
 	    <!-- JS Bundle for BS  -->
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
 	        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-	        </script>	        
-	        
-	        
+	        </script>
     <title>範本</title>
 </head>
 
@@ -78,10 +54,11 @@
     <!-- <section> -->
     <div class="main">    
  
-<!-- Product Section Begin -->
+ 
+ <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
-        <div class="row property__gallery" id="MixItUp06FF61" style="">
+        <div class="row property__gallery">
         
         <c:forEach items="${shops}" var="shop">
             <div class="col-lg-3 col-md-4 col-sm-6 mix women" style="">
@@ -101,32 +78,12 @@
             </div>
         </c:forEach>
 
-
-
         </div>
     </div>
 </section>
 <!-- Product Section End -->
+ 
 
-
-
-
-
-<%-- 
-     <div class="product-container">
-        <c:forEach items="${shops}" var="shop">
-            <div class="product">
-            <a href="<c:url value='/Shopproduct/${shop.productId}'/>">
-                <img src="${shop.productImg}" alt="${shop.productName} Image">
-                <p>${shop.productName}</p>
-            </a>
-                <p>NT$ ${shop.productPrice}</p>
-                其他商品相關資訊
-            </div>
-        </c:forEach>
-    </div>
---%>
-        
 
     </div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
@@ -142,7 +99,19 @@
 
         
     </script>
-
+        <!-- Js Plugins -->
+        
+        <script src="front/shop/shopjs/jquery-3.3.1.min.js"></script>
+        <script src="front/shop/shopjs/bootstrap.min.js"></script>
+        <script src="front/shop/shopjs/jquery.magnific-popup.min.js"></script>
+        <script src="front/shop/shopjs/jquery-ui.min.js"></script>
+        <script src="front/shop/shopjs/mixitup.min.js"></script>
+        <script src="front/shop/shopjs/jquery.countdown.min.js"></script>
+        <script src="front/shop/shopjs/jquery.slicknav.js"></script>
+        <script src="front/shop/shopjs/owl.carousel.min.js"></script>
+        <script src="front/shop/shopjs/jquery.nicescroll.min.js"></script>
+        <script src="front/shop/shopjs/main.js"></script>
+        
 </body>
 
 </html>
