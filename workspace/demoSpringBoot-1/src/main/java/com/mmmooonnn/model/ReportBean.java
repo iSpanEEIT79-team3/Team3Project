@@ -23,10 +23,7 @@ public class ReportBean {
 	@Column(name="REPORTCONTENT")
 	private String reportContent;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "LTID")
-////	@JsonIgnore
-//	private LTBean ltBean;
+
 	@Column(name="LTID")
 	private Integer  LTId;
 	
