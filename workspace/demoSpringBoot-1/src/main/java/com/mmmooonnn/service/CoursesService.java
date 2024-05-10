@@ -17,15 +17,19 @@ import com.mmmooonnn.model.CoursesBean;
 public class CoursesService {
 	@Autowired
 	private CourseRepository courseRepos;
+	
 	public void insert(CoursesBean course) {
 		courseRepos.save(course);
 	}
+	
 	public void update(CoursesBean course) {
 		courseRepos.save(course);
 	}
+	
 	public void deleteById(Integer id) {
 		courseRepos.deleteById(id);
 	}
+	
 	public CoursesBean findCourseById(Integer id) {
 		Optional<CoursesBean> result = courseRepos.findById(id);
 		if(result.isPresent()) {
@@ -33,6 +37,24 @@ public class CoursesService {
 		}
 		return null;
 	}
+
+    // Define missing methods
+
+    public List<CoursesBean> getTeacherCourses() {
+        // Implement this method to retrieve courses for a teacher
+        // You can query the repository based on teacher criteria
+        // For example:
+        // return courseRepos.findByTeacher(teacher);
+        return null; // Placeholder, replace with actual implementation
+    }
+
+    public List<CoursesBean> getAllCourseDetails() {
+        // Implement this method to retrieve all course details
+        // This can be achieved by calling the existing method getAll()
+        return getAll(); // Return all courses as course details
+    }
+	
+	
 	public List<CoursesBean> getAll(){
 		return courseRepos.findAll();
 	}

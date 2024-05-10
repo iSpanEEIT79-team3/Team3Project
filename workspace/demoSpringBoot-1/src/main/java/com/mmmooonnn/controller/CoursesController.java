@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,36 @@ public class CoursesController {
 		return modelAndView;
 	}
 	
+	//html getall所有
 
+	@RestController
+	@RequestMapping("/api")
+	public class CourseApiController {
+	    @Autowired
+	    private CoursesService cService;
+
+	    // 获取所有课程的API
+	    @GetMapping("/courses")
+	    public ResponseEntity<List<CoursesBean>> getAllCourses() {
+	        List<CoursesBean> courses = cService.getAll();
+	        return ResponseEntity.ok(courses);  // 返回JSON格式的课程列表
+	    }
+	}
+	
+	//Thymeleaf html getall所有
+	@GetMapping("/findAllCourses")
+	public ModelAndView findAllCourses() {
+	    ModelAndView mav = new ModelAndView("courses_getall"); // 修改視圖名稱為 "courses_getall"
+	    try {
+	        List<CoursesBean> courses = cService.getAll();
+	        mav.addObject("Courses", courses); // 將課程列表添加到 ModelAndView 中
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return mav;
+	}
+
+	//getid後修改
     @GetMapping("/GetCourseById/{id}")
 	public String findCourseById(@PathVariable("id") int id ,Model m){
     	
@@ -37,6 +67,32 @@ public class CoursesController {
 		m.addAttribute("course",coursesBean);
 		return "forward:/WEB-INF/jsp/course_updata.jsp";
 	}
+    
+    //getid後得到詳細資料
+    @GetMapping("/courseDetails/{id}")
+    public String getCourseDetails(@PathVariable("id") int id, Model model) {
+    	CoursesBean course = cService.findCourseById(id);
+    	if (course != null) {
+    		model.addAttribute("course", course);
+    		return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
+    	}
+    	return "redirect:/error";  // Redirect to an error page if no course is found
+    }
+    
+    // 根据课程ID获取课程详细信息
+    @GetMapping("/courses/detail/{id}")
+    public ModelAndView getCourseDetails(@PathVariable("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        CoursesBean course = cService.findCourseById(id);
+        if (course != null) {
+            modelAndView.addObject("course", course);
+            modelAndView.setViewName("html/CoursesDetail.html");
+        } else {
+            modelAndView.setViewName("redirect:/error");  // Redirect to an error page if no course is found
+        }
+        return modelAndView;
+    }
+    
     
 	//修改
 	@PostMapping("/upd")
@@ -72,7 +128,7 @@ public class CoursesController {
     @PostMapping("/insert")
     public String Insert(
         @RequestParam("idUser") int idUser,
-        @RequestParam("productId") int productId,
+        //@RequestParam("productId") int productId,
         @RequestParam("courseName") String courseName,
         @RequestParam("description") String description,
         @RequestParam("courseType") String courseType,
@@ -89,30 +145,23 @@ public class CoursesController {
 
         CoursesBean coursesBean = new CoursesBean();
 
-        // 统一的图片保存路径，与LTController使用相同的路径
-        String imagesDir = "C:\\Team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
-        
-        System.out.println(courseImage);
-        if (!courseImage.isEmpty()) {
+
+        // 处理文件上传
+        if (courseImage != null && !courseImage.isEmpty()) {
             try {
-                // 生成文件名和保存路径
-                String filename = courseImage.getOriginalFilename();
+                String imagesDir = "C:\\Team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
+                String filename = System.currentTimeMillis() + "_" + courseImage.getOriginalFilename();
                 File imagePath = new File(imagesDir, filename);
-
-                // 保存文件到指定路径
                 courseImage.transferTo(imagePath);
-
-                // 设置课程图片的引用路径
-                coursesBean.setCourseImage("/images/" + filename);
+                coursesBean.setCourseImage("/images/" + filename); // 设置文件名到课程对象
             } catch (IOException e) {
                 e.printStackTrace();
-                // 异常处理逻辑，可以进行日志记录、错误反馈等
+                return "redirect:/error"; // 重定向到错误页面
             }
         }
-
         // 设置其他属性
         coursesBean.setIdUser(idUser);
-        coursesBean.setProductId(productId);
+        //coursesBean.setProductId(productId);
         coursesBean.setCourseName(courseName);
         coursesBean.setDescription(description);
         coursesBean.setCourseType(courseType);
@@ -125,6 +174,7 @@ public class CoursesController {
         coursesBean.setTeacherContact(teacherContact);
         coursesBean.setEnrollmentCount(enrollmentCount);
         coursesBean.setMaxCapacity(maxCapacity);
+
 
        System.out.println(coursesBean);
         // 插入课程信息到数据库

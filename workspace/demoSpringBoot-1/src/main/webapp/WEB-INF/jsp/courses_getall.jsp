@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<!DOCTYPE html>
 		<html>
 
@@ -111,7 +111,7 @@
 							<tr>
 
                 <td>${course.idUser}</td>
-                <td>${course.productId}</td>
+				<td><a href="${pageContext.request.contextPath}/courseDetails/${course.productId}">${course.productId}</a></td>
                 <td>${course.courseName}</td>
                 <td>${course.description}</td>
                 <td>${course.courseType}</td>
@@ -125,7 +125,6 @@
                 <td>${course.enrollmentCount}</td>
                 <td>${course.maxCapacity}</td>
 				<td><img src="${course.courseImage}" style="width: 100px; height: 100px;"></td>
-				
 
 								<td><a href="/GetCourseById/${course.productId}"><button>修改</button></a></td>
 

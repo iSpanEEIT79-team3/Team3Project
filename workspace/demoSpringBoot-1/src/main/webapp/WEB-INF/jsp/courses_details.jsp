@@ -97,7 +97,7 @@
         <input type="file" name="courseImage">
     </td>
 </table>
-            <input type="submit" value="Update Course">
+    <a href="${pageContext.request.contextPath}/GetAllCourses">返回所有課程</a>
         </form>
     </div>
 </body>
