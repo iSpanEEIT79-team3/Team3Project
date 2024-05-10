@@ -191,6 +191,7 @@ public class UserController {
 					usersBean.setThirdPartyLogin(1);
 					modelAndView.setViewName("redirect:/html/frontPage.html");
 					uService2.insert(usersBean);
+					session.setAttribute("usersBean", usersBean);
 					return modelAndView;
 				}else {
 					UsersBeanNew usersBean = uService2.findByEmail(email);

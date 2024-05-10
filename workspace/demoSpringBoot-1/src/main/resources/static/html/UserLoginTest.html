@@ -11,6 +11,21 @@
         body {
             background-color: #D4B572;
         }
+
+        .forget-form {
+            display: none;
+            /* 初始時隱藏忘記密碼表單 */
+        }
+
+        .flipped .login-form {
+            display: none;
+            /* 如果 .login-box 有 .flipped 類，則隱藏登錄表單 */
+        }
+
+        .flipped .forget-form {
+            display: block;
+            /* 如果 .login-box 有 .flipped 類，則顯示忘記密碼表單 */
+        }
     </style>
 </head>
 
@@ -29,15 +44,16 @@
                                     <img src="../images/LOGO.png" width="180" alt="">
                                 </a>
                                 <H2 class="text-center">JFSWING</H2>
-                                <form>
+                                <form class="login-form">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">email</label>
-                                        <input type="email" class="form-control" id="email"
-                                            aria-describedby="emailHelp">
+                                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                            placeholder="Email">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password">
+                                        <input type="password" class="form-control" id="password"
+                                            placeholder="Password">
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-check">
@@ -47,7 +63,7 @@
                                                 顯示密碼
                                             </label>
                                         </div>
-                                        <a class="text-primary fw-bold h5" href="./index.html">忘記密碼 ?</a>
+                                        <p class="text-primary fw-bold h5"><a href="#" data-toggle="flip">忘記密碼 ?</a></p>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between ">
                                         <a class="backstage btn btn-primary w-30 py-8 fs-4 mb-4 rounded-2 ">後台登入</a>
@@ -68,6 +84,20 @@
                                         <a class="text-primary fw-bold ms-2 h5" href="html/register.html">新增會員</a>
                                     </div>
                                 </form>
+                                <form class="forget-form" action="index.html">
+                                    <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>請輸入您的會員信箱!</h3>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1" class="form-label">email</label>
+                                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                            placeholder="Email">
+                                    </div>
+
+                                    <a class="forgetMail btn btn-primary w-30 py-8 fs-4 mb-3 mt-4 rounded-2 ">發送郵件</a>
+                                    <div class="form-group mt-3">
+                                        <p class="semibold-text mb-0 h5"><a href="#" data-toggle="flip"><i
+                                                    class="fa fa-angle-left fa-fw"></i>回到登入畫面</a></p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -79,7 +109,39 @@
     <script src="https://accounts.google.com/gsi/client?zh=TW" async></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Essential javascripts for application to work-->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js"></script>
+    <script type="text/javascript">
+        // Login Page Flipbox control
+        $(document).ready(function () {
+            // 監聽點擊 "忘記密碼 ?" 鏈接事件
+            $('.login-form [data-toggle="flip"]').click(function () {
+                // 切換到忘記密碼表單
+                $('.login-form').hide();
+                $('.forget-form').show();
+                return false; // 防止默認事件
+            });
+
+            // 監聽點擊 "回到登入畫面" 鏈接事件
+            $('.forget-form [data-toggle="flip"]').click(function () {
+                // 切換回登錄表單
+                $('.forget-form').hide();
+                $('.login-form').show();
+                return false; // 防止默認事件
+            });
+        });
+        $('.forgetMail').click(function () {
+            let email = $('#email').val();
+            window.location.href = "/forgetMail?email=" + email;
+        })
+
+    </script>
     <script>
+
         $('.loginPass').click(function () {
             $('#email').val('mhou6vm000@gmail.com'),
                 $('#password').val('123456');
