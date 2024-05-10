@@ -26,7 +26,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="tile">
-					<div class="tile-title" onclick="showmoreInsert()" style="cursor: pointer;">
+					<div class="tile-title" onclick="toggleElementDisplay('insertOrder')" style="cursor: pointer;">
 						<h2>新增訂單</h2>
 					</div>
 					<div class="tile-body" id="insertOrder" style="display: none;">
@@ -58,7 +58,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="tile">
-				<div class="tile-title" onclick="showmoreOrders()" style="cursor: pointer;">
+				<div class="tile-title" onclick="toggleElementDisplay('selectOrder')" style="cursor: pointer;">
 						<h2>所有訂單</h2>
 					</div>
 					<div class="tile-body" id="selectOrder" style="display: none;">
@@ -104,20 +104,14 @@
 	<script src="OrdersSelectAll.js"></script>
 	<script src="OrdersInsert.js"></script>
 	<script>
-	function showmoreInsert() {
-	    let insertDiv = document.getElementById("insertOrder").style.display;
-	    if (insertDiv === 'none') {
-	        document.getElementById("insertOrder").style.display = 'block';
+	
+	
+	function toggleElementDisplay(elementId) {
+	    let element = document.getElementById(elementId);
+	    if (element.style.display === 'none') {
+	        element.style.display = 'block';
 	    } else {
-	        document.getElementById("insertOrder").style.display = 'none';
-	    }
-	}
-	function showmoreOrders() {
-	    let insertDiv = document.getElementById("selectOrder").style.display;
-	    if (insertDiv === 'none') {
-	        document.getElementById("selectOrder").style.display = 'block';
-	    } else {
-	        document.getElementById("selectOrder").style.display = 'none';
+	        element.style.display = 'none';
 	    }
 	}
 	</script>
