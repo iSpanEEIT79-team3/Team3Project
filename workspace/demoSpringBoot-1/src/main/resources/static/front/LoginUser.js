@@ -11,12 +11,10 @@ window.onload = function () {
         url: "/checkUserLogin",
         type: 'get',
         success: function () {
-            console.log(222);
             $('#memberDropdown').show();
             $('#loginButton').hide();
         },
         error: function () {
-            console.log(333);
             $('#memberDropdown').hide();
             $('#loginButton').show();
         }

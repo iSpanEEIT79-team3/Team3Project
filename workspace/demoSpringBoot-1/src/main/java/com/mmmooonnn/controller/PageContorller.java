@@ -26,4 +26,9 @@ public class PageContorller {
 		public String processActionGet() {
 			return "/back";
 		}
+		
+		@GetMapping("/UserLoginTest")
+		public String processActionGetUserLoginTest() {
+			return "redirect:/html/UserLoginTest.html";
+		}
 }

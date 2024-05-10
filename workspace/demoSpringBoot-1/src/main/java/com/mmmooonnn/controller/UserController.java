@@ -71,7 +71,6 @@ public class UserController {
 	//會員登出
 	@GetMapping("/loginOutUser")
 	public String processActionLogOut(HttpSession session) {
-		System.out.println("123");
 		session.setAttribute("usersBean", null);
 		System.out.println("登出");
 		return "redirect:/html/frontPage.html";
