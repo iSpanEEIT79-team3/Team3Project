@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -27,7 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.Event;
+import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.EventService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -37,49 +41,67 @@ public class EventController {
 	@Autowired
 	EventService eService;
 
-//	 @InitBinder
-//	    public void initBinder(WebDataBinder binder) {
-//	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-//	        dateFormat.setLenient(false);
-//	        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-//	    }
-
-//	 在Controller中加入自訂的參數轉換器
-//	 透過使用@InitBinder註解和WebDataBinder類別來實現參數轉換
-
+	 
+//前台
 	// ajax查單筆用
 	@GetMapping("/ajaxFindEvenDataByID/{evenID}")
 	@ResponseBody
-	public Event ajaxFindEvenDataByID(@PathVariable("evenID") Integer evenId) {
-		Event eventBean = eService.findEventById(evenId);
-		return eventBean;
-	}
-
+	public Event ajaxFindEvenDataByID(@PathVariable("evenID") Integer evenId,HttpSession session) {
+		
+		if (session != null && session.getAttribute("usersBean") != null) {
+			System.out.println(456);
+			UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+			Integer userId=user.getUserId();
+			
+			Event eventBean = eService.findEventById(evenId);
+			
+			eventBean.setUserId(userId);
+		System.out.println(eventBean);
+		
+			return eventBean;
+		    
+		} else {		    
+			System.out.println(123);
+			Event eventBean = eService.findEventById(evenId);
+			
+			return eventBean;
+		
+		}
+	}	
+		
+	
+	
+	//前台
 	// ajax查全部
 	@GetMapping("/ajaxFindAll")
 	@ResponseBody
 	public List<Event> ajaxFindAll() {
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
+		System.out.println(eventBeans);
 		return eventBeans;
 	}
-	
+	//前台	
 	//收藏活動寄email
 	  @PostMapping("/eventCollection")
-	    public String EventCollection(
+		@ResponseBody
+	    public ResponseEntity EventCollection(
 	    		@RequestParam("EVENT_STARTIME") String eventDate ,   
-	    		@RequestParam("EVENT_NAME") String eventName) 
+	    		@RequestParam("EVENT_NAME") String eventName,HttpSession session) 
 	         {
-		 
+			UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+			String userEmail=user.getUserContact().getEmail();
+			
 		  System.out.println("6666666666" + eventName);
 		  
-	            String receivers = "emil62y7@gmail.com";
+	            String receivers = userEmail;
 	            String subject ="活動收藏成功";
-	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + eventDate +"活動名稱為："+ eventName + "\n期待您的蒞臨！";
-	            String From = "JFSwing搖擺舞教室<emil62y7@gmail.com>";
+	            String content = "親愛的先生/小姐，您好！您已收藏活動，活動時間為：" + eventDate +"活動名稱為：\""+ eventName + "\"\n期待您的蒞臨！";
+	            String From = "JFSwing搖擺舞教室<mhou6vm0@gmail.com>";
 	            
 	            System.out.println(content);
 	            eService.sendPlainText(receivers, subject, content,From);
-	           return 
+//	           return "successCollection.html";
+	            return ResponseEntity.ok().body("good");
 	        }
 	
 
@@ -87,7 +109,7 @@ public class EventController {
 	public ModelAndView processFindASllAction() {
 		ModelAndView modelAndView = new ModelAndView();
 
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		System.out.println(eventBeans);
 		modelAndView.addObject("eventBeans", eventBeans);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
@@ -186,6 +208,18 @@ public class EventController {
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSupdateData.jsp");
 		return modelAndView;
 	}
+	
+	//前台的controller
+//	@PostMapping
+//	@ResponseBody
+//	public Event buyAction(@RequestParam("PRODUCTID") int EventId,@RequestParam("EVENT_NAME") String eventName,@RequestParam("EVENT_PRICE") int eventPrice,@RequestParam("EVENT_PRICE") int eventPrice) {
+//		Event eventBean = eService.findEventById(evenId);
+//		
+//		return eventBean;
+//	}
+//	
+	
+	
 
 	@PutMapping("/WSupdate")
 	public ModelAndView UpdateAction(@RequestParam("PRODUCTID") int EventId,
@@ -250,7 +284,7 @@ public class EventController {
 
 		eService.updateEvent(eventBean);
 
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 
 		modelAndView.addObject("eventBeans", eventBeans);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
@@ -262,7 +296,7 @@ public class EventController {
 		ModelAndView modelAndView = new ModelAndView();
 		eService.deleteById(eventId);
 
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		modelAndView.addObject("eventBeans", eventBeans);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
 		return modelAndView;

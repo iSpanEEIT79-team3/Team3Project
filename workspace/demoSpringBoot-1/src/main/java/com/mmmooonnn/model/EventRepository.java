@@ -15,6 +15,10 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	   @Query("SELECT e FROM Event e WHERE e.startTime = :startTime")
 	    List<Event> findByStartTime(@Param("startTime") Date startTime);
 	   
+	   @Query("SELECT e FROM Event e ORDER BY e.startTime ASC")
+	   List<Event> findAllByOrderByEventStartTimeAsc();
+		
+	   
 //	   List<Event> findByStartTime(Date startTime);
 	   
 	   

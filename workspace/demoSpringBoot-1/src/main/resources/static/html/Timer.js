@@ -1,9 +1,3 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-
-let evenID = urlParams.get("ID");
-console.log(evenID);
-getTimer();
 
 function getTimer() {
 

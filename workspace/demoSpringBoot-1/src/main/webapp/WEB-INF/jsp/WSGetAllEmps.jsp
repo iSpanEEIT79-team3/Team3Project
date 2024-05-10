@@ -11,6 +11,9 @@
 <head>
 <meta charset="UTF-8">
 <title>活動資訊</title>
+<link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
+" rel="stylesheet">
 <style>
 .center {
 	margin-right: 20px;
@@ -45,7 +48,7 @@ tr {
 </head>
 
 <body style='background-color: #fdf5e6'>
-	<div class="back-content"></div>
+	<div class="back-content banner-container"></div>
 
 	<div class="center">
 		<h2>活動資訊</h2>
@@ -111,7 +114,7 @@ tr {
 								method="post">
 								<input type="hidden" name="_method" value="delete"> <input
 									type="hidden" name="PRODUCTID" value="${evBean.eventId}">
-								<button type="submit" class="delete">刪除</button>
+								<button onclick="confirmDelete()" type="submit" class="delete">刪除</button>
 							</form>
 						</td>
 					</tr>
@@ -132,6 +135,34 @@ tr {
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script
 		src="https://cdn.datatables.net/v/dt/dt-2.0.1/datatables.min.js"></script>
+		
+		<script src="
+		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
+		"></script>
+		<script>
+  // 定义一个函数，在点击按钮时显示确认是否删除的SweetAlert弹窗
+  function confirmDelete() {
+    // 调用SweetAlert函数，显示弹窗
+    Swal.fire({
+      title: '确认是否删除？',
+      text: '您确定要删除吗？',
+      icon: 'warning',
+      showCancelButton: true, // 显示取消按钮
+      confirmButtonText: '确认', // 确认按钮的文本
+      cancelButtonText: '取消' // 取消按钮的文本
+    }).then((result) => {
+      // 如果点击了确认按钮，则执行相应的操作
+      if (result.isConfirmed) {
+        // 在这里可以执行删除操作或者其他操作
+        // 此处仅作示例，可以替换为实际的操作代码
+        Swal.fire('已删除！', '您已成功删除记录。', 'success');
+      }
+    });
+  }
+</script>
+		
+		
+		
 
 	<script>
                         fetch('/back')

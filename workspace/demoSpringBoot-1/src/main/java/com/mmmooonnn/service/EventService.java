@@ -69,6 +69,12 @@ public class EventService {
         
     }
 	
+	//按照活動日期進行升序排序
+	public List<Event> findAllByOrderByStartTimeAsc() {
+		return eRepos.findAllByOrderByEventStartTimeAsc();
+       
+	    }
+	
 	public Event findEventById(Integer id) {
 		Optional<Event> result = eRepos.findById(id);
 		
