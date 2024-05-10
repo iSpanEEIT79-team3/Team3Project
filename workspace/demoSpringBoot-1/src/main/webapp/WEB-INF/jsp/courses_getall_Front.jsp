@@ -156,7 +156,6 @@
 
 		<body>
 
-
 			<!-- Shashank's Section -->
 			<!-- <section class="title"> -->
 			<!-- Navbar section -->
@@ -236,7 +235,7 @@
 
 
 			<!-- 課程 -->
-			<div style="height: 82px">
+			<div style="height: 214px">
 				<div class="box row py-lg-5 text-center vstack border border-dark" style="height: 211px">
 					<div class="col-lg-6 col-md-8 mx-auto d-flex flex-column justify-content-center h-100">
 						<h1 class="fw-bold custom-font-size mb-0" style="font-size: 64px; color: #4f85a6;">課程</h1>
@@ -250,284 +249,173 @@
 
 			<!-- 精選課程 -->
 			<div class="container">
-				<c:forEach var="course" items="${courses}">
-
-
-					<div class="d-flex">
-						<h2 class="section-heading text-uppercase">熱門課程</h2>
-						<div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
-						<h6 class="d-flex align-items-center">一段美好的開始</h3>
-					</div>
-
-					<div class="d-flex text-center" style="width: 1900px;height:  400px;">
-
-						<div class="active ratio" style="width: 600px;">
-							<!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
-							<td>${course.productId}</td>
-							<h1></h1>
-							<img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
-								style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
-						</div>
-
-
-						<div class="active ratio" style="width: 600px;">
-							<!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
-							<td>${course.productId}</td>
-
-							<img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
-								style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
-						</div>
-						<div class="active ratio" style="width: 600px;">
-							<!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
-							<td>${course.productId}</td>
-
-							<img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
-								style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
-						</div>
-				</c:forEach>
-
-			</div>
-
-			<!-- 各種索引搜尋 -->
-
-			<div class="d-flex container" style="height:30px;">
-				<div class="smallbox border border-dark" style="width: 60px;height:30px;">
-					<h5 class="text-center m-1">日期</h5>
-				</div>
-				<div class="smallbox border border-dark" style="width: 82px;height:30px;">
-					<h5 class="text-center m-1">初學者課</h5>
-				</div>
-				<div class="smallbox border border-dark" style="width: 150px;height:30px;">
-					<h5 class="text-center m-1">更多篩選條件</h5>
-				</div>
-
-				<div class="smallbox border border-dark" style="width: 150px;height:30px;">
-					<h5 class="text-center m-1">最受好評課程</h5>
-				</div>
-
-				<div class="smallbox border border-dark" style="width: 82px;height:30px;">
-					<h5 class="text-center m-1">高級課程</h5>
-				</div>
-
-			</div>
-
-			<div class="container mb-1">
 				<div class="d-flex">
-					<h2 class="section-heading text-uppercase">專業師資</h2>
+					<h2 class="section-heading text-uppercase">熱門課程</h2>
 					<div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
-					<h6 class="d-flex align-items-center">看看學員們怎麼說</h3>
+					<h6 class="d-flex align-items-center">一段美好的開始</h3>
 				</div>
-			</div>
-			<!-- 直視圖片區 -->
 
-			<div class="row d-flex">
+				<div class="d-flex text-center" style="width: 1900px;height:  400px;">
 
-				<div class="col-md-3">
-					<div class="product-item rounded-3 bs-secondary-color " style="background-color:#F5F7F9">
-						<div class="product-thumb">
-							<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
-								alt="product-img">
-							<div class="preview-meta">
+					<div class="active ratio" style="width: 600px;">
+						<!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
+						<td>${course.productId}</td>
 
-							</div>
-						</div>
-						<div class="product-content m-3">
-							<p>
-								帶來如詩如畫的舞蹈饗宴。
-							</p>
-							<!-- <td>${course.teacherName}</td> -->
-
-							<h4><a class="text-reset" href="">李舞妍</a></h4>
-						</div>
+						<img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
+							style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
 					</div>
+
 				</div>
-				<div class="col-md-3">
-					<div class="product-item rounded-3 bs-secondary-color " style="background-color:#F5F7F9">
-						<div class="product-thumb">
-							<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
-								alt="product-img">
-							<div class="preview-meta">
+				<!-- 各種索引搜尋 -->
 
-							</div>
-						</div>
-						<div class="product-content m-3">
-							<p>
-								讓每個人都感受到舞蹈的力量。
-							</p>
-							<!-- <td>${course.teacherName}</td> -->
-
-							<h4><a class="text-reset" href="">張舞風</a></h4>
-						</div>
+				<div class="d-flex container" style="height:30px;">
+					<div class="smallbox border border-dark" style="width: 60px;height:30px;">
+						<h5 class="text-center m-1">日期</h5>
 					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="product-item rounded-3 bs-secondary-color " style="background-color:#F5F7F9">
-						<div class="product-thumb">
-							<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
-								alt="product-img">
-							<div class="preview-meta">
-
-							</div>
-						</div>
-						<div class="product-content m-3">
-							<p>
-								如飄逸的雲彩般，輕盈而自由地穿越舞台。
-							</p>
-							<!-- <td>${course.teacherName}</td> -->
-
-							<h4><a class="text-reset" href="">王舞雲</a></h4>
-						</div>
+					<div class="smallbox border border-dark" style="width: 82px;height:30px;">
+						<h5 class="text-center m-1">初學者課</h5>
 					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="product-item rounded-3 bs-secondary-color " style="background-color:#F5F7F9">
-						<div class="product-thumb">
-							<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
-								alt="product-img">
-							<div class="preview-meta">
-
-							</div>
-						</div>
-						<div class="product-content m-3">
-							<p>
-								韻律的大師，她熟練掌握著每一個節奏。
-							</p>
-							<h4><a class="text-reset" href="">陳舞韻</a></h4>
-						</div>
+					<div class="smallbox border border-dark" style="width: 150px;height:30px;">
+						<h5 class="text-center m-1">更多篩選條件</h5>
 					</div>
-				</div>
-			</div>
 
-			<!--課程等級-->
-			<section class="page-section rounded-3" id="portfolio">
-				<div class="container">
+					<div class="smallbox border border-dark" style="width: 150px;height:30px;">
+						<h5 class="text-center m-1">最受好評課程</h5>
+					</div>
+
+					<div class="smallbox border border-dark" style="width: 82px;height:30px;">
+						<h5 class="text-center m-1">高級課程</h5>
+					</div>
+
+				</div>
+
+				<div class="container mb-1">
 					<div class="d-flex">
-
-						<h2 class="section-heading text-uppercase">難度分級</h2>
+						<h2 class="section-heading text-uppercase">專業師資</h2>
 						<div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
-						<h6 class="d-flex align-items-center">為每一個學員量身訂做</h3>
-					</div>
-					<div class="row">
-						<div class="col-lg-4 col-sm-6 mb-4">
-							<!-- Portfolio item 1-->
-							<div class="portfolio-item">
-								<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-									<div class="portfolio-hover">
-										<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
-										</div>
-									</div>
-									<img class="img-fluid" src="../images/CATQQ.png" alt="..." />
-								</a>
-								<div class="portfolio-caption">
-									<!-- 放入 ${course.courseName}-->
-
-									<h4>入門級 Swing 舞課程：
-									</h4>
-									<!-- 放入${course.description}-->
-
-									<h6>
-										適合完全沒有 Swing 舞經驗的初學者。我們將介紹 Swing 舞的基本步法和動作，協助學員建立對 Swing 舞的基本理解和舞蹈感覺。
-									</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-sm-6 mb-4">
-							<!-- Portfolio item 2-->
-							<div class="portfolio-item">
-								<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
-									<div class="portfolio-hover">
-										<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
-										</div>
-									</div>
-									<img class="img-fluid" src="${course.courseImage}" alt="..." />
-								</a>
-								<div class="portfolio-caption">
-									<!-- 放入 ${course.courseName}-->
-									${course.courseName}
-									<h4>
-									</h4>
-									<!-- 放入${course.description}-->
-
-									<h6>
-										${course.description}
-									</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-sm-6 mb-4">
-							<!-- Portfolio item 3-->
-							<div class="portfolio-item">
-								<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
-									<div class="portfolio-hover">
-										<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
-										</div>
-									</div>
-									<img class="img-fluid" src="../images/CATQQ.png" alt="..." />
-								</a>
-								<div class="portfolio-caption">
-									<h4>高級 Swing 舞課程：
-									</h4>
-									<h6>適合具有較高 Swing 舞水平的學員。我們將探討複雜的 Swing 舞步和編排，挑戰學員的舞蹈技巧和創造力，讓他們達到更高的舞蹈境界。
-									</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-							<!-- Portfolio item 4-->
-							<div class="portfolio-item">
-								<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
-									<div class="portfolio-hover">
-										<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
-										</div>
-									</div>
-									<img class="img-fluid" src="../images/CATQQ.png" alt="..." />
-								</a>
-								<div class="portfolio-caption">
-									<h4>專業 Swing 舞課程：</h4>
-									<h6>旨在培養專業的 Swing 舞者和表演者。我們將深入研究 Swing
-										舞的理論和技術，進行專業的舞蹈訓練和表演實踐，為學員提供全面的舞蹈專業知識和技能。
-										</h5>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-							<!-- Portfolio item 5-->
-							<div class="portfolio-item">
-								<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
-									<div class="portfolio-hover">
-										<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
-										</div>
-									</div>
-									<img class="img-fluid" src="../images/CATQQ.png" alt="..." />
-								</a>
-								<div class="portfolio-caption">
-									<h4>Swing 舞基礎訓練課程：</h4>
-									<h6>
-										專注於 Swing 舞的基礎訓練，包括舞姿、步法、節奏感等方面的訓練，適合想要打好舞蹈基礎的學員。
-									</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-sm-6">
-							<!-- Portfolio item 6-->
-							<div class="portfolio-item">
-								<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
-									<div class="portfolio-hover">
-										<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
-										</div>
-									</div>
-									<img class="img-fluid" src="../images/CATQQ.png" alt="..." />
-								</a>
-								<div class="portfolio-caption">
-									<h4>Swing 舞社交舞課程：</h4>
-									<h6>主要教授 Swing 舞的社交舞步和舞會技巧，讓學員在社交場合中自如地展現自己的舞蹈魅力和技巧。
-									</h6>
-								</div>
-							</div>
-						</div>
+						<h6 class="d-flex align-items-center">看看學員們怎麼說</h3>
 					</div>
 				</div>
-			</section>
+				    <!-- 直視圖片區 -->
+
+				    <div class="row d-flex">
+
+					      <div class="col-md-3">
+						        <div class="product-item rounded-3 bs-secondary-color "
+							style="background-color:#F5F7F9">
+							          <div class="product-thumb">
+								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
+									src="../images/dancer1.jpg" alt="product-img">
+								            <div class="preview-meta">
+
+									            </div>
+								          </div>
+							          <div class="product-content m-3">
+								            <p>
+									              帶來如詩如畫的舞蹈饗宴。
+									            </p>
+								            <h4><a class="text-reset" href="">李舞妍</a></h4>
+								          </div>
+							        </div>
+						      </div>
+					      <div class="col-md-3">
+						        <div class="product-item rounded-3 bs-secondary-color "
+							style="background-color:#F5F7F9">
+							          <div class="product-thumb">
+								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
+									src="../images/dancer1.jpg" alt="product-img">
+								            <div class="preview-meta">
+
+									            </div>
+								          </div>
+							          <div class="product-content m-3">
+								            <p>
+									              讓每個人都感受到舞蹈的力量。
+									            </p>
+								            <h4><a class="text-reset" href="">張舞風</a></h4>
+								          </div>
+							        </div>
+						      </div>
+					      <div class="col-md-3">
+						        <div class="product-item rounded-3 bs-secondary-color "
+							style="background-color:#F5F7F9">
+							          <div class="product-thumb">
+								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
+									src="../images/dancer1.jpg" alt="product-img">
+								            <div class="preview-meta">
+
+									            </div>
+								          </div>
+							          <div class="product-content m-3">
+								            <p>
+									              如飄逸的雲彩般，輕盈而自由地穿越舞台。
+									            </p>
+								            <h4><a class="text-reset" href="">王舞雲</a></h4>
+								          </div>
+							        </div>
+						      </div>
+					      <div class="col-md-3">
+						        <div class="product-item rounded-3 bs-secondary-color "
+							style="background-color:#F5F7F9">
+							          <div class="product-thumb">
+								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
+									src="../images/dancer1.jpg" alt="product-img">
+								            <div class="preview-meta">
+
+									            </div>
+								          </div>
+							          <div class="product-content m-3">
+								            <p>
+									              韻律的大師，她熟練掌握著每一個節奏。
+									            </p>
+								            <h4><a class="text-reset" href="">陳舞韻</a></h4>
+								          </div>
+							        </div>
+						      </div>
+					    </div>
+
+
+				<!--課程等級-->
+				<section class="page-section rounded-3" id="portfolio">
+					<div class="container">
+						<div class="d-flex">
+
+							<h2 class="section-heading text-uppercase">難度分級</h2>
+							<div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
+							<h6 class="d-flex align-items-center">為每一個學員量身訂做</h3>
+						</div>
+						<div class="row">
+							<div class="col-4 col-lg-4 col-sm-6 mb-4">
+								<!-- Portfolio item 1-->
+								<div class="portfolio-item">
+									<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+										<div class="portfolio-hover">
+											<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
+											</div>
+										</div>
+										<c:forEach items="${Courses}" var="course">
+
+											<img class="img-fluid" src="${course.courseImage}" alt="..." />
+									</a>
+									<div class="portfolio-caption">
+										<!-- 放入 -->
+										<h6>${course.productId}</h6>
+										<h4>
+											${course.courseName}
+										</h4>
+										<!-- 放入-->
+
+										<h6>
+											${course.description}
+										</h6>
+									</div>
+									</c:forEach>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 
 
 			</div>
@@ -579,6 +467,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
+
 		</body>
 
 		</html>

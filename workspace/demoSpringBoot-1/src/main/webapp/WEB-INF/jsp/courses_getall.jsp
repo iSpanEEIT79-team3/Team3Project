@@ -125,7 +125,6 @@
                 <td>${course.enrollmentCount}</td>
                 <td>${course.maxCapacity}</td>
 				<td><img src="${course.courseImage}" style="width: 100px; height: 100px;"></td>
-				
 
 								<td><a href="/GetCourseById/${course.productId}"><button>修改</button></a></td>
 
