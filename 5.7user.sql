@@ -1,3 +1,4 @@
+<<<<<<< HEAD:5.7user.sql
 use servdb;
 
 --新會員-聯絡資訊
@@ -94,3 +95,5 @@ create table usertoken(
 )
 select * from usertoken;
 drop table usertoken;
+=======
+>>>>>>> 17Pekoedison:5.1user.sql

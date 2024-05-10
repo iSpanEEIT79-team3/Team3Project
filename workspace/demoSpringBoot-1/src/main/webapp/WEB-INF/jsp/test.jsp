@@ -173,75 +173,100 @@
 	</div>
 
 
-<table class="big-table">
-    <c:forEach items="${matches}" var="user" varStatus="loop">
-        <c:if test="${loop.index % 3 == 0}">
-            <tr>
-        </c:if>
-        <td>
-            <table class="small-table">
-                <tr>
-                    <td>
-                        <div class="user-container">
-                            <img id="user_image_${loop.index}" src="${user.picture}" alt="User Image">
-                            <div class="button-container">
-                                <button type="submit"style="background: #f99;" class="heart-button">&#x2665;</button>
-                                <button type="reset" style="background: #99f;"class="x-button">&#x2716;</button>
-                            </div>
-                            <div id="user_details_${loop.index}" class="user-details">
-                                <p>Nickname: ${user.nickName}</p>
-                                <p>Gender: ${user.gender}</p>
-                                <p>Birthday: ${user.birthday}</p>
-                                <p>Dance Character: ${user.danceCharacter}</p>
-                                <p>Dance Age: ${user.danceAge}</p>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <c:if test="${loop.index % 3 == 2 || loop.last}">
-            </tr>
-        </c:if>
-    </c:forEach>
-</table>
+	<table class="big-table">
+		<c:forEach items="${matches}" var="user" varStatus="loop">
+			<c:if test="${loop.index % 3 == 0}">
+				<tr>
+			</c:if>
+			<td>
+				<table class="small-table">
+					<tr>
+						<td>
+							<div class="user-container">
+								<img id="user_image_${loop.index}" src="${user.picture}"
+									alt="User Image" class="img">
+								<div class="button-container">
+									<form action="/createMatch" method="post">
+										<input type="hidden" name="userId1" value="${loginuser.userId}">
+										<input type="hidden" name="userId2" value="${user.userId}">
+										<input type="hidden" name="matchSuccess" value="2">
+										<input type="hidden" name="matchStatus" value="Y">
+										
+										<button type="submit" style="background: #f99;"
+											class="heart-button">&#x2665;</button>
+									</form>
+									<form action="/createMatch" method="post">
+										<input type="hidden" name="userId1" value="${loginuser.userId}">
+										<input type="hidden" name="userId2" value="${user.userId}">
+										<input type="hidden" name="matchSuccess" value="0">
+										<input type="hidden" name="matchStatus" value="N">
+									<button type="submit" style="background: #99f;" class="x-button">&#x2716;</button>
+									</form>
+								</div>
+								<div id="user_details_${loop.index}" class="user-details">
+									<p>Nickname: ${user.nickName}</p>
+									<p>Gender: ${user.gender}</p>
+									<p>Birthday: ${user.birthday}</p>
+									<p>Dance Character: ${user.danceCharacter}</p>
+									<p>Dance Age: ${user.danceAge}</p>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<c:if test="${loop.index % 3 == 2 || loop.last}">
+				</tr>
+			</c:if>
+		</c:forEach>
+	</table>
 
-<style>
-    .user-container {
-        position: relative;
-        display: inline-block;
-        width: 200px; /* 設置圖片的寬度 */
-        height: 200px; /* 設置圖片的高度 */
-    }
+	<style>
+.user-container {
+	position: relative;
+	display: inline-block;
+	width: 200px; /* 設置圖片的寬度 */
+	height: 200px; /* 設置圖片的高度 */
+}
 
-    .user-details {
-        display: none;
-        position: absolute;
-        top: 100%; /* 讓詳細資料顯示在圖片下方 */
-        left: 0;
-        background-color: white;
-        padding: 10px;
-        border: 1px solid black;
-        z-index: 1;
-    }
+.user-details {
+	display: none;
+	position: absolute;
+	top: 100%; /* 讓詳細資料顯示在圖片下方 */
+	left: 0;
+	background-color: white;
+	padding: 10px;
+	border: 1px solid black;
+	z-index: 1;
+}
 
-    .button-container {
-        position: absolute;
-        bottom: 10px; /* 設置按鈕容器距離底部的距離 */
-        left: 50%; /* 讓按鈕容器居中 */
-        transform: translateX(-50%); /* 水平居中 */
-    }
+.button-container {
+	position: absolute;
+	bottom: 10px; /* 設置按鈕容器距離底部的距離 */
+	left: 50%; /* 讓按鈕容器居中 */
+	transform: translateX(-50%); /* 水平居中 */
+}
 
-    .heart-button,
-    .x-button {
-        display: inline-block;
-        width: 20px; /* 設置按鈕的寬度 */
-        height: 20px; /* 設置按鈕的高度 */
-    }
+.heart-button, .x-button {
+	display: inline-block;
+	text-align: center;
+	width: 25px; /* 設置按鈕的寬度 */
+	height: 25px; /* 設置按鈕的高度 */
+	border: 1px solid black;
+	border-radius: 20px;
+}
 
-    .user-container:hover .user-details {
-        display: block;
-    }
+.user-container:hover .user-details {
+	display: block;
+}
+
+.img {
+	width: 200px;
+	max-height: 200px;
+	object-fit: cover;
+	margin-right: 20px;
+	border-radius: 20px;
+}
 </style>
 
 

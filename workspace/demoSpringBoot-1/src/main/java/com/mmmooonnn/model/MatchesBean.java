@@ -33,69 +33,64 @@ public class MatchesBean implements Serializable {
 	private LocalDate matchdate;
 	@Column(name = "MATCH_SUCCESS")
 	private String matchsuccess;
-	
-
+	@Column(name = "MATCH_STATUS")
+	private String matchstatus;
 	public Integer getMatchid() {
 		return matchid;
 	}
-
 	public void setMatchid(Integer matchid) {
 		this.matchid = matchid;
 	}
-
 	public Integer getUser1id() {
 		return user1id;
 	}
-
 	public void setUser1id(Integer user1id) {
 		this.user1id = user1id;
 	}
-
 	public Integer getUser2id() {
 		return user2id;
 	}
-
 	public void setUser2id(Integer user2id) {
 		this.user2id = user2id;
 	}
-
 	public LocalDate getMatchdate() {
 		return matchdate;
 	}
-
 	public void setMatchdate(LocalDate matchdate) {
 		this.matchdate = matchdate;
 	}
-
 	public String getMatchsuccess() {
 		return matchsuccess;
 	}
-
 	public void setMatchsuccess(String matchsuccess) {
 		this.matchsuccess = matchsuccess;
 	}
-
+	public String getMatchstatus() {
+		return matchstatus;
+	}
+	public void setMatchstatus(String matchstatus) {
+		this.matchstatus = matchstatus;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 	@Override
 	public String toString() {
 		return "MatchesBean [matchid=" + matchid + ", user1id=" + user1id + ", user2id=" + user2id + ", matchdate="
-				+ matchdate + ", matchsuccess=" + matchsuccess + "]";
+				+ matchdate + ", matchsuccess=" + matchsuccess + ", matchstatus=" + matchstatus + "]";
 	}
-
-	public MatchesBean(Integer matchid, Integer user1id, Integer user2id, LocalDate matchdate, String matchsuccess) {
+	public MatchesBean(Integer matchid, Integer user1id, Integer user2id, LocalDate matchdate, String matchsuccess,
+			String matchstatus) {
 		super();
 		this.matchid = matchid;
 		this.user1id = user1id;
 		this.user2id = user2id;
 		this.matchdate = matchdate;
 		this.matchsuccess = matchsuccess;
+		this.matchstatus = matchstatus;
 	}
-
 	public MatchesBean() {
 		super();
 	}
-
+	
 }
