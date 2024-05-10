@@ -76,8 +76,8 @@ body {
 }
 
 .lt img {
-	max-width: 250px;
-	height: auto;
+	max-width: 300px;
+	height: 300px;
 }
 
 .lt {
@@ -163,27 +163,27 @@ body {
 			<button class="select" type="submit">搜尋</button>
 		</form>
 
-		<table border="1">
-			<tr style="background-color: #a8fefa">
-				<th>文章ID</th>
-				<th>標題</th>
-				<th>使用者ID</th>
-				<th>輸入文章內容</th>
-				<th>日期</th>
-				<th>讚</th>
-				<th>照片</th>
-				<th>操作</th>
-			</tr>
-			<c:forEach items="${ltBeans}" var="items">
-				<tr>
-					<td><a href="/findLTID/${items.ltId}">${items.ltId}</a></td>
-					<td>${items.title}</td>
-					<td>${items.userId}</td>
-					<td>${items.content}</td>
-					<td>${items.date}</td>
-					<td>${items.saveLike}</td>
-					<td><img src="${items.picture}"></td>
-					<td>
+			<table border="1">
+				<tr style="background-color: #a8fefa">
+					<th>文章ID</th>
+					<th style="width: 100px">標題</th>
+					<th>使用者ID</th>
+					<th style="width: 150px">輸入文章內容</th>
+					<th>日期</th>
+					<th>讚</th>
+					<th>照片</th>
+					<th>操作</th>
+				</tr>
+				<c:forEach items="${ltBeans}" var="items">
+					<tr>
+						<td><a href="/findLTID/${items.ltId}">${items.ltId}</a></td>
+						<td>${items.title}</td>
+						<td>${items.userId}</td>
+						<td>${items.content}</td>
+						<td>${items.date}</td>
+						<td>${items.saveLike}</td>
+						<td><img src="${items.picture}"></td>
+						<td>
 						<form method="Get" action="/LTSelectById.controller/${items.ltId}">
 							<button class="edit" type="submit">修改</button>
 						</form>

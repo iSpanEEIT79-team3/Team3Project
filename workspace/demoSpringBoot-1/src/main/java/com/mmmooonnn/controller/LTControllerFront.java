@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,10 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.model.LikeBean;
+import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.LTService;
 import com.mmmooonnn.service.LikeService;
 
-
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 
@@ -40,23 +42,22 @@ public class LTControllerFront {
 	@Autowired
 	private LikeService lr;
 
-	
 	@GetMapping("/LTSelectById1Front.controller")
 	public String findByLTId(@RequestParam("ltId") Integer ltId, Model mm) {
 		LTBean resultBean = lt.findByLTId(ltId);
 		System.out.println(resultBean);
 		mm.addAttribute("ltBean", resultBean);
-		
-		return "forward:/WEB-INF/jsp/LTSelect.jsp";
+
+		return "forward:/WEB-INF/jsp/LTSelectFront.jsp";
 
 	}
-	
+
 	@GetMapping("/LTSelectByIdFront.controller/{ltId}")
-	public String findByLTIdup(@PathVariable  Integer ltId, Model m) {
+	public String findByLTIdup(@PathVariable Integer ltId, Model m) {
 		LTBean resultBean = lt.findByLTId(ltId);
 		System.out.println(resultBean);
 		m.addAttribute("ltBean", resultBean);
-		
+
 		return "forward:/WEB-INF/jsp/LTUpdate.jsp";
 
 	}
@@ -69,15 +70,14 @@ public class LTControllerFront {
 		return "forward:/WEB-INF/jsp/LTSelectAllFront.jsp";
 
 	}
-	
-
 
 	@PostMapping("/LTinsertFront.controller")
 	@ResponseBody
-	public ModelAndView InsertLT(@RequestParam("title") String title, @RequestParam("userId") String userId,
+	public ModelAndView InsertLT(@RequestParam("title") String title, /* @RequestParam("userId") String userId */
 			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
-			/*@RequestParam("saveLike") Integer saveLike*/) {
+			/* @RequestParam("saveLike") Integer saveLike */, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
 
 		try {
 			LTBean ltBean = new LTBean();
@@ -89,12 +89,11 @@ public class LTControllerFront {
 				picture.transferTo(fileurl1);
 				ltBean.setPicture("images/" + fileName);
 			}
-
+			ltBean.setUserId(user.getUserId());
 			ltBean.setTitle(title);
-			ltBean.setUserId(Integer.parseInt(userId));
 			ltBean.setContent(content);
 			ltBean.setSaveLike(0);
-			 Date DATE = new Date(System.currentTimeMillis());
+			Date DATE = new Date(System.currentTimeMillis());
 
 			ltBean.setDate(DATE);
 			lt.insertLT(ltBean);
@@ -118,40 +117,35 @@ public class LTControllerFront {
 
 	@PutMapping("/LTUpdateFront.controller")
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
-			@RequestParam("userId") String userId,
-			@RequestParam("date") String date,
+			@RequestParam("userId") String userId, @RequestParam("date") String date,
 			@RequestParam("picture") String picture, @RequestParam("content") String content,
 			@RequestParam("saveLike") Integer saveLike) {
 
 		Integer LTID = Integer.parseInt(ltId);
 		Integer USERID = Integer.parseInt(userId);
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
-	    Date parsedDate = null;
-	    
-	        try {
-				parsedDate = dateFormat.parse(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-	    
-		
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		Date parsedDate = null;
+
+		try {
+			parsedDate = dateFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		LTBean ltBean = new LTBean(LTID, title, USERID, parsedDate, picture, content, saveLike);
 		lt.update(ltBean);
 		return "redirect:LTSelectAll";
 
 	}
-	
-	
-	
+
 	@GetMapping("/findtitleFront")
 	public String findByTitle(@RequestParam("title") String title, Model mm) {
-	    List<LTBean> ltBeans = lt.findByTitle(title);
-	    mm.addAttribute("ltBeans", ltBeans);
+		List<LTBean> ltBeans = lt.findByTitle(title);
+		mm.addAttribute("ltBeans", ltBeans);
 		return "forward:/WEB-INF/jsp/LTSelectAllFront.jsp";
 	}
-	
+
 //	@PostMapping("/Likeinsert1.controller")
 //	public ModelAndView InsertLike(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
 //	    ModelAndView mv = new ModelAndView();
@@ -182,9 +176,23 @@ public class LTControllerFront {
 
 	@GetMapping("LTIndex")
 	public String ltIndex() {
-		
+
 		return "forward:/WEB-INF/jsp/LTIndex.jsp";
 	}
-	
-	
+
+	//分頁
+	@GetMapping(path="/pageALL")
+	@ResponseBody
+	public Page<LTBean> LTPage(@RequestParam(defaultValue = "0")int page,
+			@RequestParam(defaultValue = "5")int size){
+		Pageable pageable = PageRequest.of(page, size,Sort.by("ltId").descending());
+		Page<LTBean> pageL = lt.finPage(pageable);
+		System.out.println(pageL);
+		
+		return pageL; 
+		
+		
+		
+	}
+
 }

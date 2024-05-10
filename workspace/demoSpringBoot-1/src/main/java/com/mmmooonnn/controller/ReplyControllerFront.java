@@ -19,8 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.model.ReplyBean;
+import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.LTService;
 import com.mmmooonnn.service.ReplyService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -61,25 +64,23 @@ public class ReplyControllerFront {
 			return "forward:/WEB-INF/jsp/ReplySelectAllFront.jsp";
 			
 	}
-@PostMapping("ReplyinsertFront.controller")
+@PostMapping("/ReplyinsertFront.controller" )
 public ModelAndView InsertReply(
-		@RequestParam("userId") Integer userId,
+		/*@RequestParam("userId") Integer userId*/
 		@RequestParam("replypost") String replypost, 
-		@RequestParam("LTId") Integer LTId ,Model m) {
+		@RequestParam("LTId") Integer LTId ,HttpSession session,Model m) {
 		
-	ModelAndView mv = new ModelAndView("redirect:ReplySelectAll");
-	
+	ModelAndView mv = new ModelAndView("redirect:/findLTIDFront/"+LTId);
+	UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
 		LTBean ltBean = lt.findByLTId(LTId);
 		ReplyBean replyBean = new ReplyBean();
 		replyBean.setLtBean(ltBean);
 		replyBean.setReplypost(replypost);
-		replyBean.setUserId(userId);
+		replyBean.setUserId(user.getUserId());
 		
 		 Date replytime1 = new Date(System.currentTimeMillis());
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 
 		 
-//            String time = sdf.format(replytime1);
            
             replyBean.setReplytime(replytime1);
             ry.InsertReply(replyBean);
@@ -136,7 +137,8 @@ public ModelAndView InsertReply(
 		//System.out.println("replyBeans"+replyBeans);
 		LTBean resultBean = lt.findByLTId(ltId);
 		System.out.println("resultBean"+resultBean);
-		Set<ReplyBean> replyBeans = resultBean.getReplyBeans();
+//		Set<ReplyBean> replyBeans = resultBean.getReplyBeans();
+		List<ReplyBean> replyBeans = ry.findID(ltId);
 		System.out.println("ReplyBeans"+resultBean.getReplyBeans());
 	    mm.addAttribute("replyBean", replyBeans);
 		mm.addAttribute("items", resultBean);

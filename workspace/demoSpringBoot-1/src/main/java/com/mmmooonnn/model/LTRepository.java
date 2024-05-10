@@ -13,5 +13,9 @@ import org.springframework.data.repository.query.Param;
 public interface LTRepository extends JpaRepository<LTBean, Integer> {
     @Query("SELECT L FROM LTBean L WHERE L.title LIKE concat('%',:title,'%') ")
     List<LTBean> findByTitle(@Param("title") String title);
-
+    
+    
+@Query(value = "SELECT* from LT",countQuery="Select count(*)From LT", nativeQuery = true)
+Page<LTBean> findAllPage(Pageable pageable);
+    
 }
