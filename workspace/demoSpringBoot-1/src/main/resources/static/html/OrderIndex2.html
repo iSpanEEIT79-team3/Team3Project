@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ 
+  <title>JFSwing後台</title>
+  <meta charset="utf-8">
+
+</head>
+
+<body>
+    <div class="back-content"></div>
+    <script src="OrdersReadMore.js"></script>
+    <script src="OrdersUpdate.js"></script>
+    <script src="OrdersSelectAll.js"></script>
+    <div id="formContainer"></div>
+    <script src="OrdersInsert.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        fetch('/exampleBack.html')
+            .then(response => response.text())
+            .then(html => {
+                //內容
+                $('.back-content').html(html);
+            })
+            .catch(error => console.error('Error fetching back.html', error));
+    </script>
+    
+</body>
+
+</html>

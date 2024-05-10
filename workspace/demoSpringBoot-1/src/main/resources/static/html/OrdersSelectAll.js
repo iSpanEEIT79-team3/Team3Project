@@ -4,14 +4,14 @@
 /**
  * 
  */
-
-let table = document.createElement('table');
+let table = document.getElementById("sampleTable");
+//let table = document.createElement('table');
 table.setAttribute('border', '1');
-table.setAttribute('id', 'orderTable');
+//table.setAttribute('id', 'orderTable');
 
 // 創建表頭
 let thead = document.createElement('thead');
-thead.style.backgroundColor = '#a8fefa';
+thead.style.backgroundColor = '#EEBA7E';
 let headerRow = thead.insertRow();
 headerRow.innerHTML = '<th>訂單編號</th>' +
 	'<th>會員編號</th>' +
@@ -28,12 +28,12 @@ headerRow.innerHTML = '<th>訂單編號</th>' +
 table.appendChild(thead);
 
 // 創建表格主體
-let tbody = document.createElement('tbody');
-tbody.setAttribute('id', 'orderTableBody');
+let tbody = document.createElement("tbody");
+//tbody.setAttribute('id', 'orderTableBody');
 table.appendChild(tbody);
 
 // 將表格添加到 body 中
-document.body.appendChild(table);
+//document.body.appendChild(table);
 // 使用fetch從Servlet取得JSON數據
 fetch("/orders", {
 	method: "GET", headers: {
@@ -58,10 +58,16 @@ fetch("/orders", {
 
 			}
 			// 插入內容
-			row.insertCell(flds.length).innerHTML = '<button onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
-			row.insertCell(flds.length+1).innerHTML = '<button onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
-			row.insertCell(flds.length+2).innerHTML = '<button onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
+			row.insertCell(flds.length).innerHTML = '<button class="btn btn-primary" onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
+			row.insertCell(flds.length+1).innerHTML = '<button class="btn btn-primary" onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
+			row.insertCell(flds.length+2).innerHTML = '<button class="btn btn-primary" onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
 		});
+		   fetch('exampleBack.html')
+    .then(response => response.text())
+    .then(html => {
+        document.body.innerHTML += html;
+        $('#sampleTable').DataTable(); 
+    });
 	})
 
 	.catch(function(error) {
