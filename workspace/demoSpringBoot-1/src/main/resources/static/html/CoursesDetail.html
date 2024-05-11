@@ -1,274 +1,151 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/4287c80df9.js" crossorigin="anonymous"></script>
-
-    <!--Google Font : Nunito-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
-
-    <!-- For style(All CSS content) -->
-    <link rel="stylesheet" type="text/css" href="../styles/home.css" />
-    <link rel="stylesheet" type="text/css" href="../styles/footer.css" />
-    <link rel="stylesheet" type="text/css" href="../styles/navbar.css" />
-    <link rel="icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/Timerstyles.css" />
-
-    <!-- JS Bundle for BS  -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
-        crossorigin="anonymous"></script>
-    <title>JFSwing Website</title>
-
-
+    <style>
+        div {
+            border: 1px solid black;
+            /* 黑色實線邊框 */
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- Shashank's Section -->
-    <!-- <section class="title"> -->
-    <!-- Navbar section -->
-
-
-    <!-- Title -->
-    <div class="container-fluid" style="margin-top: 150px;">
-        <div id="title">
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-5" id="fetchPicture">
-                    <!-- <img src="https://dance-teacher.com/wp-content/uploads/2020/12/the-most-romantic-dance-movie-scenes-of-all-time.jpg"
-                        class="d-block" style="width:100%"> -->
-                </div>
-                <div class="col-5">
-                    <div id="countdown" class="countdown">
-
-                        <div class="time">
-                            <h2 id="days"></h2>
-                            <small>Days</small>
-                        </div>
-
-                        <div class="time">
-                            <h2 id="hours"></h2>
-                            <small>Hours</small>
-                        </div>
-
-                        <div class="time">
-                            <h2 id="minutes"></h2>
-                            <small>Minutes</small>
-                        </div>
-
-                        <div class="time">
-                            <h2 id="seconds"></h2>
-                            <small>Seconds</small>
-                        </div>
-
-                    </div>
-                    <table class="table table-dark table-hover">
-                        <tbody id="eventTable">
-                            <!-- <button onclick="getData();">取得資料</button> -->
-                            <!-- fetch append表格的位置 -->
-                        </tbody>
-                    </table>
-
-
-                    <button onclick="buy()" class="btn btn-primary">立即報名</button>
+    <div class="row justify-content-center">
 
 
 
-                    <form id="eventCollectionForm" action="../eventCollection" method="post">
-                        <!--                         <input type="hidden" id="eventDate" name="EVENT_STARTIME" value=${data.startTime}>  -->
-                        <!--                          <input type="hidden" id="eventName" name="EVENT_NAME" value=${data.eventName}> -->
-                        <button class="btn btn-primary" type="submit">收藏活動到email</button>
-                    </form>
-                    <!-- 					<a href="/eventCollection"> -->
-                    <!-- 						<button  class="btn btn-primary">收藏活動到email</button> -->
-                    <!-- 					</a> -->
+        <div class="col-7 m-2">
+            <div class="d-flex align-items-center g-0" style="width: 580px; height: 920px;">
+                <img class="z-n1" src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
+                    style="max-width: 100%; max-height:  100%;" alt="..." />
 
-                </div>
+                <div class="d-flex flex-column justify-content-end align-items-start g-0" style="height: 95%;">
+                    <h1>${course.courseName}</h1>
+                    <h3>
+                        ${course.courseType}
 
-                <div class="row">
-                    <div class="col-1"></div>
-                    <div class="col-8">
-                        <h3 class="neon-yellow">活動詳細資料</h3>
-                        <div id="fetchDetails"></div>
-
-                    </div>
+                    </h3>
                 </div>
             </div>
+            <div>
+                ${course.description}
+
+
+            </div>
+        </div>
+
+
+
+
+        <div class="col-3 d-flex flex-column align-items-center" style="width: 300px; height: 1062px;">
+            <div class="align-items-center m-1" style="width: 250px; height: 80px;">
+
+                <div class="mt-2 ml-2">
+                    <h6>截止日期</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.deadlineDate}
+                </div>
+
+            </div>
+
+            <div class="d-flex align-items-center m-1" style="width: 250px; height: 40px;">
+
+                <h6 class="ml-2">SHOW DETAILS</h6>
+
+            </div>
+
+            <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 260px;">
+
+                <div class="mt-2 ml-2">
+                    <h6>時間</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.startDate}
+                    ${course.endDate}
+                </div>
+
+
+                <div class="mt-2 ml-2">
+                    <h6>地點</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.location}
+                </div>
+                <div class="mt-2 ml-2">
+                    <h6>地點</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.location}
+                </div>
+
+            </div>
+
+            <div class="d-flex align-items-center m-1" style="width: 250px; height: 40px;">
+
+
+                <h6 class="ml-2">TEACHER DETAILS</h6>
+
+
+
+            </div>
+
+            <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
+
+                <div class="mt-2 ml-2">
+                    <h6>教師名稱</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.teacherName}
+                </div>
+                <div class="mt-2 ml-2">
+                    <h6>教師聯繫方式</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.teacherContact}
+                </div>
+
+
+            </div>
+
+            <div class="d-flex align-items-center m-1" style="width: 250px; height: 40px;">
+
+                <h6 class="ml-2">人數</h6>
+
+            </div>
+            <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
+
+                <div class="mt-2 ml-2">
+                    <h6>目前報名人數</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.enrollmentCount}
+                </div>
+                <div class="mt-2 ml-2">
+                    <h6>上限名額</h6>
+                </div>
+                <div class="mt-2 ml-2">
+                    ${course.maxCapacity}
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+
+                <h6 class="ml-2">+GOOGLE CALENDAR</h6>
+
+            </div>
+
+            <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+
+                <h6 class="ml-2">+ICAL EXPORT</h6>
+
+            </div>
+
         </div>
     </div>
-
-    <script>
-        function eventCollection() {
-            var form = document.getElementById("eventCollectionForm");
-            form.submit();
-        }
-    </script>
-
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
-
-    <script src="Timer.js"></script>
-    <!-- Timer -->
-
-    <script>
-
-        // const queryString = window.location.search;
-        // const urlParams = new URLSearchParams(queryString);
-
-        // let evenID = urlParams.get("ID");
-        // console.log(evenID);
-        getData();
-
-        function getData() {
-
-            fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
-                return response.json();
-            }).then(function (data) {
-
-                $('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${course.startDate}>
-            		    <input type="hidden"  value=${course.endDate} name="EVENT_NAME" >`)
-
-                $('#fetchPicture').append(`<img src="${course.courseImage}"
-                        class="d-block" style="width:100%">`)
-
-                $('#fetchDetails').append(`<p>${course.courseName}</p>`)
-
-
-                $('#eventTable').append(`<tr>
-                    <tr>
-    <td class="vertical-header border-bottom">產品ID</td>
-    <td>${course.productId}</td>
-</tr>
-<tr>
-    <td class="vertical-header border-bottom">課程名稱</td>
-    <td>${course.courseName}</td>
-</tr>
-<tr>
-    <td class="vertical-header border-bottom">開始日期</td>
-    <td>${course.startDate}</td>
-</tr>
-<tr>
-    <td class="vertical-header border-bottom">結束日期</td>
-    <td>${course.endDate}</td>
-</tr>
-<tr>
-    <td class="vertical-header border-bottom">截止日期</td>
-    <td>${course.deadlineDate}</td>
-</tr>
-<tr>
-    <td class="vertical-header border-bottom">地點</td>
-    <td>${course.location}</td>
-</tr>
-<tr>
-        <td class="vertical-header border-bottom">價格</td>
-        <td>${course.price}</td>
-    </tr>
-    <tr>
-        <td class="vertical-header border-bottom">教師名稱</td>
-        <td>${course.teacherName}</td>
-    </tr>
-    <tr>
-        <td class="vertical-header border-bottom">教師聯繫方式</td>
-        <td>${course.teacherContact}</td>
-    </tr>
-    <tr>
-        <td class="vertical-header border-bottom">報名人數</td>
-        <td>${course.enrollmentCount}</td>
-    </tr>
-    <tr>
-        <td class="vertical-header border-bottom">最大容量</td>
-        <td>${course.maxCapacity}</td>
-    </tr>
-
-
-
-
-`)
-
-            });
-        }
-
-
-    </script>
-    <script>
-        //     function buy(){
-
-        // 		fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
-        //             return response.json();
-        // 	}).then(function (data) {
-
-        // 		var buydata=
-        // 		{productNum:data.eventId, 
-        // 		productName:data.eventName,
-        //         productPrice:data.eventPrice,
-        //         productQuantity: "1",
-        //         orderTotalPrice: data.eventPrice}
-
-        // 	});
-        // 		console.log(buydata);
-
-
-        function buy() {
-            var url = "http://localhost:8080/orders"; // 請求的 URL
-
-            fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
-                return response.json();
-            }).then(function (data) {
-                var jsonObject = {
-                    productNum: data.eventId,
-                    productName: data.eventName,
-                    productPrice: data.eventPrice,
-                    productQuantity: '1',
-                    orderTotalPrice: data.eventPrice
-                };
-                console.log(jsonObject);
-
-                // 使用 fetch 函數發送 POST 請求
-                fetch(url, {
-                    method: "POST", // 使用 POST 方法
-                    body: JSON.stringify(jsonObject), // 將 JSON 數據轉換為字符串並指定為請求主體
-                    headers: new Headers({
-                        "Content-Type": "application/json", // 指定 Content-Type 為 application/json
-                    }),
-                })
-                    .then((res) => res.json()) // 解析服務器的 JSON 響應
-                    .catch((error) => console.error("Error:", error)) // 處理錯誤
-                    .then((response) => console.log("Success:", response)); // 處理成功響應
-            });
-        }
-
-    </script>
-
-    <script>
-
-        fetch('basic.html')
-            .then(response => response.text())
-            .then(html => {
-                document.body.innerHTML += html;
-            });
-
-
-    </script>
 </body>
 
 </html>
