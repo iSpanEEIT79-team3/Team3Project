@@ -31,14 +31,53 @@ public class CoursesControllerFront {
 	}
 	
 	@GetMapping("/GetTeacherCoursesFront")
-	public ModelAndView processActionGetTeacherCourses() {
-	    ModelAndView modelAndView = new ModelAndView();
+	@ResponseBody
+	public List<CoursesBean> processActionGetTeacherCourses() {
 	    List<CoursesBean> teacherCourses = cService.getTeacherCourses();
-	    modelAndView.addObject("teacherCourses", teacherCourses);
-	    modelAndView.setViewName("Courses_index.html");
-	    return modelAndView;
+	    return teacherCourses; // 直接返回数据，Spring会使用Jackson转换成JSON
 	}
 
+	
+//	
+//	@GetMapping("/GetTeacherCoursesFront")
+//	public ModelAndView processActionGetTeacherCourses() {
+//	    ModelAndView modelAndView = new ModelAndView();
+//	    List<CoursesBean> teacherCourses = cService.getTeacherCourses();
+//	    modelAndView.addObject("teacherCourses", teacherCourses);
+//	    modelAndView.setViewName("Courses_index.html");
+//	    return modelAndView;
+//	}
+
+    //getid後得到詳細資料
+    @GetMapping("/courseDetailsFront/{id}")
+    public String getCourseDetailsFront(@PathVariable("id") int id, Model model) {
+    	CoursesBean course = cService.findCourseById(id);
+    	if (course != null) {
+    		model.addAttribute("course", course);
+    		return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
+    	}
+    	return "redirect:/error";  // Redirect to an error page if no course is found
+    }
+    
+    
+//    @GetMapping("/courses")
+//    public ResponseEntity<List<CoursesBean>> getAllCourses() {
+//        List<CoursesBean> courses = cService.getAll();
+//        return ResponseEntity.ok(courses);
+//    }
+//    
+//    @GetMapping("/courses/{id}")
+//    public ResponseEntity<CoursesBean> getCourseById(@PathVariable int id) {
+//        CoursesBean course = cService.findCourseById(id);
+//        if (course != null) {
+//            return ResponseEntity.ok(course);
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
+//    
+//    
+    
+    
 	@GetMapping("/GetAllCourseDetailsFront")
 	public ModelAndView processActionGetAllCourseDetails() {
 	    ModelAndView modelAndView = new ModelAndView();
@@ -62,4 +101,6 @@ public class CoursesControllerFront {
     }
     
 
+    
+    
 }
