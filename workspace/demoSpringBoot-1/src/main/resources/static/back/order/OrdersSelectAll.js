@@ -62,7 +62,7 @@ fetch("/orders", {
 			row.insertCell(flds.length+1).innerHTML = '<button class="btn btn-primary" onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
 			row.insertCell(flds.length+2).innerHTML = '<button class="btn btn-primary" onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
 		});
-		   fetch('exampleBack.html')
+		   fetch('../exampleBack.html')
     .then(response => response.text())
     .then(html => {
         document.body.innerHTML += html;
