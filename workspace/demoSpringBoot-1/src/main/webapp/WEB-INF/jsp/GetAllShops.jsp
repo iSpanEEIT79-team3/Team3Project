@@ -9,7 +9,8 @@
             <title>商品資料</title>
             <style>
                 .row {
-                    height: 150px;
+			        max-height: 100px; /* 你想要的最大高度 */
+			        overflow: hidden; /* 控制内容溢出时的行为 */
                 }
 
                 .photo {
@@ -50,9 +51,9 @@
                 }
 
                 .tablecontainer {
-        margin-left: auto; /* Move the table to the right */
-        margin-right: auto; /* Move the table to the right */
-        /* Add other styles as needed */
+		        margin-left: auto; /* Move the table to the right */
+		        margin-right: auto; /* Move the table to the right */
+		        /* Add other styles as needed */
                 }
             </style>
         </head>
@@ -115,6 +116,7 @@
                         <th>刪除</th>
 						
                         <c:forEach items="${shops}" var="shop" varStatus="s">
+                        	<c:set var="processedIntroduce" value="${fn:replace(shop.productIntroduce,'&lt;br&gt;','')}" />
                             <input type="hidden" name="productId" value="${shop.productId}" />
                     <tr class="row" data-no="${shop.productId}">
                         <td>${shop.productId}</td>
@@ -134,7 +136,7 @@
                             </form>
                         </td>
                         <td style="width:100px;">${shop.productName}</td>
-                        <td style="width:125px;">${shop.productIntroduce}</td>
+                        <td style="max-width:125px; max-height:100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${shop.productIntroduce}</td>
                         <td style="width:75px;">${shop.productPrice}</td>
                         <td style="width:75px;">${shop.productType}</td>
                         <c:forEach items="${shopQuan}" var="shopQuan" varStatus="s">

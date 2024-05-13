@@ -17,9 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mmmooonnn.model.ShopBean;
 import com.mmmooonnn.model.ShopImgBean;
 import com.mmmooonnn.model.ShopQuantityBean;
+import com.mmmooonnn.model.ShopcartBean;
 import com.mmmooonnn.service.ShopImgService;
 import com.mmmooonnn.service.ShopQuantityService;
 import com.mmmooonnn.service.ShopService;
+
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +30,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -143,7 +148,6 @@ public class ShopController {
         model.addAttribute("shops", shops);
         return "forward:/WEB-INF/jsp/GetAllShops.jsp";
     	}
-    
 
     @DeleteMapping("/deleteShop")
     public ResponseEntity<String> del(@RequestParam Integer productId) {
@@ -234,7 +238,7 @@ public class ShopController {
         model.addAttribute("shops", shops);
         model.addAttribute("shopImgs", shopImgs);
         model.addAttribute("shopQuan", shopQuan);
-        return "forward:/WEB-INF/jsp/Shopss.jsp";
+        return "forward:/WEB-INF/jsp/front/shop/ShopsDetails.jsp";
     }
     
     
@@ -279,5 +283,64 @@ public class ShopController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
         }
     }
+//加入購物車
+    @PostMapping("/Shopproduct/addShopcart")
+    public ResponseEntity<String> addcarshop(@RequestParam("productId") Integer productId,
+    										@RequestParam("productName") String productName,
+								    		@RequestParam("productImg") String productImg,
+								    		@RequestParam("productPrice") Integer productPrice,
+								    		@RequestParam("Size") String Size,
+								    		@RequestParam("quantity") Integer quantity,
+								    		HttpSession session){
+    	
+    	List<ShopcartBean> productList = (List<ShopcartBean>) session.getAttribute("productData");
+        if (productList == null) {
+            productList = new ArrayList<>();
+        }
+        
+        // 創建 ShopcartBean 對象
+        ShopcartBean newProduct = new ShopcartBean(productId,productName, productImg, productPrice, Size, quantity);
+        // 將新的產品資料添加到列表中
+        productList.add(newProduct);
+        // 將更新後的列表存放回 Session 中
+        session.setAttribute("productData", productList);
+    	return ResponseEntity.ok("ok");
+	}
+//查看購物車內東西  
+    @GetMapping("/Shopproduct/getShopcart")
+    public String getShopcart(HttpSession session,Model model){
+    	List<ShopcartBean> productList = (List<ShopcartBean>) session.getAttribute("productData");
+    	    model.addAttribute("productList", productList);
+    	   //System.out.println(productList);
+        return "forward:/WEB-INF/jsp/front/shop/Shopscart.jsp";
+    }
+    
+    @GetMapping("/clearSession")
+    public ResponseEntity<String> clearSession(HttpSession session) {
+        // 清空Session
+        session.invalidate();
+        return ResponseEntity.ok("Session cleared");
+    }
+    
+    @PostMapping("/Shopproduct/removeCartItem")
+    public ResponseEntity<String> removeCartItem(@RequestParam Integer index, HttpSession session) {
+    	List<ShopcartBean> productList = (List<ShopcartBean>) session.getAttribute("productData");
+    	System.out.println(productList);
+    	System.out.println(index);
+    	
+    	Iterator<ShopcartBean> iterator = productList.iterator();
+    	int currentIndex = 0;
+    	while (iterator.hasNext()) {
+    	    ShopcartBean product = iterator.next();
+    	    if (currentIndex == index) {
+    	        iterator.remove(); // 删除当前迭代到的元素
+    	    }
+    	    currentIndex++;
+    	}
+    	session.setAttribute("productData", productList);
+        // 返回成功或失败的消息
+    	return ResponseEntity.ok("ok");
+    }
+    
 
 }
