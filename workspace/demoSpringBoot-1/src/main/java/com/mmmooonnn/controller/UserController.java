@@ -7,9 +7,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -100,7 +98,7 @@ public class UserController {
 		}
 		try {
 			String secretKey = UUID.randomUUID().toString(); //密鑰
-			Timestamp outDate = new Timestamp(System.currentTimeMillis()+30601000); // 30分鐘後過期
+			Timestamp outDate = new Timestamp(System.currentTimeMillis()+(30*60*1000)); // 30分鐘後過期
 			long date = outDate.getTime()/1000*1000; //忽略毫秒數
 					
 			UserTokenBean userToken = new UserTokenBean();

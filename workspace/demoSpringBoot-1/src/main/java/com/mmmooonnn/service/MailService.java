@@ -22,7 +22,7 @@ public class MailService {
     private String from = "JFSwing <mhou6vm0@gmail.com>";
     
     /**
-     * 发送纯文本的简单邮件
+     * 發送純文本的信件
      * @param to
      * @param subject
      * @param content
@@ -35,13 +35,13 @@ public class MailService {
         message.setText(content);
         try {
             sender.send(message);
-            System.out.println("简单邮件已经发送。"); 
+            System.out.println("郵件已經發送。"); 
         } catch (Exception e) {
-            System.out.println("发送简单邮件时发生异常！"); 
+            System.out.println("發送郵件發生異常！"); 
         }
     }
     /**
-     * 发送html格式的邮件
+     * 發送html格式的信件
      * @param to
      * @param subject
      * @param content
@@ -56,13 +56,13 @@ public class MailService {
             helper.setSubject(subject);
             helper.setText(content, true);
             sender.send(message);
-            System.out.println("html邮件已经发送。");
+            System.out.println("html信件已經發送。");
         } catch (MessagingException e) {
-            System.out.println("发送html邮件时发生异常！");
+            System.out.println("發送html信件發生異常！");
         }
     }
     /**
-     * 发送带附件的邮件
+     * 發送帶附件的信件
      * @param to
      * @param subject
      * @param content
@@ -71,7 +71,7 @@ public class MailService {
     public void sendAttachmentsMail(String to, String subject, String content, String filePath){
         MimeMessage message = sender.createMimeMessage();
         try {
-            //true表示需要创建一个multipart message
+            //true表示需要創建一個multipart message
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
             helper.setTo(to);
@@ -81,18 +81,18 @@ public class MailService {
             String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
             helper.addAttachment(fileName, file);
             sender.send(message);
-            System.out.println("带附件的邮件已经发送。");
+            System.out.println("带附件的信件已經發送。");
         } catch (MessagingException e) {
-        	System.out.println("发送带附件的邮件时发生异常！");
+        	System.out.println("發送带附件的信件時發生異常！");
         }
     }
     /**
-     * 发送嵌入静态资源（一般是图片）的邮件
+     * 發送嵌入靜態資源（圖片）的信件
      * @param to
      * @param subject
-     * @param content 邮件内容，需要包括一个静态资源的id，比如：<img src=\"cid:rscId01\" >
-     * @param rscPath 静态资源路径和文件名
-     * @param rscId 静态资源id
+     * @param content 信件内容，需要包括一個靜態資源的id，比如：<img src=\"cid:rscId01\" >
+     * @param rscPath 靜態資源路徑和文件名
+     * @param rscId 靜態資源id
      */
     public void sendInlineResourceMail(String to, String subject, String content, String rscPath, String rscId){
         MimeMessage message = sender.createMimeMessage();
@@ -106,9 +106,9 @@ public class MailService {
             FileSystemResource res = new FileSystemResource(new File(rscPath));
             helper.addInline(rscId, res);
             sender.send(message);
-            System.out.println("嵌入静态资源的邮件已经发送。");
+            System.out.println("嵌入靜態資源的信件已經發送。");
         } catch (MessagingException e) {
-        	System.out.println("发送嵌入静态资源的邮件时发生异常！");
+        	System.out.println("發送嵌入靜態資源的信件時發生異常！");
         }
     }
 	

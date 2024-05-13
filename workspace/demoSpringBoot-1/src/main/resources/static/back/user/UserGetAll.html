@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="description"
+		content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+	<title>JFSwing後台</title>
+	<style>
+		.table {
+			white-space: nowrap;
+			/* 不換行 */
+		}
+
+		thead {
+			background-color: #EEBA7E;
+			
+			font-size: 22.5px;
+		}
+		
+		th {
+			border: 1px solid white;
+		}
+		
+		td {
+		           border: 1px solid black;
+		           
+		       }
+		
+
+
+		
+	</style>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Main CSS-->
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<!-- Font-icon css-->
+	<link rel="stylesheet" type="text/css"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="app sidebar-mini rtl pace-done">
+	<main class="app-content">
+		<div class="app-title">
+			<h1>大標題</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="tile-title">
+						<h2>會員資料</h2>
+					</div>
+					<div class="tile-body">
+						<table class="table"></table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</main>
+
+
+	<!-- Essential javascripts for application to work-->
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/popper.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/main.js"></script>
+	<!-- The javascript plugin to display page loading on top-->
+	<script src="../js/plugins/pace.min.js"></script>
+	<!-- Page specific javascripts-->
+	<script type="text/javascript" src="../js/plugins/chart.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/dataTables.bootstrap.min.js"></script>
+	<script>
+		fetch('../exampleBack.html')
+			.then(response => response.text())
+			.then(html => {
+				document.body.insertAdjacentHTML('beforeend', html);
+			});
+
+
+
+		function RWDTest() {
+			//let RWD = document.getElementsByClassName("RWDTest");
+			let RWD = document.body;
+			if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+				RWD.className = "app sidebar-mini rtl pace-done";
+			} else {
+				RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+			}
+		}
+
+		$.ajax({
+			url: '/GetAllUser',
+			type: 'GET',
+			dataType: 'json',
+			success: function (data) {
+				console.log(data);
+				$('.table').DataTable({
+					"autoWidth": true,
+					"scrollX": "1300px",
+					"scrollCollapse": true,
+					"language": {
+						"processing": "處理中...",
+						"loadingRecords": "載入中...",
+						"lengthMenu": "顯示 _MENU_ 項結果",
+						"zeroRecords": "沒有符合的結果",
+						"info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+						"infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+						"infoFiltered": "(從 _MAX_ 項結果中過濾)",
+						"infoPostFix": "",
+						"search": "搜尋:",
+						"paginate": {
+							"first": "第一頁",
+							"previous": "上一頁",
+							"next": "下一頁",
+							"last": "最後一頁"
+						},
+
+						"aria": {
+							"sortAscending": ": 升冪排列",
+							"sortDescending": ": 降冪排列"
+						}
+					},
+					"data": data,
+					"columns": [{
+							data: 'userId',
+							title: "編號"
+						},
+						{
+							data: "userContact.name",
+							title: "姓名"
+						},
+						{
+							data: 'gender',
+							title: "姓別"
+						},
+						{
+							data: 'userContact.email',
+							title: "信箱"
+						},
+						{
+							data: 'birthday',
+							title: "出生年月日"
+						},
+						{
+							data: 'userContact.phone',
+							title: "電話"
+						},
+						{
+							data: 'userContact.address',
+							title: "地址"
+						},
+						{
+							data: 'danceCharacter',
+							title: "跳舞角色"
+						},
+						{
+							data: 'danceAge',
+							title: "舞齡"
+						},
+						{
+							title: "照片",
+							render: function (data, type, row, meta) {
+								return '<td><a href="' + row.picture +
+									'">圖片</a></td>';
+							}
+						},
+						{
+							title: "修改",
+							render: function (data, type, row, meta) {
+								return '<form method="get" action="/UpdateUser/' +
+									row.userId + '">' +
+									'<button class="btn btn-primary" type="submit">修改</button>' +
+									'</form>';
+							}
+						},
+						{
+							title: "刪除",
+							render: function (data, type, row, meta) {
+								return '<form method="post" action="/DeleteUser?idUser=' +
+									row.userId + '">' +
+									'<input type="hidden" name="_method" value="DELETE">' +
+									' <button class="btn btn-primary" type="submit">刪除</button>' +
+									' </form>';
+							}
+						}
+					]
+				});
+			},
+			error: function (xhr, status, error) {
+				console.error(status, error);
+				alert('錯誤！');
+			}
+		});
+	</script>
+
+</body>
+
+</html>
