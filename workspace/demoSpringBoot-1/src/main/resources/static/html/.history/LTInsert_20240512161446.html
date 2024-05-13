@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+
+<meta name="description"
+    content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+<title>JFSwing後台</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Main CSS-->
+<link rel="stylesheet" type="text/css" href="../../back/css/main.css">
+<!-- Font-icon css-->
+<link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.lt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex; /* 將按鈕水平排列 */
+    justify-content: center; /* 對齊置中 */
+}
+
+.h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.button-container button:hover {
+    background-color: #4682b4;
+}
+
+.report-list {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.report-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    margin-bottom: 10px;
+}
+
+.report-item div {
+    flex: 1;
+    text-align: center;
+}
+
+.report-item button:hover {
+    background-color: #ff4500;
+}
+</style>
+</head>
+	<body>
+		<h2>新增</h2>
+		<form method="post" action="/LTinsert.controller" enctype="multipart/form-data"
+			onsubmit="return validateForm();">
+
+			<p>
+
+				輸入標題:<input type="text" name="title" />
+
+			<p>
+				輸入使用者id:<input type="text" name="userId" />
+
+			<p>
+				輸入文張內容:<input type="text" name="content" />
+
+			<p>
+				上傳圖片:<input type="file" name="picture" />
+<!--			<p>-->
+<!--				讚:<input type="text" name="	saveLike" />-->
+		
+				<input class="btn" type="submit" value="確定" />
+				<a class="btn" href="/LTSelectAll">返回首頁</a>
+
+
+		</form>
+		<script>
+			function validateForm() {
+				var titleInput = document.getElementsByName('title')[0].value.trim();
+				var userIdInput = document.getElementsByName('userId')[0].value.trim();
+				var contentInput = document.getElementsByName('content')[0].value.trim();
+
+				if (titleInput === '' || userIdInput === '' || contentInput === '') {
+					Swal.fire({
+						icon: 'warning',
+						title: '請確保標題、ID、文章內容都已輸入😒😒😒',
+						showConfirmButton: false,
+						timer: 1500
+					});
+					return false;
+				}
+				return true;
+			}
+		</script>
+		   </main>
+		   <!-- Essential javascripts for application to work-->
+		   <script src="../../back/js/jquery-3.2.1.min.js"></script>
+		   <script src="../../back/js/popper.min.js"></script>
+		   <script src="../../back/js/bootstrap.min.js"></script>
+		   <script src="../../back/js/main.js"></script>
+		   <!-- The javascript plugin to display page loading on top-->
+		   <script src="../../back/js/plugins/pace.min.js"></script>
+		   <!-- Page specific javascripts-->
+		   <script type="text/javascript" src="../../back/js/plugins/chart.js"></script>
+		   <script type="text/javascript"
+		       src="../../back/js/plugins/jquery.dataTables.min.js"></script>
+		   <script type="text/javascript"
+		       src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
+		   <script>
+		               fetch('../../back/exampleBack.html')
+		                   .then(response => response.text())
+		                   .then(html => {
+		                       document.body.insertAdjacentHTML('beforeend', html);
+		                   });
+		
+		
+		
+		               function RWDTest() {
+		                   //let RWD = document.getElementsByClassName("RWDTest");
+		                   let RWD = document.body;
+		                   if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+		                       RWD.className = "app sidebar-mini rtl pace-done";
+		                   } else {
+		                       RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+		                   }
+		               }
+		
+		           </script>
+		
+		/body>
+		/html>

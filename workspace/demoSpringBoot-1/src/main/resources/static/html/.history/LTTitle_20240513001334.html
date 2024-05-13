@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<head>
+
+  <meta name="description"
+    content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+  <title>JFSwing後台</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Main CSS-->
+  <link rel="stylesheet" type="text/css" href="../../back/css/main.css">
+  <!-- Font-icon css-->
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .lt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+
+
+    .button-container {
+      display: flex;
+      /* 將按鈕水平排列 */
+      justify-content: center;
+      /* 對齊置中 */
+    }
+
+    .h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .button-container button:hover {
+      background-color: #4682b4;
+    }
+
+    .report-list {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .report-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #f5f5f5;
+      margin-bottom: 10px;
+    }
+
+    .report-item div {
+      flex: 1;
+      text-align: center;
+    }
+
+    .report-item button:hover {
+      background-color: #ff4500;
+    }
+
+    .input-group label {
+      margin-right: 10px;
+      /* 調整標籤和輸入框之間的間距 */
+      min-width: 100px;
+      /* 設定標籤的最小寬度 */
+    }
+
+    .input-group input {
+      flex: 1;
+      /* 讓輸入框自動擴展填滿剩餘的空間 */
+    }
+
+    .bottom-center {
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<body class="app sidebar-mini rtl pace-done">
+  <main class="app-content">
+
+
+    <div class="app-title">
+
+      <h2>顯示相關資料</h2>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="button-container"> <!-- 將按鈕放入容器中 -->
+
+          <form method="get" action="/findtitle" onsubmit="return validateForm()">
+
+            查詢標題: <input type="text" id="title" name="title" />
+            <input class="SS" type="submit" value="確定" />
+
+
+            <a class="btn" href="/LTSelectAll">返回首頁</a>
+
+          </form>
+
+
+</body>
+
+</html>

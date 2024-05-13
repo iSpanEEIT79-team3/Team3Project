@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>搜尋單筆</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function validateForm() {
+      var ltIdInput = document.getElementById('title').value.trim();
+      if (ltIdInput === '') {
+        Swal.fire({
+          icon: 'warning',
+          title: '請輸入論壇ID再按確認😒',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        return false;
+      }
+      return true;
+    }
+  </script>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      width: 450px; /* 調整表單寬度 */
+    }
+
+    .btn {
+      background-color: #4DFFFF;
+      /* Green */
+      border: none;
+      color: black;
+      padding: 12px 24px; /* 調整按鈕的內部填充 */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px; /* 調整按鈕字體大小 */
+      margin-top: 20px; /* 增加按鈕與輸入框的間距 */
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .SS {
+      background-color: #4DFFFF;
+      /* Green */
+      border: none;
+      color: black;
+      padding: 12px 24px; /* 調整按鈕的內部填充 */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px; /* 調整按鈕字體大小 */
+      margin-bottom: 20px; /* 增加按鈕與輸入框的間距 */
+      cursor: pointer;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body style="background-color: #fdf5e6">
+
+  <div style="margin-bottom: 30px;"> <!-- 調整上方間距 -->
+    <form method="get" action="/findtitleFront" onsubmit="return validateForm()">
+
+      <label for="title">查詢標題:</label>
+      <input type="text" id="title" name="title" style="width: 100%; padding: 12px; margin-bottom: 20px;"> <!-- 調整輸入框的寬度和內部填充 -->
+      <input class="SS" type="submit" value="確定" style="width: auto;"> <!-- 將按鈕的寬度設置為自動調整 -->
+      <a class="btn" href="/LTSelectAllFront" style="width: auto;">返回首頁</a>
+
+    </form>
+  </div>
+
+</body>
+
+</html>

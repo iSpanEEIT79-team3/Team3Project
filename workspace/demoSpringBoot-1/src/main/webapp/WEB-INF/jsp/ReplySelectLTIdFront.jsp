@@ -187,7 +187,8 @@
 					</p>
 				</div>
 				<hr>
-				<div class="article-content">
+				<div class="article-content" style="    text-align: left;
+				">文章內容:
 					<p>${items.content}</p>
 				</div>
 				<img src="/${items.picture}"
@@ -234,10 +235,10 @@
 							<form method="post" action="/ReportReplyinsertFront.controller"
 								onsubmit="handleReportSuccess()">
 								<input type="hidden" name="replyId" value="${reply.replyId}">
-								<div style="display: flex; align-items: center;">
-									<button type="submit"
-										style="background-color: transparent; border: none;">
-										<i class="fa-solid fa-triangle-exclamation" style="color:red"></i>
+								<div style=" align-items: center;">
+									<button class="btn btn-warning btn-sm" type="submit"style="color: white;">
+										<i class="fa-solid fa-triangle-exclamation" style="color: red"></i> 
+										檢舉
 									</button>
 									<input type="text" name="reportContent" placeholder="请输入檢舉內容">
 								</div>

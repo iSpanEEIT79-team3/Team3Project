@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,7 @@ public class LTControllerFront {
 	@Autowired
 	private LikeService lr;
 
+
 	@GetMapping("/LTSelectById1Front.controller")
 	public String findByLTId(@RequestParam("ltId") Integer ltId, Model mm) {
 		LTBean resultBean = lt.findByLTId(ltId);
@@ -58,7 +60,7 @@ public class LTControllerFront {
 		System.out.println(resultBean);
 		m.addAttribute("ltBean", resultBean);
 
-		return "forward:/WEB-INF/jsp/LTUpdate.jsp";
+		return "forward:/WEB-INF/jsp/LTUpdateFront.jsp";
 
 	}
 
@@ -118,24 +120,42 @@ public class LTControllerFront {
 	@PutMapping("/LTUpdateFront.controller")
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
 			@RequestParam("userId") String userId, @RequestParam("date") String date,
-			@RequestParam("picture") String picture, @RequestParam("content") String content,
-			@RequestParam("saveLike") Integer saveLike) {
-
+			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
+			) {
+		
 		Integer LTID = Integer.parseInt(ltId);
 		Integer USERID = Integer.parseInt(userId);
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		Date parsedDate = null;
-
 		try {
-			parsedDate = dateFormat.parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 
-		LTBean ltBean = new LTBean(LTID, title, USERID, parsedDate, picture, content, saveLike);
-		lt.update(ltBean);
-		return "redirect:LTSelectAll";
+			LTBean ltBean = new LTBean();
+			if (!picture.isEmpty()) {
+				String fileurl = "C:\\Spring\\workspace\\SpringMvcWork\\src\\main\\webapp\\images";
+				String fileName = picture.getOriginalFilename();
+
+				File fileurl1 = new File(fileurl, fileName);
+				picture.transferTo(fileurl1);
+				ltBean.setPicture("images/" + fileName);
+			}
+			ltBean.setLtId(LTID);
+			ltBean.setUserId(USERID);
+			
+			ltBean.setTitle(title);
+			
+			ltBean.setContent(content);
+			ltBean.setSaveLike(0);
+			Date DATE = new Date(System.currentTimeMillis());
+
+			ltBean.setDate(DATE);
+
+			lt.update(ltBean);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+		return "redirect:LTSelectAllFront";
 
 	}
 
@@ -143,7 +163,10 @@ public class LTControllerFront {
 	public String findByTitle(@RequestParam("title") String title, Model mm) {
 		List<LTBean> ltBeans = lt.findByTitle(title);
 		mm.addAttribute("ltBeans", ltBeans);
-		return "forward:/WEB-INF/jsp/LTSelectAllFront.jsp";
+		System.out.println(title);
+		System.out.println(88888888);
+		System.out.println(ltBeans);
+		return "forward:/WEB-INF/jsp/LTTitleFront.jsp";
 	}
 
 //	@PostMapping("/Likeinsert1.controller")
@@ -180,19 +203,32 @@ public class LTControllerFront {
 		return "forward:/WEB-INF/jsp/LTIndex.jsp";
 	}
 
-	//分頁
-	@GetMapping(path="/pageALL")
+	// 分頁
+	@GetMapping(path = "/pageALL")
 	@ResponseBody
-	public Page<LTBean> LTPage(@RequestParam(defaultValue = "0")int page,
-			@RequestParam(defaultValue = "5")int size){
-		Pageable pageable = PageRequest.of(page, size,Sort.by("ltId").descending());
+	public Page<LTBean> LTPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by("ltId").descending());
 		Page<LTBean> pageL = lt.finPage(pageable);
 		System.out.println(pageL);
-		
-		return pageL; 
-		
-		
-		
+
+		return pageL;
+
+	}
+
+	@GetMapping("/getuserId")
+	@ResponseBody
+	public Integer getUserId(HttpSession session) {
+
+		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+		if (user != null) {
+			System.out.println(user);
+			return user.getUserId();
+		} else {
+
+			return null;
+
+		}
+
 	}
 
 }

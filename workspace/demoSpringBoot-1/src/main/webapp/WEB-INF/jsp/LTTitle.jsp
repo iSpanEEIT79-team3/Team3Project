@@ -2,95 +2,148 @@
 	pageEncoding="UTF-8" isErrorPage="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
+
 <head>
-<meta charset="UTF-8">
-<title>全部文章</title>
-<style>
+  <meta name="description"
+    content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+  <title>JFSwing後台</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Main CSS-->
+  <link rel="stylesheet" type="text/css" href="../../back/css/main.css">
+  <!-- Font-icon css-->
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #fdf5e6;
-        margin: 0;
-        padding: 0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
+
     .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .table-container {
-        overflow-x: auto;
-        margin-top: 20px; /* 將表格往下移動以避免覆蓋 */
+
+    .container .btn {
+      margin-bottom: 20px;
     }
-    table {
-        width: 100%;
-        border-collapse: collapse;
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
     }
-    th, td {
-        padding: 10px;
-        border: 1px solid #000;
-        text-align: center;
+
+    .article {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
     }
-    th {
-        background-color: #87CEEB;
-        color: white;
+
+    .article-item {
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    img {
-        max-width: 200px;
-        max-height: 200px;
+
+    .article-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
     }
-.btn {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #4DFFFF;
-    border: none;
-    color: black;
-    padding: 8px 16px;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px; /* 將按鈕往下移動以避免覆蓋 */
-}
-    .btn:hover {
-        background-color: #00CED1;
+
+    .article-item h3 {
+      margin-top: 10px;
+      font-size: 18px;
     }
-    h2{
-    margin-top:60px;
+
+    .article-item p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #666;
     }
-</style>
+
+    .article-item .article-details {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: #888;
+    }
+
+    .article-item .article-details a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <a class="btn" href="LTSelectAll">返回首頁</a>
-        <h2 align="center">查詢</h2>
-        <div class="table-container">
-            <table>
-                <tr>
-                    <th>文章ID</th>
-                    <th>標題</th>
-                    <th>使用者ID</th>
-                    <th>文章內容</th>
-                    <th>日期</th>
-                    <th>讚</th>
-                    <th>照片</th>
-                </tr>
-                <c:forEach items="${ltBeans}" var="items">
-                    <tr>
-                        <td>${items.ltId}</td>
-                        <td>${items.title}</td>
-                        <td>${items.userId}</td>
-                        <td>${items.content}</td>
-                        <td>${items.date}</td>
-                        <td>${items.saveLike}</td>
-                        <td><img src="${items.picture}"></td>
-                    </tr>
-                </c:forEach>
-            </table>
+<body class="app sidebar-mini rtl pace-done">
+    <main class="app-content">
+  <div class="app-title">
+    <h2>查詢相關資料</h2>
+  </div>
+        <a class="btn btn-primary mr-2" href="LTSelectAll">返回首頁</a>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="button-container">
+      </div>
+      <div class="container">
+        <div class="article">
+          <c:forEach items="${ltBeans}" var="items">
+            <div class="article-item">
+              <img src="${items.picture}" alt="文章圖片">
+              <h3>${items.title}</h3>
+              <p>${items.content}</p>
+              <div class="article-details">
+                <span>文章ID: ${items.ltId}</span>
+                <span>使用者ID: ${items.userId}</span>
+                <span>日期: ${items.date}</span>
+                <span>讚: ${items.saveLike}</span>
+              </div>
+            </div>
+          </c:forEach>
         </div>
+      </div>
     </div>
+  </div>
+  </main>
+  <!-- Essential javascripts for application to work-->
+  <script src="../../back/js/jquery-3.2.1.min.js"></script>
+  <script src="../../back/js/popper.min.js"></script>
+  <script src="../../back/js/bootstrap.min.js"></script>
+  <script src="../../back/js/main.js"></script>
+  <!-- The javascript plugin to display page loading on top-->
+  <script src="../../back/js/plugins/pace.min.js"></script>
+  <!-- Page specific javascripts-->
+  <script type="text/javascript" src="../../back/js/plugins/chart.js"></script>
+  <script type="text/javascript" src="../../back/js/plugins/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
+  <script>
+    fetch('../../back/exampleBack.html')
+      .then(response => response.text())
+      .then(html => {
+        document.body.insertAdjacentHTML('beforeend', html);
+      });
+
+    function RWDTest() {
+      let RWD = document.body;
+      if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+        RWD.className = "app sidebar-mini rtl pace-done";
+      } else {
+        RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+      }
+    }
+  </script>
 </body>
+
 </html>
