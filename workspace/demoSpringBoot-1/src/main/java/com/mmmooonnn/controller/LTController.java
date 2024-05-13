@@ -137,7 +137,7 @@ public class LTController {
 			
 			ltBean.setTitle(title);
 			
-			ltBean.setContent(content);
+			ltBean.setContent(content);	
 			ltBean.setSaveLike(0);
 			Date DATE = new Date(System.currentTimeMillis());
 
