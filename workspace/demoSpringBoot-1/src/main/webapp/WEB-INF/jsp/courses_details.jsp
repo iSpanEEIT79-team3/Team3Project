@@ -24,7 +24,7 @@
                         class="d-block object-fit-cover rounded-5 mx-auto my-auto"
                         style="max-width: 100%; max-height:  100%;" alt="..." />
 
-                    <div class="d-flex flex-column justify-content-end align-items-start g-0" style="height: 95%;">
+                    <div class="z-2 d-flex flex-column justify-content-end align-items-start g-0" style="height: 95%;">
                         <h1>${course.courseName}</h1>
                         <h3>
                             ${course.courseType}
@@ -32,7 +32,7 @@
                         </h3>
                     </div>
                 </div>
-                <div>
+                <div style="height: 120px;">
                     ${course.description}
 
 
@@ -134,6 +134,9 @@
                     </div>
                 </div>
 
+
+
+
                 <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
 
                     <h6 class="ml-2">+GOOGLE CALENDAR</h6>
@@ -143,6 +146,26 @@
                 <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
 
                     <h6 class="ml-2">+ICAL EXPORT</h6>
+
+                </div>
+
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+                    <form action="${pageContext.request.contextPath}/registerCourse" method="post">
+                        <input type="hidden" name="productId" value="${course.productId}" />
+                        <input type="hidden" name="courseName" value="${course.courseName}" />
+                        <button type="submit" class="btn btn-primary">Register Now</button>
+                    </form>
+                    
+                    
+                </div>
+                
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+                    <form action="${pageContext.request.contextPath}/sendCourseEmail" method="post">
+                        <input type="hidden" name="START_DATE" value="fmt:formatDate value="${course.startDate} pattern="yyyy-MM-dd" />" />
+                        <input type="hidden" name="COURSE_NAME" value="${course.courseName}" />
+                        <button type="submit" class="btn btn-primary">Send Course Registration Email</button>
+                    </form>
+                    
 
                 </div>
 
