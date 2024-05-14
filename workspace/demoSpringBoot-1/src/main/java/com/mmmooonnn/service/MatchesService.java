@@ -32,4 +32,8 @@ public class MatchesService {
 	 public List<MatchUserDetailsDTO> getMatches(Integer userid){
 		    return matchesRepository.findMatches(userid);
 		}
+	 
+	 public List<MatchesBean> getAll(){
+		 return matchesRepository.findAll();
+	 }
 }
