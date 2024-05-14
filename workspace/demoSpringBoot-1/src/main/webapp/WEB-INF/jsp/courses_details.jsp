@@ -1,104 +1,176 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>更新課程</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
         <style>
-    input, button { /* Apply styles to both input and button elements */
-    	border: 1px solid black; /* Thin black border */
-        border-radius: 6px;
-        padding: 12px 24px; /* Adjust padding to your liking */
-        margin: 5px; /* Space around elements */
-        cursor: pointer; /* Makes it clear that the element is clickable */
-        font-size: 16px; /* Text size within the elements */
-    }
+            div {
+                border: 1px solid black;
+                /* 黑色實線邊框 */
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="row justify-content-center">
 
 
-    input:hover, button:hover { /* Hover effects for better user experience */
-        background-color: #4f85a6;
-    }
 
-    a {
-        text-decoration: none; /* Removes underline from links */
-    }
-    input {
-        width: 350px; /* Adjust the width to your preference */
-    }
-    </style>
-</head>
-    <body style="background-color: #fdf5e6;">
-    <div>
-        <h1>更新課程</h1>
-    	<form method="post" action="${pageContext.request.contextPath}/upd">
-<table>
-    <tr>
-        <td>產品ID:</td>
-        <td><input style="background-color: #7B7B7B;" type="text" value="${course.productId}" readonly name="productId"></td>
-    </tr>
-    <tr>
-        <td>用戶ID:</td>
-        <td><input type="text" name="idUser" value="${course.idUser}" ></td>
-    </tr>
-    <tr>
-        <td>課程名稱:</td>
-        <td><input type="text" name="courseName" value="${course.courseName}" ></td>
-    </tr>
-    <tr>
-        <td>描述:</td>
-        <td><input type="text" name="description" value="${course.description}"></td>
-    </tr>
-    <tr>
-        <td>課程類型:</td>
-        <td><input type="text" name="courseType" value="${course.courseType}"></td>
-    </tr>
-    <tr>
-        <td>開始日期:</td>
-        <td><input type="text" name="startDate" value="${course.startDate}"></td>
-    </tr>
-    <tr>
-        <td>結束日期:</td>
-        <td><input type="text" name="endDate" value="${course.endDate}"></td>
-    </tr>
-    <tr>
-        <td>截止日期:</td>
-        <td><input type="text" name="deadlineDate" value="${course.deadlineDate}"></td>
-    </tr>
-    <tr>
-        <td>地點:</td>
-        <td><input type="text" name="location" value="${course.location}"></td>
-    </tr>
-    <tr>
-        <td>價格:</td>
-        <td><input type="text" name="price" value="${course.price}"></td>
-    </tr>
-    <tr>
-        <td>教師名稱:</td>
-        <td><input type="text" name="teacherName" value="${course.teacherName}"></td>
-    </tr>
-    <tr>
-        <td>教師聯繫方式:</td>
-        <td><input type="text" name="teacherContact" value="${course.teacherContact}"></td>
-    </tr>
-    <tr>
-        <td>報名人數:</td>
-        <td><input type="text" name="enrollmentCount" value="${course.enrollmentCount}"></td>
-    </tr>
-    <tr>
-        <td>最大容量:</td>
-        <td><input type="text" name="maxCapacity" value="${course.maxCapacity}"></td>
-    </tr>
-    <tr>
-        <td>課程圖片:</td>
-    <td>
-        <!-- 显示当前课程图片 -->
-        <img src="${course.courseImage}" width="100" height="100" alt="Course Image">
-        <!-- 文件选择输入框 -->
-        <input type="file" name="courseImage">
-    </td>
-</table>
-    <a href="${pageContext.request.contextPath}/GetAllCourses">返回所有課程</a>
-        </form>
-    </div>
-</body>
-</html>
+            <div class="col-7 m-2">
+                <div class="d-flex align-items-center g-0" style="width: 580px; height: 920px;">
+                    <img class="z-n1" src="${course.courseImage}"
+                        class="d-block object-fit-cover rounded-5 mx-auto my-auto"
+                        style="max-width: 100%; max-height:  100%;" alt="..." />
+
+                    <div class="z-2 d-flex flex-column justify-content-end align-items-start g-0" style="height: 95%;">
+                        <h1>${course.courseName}</h1>
+                        <h3>
+                            ${course.courseType}
+
+                        </h3>
+                    </div>
+                </div>
+                <div style="height: 120px;">
+                    ${course.description}
+
+
+                </div>
+            </div>
+
+
+
+
+            <div class="col-3 d-flex flex-column align-items-center" style="width: 300px; height: 1062px;">
+                <div class="align-items-center m-1" style="width: 250px; height: 80px;">
+
+                    <div class="mt-2 ml-2">
+                        <h6>截止日期</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.deadlineDate}
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 40px;">
+
+                    <h6 class="ml-2">SHOW DETAILS</h6>
+
+                </div>
+
+                <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 260px;">
+
+                    <div class="mt-2 ml-2">
+                        <h6>時間</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.startDate}
+                        ${course.endDate}
+                    </div>
+
+
+                    <div class="mt-2 ml-2">
+                        <h6>地點</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.location}
+                    </div>
+                    <div class="mt-2 ml-2">
+                        <h6>地點</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.location}
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 40px;">
+
+
+                    <h6 class="ml-2">TEACHER DETAILS</h6>
+
+
+
+                </div>
+
+                <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
+
+                    <div class="mt-2 ml-2">
+                        <h6>教師名稱</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.teacherName}
+                    </div>
+                    <div class="mt-2 ml-2">
+                        <h6>教師聯繫方式</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.teacherContact}
+                    </div>
+
+
+                </div>
+
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 40px;">
+
+                    <h6 class="ml-2">人數</h6>
+
+                </div>
+                <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
+
+                    <div class="mt-2 ml-2">
+                        <h6>目前報名人數</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.enrollmentCount}
+                    </div>
+                    <div class="mt-2 ml-2">
+                        <h6>上限名額</h6>
+                    </div>
+                    <div class="mt-2 ml-2">
+                        ${course.maxCapacity}
+                    </div>
+                </div>
+
+
+
+
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+
+                    <h6 class="ml-2">+GOOGLE CALENDAR</h6>
+
+                </div>
+
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+
+                    <h6 class="ml-2">+ICAL EXPORT</h6>
+
+                </div>
+
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+                    <form action="${pageContext.request.contextPath}/registerCourse" method="post">
+                        <input type="hidden" name="productId" value="${course.productId}" />
+                        <input type="hidden" name="courseName" value="${course.courseName}" />
+                        <button type="submit" class="btn btn-primary">Register Now</button>
+                    </form>
+                    
+                    
+                </div>
+                
+                <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+                    <form action="${pageContext.request.contextPath}/sendCourseEmail" method="post">
+                        <input type="hidden" name="START_DATE" value="fmt:formatDate value="${course.startDate} pattern="yyyy-MM-dd" />" />
+                        <input type="hidden" name="COURSE_NAME" value="${course.courseName}" />
+                        <button type="submit" class="btn btn-primary">Send Course Registration Email</button>
+                    </form>
+                    
+
+                </div>
+
+            </div>
+        </div>
+    </body>
+
+    </html>
