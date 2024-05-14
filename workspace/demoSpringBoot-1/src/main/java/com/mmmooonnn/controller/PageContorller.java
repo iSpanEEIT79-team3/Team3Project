@@ -29,4 +29,10 @@ public class PageContorller {
 			return "redirect:/html/frontPage.html";
 		}
 		
+		//首頁跳轉
+				@GetMapping("/frontPage")
+				public String processActionFrontPage() {
+					return "redirect:/html/frontPage.html";
+				}
+		
 }
