@@ -62,7 +62,7 @@ public class LTController {
 		List<LTBean> LTList = lt.findLT();
 		m.addAttribute("ltBeans", LTList);
 
-		return "forward:/WEB-INF/jsp/LTSelectAll.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/LTBack.jsp";
 
 	}
 	
@@ -114,27 +114,42 @@ public class LTController {
 
 	@PutMapping("/LTUpdate.controller")
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
-			@RequestParam("userId") String userId,
-			@RequestParam("date") String date,
-			@RequestParam("picture") String picture, @RequestParam("content") String content,
-			@RequestParam("saveLike") Integer saveLike) {
-
+			@RequestParam("userId") String userId, @RequestParam("date") String date,
+			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
+			) {
+		
 		Integer LTID = Integer.parseInt(ltId);
 		Integer USERID = Integer.parseInt(userId);
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
-	    Date parsedDate = null;
-	    
-	        try {
-				parsedDate = dateFormat.parse(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-	    
-		
 
-		LTBean ltBean = new LTBean(LTID, title, USERID, parsedDate, picture, content, saveLike);
-		lt.update(ltBean);
+		try {
+
+			LTBean ltBean = new LTBean();
+			if (!picture.isEmpty()) {
+				String fileurl = "C:\\Spring\\workspace\\SpringMvcWork\\src\\main\\webapp\\images";
+				String fileName = picture.getOriginalFilename();
+
+				File fileurl1 = new File(fileurl, fileName);
+				picture.transferTo(fileurl1);
+				ltBean.setPicture("images/" + fileName);
+			}
+			ltBean.setLtId(LTID);
+			ltBean.setUserId(USERID);
+			
+			ltBean.setTitle(title);
+			
+			ltBean.setContent(content);	
+			ltBean.setSaveLike(0);
+			Date DATE = new Date(System.currentTimeMillis());
+
+			ltBean.setDate(DATE);
+
+			lt.update(ltBean);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
 		return "redirect:LTSelectAll";
 
 	}

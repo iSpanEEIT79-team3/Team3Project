@@ -13,7 +13,6 @@
 <style>
 .main {
 	min-height: 55vh;
-
 }
 
 .lt img {
@@ -23,8 +22,6 @@
 	margin: 0 auto;
 	/* 圖片置中 */
 }
-
-
 
 .input-row {
 	display: flex;
@@ -43,7 +40,6 @@
 	border-radius: 4px;
 	border: 1px solid #ccc;
 }
-
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -105,16 +101,18 @@
 						type="text" disabled value="${ltBean.date}">
 				</div>
 				<div class="input-row">
-					<label class="input-label">照片</label> <input class="input-field"
-						type="text" disabled value="${ltBean.picture}">
+					<label class="input-label" >照片</label> <img class="input-field"
+						src="${ltBean.picture}" alt="照片"  style="max-width: 20%; height: 20%;">
 				</div>
+
 				<div class="input-row">
 					<label class="input-label">讚</label> <input class="input-field"
 						type="text" disabled value="${ltBean.saveLike}">
 				</div>
-		<a class="btn btn-home" href="/LTSelectAllFront" style="background-color: black; color: white;"
-   onmouseover="this.style.backgroundColor='grey'; this.style.color='black';"
-   onmouseout="this.style.backgroundColor='black'; this.style.color='white';">返回首頁</a>
+				<a class="btn btn-home" href="/LTSelectAllFront"
+					style="background-color: black; color: white;"
+					onmouseover="this.style.backgroundColor='grey'; this.style.color='black';"
+					onmouseout="this.style.backgroundColor='black'; this.style.color='white';">返回首頁</a>
 
 
 			</div>

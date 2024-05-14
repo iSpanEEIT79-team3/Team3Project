@@ -15,8 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.model.LikeBean;
+import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.LTService;
 import com.mmmooonnn.service.LikeService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 
@@ -46,11 +49,10 @@ public class LikeControllerFront {
 
 	@PostMapping("/LikeinsertFront.controller")
 	@ResponseBody
-	public ModelAndView InsertLike(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
-
+	public ModelAndView InsertLike( @RequestParam("ltId") Integer ltId,HttpSession session) {
+		UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
 		System.out.println("1=" + ltId);
-		System.out.println("2=" + userId);
-
+		Integer userId = user.getUserId();
 		LTBean ltBean1 = lt.findByLTId(ltId);
 		System.out.println("ltBean1=" + ltBean1);
 		Integer like = ltBean1.getSaveLike();
