@@ -59,47 +59,13 @@
 	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
 	crossorigin="anonymous">
 	        </script>
-	        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
 <script>
-    $(document).ready(function () {
-        $('#user_details').hover(func_1, func_2);
-    });
+ 
 
-    function func_1() {
-        $('#disabled_user_details').css("display", "block");
-    }
-
-    function func_2() {
-        $('#disabled_user_details').css("display", "none");
-    }
-
-    function i() {
-        $.ajax({
-            url: "/matches", // 调用后端Controller方法的路径
-            type: "GET",
-            data: { userid: yourUserId }, // 传递的参数
-            dataType: "json",
-            success: function (response) {
-                var userList = $("#userList");
-                userList.empty(); // 清空列表
-                $.each(response, function (index, user) {
-                    var userHtml = "<li>";
-                    userHtml += "<img src='" + user.picture + "' alt='User Image'>";
-                    userHtml += "<p>Nickname: " + user.nickName + "</p>";
-                    userHtml += "<p>Gender: " + user.gender + "</p>";
-                    userHtml += "<p>Birthday: " + user.birthday + "</p>";
-                    userHtml += "<p>Dance Character: " + user.danceCharacter + "</p>";
-                    userHtml += "<p>Dance Age: " + user.danceAge + "</p>";
-                    userHtml += "</li>";
-                    userList.append(userHtml);
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching user list:", error);
-            }
-        });
-    }
+   
     $(document).ready(function () {
         $('#user_image').hover(showUserData, hideUserData);
     });
@@ -120,58 +86,7 @@
 	<div class="container-fluid" style="margin-top: 150px;"></div>
 	<!-- <section> -->
 	<div class="main">
-		<div class="child">
-
-			<div id="disabled_user_details" style="display: none">
-				<table style="color: blue;">
-					<tr>
-						<td>會員資料</td>
-					</tr>
-					<tr>
-						<td>姓名</td>
-						<td>白癡聒聒</td>
-					</tr>
-					<tr>
-						<td>暱稱</td>
-						<td>abcde</td>
-					</tr>
-					<tr>
-						<td>年齡</td>
-						<td>30</td>
-					</tr>
-					<tr>
-						<td>舞齡</td>
-						<td>15</td>
-					</tr>
-					<tr>
-						<td>角色</td>
-						<td>學生</td>
-					</tr>
-					<tr>
-						<td>簡介</td>
-						<td>從入門到放棄</td>
-					</tr>
-					<tr>
-						<td>圖片</td>
-						<td>不想放</td>
-					</tr>
-					<tr>
-						<td>性別</td>
-						<td>女</td>
-					</tr>
-				</table>
-			</div>
-
-			<div id="user_details">
-				<table>
-					<tr>
-						<td><button type="submit" style="background: #f99;">&#x2665;</button></td>
-						<td><button type="reset" style="background: #99f;">&#x2716;</button></td>
-					</tr>
-				</table>
-			</div>
-
-		</div>
+		<div class="child"></div>
 	</div>
 
 
@@ -189,20 +104,23 @@
 									alt="User Image" class="img">
 								<div class="button-container">
 									<form action="/createMatch" method="post">
-										<input type="hidden" name="userId1" value="${loginuser.userId}">
-										<input type="hidden" name="userId2" value="${user.userId}">
-										<input type="hidden" name="matchSuccess" value="2">
-										<input type="hidden" name="matchStatus" value="Y">
-										
+										<input type="hidden" name="userId1"
+											value="${loginuser.userId}"> <input type="hidden"
+											name="userId2" value="${user.userId}"> <input
+											type="hidden" name="matchSuccess" value="2"> <input
+											type="hidden" name="matchStatus" value="Y">
+
 										<button type="submit" style="background: #f99;"
 											class="heart-button">&#x2665;</button>
 									</form>
 									<form action="/createMatch" method="post">
-										<input type="hidden" name="userId1" value="${loginuser.userId}">
-										<input type="hidden" name="userId2" value="${user.userId}">
-										<input type="hidden" name="matchSuccess" value="0">
-										<input type="hidden" name="matchStatus" value="N">
-									<button type="submit" style="background: #99f;" class="x-button">&#x2716;</button>
+										<input type="hidden" name="userId1"
+											value="${loginuser.userId}"> <input type="hidden"
+											name="userId2" value="${user.userId}"> <input
+											type="hidden" name="matchSuccess" value="0"> <input
+											type="hidden" name="matchStatus" value="N">
+										<button type="submit" style="background: #99f;"
+											class="x-button">&#x2716;</button>
 									</form>
 								</div>
 								<div id="user_details_${loop.index}" class="user-details">
@@ -269,6 +187,76 @@
 	margin-right: 20px;
 	border-radius: 20px;
 }
+
+.card {
+	border: 1px solid #ccc;
+	border-radius: 15px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+
+.card:hover {
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 按鈕樣式 */
+.heart-button, .x-button {
+	display: inline-block;
+	text-align: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	font-size: 20px;
+	margin: 5px;
+	transition: 0.3s;
+}
+
+.heart-button:hover, .x-button:hover {
+	transform: scale(1.1);
+}
+
+/* 使用者卡片詳細資料樣式 */
+.card-details {
+	display: none;
+	position: absolute;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: white;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border: 1px solid #ccc;
+	z-index: 1;
+}
+
+.user-container:hover .card-details {
+	display: block;
+}
+
+/* 使用者圖片樣式 */
+.img {
+	width: 100%;
+	max-height: 200px;
+	object-fit: cover;
+	border-radius: 15px 15px 0 0;
+}
+
+/* 詳細資料內文字樣式 */
+.user-details p {
+	margin: 5px 0;
+}
+
+.user-details strong {
+	font-weight: bold;
+}
+
+/* 按鈕樣式 */
+.btn {
+	cursor: pointer;
+}
 </style>
 
 
@@ -280,7 +268,7 @@
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous">
 	        </script>
-	        
+
 	<script>
       
         fetch('/html/basic.html')
@@ -291,6 +279,6 @@
 
         
     </script>
-<script src="/front/LoginUser.js"></script>
+	<script src="/front/LoginUser.js"></script>
 </body>
 </html>
