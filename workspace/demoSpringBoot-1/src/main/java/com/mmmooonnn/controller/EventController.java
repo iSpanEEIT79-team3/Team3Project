@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -303,14 +304,12 @@ public class EventController {
 	}
 
 	@GetMapping("/WSSearchByDate")
-	public ModelAndView WSSearchByDate(@RequestParam("startTime") Date startTime)  {
+	public ModelAndView WSSearchByDate(@RequestParam("startTime")@DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime)  {
 		
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//
-//		Date startTime_time = (Date)dateFormat.parse(startTime);
+
 		System.out.println(startTime);
 		
-		List<Event> eventBeans = eService.findEventsByStartTime(startTime);
+		List<Event> eventBeans = eService.findEventsByStartTime(startTime,startTime);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("eventBeans", eventBeans);

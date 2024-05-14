@@ -59,19 +59,10 @@ public class EventService {
 	
 	
 	
-	public List<Event> findEventsByStartTime(Date BeginTime) {
+	public List<Event> findEventsByStartTime(Date startTime,Date endTime) {
 //	  Date startDate = parseStartTime(startTime);
 		
-		Calendar calendar = Calendar.getInstance();
-        calendar.setTime(BeginTime);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date startTime = calendar.getTime();
-
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        Date endTime = calendar.getTime();
+		
 
 //        return eRepos.findEventsByStartTime(startTime, endTime);
 	        
@@ -83,7 +74,8 @@ public class EventService {
 		}		
 		return resultList;
         
-    }
+	}
+
 	
 	//按照活動日期進行升序排序
 	public List<Event> findAllByOrderByStartTimeAsc() {

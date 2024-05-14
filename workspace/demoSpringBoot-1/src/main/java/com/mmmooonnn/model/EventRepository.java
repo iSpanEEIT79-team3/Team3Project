@@ -12,7 +12,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface EventRepository extends JpaRepository<Event, Integer> {
 	
-	   @Query("SELECT e FROM Event e WHERE e.startTime BETWEEN :startDate AND :endDate")
+//	   @Query("SELECT e FROM Event e WHERE e.startTime BETWEEN :startDate AND :endDate")
+//	    List<Event> findByStartTime(@Param("startTime") Date startTime,@Param("endTime") Date endTime);
+	
+	   @Query("SELECT e FROM Event e WHERE e.startTime BETWEEN :startTime AND :endTime OR :startTime=e.startTime OR :endTime=e.startTime")
 	    List<Event> findByStartTime(@Param("startTime") Date startTime,@Param("endTime") Date endTime);
 	   
 	   @Query("SELECT e FROM Event e ORDER BY e.startTime ASC")
