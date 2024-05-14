@@ -14,7 +14,6 @@
 	    }  
 
     </style>
-    <script src="front/shop/testtest.js"></script>
 	<!-- Bootstrap CSS -->
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
 	        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -24,7 +23,7 @@
 	    <link rel="preconnect" href="https://fonts.gstatic.com">
 	    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
 	
-	    <link rel="stylesheet" href="<!-- front/shop/shopcss -->/bootstrap.min.css" type="text/css">
+	    <link rel="stylesheet" href="front/shop/shopcss/bootstrap.min.css" type="text/css">
 	    <link rel="stylesheet" href="front/shop/shopcss/font-awesome.min.css" type="text/css">
 	    <link rel="stylesheet" href="front/shop/shopcss/elegant-icons.css" type="text/css">
 	    <link rel="stylesheet" href="front/shop/shopcss/jquery-ui.min.css" type="text/css">
@@ -45,7 +44,7 @@
     <title>範本</title>
 </head>
 
-<body>
+<body class>
 
 
     <div class="container-fluid" style="margin-top: 150px;">
@@ -53,6 +52,7 @@
     </div>
     <!-- <section> -->
     <div class="main">    
+    <p>這裡是shops.jsp</p>
  
  
  <!-- Product Section Begin -->
@@ -91,11 +91,11 @@
 	        </script>
     <script>
       
-        fetch('html/basic.html')
-            .then(response => response.text())
-            .then(html => {
-                document.body.innerHTML += html;
-            });
+			fetch('/html/basic.html')
+		    .then(response => response.text())
+		    .then(html => {
+		        document.body.insertAdjacentHTML('beforeend', html);
+		    });
 
         
     </script>
