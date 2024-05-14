@@ -26,7 +26,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 						<style>
 							td {
-								text-align: center;
+								text-align: middle;
 								padding: 5px 10px;
 								/* 上下各 10px，左右各 20px 的内边距 */
 
@@ -77,6 +77,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 										活動開始時間 : <input type="date" id="EVENT_STARTIME" name="startTime" />
 										<button type="submit">查詢</button>
 									</form>
+									
 								</div>
 								<ul class="app-breadcrumb breadcrumb side">
 									<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -92,7 +93,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 										<div class="tile-body">
 											<table class="table table-hover table-bordered" id="sampleTable">
 												<thead>
-													<tr style="background-color: #a8fefa">
+													<tr style="background-color: #bedfbd">
 														<th>活動編號
 														<th>活動名稱
 														<th>報名開始日期
@@ -149,13 +150,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 															<td class="align-middle">
 																<form
-																	action="${pageContext.request.contextPath}/Event?eventId=${evBean.eventId}"
+																	action="${pageContext.request.contextPath}/Event?PRODUCTID=${evBean.eventId}"
 																	method="post">
 																	<input type="hidden" name="_method" value="delete">
-																	<input type="hidden" name="PRODUCTID"
-																		value="${evBean.eventId}">
 																	<button onclick="confirmDelete()" type="submit"
-																		class="delete">刪除</button>
+																		class="delete align-middle">刪除</button>
 																</form>
 															</td>
 														</tr>
@@ -187,25 +186,38 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
 		"></script>
 							<script>
-								// 定义一个函数，在点击按钮时显示确认是否删除的SweetAlert弹窗
-								function confirmDelete() {
-									// 调用SweetAlert函数，显示弹窗
-									Swal.fire({
-										title: '确认是否删除？',
-										text: '您确定要删除吗？',
-										icon: 'warning',
-										showCancelButton: true, // 显示取消按钮
-										confirmButtonText: '确认', // 确认按钮的文本
-										cancelButtonText: '取消' // 取消按钮的文本
-									}).then((result) => {
-										// 如果点击了确认按钮，则执行相应的操作
-										if (result.isConfirmed) {
-											// 在这里可以执行删除操作或者其他操作
-											// 此处仅作示例，可以替换为实际的操作代码
-											Swal.fire('已删除！', '您已成功删除记录。', 'success');
-										}
+								$(document).ready(function () {
+									function confirmDelete() {
+										// 使用 SweetAlert 提示框顯示刪除確認訊息
+										swal.fire({
+											title: "確定要刪除嗎？",
+											text: "刪除後將無法復原！",
+											icon: "warning",
+											buttons: true,
+											showCancelButton: true,
+											dangerMode: true,
+										})
+											.then((result) => {
+												if (result.isConfirmed) {
+													// 使用者點擊確定按鈕後執行刪除動作
+													// 在這裡加入刪除動作的程式碼
+													$("form").submit();
+													swal.fire("已成功刪除！", {
+														icon: "success",
+													});
+												} else {
+													// 使用者點擊取消按鈕
+													swal.fire("已取消刪除。");
+												}
+											});
+									}
+
+									// 綁定刪除按鈕的點擊事件
+									$(".delete").click(function () {
+										event.preventDefault();
+										confirmDelete();
 									});
-								}
+								});
 							</script>
 
 
@@ -222,6 +234,22 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								src="../../back/js/plugins/jquery.dataTables.min.js"></script>
 							<script type="text/javascript"
 								src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
+
+							<script type="text/javascript">$('#sampleTable').DataTable();</script>
+							<!-- Google analytics script-->
+							<script type="text/javascript">
+								if (document.location.hostname == 'pratikborsadiya.in') {
+									(function (i, s, o, g, r, a, m) {
+										i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+											(i[r].q = i[r].q || []).push(arguments)
+										}, i[r].l = 1 * new Date(); a = s.createElement(o),
+											m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+									})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+									ga('create', 'UA-72504830-1', 'auto');
+									ga('send', 'pageview');
+								}
+
+							</script>
 
 							<script>
 								fetch('/back/exampleBack.html')
