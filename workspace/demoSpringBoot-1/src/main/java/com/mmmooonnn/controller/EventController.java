@@ -303,10 +303,16 @@ public class EventController {
 	}
 
 	@GetMapping("/WSSearchByDate")
-	public ModelAndView WSSearchByDate(@RequestParam("startTime") Date startTime) {
-		ModelAndView modelAndView = new ModelAndView();
+	public ModelAndView WSSearchByDate(@RequestParam("startTime") Date startTime)  {
+		
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//
+//		Date startTime_time = (Date)dateFormat.parse(startTime);
+		System.out.println(startTime);
+		
 		List<Event> eventBeans = eService.findEventsByStartTime(startTime);
-
+		
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("eventBeans", eventBeans);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
 		return modelAndView;

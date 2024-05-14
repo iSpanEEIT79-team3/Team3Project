@@ -1,6 +1,7 @@
 package com.mmmooonnn.service;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -58,12 +59,27 @@ public class EventService {
 	
 	
 	
-	public List<Event> findEventsByStartTime(Date startTime) {
+	public List<Event> findEventsByStartTime(Date BeginTime) {
 //	  Date startDate = parseStartTime(startTime);
+		
+		Calendar calendar = Calendar.getInstance();
+        calendar.setTime(BeginTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date startTime = calendar.getTime();
+
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date endTime = calendar.getTime();
+
+//        return eRepos.findEventsByStartTime(startTime, endTime);
+	        
+	        
 		List<Event> resultList = eRepos.findAll();
 		
 		if(!resultList.isEmpty()) {
-			return eRepos.findByStartTime(startTime);
+			return eRepos.findByStartTime(startTime, endTime);
 		}		
 		return resultList;
         
