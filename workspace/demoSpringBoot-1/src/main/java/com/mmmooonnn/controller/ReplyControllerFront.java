@@ -142,6 +142,9 @@ public class ReplyControllerFront {
 		//List<ReplyBean> replyBeans = ry.findID(ltId);
 		//System.out.println("replyBeans"+replyBeans);
 		LTBean resultBean = lt.findByLTId(ltId);
+		resultBean.setPageViews(1+resultBean.getPageViews());
+		
+		
 		System.out.println("resultBean"+resultBean);
 //		Set<ReplyBean> replyBeans = resultBean.getReplyBeans();
 		List<ReplyBean> replyBeans = ry.findID(ltId);
@@ -151,6 +154,8 @@ public class ReplyControllerFront {
 		mm.addAttribute("userid",user.getUserId());
 	    mm.addAttribute("replyBean", replyBeans);
 		mm.addAttribute("items", resultBean);
+		
+		
 	    return "forward:/WEB-INF/jsp/ReplySelectLTIdFront.jsp";
 	}
 	

@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>全部文章</title>
 <style>
-
-
 .main {
 	min-height: 55vh;
 	padding-top: 50px; /* 將內容區域下移以避免 navbar 擋住 */
@@ -115,10 +113,11 @@
 .reply-info-item {
 	margin-right: 20px; /* 调整每个信息项的右边距 */
 }
- .btn-inner {
-        display: inline-block;
-        white-space: nowrap; /* 避免文字換行 */
-    }
+
+.btn-inner {
+	display: inline-block;
+	white-space: nowrap; /* 避免文字換行 */
+}
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -213,18 +212,22 @@
 								</p>
 							</div>
 
-								<form method="get" action="/ReplySelectByIdFront.controller/${reply.replyId}">
-    <input type="hidden" name="replyId" value="${reply.replyId}">
-    <button class="btn btn-primary mr-2 editButton" type="submit" ${reply.userId==userid?"":"hidden"}>
-        <span class="btn-inner">修改</span>
-    </button>
-</form>
-<form method="post" action="/ReplyDeleteFront.controller?replyId=${reply.replyId}&LTId=${items.ltId}">
-    <input type="hidden" name="_method" value="DELETE">
-    <button class="btn btn-danger deleteButton" type="submit" ${reply.userId==userid?"":"hidden"}>
-        <span class="btn-inner">刪除</span>
-    </button>
-</form>
+							<form method="get"
+								action="/ReplySelectByIdFront.controller/${reply.replyId}">
+								<input type="hidden" name="replyId" value="${reply.replyId}">
+								<button class="btn btn-primary mr-2 editButton" type="submit"
+									${reply.userId==userid?"":"hidden"}>
+									<span class="btn-inner">修改</span>
+								</button>
+							</form>
+							<form method="post"
+								action="/ReplyDeleteFront.controller?replyId=${reply.replyId}&LTId=${items.ltId}">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger deleteButton" type="submit"
+									${reply.userId==userid?"":"hidden"}>
+									<span class="btn-inner">刪除</span>
+								</button>
+							</form>
 							<form method="post" action="/ReportReplyinsertFront.controller"
 								onsubmit="handleReportSuccess()">
 								<input type="hidden" name="replyId" value="${reply.replyId}">

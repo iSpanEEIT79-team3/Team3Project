@@ -348,6 +348,8 @@
 													+ content.ltId
 													+ '</p>'
 													+ // 文章ID
+													
+													
 													'<p>標題: '
 													+ content.title
 													+ '</p>'
@@ -361,6 +363,11 @@
 													+ '</p>'
 													+ // 發文時間
 													'</div>'
+													+'<br>'
+													+'<p>瀏覽次數: '
+													+ content.pageViews
+													+ '</p>'
+													
 													+ '<hr>'
 													+ '<div >'
 													+ // 將內容和操作置中
@@ -378,6 +385,8 @@
 													+ '</div>'
 													+ '<hr>'
 													+ '<div>'
+												
+													
 													+ // 將操作置中
 													'<div class="col-md-12">'
 													+ '<div class="row"> <!-- 功能按钮水平排列 -->'
@@ -410,6 +419,7 @@
 													+ content.saveLike
 													+ '</span>'
 													+ '</form>'
+													
 													+ '</div>'
 													+ '</div>'
 													+ '</div>'

@@ -49,6 +49,9 @@ public class LTBean implements Serializable {
 	@Column(name = "SAVELIKE")
 	private Integer saveLike;
 
+	@Column(name = "PAGEVIEWS")
+	private Integer pageViews;
+
 	public LTBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -122,10 +125,13 @@ public class LTBean implements Serializable {
 		return serialVersionUID;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "LTBean [ltId=" + ltId + ", ReplyBeans=" + ReplyBeans + ", title=" + title + ", userId=" + userId
-				+ ", date=" + date + ", picture=" + picture + ", content=" + content + ", saveLike=" + saveLike + "]";
+				+ ", date=" + date + ", picture=" + picture + ", content=" + content + ", saveLike=" + saveLike
+				+ ", pageViews=" + pageViews + "]";
 	}
 
 	public LTBean(Integer ltId, Set<ReplyBean> replyBeans, String title, Integer userId, Date date, String picture,
@@ -161,6 +167,14 @@ public class LTBean implements Serializable {
 		this.picture = picture;
 		this.content = content;
 		this.saveLike = saveLike;
+	}
+
+	public Integer getPageViews() {
+		return pageViews;
+	}
+
+	public void setPageViews(Integer pageViews) {
+		this.pageViews = pageViews;
 	}
 
 	

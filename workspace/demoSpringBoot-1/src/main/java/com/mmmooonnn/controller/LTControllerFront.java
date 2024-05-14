@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mmmooonnn.model.LTBean;
 import com.mmmooonnn.model.LikeBean;
 import com.mmmooonnn.model.UsersBeanNew;
+import com.mmmooonnn.model.pageViewsBean;
 import com.mmmooonnn.service.LTService;
 import com.mmmooonnn.service.LikeService;
 
@@ -95,10 +96,12 @@ public class LTControllerFront {
 			ltBean.setTitle(title);
 			ltBean.setContent(content);
 			ltBean.setSaveLike(0);
+			ltBean.setPageViews(0);
 			Date DATE = new Date(System.currentTimeMillis());
 
 			ltBean.setDate(DATE);
 			lt.insertLT(ltBean);
+			
 
 		} catch (Exception e) {
 
@@ -120,7 +123,8 @@ public class LTControllerFront {
 	@PutMapping("/LTUpdateFront.controller")
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
 			@RequestParam("userId") String userId, @RequestParam("date") String date,
-			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
+			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content,
+			@RequestParam("pageViews")Integer pageViews  
 			) {
 		
 		Integer LTID = Integer.parseInt(ltId);
@@ -139,10 +143,10 @@ public class LTControllerFront {
 			}
 			ltBean.setLtId(LTID);
 			ltBean.setUserId(USERID);
-			
+			ltBean.setPageViews(pageViews);
 			ltBean.setTitle(title);
-			
 			ltBean.setContent(content);
+			
 			ltBean.setSaveLike(0);
 			Date DATE = new Date(System.currentTimeMillis());
 
@@ -230,5 +234,28 @@ public class LTControllerFront {
 		}
 
 	}
+@PostMapping("/pageviews")
+public ModelAndView InsertView(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
 
+	
+
+	LTBean ltBean1 = lt.findByLTId(ltId);
+	
+	Integer views = ltBean1.getPageViews();
+	int num = views + 1;
+	
+	ltBean1.setSaveLike(num);
+	LikeBean likeBean = new LikeBean();
+	likeBean.setLtId(ltId);
+	likeBean.setUserId(userId);
+	
+	
+	return null;
+	
+
+
+}
+
+	
+	
 }

@@ -83,7 +83,7 @@
             </div>
             <div class="form-group">
                 <label for="userId">使用者ID</label>
-                <input type="text" name="userId" id="userId" value="${ltBean.userId}" class="form-control">
+                <input type="text" name="userId" id="userId" value="${ltBean.userId}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label for="content">文章內容</label>
@@ -101,6 +101,11 @@
                 <label for="picture">照片</label>
                 <input type="file" name="picture" id="picture" value="${ltBean.picture}" class="form-control">
             </div>
+            <div class="form-group">
+                <label for="pageViews">瀏覽次數</label>
+                <input type="text" name="pageViews" id="pageViews" value="${ltBean.pageViews}" class="form-control"readonly>
+            </div>
+            
             <input type="submit" class="btn" value="確定" />
         </form>
         <a href="/LTSelectAllFront" class="btn">返回首頁</a>
