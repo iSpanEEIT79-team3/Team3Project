@@ -63,7 +63,11 @@
 
 	</main>
 
-
+	<script type="text/javascript"
+            src="../../back/js/plugins/jquery.dataTables.min.js"></script>
+        <script type="text/javascript"
+            src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript">$('#page').DataTable();</script>
 	<!-- Essential javascripts for application to work-->
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
