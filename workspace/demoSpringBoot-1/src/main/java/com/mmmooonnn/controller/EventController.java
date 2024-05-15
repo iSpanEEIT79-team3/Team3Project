@@ -309,7 +309,9 @@ public class EventController {
 
 		System.out.println(startTime);
 		
-		List<Event> eventBeans = eService.findEventsByStartTime(startTime,startTime);
+		Date endTime=new Date(startTime.getTime() + (1000*60*60*24-1));
+		
+		List<Event> eventBeans = eService.findEventsByStartTime(startTime,endTime);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("eventBeans", eventBeans);
