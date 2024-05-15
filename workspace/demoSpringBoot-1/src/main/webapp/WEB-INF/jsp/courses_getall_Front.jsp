@@ -37,7 +37,12 @@
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
 				integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
 				crossorigin="anonymous"></script>
+
 			<style>
+				.main {
+					min-height: 55vh;
+				}
+
 				.course-image {
 					max-width: 88px;
 					/* Set the maximum width */
@@ -51,13 +56,6 @@
 					/* 清除浮動 */
 				}
 
-				/*
-.lt {
-	position: absolute;
-	left: 580px;
-	float: center;
-	width: 50%;
-}*/
 
 				.lt-table {
 					width: 100%;
@@ -152,98 +150,26 @@
 
 				}
 			</style>
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+				integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+				crossorigin="anonymous">
+			<script src="https://kit.fontawesome.com/4287c80df9.js" crossorigin="anonymous"></script>
+
+			<!--Google Font : Nunito-->
+			<link rel="preconnect" href="https://fonts.gstatic.com">
+			<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
+
+			<!-- For style(All CSS content) -->
+			<link rel="stylesheet" type="text/css" href="../styles/home.css" />
+			<link rel="stylesheet" type="text/css" href="../styles/footer.css" />
+			<link rel="stylesheet" type="text/css" href="../styles/navbar.css" />
+			<link rel="icon" href="images/favicon.ico">
+
+
 		</head>
 
 		<body>
 
-			<!-- Shashank's Section -->
-			<!-- <section class="title"> -->
-			<!-- Navbar section -->
-			<nav class="header navbar navbar-expand-lg navbar-dark">
-				<!-- <LOGO> -->
-				<div width="50px" height="50px">
-
-					<a class="" href="index.html"> <img src="../images/LOGO.png" width="50px" height="50px"
-							alt="Eternals"> </a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#titleNav"
-						aria-controls="titleNav" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-
-				</div>
-
-				<!-- <Content> -->
-
-				<div class="container-fluid d-flex justify-content-center" id="titleNav">
-					<ul class="navbar-nav ">
-						<li class="nav-item">
-							<a class="nav-link active" href="frontPage.html">Home </a>
-						</li>
-						<li>
-							<a class="nav-link" href="EventAll.html">活動Events</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="about.html">配對</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link " href="teams.html">商城</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">互動區</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="contact.html">課程</a>
-						</li>
-					</ul>
-				</div>
-				<!-- <右上角的東西> -->
-				<div class="navbar-nav justify-content-end">
-					<ul class="navbar-nav">
-						<li class="nav-item">
-							<div class="m-2 rounded-circle overflow-hidden align-self-center ratio ratio-1x1"
-								style="width: 40px">
-								<img src="../images/LOVE.png" alt="" class="object-fit-cover w-100 h-100" />
-							</div>
-						</li>
-						<li class="nav-item">
-							<div class="m-2 rounded-circle overflow-hidden align-self-center ratio ratio-1x1"
-								style="width: 40px">
-								<img src="../images/SHOP.png" alt="" class="object-fit-cover w-100 h-100" />
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle z-1000" href="#" id="navbarDropdown" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false">
-								Dropdown
-							</a>
-							<ul class="dropdown-menu z-1000" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item z-1000" href="#">Action</a></li>
-								<li><a class="dropdown-item z-1000" href="#">Another action</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item z-1000" href="#">Something else here</a></li>
-							</ul>
-						</li>
-
-					</ul>
-
-				</div>
-				<!-- <Between> -->
-
-			</nav>
-
-
-			<!-- 課程 -->
-			<div style="height: 214px">
-				<div class="box row py-lg-5 text-center vstack border border-dark" style="height: 211px">
-					<div class="col-lg-6 col-md-8 mx-auto d-flex flex-column justify-content-center h-100">
-						<h1 class="fw-bold custom-font-size mb-0" style="font-size: 64px; color: #4f85a6;">課程</h1>
-
-
-					</div>
-				</div>
-			</div>
 
 
 
@@ -255,18 +181,16 @@
 					<h6 class="d-flex align-items-center">一段美好的開始</h3>
 				</div>
 
-				<div class="d-flex text-center" style="width: 1900px; height: 400px;">
-					<c:forEach items="${Courses}" var="course" varStatus="status">
-						<c:if test="${status.index < 3}"> <!-- 檢查是否是前三個元素 -->
-							<div class="active ratio" style="width: 600px;">
-								<!-- img 放入 COURSE_IMAGE，根據course對象顯示圖片和產品ID -->
-								<td>${course.productId}</td>
-								<img src="${course.courseImage}"
-									class="d-block object-fit-cover rounded-5 mx-auto my-auto"
-									style="max-width: 100%; height: 400px;" alt="..." />
-							</div>
-						</c:if>
-					</c:forEach>
+				<div class="d-flex text-center" style="width: 1900px;height:  400px;">
+
+					<div class="active ratio" style="width: 600px;">
+						<!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
+						<td>${course.productId}</td>
+
+						<img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
+							style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
+					</div>
+
 				</div>
 				<!-- 各種索引搜尋 -->
 
@@ -298,70 +222,40 @@
 						<h6 class="d-flex align-items-center">看看學員們怎麼說</h3>
 					</div>
 				</div>
-				    <!-- 直視圖片區 -->
+				<!-- 直視圖片區 -->
+
 				<div class="row d-flex">
+
 					<div class="col-md-3">
-						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
+						<div class="product-item rounded-3 bs-secondary-color " style="background-color:#F5F7F9">
 							<div class="product-thumb">
 								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
 									alt="product-img">
-								<div class="preview-meta"></div>
+								<div class="preview-meta">
+
+								</div>
 							</div>
 							<div class="product-content m-3">
-								<p>帶來如詩如畫的舞蹈饗宴。</p>
-								<h4><a class="text-reset" href="#">李舞妍</a></h4>
+								<p>
+									${course.teacherContact}
+								</p>
+								<!-- <td>${course.teacherName}</td> -->
+								<td>${course.productId}</td>
+
+								<h4><a class="text-reset" href="">${course.teacherName}</a></h4>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
-							<div class="product-thumb">
-								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
-									alt="product-img">
-								<div class="preview-meta"></div>
-							</div>
-							<div class="product-content m-3">
-								<p>讓每個人都感受到舞蹈的力量。</p>
-								<h4><a class="text-reset" href="#">張舞風</a></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
-							<div class="product-thumb">
-								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
-									alt="product-img">
-								<div class="preview-meta"></div>
-							</div>
-							<div class="product-content m-3">
-								<p>如飄逸的雲彩般，輕盈而自由地穿越舞台。</p>
-								<h4><a class="text-reset" href="#">王舞雲</a></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
-							<div class="product-thumb">
-								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
-									alt="product-img">
-								<div class="preview-meta"></div>
-							</div>
-							<div class="product-content m-3">
-								<p>韻律的大師，她熟練掌握著每一個節奏。</p>
-								<h4><a class="text-reset" href="#">陳舞韻</a></h4>
-							</div>
-						</div>
-					</div>
+
 				</div>
 
 				<!--課程等級-->
 				<section class="page-section rounded-3" id="portfolio">
 					<div class="container">
 						<div class="d-flex">
-
 							<h2 class="section-heading text-uppercase">難度分級</h2>
 							<div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
-							<h6 class="d-flex align-items-center">為每一個學員量身訂做</h3>
+							<h6 class="d-flex align-items-center">為每一個學員量身訂做</h6>
 						</div>
 						<!-- 循環開始前，確保結構正確並且只包裹一次 -->
 						<div class="row">
@@ -369,11 +263,9 @@
 								<div class="col-4 col-lg-4 col-sm-6 mb-4">
 									<div class="portfolio-item">
 										<!-- 隱藏起來 -->
-
 										<div class="z-n1 d-none">
 											<h6>${course.productId}</h6>
 										</div>
-
 										<a class="portfolio-link"
 											href="${pageContext.request.contextPath}/courseDetailsFront/${course.productId}">
 											<div class="portfolio-hover">
@@ -384,7 +276,6 @@
 											<img class="img-fluid" src="${course.courseImage}" alt="..." />
 										</a>
 										<div class="portfolio-caption">
-
 											<h4>${course.courseName}</h4>
 											<h6>${course.description}</h6>
 										</div>
@@ -392,7 +283,6 @@
 								</div>
 							</c:forEach>
 						</div>
-
 					</div>
 				</section>
 
@@ -400,43 +290,18 @@
 			</div>
 
 
-			<div class="container-fluid w-100 h-100 g-0" style="width: 358px;">
-				<footer class="below">
-
-
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-6">
-								<p class="left">Follow us on social media to get the latest updates</p>
-								<a href="#"><i class="fab fa-youtube"></i></a>
-								<a href="#"><i class="fab fa-facebook-square"></i></a>
-								<a href="#"><i class="fab fa-instagram"></i></a>
-
-							</div>
-							<div class="col-lg-6">
-
-								<p class="right">Enter your email to view the list of your registered events</p>
-								<input id="mail" placeholder="email address">
-								<span><button id="bttn">
-										Submit </button></span>
-
-
-							</div>
-						</div>
-						<hr style="margin-top: 50px;">
-					</div>
-					<div class="last">&copy;Copyright 2024搖擺工坊 All Rights Reserved.</div>
-					<p class="float-end mb-1">
-						<a href="#" class="text-decoration-none">Back to top</a>
-					</p>
-				</footer>
-			</div>
-
-
 
 
 
 			<!-- Optional JavaScript; choose one of the two! -->
+			<script>
+
+				fetch('html/basic.html')
+					.then(response => response.text())
+					.then(html => {
+						document.body.innerHTML += html;
+					});
+			</script>
 
 			<!-- Option 1: Bootstrap Bundle with Popper -->
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
