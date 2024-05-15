@@ -208,11 +208,15 @@ public class UserController {
 					modelAndView.setViewName("redirect:/html/frontPage.html");
 					uService2.insert(usersBean);
 					session.setAttribute("usersBean", usersBean);
+					System.out.println("新增會員");
 					return modelAndView;
 				}else {
 					UsersBeanNew usersBean = uService2.findByEmail(email);
 					session.setAttribute("usersBean", usersBean);
 					modelAndView.setViewName("redirect:/html/frontPage.html");
+					System.out.println("google登入");
+					//Object user = session.getAttribute("usersBean");
+					//System.out.println(session.getAttribute());
 					return modelAndView;
 				}
 					

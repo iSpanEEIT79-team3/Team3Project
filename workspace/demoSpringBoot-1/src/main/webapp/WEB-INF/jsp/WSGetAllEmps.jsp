@@ -49,6 +49,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 						<style>
 							td {
+								font-size: larger;
 								text-align: middle;
 								padding: 5px 10px;
 								/* 上下各 10px，左右各 20px 的内边距 */
@@ -100,8 +101,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 									<div class="row justify-content-start">
 										<div class="col-auto">
 											<form method="get" action="/WSSearchByDate" enctype="multipart/form-data">
-												活動開始時間 : <input type="date" id="startTime" name="startTime" />
-												<button type="submit" class="btn btn-primary">查詢</button>
+												<h5>活動開始時間 : <input type="date" id="startTime" name="startTime" />
+													<button type="submit" class="btn btn-primary">查詢</button>
+												</h5>
 											</form>
 										</div>
 										<!--------------------------------- 新增活動modal ---------------------------------->
@@ -132,7 +134,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 											<form method="post" action="/WSinsert" id="myForm"
 												enctype="multipart/form-data">
 
-												輸入活動名稱 : <input type="text" id="EVENT_NAME" name="EVENT_NAME" /><br>
+												輸入活動名稱 : <input type="text" class="form-control" id="EVENT_NAME"
+													name="EVENT_NAME" /><br>
 												<br> 報名開始日期 : <input type="datetime-local" id="SIGNUP_STARTIME"
 													name="SIGNUP_STARTIME" /><br>
 												<br> 報名結束日期 : <input type="datetime-local" id="SIGNUP_ENDTIME"
@@ -167,7 +170,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 													<div>
 														<img id="imgPreview" src="${eventBean.picture}"
 															style="max-width: 200px; max-height: 200px; display: none" />
-														<input type="file" id="PICTURE" name="PICTURE"></input>
+														<br>
+														<input class="form-control-file" type="file" id="PICTURE"
+															name="PICTURE"></input>
 													</div>
 												</div>
 												<!-- 												<br> 圖片 : <input type="file" id="PICTURE" name="PICTURE" /><br> -->

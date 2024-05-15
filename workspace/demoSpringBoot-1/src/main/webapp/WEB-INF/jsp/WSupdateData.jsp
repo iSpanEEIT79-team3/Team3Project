@@ -26,6 +26,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 						<style>
 							td {
+								font-family: sans-serif;
+								font-size: larger;
 								padding: 5px 10px;
 								/* 上下各 10px，左右各 20px 的内边距 */
 								white-space: nowrap;
@@ -88,14 +90,15 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 												<table>
 													<tr>
 														<td>活動編號</td>
-														<td><input style="background-color: #7B7B7B;" type="text"
+														<td><input class="form-control"
+																style="background-color: #7B7B7B;" type="text"
 																value="${eventBean.eventId}" readonly name="PRODUCTID">
 														</td>
 													</tr>
 													<tr>
 														<td>活動名稱</td>
-														<td><input type="text" value="${eventBean.eventName}"
-																name="EVENT_NAME"></td>
+														<td><input type="text" class="form-control"
+																value="${eventBean.eventName}" name="EVENT_NAME"></td>
 													</tr>
 													<tr>
 														<td>報名開始日期</td>
@@ -125,43 +128,47 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 														<td>活動詳細資料</td>
 														<td>
 
-															<textarea type="text" name="EVENT_DETAIL"
+															<textarea class="form-control" type="text"
+																name="EVENT_DETAIL"
 																style="width: 100%; height: 200px;overflow: auto;">${eventBean.eventDetail}</textarea>
 														</td>
 														</h2>
 													</tr>
 													<tr>
 														<td>活動種類</td>
-														<td><input type="text" value="${eventBean.eventCategory}"
+														<td><input type="text" class="form-control"
+																value="${eventBean.eventCategory}"
 																name="EVENT_CATEGORY"></td>
 													</tr>
 													<tr>
 														<td>報名金額</td>
-														<td><input type="text" value="${eventBean.eventPrice}"
-																name="EVENT_PRICE"></td>
+														<td><input type="text" class="form-control"
+																value="${eventBean.eventPrice}" name="EVENT_PRICE"></td>
 													</tr>
 													<tr>
 														<td>活動地址</td>
-														<td><input type="text" value="${eventBean.eventLocation}"
-																name="EVENT_ADDRES"></td>
+														<td><input type="text" class="form-control"
+																value="${eventBean.eventLocation}" name="EVENT_ADDRES">
+														</td>
 													</tr>
 													<tr>
 														<td>組織者</td>
-														<td><input type="text" value="${eventBean.organizer}"
-																name="ORGANIZER"></td>
+														<td><input type="text" class="form-control"
+																value="${eventBean.organizer}" name="ORGANIZER"></td>
 													</tr>
 
 													<tr>
 
 														<td>
 															<!-- <img alt="" src="${eventBean.picture}"> -->
-															<input class="form-control" type="file" name="PICTURE"
+															<input class="form-control-file" class="btn btn-primary"
+																type="file" name="PICTURE"
 																onchange="previewImage(event)">
 														</td>
 													</tr>
 
 												</table>
-
+												<br>
 												<img id="imgPreview" src="${eventBean.picture}"
 													style="max-width: 200px; max-height: 200px;" />
 												<!-- 	 <div class="img"> -->
@@ -173,7 +180,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 												<!--         </div> -->
 
 												<input type="hidden" value="${eventBean.picture}" name="oldPICTUREpath">
-												<button name="type" value="upData">確定</button>
+												<button name="type" class="btn btn-primary" value="upData">確定</button>
 											</form>
 
 
