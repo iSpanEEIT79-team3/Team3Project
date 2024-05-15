@@ -7,7 +7,9 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -75,14 +77,20 @@ public class UserController {
 	}
 	//查詢會員登入狀態
 	@GetMapping("/checkUserLogin")
-	public ResponseEntity<String> processActionCheckLogin(HttpSession session){
+	public ResponseEntity<Map<String, String>> processActionCheckLogin(HttpSession session){
+		Map<String, String> response = new HashMap<String, String>();
 		Object result = session.getAttribute("usersBean");
 		if(result != null) {
 			System.out.println("會員登入中");
-			return ResponseEntity.ok().body("登入成功");
+			response.put("status", "登入成功");
+			response.put("username", ((UsersBeanNew) result).getUserContact().getName());
+			response.put("picture", ((UsersBeanNew) result).getPicture());
+			
+			return ResponseEntity.ok().body(response);
 		}else {
 			System.out.println("未登入");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("未登入");
+			  response.put("status", "未登入");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 	}
 	
