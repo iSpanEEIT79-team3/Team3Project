@@ -22,14 +22,36 @@
 https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet">
 
+						<script>
+							function upload() {
+								// 取得表單元素
+								var form = document.getElementById('myForm');
 
+
+
+								// 所有欄位都已填滿，執行表單提交
+								var formData = new FormData(form);
+								fetch('/WSinsert', {
+									method: 'POST',
+									body: formData
+								})
+									.then(function (response) {
+										if (response.status != 200) {
+											console.log('response status1:' + response.status);
+											return;
+										}
+										console.log('response status2:' + response.status);
+										window.location.href = "/WSall";
+									});
+							}
+
+						</script>
 
 						<style>
 							td {
 								text-align: middle;
 								padding: 5px 10px;
 								/* 上下各 10px，左右各 20px 的内边距 */
-
 								max-height: 3em;
 								overflow: hidden;
 								white-space: pre-line;
@@ -71,19 +93,113 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 						<main class="app-content">
 							<div class="app-title">
 								<div>
-									<h1><i class="fa fa-th-list"></i> 活動資訊</h1>
+									<h1>
+										<i class="fa fa-th-list"></i> 活動資訊
+									</h1>
 									<br>
-									<form method="get" action="/WSSearchByDate" enctype="multipart/form-data">
-										活動開始時間 : <input type="date" id="EVENT_STARTIME" name="startTime" />
-										<button type="submit">查詢</button>
-									</form>
-									
+									<div class="row justify-content-start">
+										<div class="col-auto">
+											<form method="get" action="/WSSearchByDate" enctype="multipart/form-data">
+												活動開始時間 : <input type="date" id="startTime" name="startTime" />
+												<button type="submit" class="btn btn-primary">查詢</button>
+											</form>
+										</div>
+										<!--------------------------------- 新增活動modal ---------------------------------->
+
+										<div class="col-auto">
+											<button type="button" class="btn btn-primary" data-toggle="modal"
+												data-target="#staticBackdrop">
+												新增活動
+											</button>
+										</div>
+									</div>
 								</div>
-								<ul class="app-breadcrumb breadcrumb side">
-									<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-									<li class="breadcrumb-item">Tables</li>
-									<li class="breadcrumb-item active"><a href="#">Data Table</a></li>
-								</ul>
+							</div>
+
+
+							<!-- Modal -->
+							<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+								tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="staticBackdropLabel">新增活動 (請輸入資料)</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<form method="post" action="/WSinsert" id="myForm"
+												enctype="multipart/form-data">
+
+												輸入活動名稱 : <input type="text" id="EVENT_NAME" name="EVENT_NAME" /><br>
+												<br> 報名開始日期 : <input type="datetime-local" id="SIGNUP_STARTIME"
+													name="SIGNUP_STARTIME" /><br>
+												<br> 報名結束日期 : <input type="datetime-local" id="SIGNUP_ENDTIME"
+													name="SIGNUP_ENDTIME" /><br>
+												<br> 活動開始時間 : <input type="datetime-local" id="EVENT_STARTIME"
+													name="EVENT_STARTIME" /><br>
+												<br> 活動結束時間 : <input type="datetime-local" id="EVENT_ENDTIME"
+													name="EVENT_ENDTIME" /><br>
+												<br>
+
+
+												<!-- 		活動詳細資料 : <input type="text" id="EVENT_DETAIL" name="EVENT_DETAIL" /><br><br> -->
+
+												<div style="width: 97.7%;">
+													<label for="" class="col-form-label">活動詳細資料 :</label>
+													<textarea class="form-control" id="EVENT_DETAIL" name="EVENT_DETAIL"
+														placeholder="請輸入資訊" style="height: 300px"></textarea>
+												</div><br>
+												<br>
+
+												活動種類 : <input type="text" class="form-control" id="EVENT_CATEGORY"
+													name="EVENT_CATEGORY" /><br>
+												<br> 報名金額 : <input type="text" class="form-control" id="EVENT_PRICE"
+													name="EVENT_PRICE" /><br>
+												<br> 活動地址 : <input type="text" class="form-control" id="EVENT_ADDRES"
+													name="EVENT_ADDRES" /><br>
+												<br> 組織者 : <input type="text" class="form-control" id="ORGANIZER"
+													name="ORGANIZER" /><br>
+												<br>
+												<div style="width: 600px; float: left;">
+													<p>活動照片:</p>
+													<div>
+														<img id="imgPreview" src="${eventBean.picture}"
+															style="max-width: 200px; max-height: 200px; display: none" />
+														<input type="file" id="PICTURE" name="PICTURE"></input>
+													</div>
+												</div>
+												<!-- 												<br> 圖片 : <input type="file" id="PICTURE" name="PICTURE" /><br> -->
+												<br>
+
+												<div class="modal-footer">
+													<button type="submit" class="btn btn-primary"
+														onclick="upload()">確定</button>
+													<button type="reset" class="btn btn-primary">清除</button>
+													<button type="button" id="fillData"
+														class="fastfilldata-data-btn btn btn-primary">一鍵輸入</button>
+												</div>
+
+												<!-- 		<button type="reset" class="my-reset-data-btn btn btn-outline-primary">清除</button> -->
+												<!-- 		<button type="button" id="fillData" class="fastfilldata btn btn-outline-primary">一鍵輸入</button> -->
+												<!-- 		<button type="button" onclick="upload()">確定</button> -->
+
+
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!--------------------------------- 以上新增活動modal ---------------------------------->
+
+							</div>
+							<ul class="app-breadcrumb breadcrumb side">
+								<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+								<li class="breadcrumb-item">Tables</li>
+								<li class="breadcrumb-item active"><a href="#">Data Table</a></li>
+							</ul>
 							</div>
 
 
@@ -132,8 +248,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 																	pattern="yyyy-MM-dd HH:mm" />
 															</td>
 
-															<td style="width: 400px;">
-																${evBean.eventDetail}</td>
+															<td style="width: 400px;">${evBean.eventDetail}</td>
 															<td>${evBean.eventCategory}</td>
 															<td>${evBean.eventPrice}</td>
 															<td>${evBean.eventLocation}</td>
@@ -170,9 +285,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 							</table>
 
 
-							<a href="html/WSinsert.html"><input type="submit" value="新增資料"></a>
-
-							<a href="WSall"><input type="submit" value="查詢所有資料"></a>
+							<a href="WSall"><input class="btn btn-primary" type="submit" value="查詢所有資料"></a>
 
 							<!-- 	<form action="WSall" method="get"><input type="submit" value="查詢所有資料"></form> -->
 							</div>
@@ -180,7 +293,49 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 							</div>
 							<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 							<script src="https://cdn.datatables.net/v/dt/dt-2.0.1/datatables.min.js"></script>
+							<script>
+								$("#PICTURE").change(function () {
+									readURL(this);
+								})
 
+								function readURL(input) {
+									if (input.files && input.files[0]) {
+										var reader = new FileReader();
+										reader.onload = function (e) {
+											$("#imgPreview").attr('src', e.target.result).css({ "display": "block" });
+										}
+										reader.readAsDataURL(input.files[0]);
+									}
+								}
+
+							</script>
+
+							<script>
+
+								//<!--  新增資料: 一鍵輸入 -->
+
+
+								const btnFilldata = document.querySelector(".fastfilldata-data-btn");
+
+								document.getElementById("fillData").addEventListener("click", fillData);
+
+								function fillData() {
+
+									document.getElementById("EVENT_NAME").value = "SwingFever搖擺舞派對";
+									document.getElementById("SIGNUP_STARTIME").value = "2024-05-01T09:18";
+									document.getElementById("SIGNUP_ENDTIME").value = "2024-05-16T00:00";
+									document.getElementById("EVENT_STARTIME").value = "2024-05-24T09:18";
+									document.getElementById("EVENT_ENDTIME").value = "2024-05-26T00:00";
+									document.getElementById("EVENT_DETAIL").value = "歡迎加入我們舉辦的 Swing Fever 搖擺舞派對！這是一個讓您盡情跳躍、歡笑和享受音樂的絕佳機會。我們將在 City Dance Studio 舉辦這個活動，活動期間將會有專業的搖擺舞老師為您帶來精彩的教學課程，同時也會有DJ為大家播放熱情歡快的 Swing 音樂。無論您是初學者還是搖擺舞高手，這都是一個與朋友們一起跳舞、放鬆身心的絕佳之夜。不要錯過這個難得的機會，穿上您的最佳舞鞋，加入我們一起搖擺吧！";
+									document.getElementById("EVENT_CATEGORY").value = "BALBOA";
+									document.getElementById("EVENT_PRICE").value = "500";
+									document.getElementById("EVENT_ADDRES").value = "Big Apple studio 復興教室";
+									document.getElementById("ORGANIZER").value = "Big Apple";
+
+								}
+
+
+							</script>
 
 							<script src="
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
@@ -227,7 +382,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 							<script src="../../back/js/bootstrap.min.js"></script>
 							<script src="../../back/js/main.js"></script>
 							<!-- The javascript plugin to display page loading on top-->
-							<script src="../js/plugins/pace.min.js"></script>
+							<script src="../../back/js/plugins/pace.min.js"></script>
 							<!-- Page specific javascripts-->
 							<script type="text/javascript" src="../../back/js/plugins/chart.js"></script>
 							<script type="text/javascript"
@@ -236,6 +391,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
 
 							<script type="text/javascript">$('#sampleTable').DataTable();</script>
+
 							<!-- Google analytics script-->
 							<script type="text/javascript">
 								if (document.location.hostname == 'pratikborsadiya.in') {
@@ -271,8 +427,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								}
 
 							</script>
-
-
 					</body>
 
 					</html>

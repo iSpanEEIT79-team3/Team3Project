@@ -66,10 +66,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								<div>
 									<h1><i class="fa fa-th-list"></i> 活動資訊</h1>
 									<br>
-									<form method="get" action="/WSSearchByDate" enctype="multipart/form-data">
-										活動開始時間 : <input type="date" id="EVENT_STARTIME" name="startTime" />
-										<button type="submit">查詢</button>
-									</form>
+
 								</div>
 								<ul class="app-breadcrumb breadcrumb side">
 									<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -153,13 +150,20 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 														<td><input type="text" value="${eventBean.organizer}"
 																name="ORGANIZER"></td>
 													</tr>
+
 													<tr>
-														<td><img alt="" src="${eventBean.picture}"></td>
+
+														<td>
+															<!-- <img alt="" src="${eventBean.picture}"> -->
+															<input class="form-control" type="file" name="PICTURE"
+																onchange="previewImage(event)">
+														</td>
 													</tr>
-													<tr>
-														<td><input type="file" name="PICTURE"></td>
-													</tr>
+
 												</table>
+
+												<img id="imgPreview" src="${eventBean.picture}"
+													style="max-width: 200px; max-height: 200px;" />
 												<!-- 	 <div class="img"> -->
 												<!-- <%-- <img class="imgInput" src="<%= eventBean.getPicture()%>" alt="">
 													--%> -->
@@ -182,9 +186,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 							</table>
 
 
-							<a href="html/WSinsert.html"><input type="submit" value="新增資料"></a>
 
-							<a href="WSall"><input type="submit" value="查詢所有資料"></a>
 
 							<!-- 	<form action="WSall" method="get"><input type="submit" value="查詢所有資料"></form> -->
 							</div>
@@ -192,32 +194,25 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 							</div>
 							<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 							<script src="https://cdn.datatables.net/v/dt/dt-2.0.1/datatables.min.js"></script>
-
+							<script>
+								// JavaScript
+								function previewImage(event) {
+									var input = event.target;
+									if (input.files && input.files[0]) {
+										var reader = new FileReader();
+										reader.onload = function (e) {
+											var imgPreview = document.getElementById("imgPreview");
+											imgPreview.src = e.target.result;
+										};
+										reader.readAsDataURL(input.files[0]);
+									}
+								}
+							</script>
 
 							<script src="
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
 		"></script>
-							<script>
-								// 定义一个函数，在点击按钮时显示确认是否删除的SweetAlert弹窗
-								function confirmDelete() {
-									// 调用SweetAlert函数，显示弹窗
-									Swal.fire({
-										title: '确认是否删除？',
-										text: '您确定要删除吗？',
-										icon: 'warning',
-										showCancelButton: true, // 显示取消按钮
-										confirmButtonText: '确认', // 确认按钮的文本
-										cancelButtonText: '取消' // 取消按钮的文本
-									}).then((result) => {
-										// 如果点击了确认按钮，则执行相应的操作
-										if (result.isConfirmed) {
-											// 在这里可以执行删除操作或者其他操作
-											// 此处仅作示例，可以替换为实际的操作代码
-											Swal.fire('已删除！', '您已成功删除记录。', 'success');
-										}
-									});
-								}
-							</script>
+
 
 
 							<!-- Essential javascripts for application to work-->
@@ -226,13 +221,14 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 							<script src="../../back/js/bootstrap.min.js"></script>
 							<script src="../../back/js/main.js"></script>
 							<!-- The javascript plugin to display page loading on top-->
-							<script src="../js/plugins/pace.min.js"></script>
+							<script src="../../back/js/plugins/pace.min.js"></script>
 							<!-- Page specific javascripts-->
 							<script type="text/javascript" src="../../back/js/plugins/chart.js"></script>
 							<script type="text/javascript"
 								src="../../back/js/plugins/jquery.dataTables.min.js"></script>
 							<script type="text/javascript"
 								src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
+
 
 							<script>
 								fetch('/back/exampleBack.html')
