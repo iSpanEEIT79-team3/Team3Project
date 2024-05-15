@@ -335,11 +335,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 		//             .then(html => {
 		//                 document.body.innerHTML += html;
 		//             });
-		fetch('basic.html')
-			.then(response => response.text())
-			.then(html => {
-				document.body.insertAdjacentHTML('beforeend', html);
-			});
+		  fetch('../basic.html')
+	.then(response => response.text())
+	.then(html => {
+		document.body.insertAdjacentHTML('beforeend', html);
+	});
 
 
 
