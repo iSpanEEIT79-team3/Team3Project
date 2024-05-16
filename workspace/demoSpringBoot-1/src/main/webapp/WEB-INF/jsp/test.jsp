@@ -17,6 +17,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: #ffffff; /* 背景色 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 盒子陰影 */
+        margin-bottom: 20px; /* 底部外邊距 */
+    }
+
+    .main-content {
+        width: 80%;
+        height: 300px; /* 調整高度 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        margin: 0 auto;
     }
 
     .big-table {
@@ -30,25 +43,27 @@
         padding: 10px;
     }
 
-    .small-table {
-        width: 100%;
-        border: 1px solid black;
-        text-align: center;
-        padding: 10px;
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s;
-    }
+.small-table {
+    width: 250px; /* 調整寬度 */
+    height: 350px; /* 調整高度 */
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+    margin: 10px auto; /* 增加垂直間距 */
+    position: relative; /* Added position relative */
+}
 
     .small-table:hover {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
     .user-container {
         position: relative;
         width: 100%;
-        
     }
 
     .user-details {
@@ -71,9 +86,10 @@
     }
 
     .button-container {
-        margin-top: 10px;
         display: flex;
         justify-content: center;
+        align-items: center;
+        margin-top: 10px;
     }
 
     .heart-button, .x-button {
@@ -102,15 +118,12 @@
         transform: scale(1.1);
     }
 
-   .img {
+.img {
     width: 100%;
-    height: auto;
-    max-width: 200px; /* 調整最大寬度 */
-    max-height: 200px; /* 調整最大高度 */
+    height: 100%;
     object-fit: cover;
     border-radius: 15px 15px 0 0;
 }
-
     .user-details p {
         margin: 5px 0;
     }
@@ -147,15 +160,15 @@
     integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $('#user_image').hover(showUserData, hideUserData);
+        $('.user-container').hover(showUserData, hideUserData);
     });
 
     function showUserData() {
-        $('#disabled_user_details').css("display", "block");
+        $(this).find('.user-details').css("display", "block");
     }
 
     function hideUserData() {
-        $('#disabled_user_details').css("display", "none");
+        $(this).find('.user-details').css("display", "none");
     }
 </script>
 <title>範本</title>
@@ -163,7 +176,12 @@
 
 <body>
     <div class="container-fluid" style="margin-top: 50px;"></div>
-    <div class="main"></div>
+    <div class="main">
+        <div class="main-content">
+            <!-- 您可以在這裡添加任何您想要顯示的主要內容 -->
+            這裡是主要內容區域，可以放置一些重要資訊或者圖片
+        </div>
+    </div>
 
     <table class="big-table">
         <c:forEach items="${matches}" var="user" varStatus="loop">
