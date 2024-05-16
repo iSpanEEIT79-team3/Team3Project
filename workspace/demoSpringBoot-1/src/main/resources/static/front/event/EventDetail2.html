@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-	<!-- 本頁網址http://localhost:8080/front/event/EventDetail.html -->
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -104,22 +103,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								<!-- 								                         <input type="hidden" id="eventName" name="EVENT_NAME" value=${eventName}> -->
 								<button class="btn btn-primary" type="submit">收藏活動到email</button>
 							</form>
-
 						</div>
-
+						<!-- 					<a href="/eventCollection"> -->
+						<!-- 						<button  class="btn btn-primary">收藏活動到email</button> -->
+						<!-- 					</a> -->
 					</div>
-					<!--------------------------- Map --------------------------------------------------->
-					<div class="row" style="margin:0;">
-
-						<div style="display:flex;">
-							<div id="map" style="width: 100% ;height:50vh;"></div>
-							<div style="padding: 16px;"></div>
-							<div id="mapsearch">
-								<!-- <input type="hidden" id="search-input"> -->
-							</div>
-						</div>
-					</div>
-					<!------------------------------ Map ------------------------------->
 				</div>
 
 				<div class="row">
@@ -146,6 +134,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
 
+
+
+
 	<script src="Timer.js"></script>
 	<!-- Timer -->
 	<script>
@@ -161,8 +152,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 			getTimer();
 		}); //windows.onload
 	</script>
-
-
 	<script>
 
 		// const queryString = window.location.search;
@@ -179,9 +168,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 			}).then(function (data) {
 				console.log("data=" + data);
 				console.log("userId=" + data.userId)
-
-				$('#mapsearch').append(`<input id="search-input" class="form-control" value=${data.eventLocation} name="EVENT_ADDRES">`)
-
 
 				$('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
             		    <input type="hidden" id="eventName" value=${data.eventName} name="EVENT_NAME">`)
@@ -241,79 +227,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 	<script src="
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
 		"></script>
-	<script>
-		let map;
-		let currentPosition;
-		let selectedRestaurant;
-		let marker;
-		let directionService;
-
-
-		function initMap() {
-			map = new google.maps.Map(document.getElementById('map'), {
-				center: { lat: 23.553118, lng: 121.0211024 },
-				zoom: 7,
-			});
-
-			navigator.geolocation.getCurrentPosition(function (position) {
-				currentPosition = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				};
-
-				map.setCenter(currentPosition);
-				map.setZoom(16);
-
-				const autocomplete = new google.maps.places.Autocomplete(
-					document.getElementById('search-input'),
-					{
-						types: ['restaurant'],
-						bound: {
-							east: currentPosition.lng + 0.001,
-							west: currentPosition.lng - 0.001,
-							south: currentPosition.lat - 0.001,
-							north: currentPosition.lat + 0.001,
-						},
-						strictBounds: false,
-					}
-				);
-
-				autocomplete.addListener('place_changed', function () {
-					const place = autocomplete.getPlace();
-
-					selectedRestaurant = {
-						location: place.geometry.location,
-						placeId: place.place_id,
-						name: place.name,
-						address: place.formatted_address,
-						phoneNumber: place.formatted_phone_number,
-						rating: place.rating,
-					};
-
-
-					console.log(selectedRestaurant);
-
-					map.setCenter(selectedRestaurant.location);
-
-					if (!marker) {
-						marker = new google.maps.Marker({
-							map: map,
-						});
-					}
-
-					marker.setPosition(selectedRestaurant.location);
-				});
-
-
-			});
-		}
-	</script>
-
-	<script async
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAgqI1p1boHUwEIE395YECgaaYngF9FIE&libraries=places&callback=initMap&region=TW&language=zh-TW">
-		</script>
-	<!-- Map -->
-
 
 	<script>
 
@@ -340,7 +253,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 						"userContactNew": { "contactId": data.userId },
 						"orderNote": "",
 						"orderDetails": [jsonObject]
-					};
+					}; 
 
 
 					// 使用 fetch 函數發送 POST 請求
@@ -422,11 +335,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 		//             .then(html => {
 		//                 document.body.innerHTML += html;
 		//             });
-		fetch('../basic.html')
-			.then(response => response.text())
-			.then(html => {
-				document.body.insertAdjacentHTML('beforeend', html);
-			});
+		  fetch('../basic.html')
+	.then(response => response.text())
+	.then(html => {
+		document.body.insertAdjacentHTML('beforeend', html);
+	});
 
 
 

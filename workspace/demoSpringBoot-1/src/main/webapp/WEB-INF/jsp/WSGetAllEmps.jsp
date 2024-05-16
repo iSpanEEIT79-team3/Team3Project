@@ -7,7 +7,7 @@
 
 					<!DOCTYPE html>
 					<html>
-
+<!--本頁網址 http://localhost:8080/WSall -->
 					<head>
 						<meta charset="UTF-8">
 						<title>活動資訊</title>
