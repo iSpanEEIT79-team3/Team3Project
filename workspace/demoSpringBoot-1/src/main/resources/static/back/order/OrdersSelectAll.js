@@ -15,10 +15,10 @@ thead.style.backgroundColor = '#EEBA7E';
 let headerRow = thead.insertRow();
 headerRow.innerHTML = '<th>訂單編號</th>' +
 	'<th>會員編號</th>' +
-	'<th>總金額</th>' +
+	
+	'<th>訂單日期</th>' +
 	'<th>付款狀態</th>' +
 	'<th>出貨狀態</th>' +
-	'<th>訂單日期</th>' +
 	'<th>出貨日期</th>' +
 	'<th>結帳截止日</th>' +
 	'<th>備註</th>' +
@@ -52,15 +52,40 @@ fetch("/orders", {
 			console.log(order);
 
 			let row = tbody.insertRow();
-			let flds = [order.orderId, order.userContactNew.contactId, order.totalPrice, order.payStatus, order.shippingStatus, order.orderDate, order.shippingDate, order.payDeadline, order.orderNote];
+			 let flds = [order.orderId, order.userContactNew.contactId, order.orderDate];
+			//let flds = [order.orderId, order.userContactNew.contactId, order.totalPrice, order.orderDate, order.payStatus, order.shippingStatus, order.shippingDate, order.payDeadline, order.orderNote];
 			for (let i = 0; i < flds.length; i++) {
 				row.insertCell(i).innerHTML = flds[i];
 
 			}
+			 let payStatusCell = row.insertCell(3);
+                let shippingStatusCell = row.insertCell(4);
+                let shippingDateCell = row.insertCell(5);
+                let payDeadlineCell = row.insertCell(6);
+                let orderNoteCell = row.insertCell(7);
+
+                payStatusCell.innerHTML = `
+                    <select>
+                        <option value="未付款" ${order.payStatus === '未付款' ? 'selected' : ''}>未付款</option>
+                        <option value="已付款" ${order.payStatus === '已付款' ? 'selected' : ''}>已付款</option>
+                    </select>`;
+
+                shippingStatusCell.innerHTML = `
+                    <select>
+                        <option value="未出貨" ${order.shippingStatus === '未出貨' ? 'selected' : ''}>未出貨</option>
+                        <option value="已出貨" ${order.shippingStatus === '已出貨' ? 'selected' : ''}>已出貨</option>
+                        <option value="不須出貨" ${order.shippingStatus === '不須出貨' ? 'selected' : ''}>不須出貨</option>
+                    </select>`;
+
+                shippingDateCell.innerHTML = `<input type="date" value="${order.shippingDate}">`;
+                payDeadlineCell.innerHTML = `<input type="date" value="${order.payDeadline}">`;
+                orderNoteCell.innerHTML = `<input type="text" value="${order.orderNote}">`;
+
 			// 插入內容
-			row.insertCell(flds.length).innerHTML = '<button class="btn btn-primary" onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
-			row.insertCell(flds.length+1).innerHTML = '<button class="btn btn-primary" onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
-			row.insertCell(flds.length+2).innerHTML = '<button class="btn btn-primary" onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
+			row.insertCell(8).innerHTML = '<button class="btn btn-primary" onclick="updateOrder(this, \'' + JSON.stringify(order).replace(/"/g, '&quot;') + '\')">更改</button>';
+			//row.insertCell(8).innerHTML = '<button class="btn btn-primary" onclick="updateOrder('+ JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
+			row.insertCell(9).innerHTML = '<button class="btn btn-primary" onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
+			row.insertCell(10).innerHTML = '<button class="btn btn-primary" onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
 		});
 		   fetch('../exampleBack.html')
     .then(response => response.text())

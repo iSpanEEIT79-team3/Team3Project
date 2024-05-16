@@ -26,7 +26,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="tile">
-					<div class="tile-title" onclick="toggleElementDisplay('insertOrder')" style="cursor: pointer;">
+					<div class="tile-title"
+						onclick="toggleElementDisplay('insertOrder')"
+						style="cursor: pointer;">
 						<h2>新增訂單</h2>
 					</div>
 					<div class="tile-body" id="insertOrder" style="display: none;">
@@ -58,7 +60,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="tile">
-				<div class="tile-title" onclick="toggleElementDisplay('selectOrder')" style="cursor: pointer;">
+					<div class="tile-title"
+						onclick="toggleElementDisplay('selectOrder')"
+						style="cursor: pointer;">
 						<h2>所有訂單</h2>
 					</div>
 					<div class="tile-body" id="selectOrder" style="display: none;">
@@ -70,28 +74,60 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6">
-            
-            <div class="bs-component">
-              <div class="modal" style="position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Modal body text goes here.</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="btn btn-primary" type="button">Save changes</button>
-                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+		<div class="modal-content" id="popup" style="display: none;">
+			<div class="modal-header">
+				<h5 class="modal-title">訂單詳情</h5>
+				<button class="close" type="button" id="closeButton">
+					<span>×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+
+						<section class="invoice">
+							<div class="row mb-4">
+								<div class="col-6">
+									<h2 class="page-header" id="Username"></h2>
+								</div>
+								<div class="col-6">
+									<h5 class="text-right" id='orderDetailTime'></h5>
+								</div>
+							</div>
+							<div class="row invoice-info">
+
+								<h5>&emsp;地址:</h5>
+								<p id="address"></p>
+								<h5>會員編號:</h5>
+								<p id="UserId"></p>
+								<h5>E-mail:</h5>
+								<p id="email"></p>
+								<h5>連絡電話:</h5>
+								<p id="phone"></p>
+							</div>
+							<div>
+								總金額:
+								<p id="totlePrice"></p>
+							</div>
+							<div class="row">
+								<div class="col-12 table-responsive">
+									<table class="table table-striped" id="readmoreTable">
+
+									</table>
+								</div>
+							</div>
+							<div class="row d-print-none mt-2"></div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+
+
+
 
 	</main>
 
