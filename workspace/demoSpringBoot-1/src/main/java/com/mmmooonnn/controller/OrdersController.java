@@ -97,8 +97,9 @@ public class OrdersController {
 	//刪除訂單
 	@DeleteMapping("/orders/{id}")
 	@Transactional
-	public void deleteOrder(@PathVariable("id") Long id) {
+	public String deleteOrder(@PathVariable("id") Long id) {
 		ordersDao.deleteById(id);
+		return "okay";
 	}
 	
 	

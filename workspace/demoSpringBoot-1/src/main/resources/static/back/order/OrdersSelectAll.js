@@ -84,7 +84,7 @@ fetch("/orders", {
 			// 插入內容
 			row.insertCell(8).innerHTML = '<button class="btn btn-primary" onclick="updateOrder(this, \'' + JSON.stringify(order).replace(/"/g, '&quot;') + '\')">更改</button>';
 			//row.insertCell(8).innerHTML = '<button class="btn btn-primary" onclick="updateOrder('+ JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>';
-			row.insertCell(9).innerHTML = '<button class="btn btn-primary" onclick="deleteOrder(' + order.orderId + ')">刪除</button>';		
+			row.insertCell(9).innerHTML = '<button class="btn btn-primary" onclick="deleteOrder(this,' + order.orderId + ')">刪除</button>';		
 			row.insertCell(10).innerHTML = '<button class="btn btn-primary" onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>';
 		});
 		   fetch('../exampleBack.html')
@@ -100,13 +100,27 @@ fetch("/orders", {
 	});
 
 
-function deleteOrder(orderId) {
-
-	fetch(`http://localhost:8080/orders/${orderId}`, {
-		method: 'delete'
-	})
-	//window.location.href = "http://localhost:8080/project3/OrderIndex.html";
-	location.reload();
+function deleteOrder(element, orderId) {
+    fetch(`http://localhost:8080/orders/${orderId}`, {
+        method: 'DELETE'
+    }).then(response => {
+        if (response.ok) {
+            return response.text(); 
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    }).then(data => {
+        if (data === 'okay') {
+			console.log(1);
+            let row = element.closest('tr');
+            row.remove();
+            console.log(2);
+        } else {
+            throw new Error('Unexpected response from server.');
+        }
+    }).catch(error => {
+        console.error('There was a problem with the fetch operation:', error.message);
+    });
 }
 
 
