@@ -79,12 +79,29 @@ public class UserController {
 	@GetMapping("/checkUserLogin")
 	public ResponseEntity<Map<String, String>> processActionCheckLogin(HttpSession session){
 		Map<String, String> response = new HashMap<String, String>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		Object result = session.getAttribute("usersBean");
 		if(result != null) {
 			System.out.println("會員登入中");
 			response.put("status", "登入成功");
 			response.put("username", ((UsersBeanNew) result).getUserContact().getName());
 			response.put("picture", ((UsersBeanNew) result).getPicture());
+			response.put("nickname", ((UsersBeanNew) result).getNickName());
+			response.put("gender", ((UsersBeanNew) result).getGender());
+			response.put("danceCharacter", ((UsersBeanNew) result).getDanceCharacter());
+			response.put("danceAge", ((UsersBeanNew) result).getDanceAge());
+			response.put("email", ((UsersBeanNew) result).getUserContact().getEmail());
+			response.put("phone", ((UsersBeanNew) result).getUserContact().getPhone());
+			response.put("address", ((UsersBeanNew) result).getUserContact().getAddress());
+			
+			if(((UsersBeanNew) result).getBirthday() != null) {
+				LocalDate birthday = ((UsersBeanNew) result).getBirthday();
+				String birthdayString = birthday.format(formatter);
+				response.put("birthday", birthdayString);
+			}else {
+				response.put("birthday", "無");
+			}
+			
 			
 			return ResponseEntity.ok().body(response);
 		}else {
@@ -422,31 +439,31 @@ public class UserController {
 	}
 	
 	@PutMapping("/Update")
-	public ModelAndView processActionUpdateUser(@RequestParam("name") String name,
+	public ModelAndView processActionUpdateUser(@RequestParam("userName") String name,
 												@RequestParam("nickName") String nickName,
 												@RequestParam("gender") String gender,
-												@RequestParam("userEmail") String email,
-												@RequestParam("password") String password,
 												@RequestParam("birthday") String birthday,
 												@RequestParam("phone") String phone,
 												@RequestParam("address") String address,
 												@RequestParam("danceCharacter") String danceCharacter,
 												@RequestParam("danceAge") String danceAge,
-												@RequestParam("picture") MultipartFile picture,
-												@RequestParam("idUser") Integer id) {
+												HttpSession session
+												) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
 		UserContactNew user  = new UserContactNew();
 		UsersBeanNew usersBean = new UsersBeanNew();
-		usersBean.setUserId(id);
+		UsersBeanNew users = (UsersBeanNew) session.getAttribute("usersBean");
+		
+		
+		usersBean.setUserId(users.getUserId());
 		user.setName(name);
 		usersBean.setNickName(nickName);
 		usersBean.setGender(gender);
-		user.setEmail(email);
-		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());		
-		usersBean.setPassword(encondPassword);
+		user.setEmail(users.getUserContact().getEmail());
+		usersBean.setPassword(users.getPassword());
 		
 		if(birthday != null) {
 			String dateUser =birthday;
@@ -463,50 +480,23 @@ public class UserController {
 		usersBean.setDanceCharacter(danceCharacter);
 		usersBean.setDanceAge(danceAge);
 		
-		//圖片
-		try {
-			if(!picture.isEmpty()) {
-				String fileName = picture.getOriginalFilename();
-				
-				String fileDir = resourceLoader.getResource("classpath:/static/userPicture").getFile().getAbsolutePath();
-				
-				File fileDirPath = new File(fileDir);
-				if (!fileDirPath.exists()) {
-			           fileDirPath.mkdirs();
-			    }
-				
-				//改檔名
-				String newFileName = user.getEmail()+ fileName.substring(fileName.lastIndexOf('.'));
-				
-				File uploadedFile = new File(fileDirPath, newFileName);
 
-			    picture.transferTo(uploadedFile); 
-			    usersBean.setPicture("/userPicture/"+newFileName);
-			}else {
-				UsersBeanNew old = uService2.findUserById(usersBean.getUserId());
-				System.out.println("沒更新圖片");
-				usersBean.setPicture(old.getPicture());
-			}
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		user.setContactId(id);
+		usersBean.setPicture(users.getPicture());
+		
+		user.setContactId(users.getUserId());
 		
 		usersBean.setUserContact(user);
 		usersBean.setThirdPartyLogin(0);
 		usersBean.setPermission(0);
-			System.out.println(user);
+			System.out.println(usersBean);
 			if(user.getEmail() != "") {
-				uService2.insert(usersBean);	
-				modelAndView.addObject("emailExists",false);
-				modelAndView.setViewName("/confirmUpdate");
+				uService2.insert(usersBean);
+				session.setAttribute("usersBean", usersBean);
+				modelAndView.setViewName("redirect:/UpdateUser");
 				return modelAndView;
 			}else {
-				System.out.println("信箱為空");
-				modelAndView.addObject("emailExists",true);
-				modelAndView.setViewName("/confirmUpdate");
+				System.out.println("修改失敗");
+				modelAndView.setViewName("redirect:/UpdateUser");
 				return modelAndView;
 			}
 		
