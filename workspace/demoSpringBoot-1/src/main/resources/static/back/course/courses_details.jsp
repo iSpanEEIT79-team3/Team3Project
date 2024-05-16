@@ -204,81 +204,6 @@
 
 
             </div>
-
-            <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
-            <script>
-                $(document).ready(function () {
-                    $("#registerCourseForm").submit(function (event) {
-                        event.preventDefault();
-                        var form = $(this);
-                        $.ajax({
-                            type: "POST",
-                            url: "/registerCourse",
-                            data: form.serialize(),
-                            success: function (response) {
-                                Swal.fire("Success", "Registration successful", "success");
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire("Error", "Registration failed: " + error, "error");
-                            }
-                        });
-                    });
-
-                    $("#sendCourseEmailForm").submit(function (event) {
-                        event.preventDefault();
-                        var form = $(this);
-                        $.ajax({
-                            type: "POST",
-                            url: "/sendCourseEmail",
-                            data: form.serialize(),
-                            success: function (response) {
-                                Swal.fire("Success", "Email sent successfully", "success");
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire("Error", "Email sending failed: " + error, "error");
-                            }
-                        });
-                    });
-                });
-            </script>
-            <script>
-
-                $(document).ready(function () {
-                    $("#registerCourseForm").submit(function (event) {
-                        event.preventDefault();
-                        var form = $(this);
-                        $.ajax({
-                            type: "POST",
-                            url: "/registerCourse",
-                            data: form.serialize(),
-                            success: function (response) {
-                                Swal.fire("Success", "Registration successful", "success");
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire("Error", "Registration failed: " + error, "error");
-                            }
-                        });
-                    });
-
-                    $("#sendCourseEmailForm").submit(function (event) {
-                        event.preventDefault();
-                        var form = $(this);
-                        $.ajax({
-                            type: "POST",
-                            url: "/sendCourseEmail",
-                            data: form.serialize(),
-                            success: function (response) {
-                                Swal.fire("Success", "Email sent successfully", "success");
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire("Error", "Email sending failed: " + error, "error");
-                            }
-                        });
-                    });
-                });
-            </script>
-
-
             <!-- Optional JavaScript; choose one of the two! -->
             <script>
 
@@ -288,7 +213,6 @@
                         document.body.innerHTML += html;
                     });
             </script>
-
         </body>
 
         </html>

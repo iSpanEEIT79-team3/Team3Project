@@ -31,6 +31,7 @@ public class CoursesControllerFront {
     @Autowired
     private JavaMailSender mailSender; // 添加郵件發送器
 	
+    //得到所有資訊
 	@GetMapping("/GetAllCoursesFront")
 	public ModelAndView processActionGetAllCourses() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -40,6 +41,7 @@ public class CoursesControllerFront {
 		return modelAndView;
 	}
 	
+	
 	@GetMapping("/GetTeacherCoursesFront")
 	@ResponseBody
 	public List<CoursesBean> processActionGetTeacherCourses() {
@@ -48,13 +50,13 @@ public class CoursesControllerFront {
 	}
 
 	
-//	
+	
 //	@GetMapping("/GetTeacherCoursesFront")
 //	public ModelAndView processActionGetTeacherCourses() {
 //	    ModelAndView modelAndView = new ModelAndView();
 //	    List<CoursesBean> teacherCourses = cService.getTeacherCourses();
 //	    modelAndView.addObject("teacherCourses", teacherCourses);
-//	    modelAndView.setViewName("Courses_index.html");
+//	    modelAndView.setViewName("courses_back_index.html");
 //	    return modelAndView;
 //	}
 
@@ -103,17 +105,30 @@ public class CoursesControllerFront {
             return ResponseEntity.ok().body("good");
         }
 
-    
-    //立即報名
     @PostMapping("/registerCourse")
-    public String registerCourse(@RequestParam("productId") Integer productId, HttpServletRequest request) {
+    @ResponseBody
+    public ResponseEntity<String> registerCourse(@RequestParam("productId") Integer productId, HttpSession session) {
         CoursesBean course = cService.findCourseById(productId);
-        HttpSession session = request.getSession();
-        // Assume there's a method to register the user to the course
-        cService.registerUserToCourse(course, session.getAttribute("user"));
-
-        return "registerUserToCourse"; // Redirect to a success page
+        UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+        if (course != null && user != null) {
+            cService.registerUserToCourse(course, user);
+            return ResponseEntity.ok("Registration successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+        }
     }
+
+    
+//    //立即報名
+//    @PostMapping("/registerCourse")
+//    public String registerCourse(@RequestParam("productId") Integer productId, HttpServletRequest request) {
+//        CoursesBean course = cService.findCourseById(productId);
+//        HttpSession session = request.getSession();
+//        // Assume there's a method to register the user to the course
+//        cService.registerUserToCourse(course, session.getAttribute("user"));
+//
+//        return "registerUserToCourse"; // Redirect to a success page
+//    }
 
     
     

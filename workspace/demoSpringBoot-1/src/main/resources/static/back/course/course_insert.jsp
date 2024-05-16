@@ -105,7 +105,7 @@
                 </tr>
                 <tr>
                     <td>課程圖片:</td>
-                    <td><input type="file" id="courseImage" name="courseImage" value="/images"/></td>
+                    <td><input type="file" id="courseImage" name="courseImage" /></td>
                 </tr>
                 <tr>
                     <td><input type="submit" value="Insert"></td>

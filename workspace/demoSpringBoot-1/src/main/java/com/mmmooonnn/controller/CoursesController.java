@@ -30,6 +30,8 @@ public class CoursesController {
 		return modelAndView;
 	}
 	
+
+
 	//html getall所有
 
 	@RestController
@@ -93,16 +95,20 @@ public class CoursesController {
         return modelAndView;
     }
     
-    
-	//修改
+    //修改
+
 	@PostMapping("/upd")
 	public String upd(@ModelAttribute("CoursesBean")CoursesBean coursesBean) {
 		cService.update(coursesBean);
+		
 //		return "redirect:/WEB-INF/jsp/courses_getall.jsp";		
 		//導向網址redirect: 字符串時，Spring MVC 會生成一個 HTTP 重定向響應（HTTP 狀態碼 302），並將用戶的瀏覽器導向到指定的路徑
 		return "redirect:GetAllCourses";		
 	}
-    
+
+
+
+    //刪除
 	@DeleteMapping("/DeleteById")
 	public ModelAndView processActionDeleteCourse(@RequestParam("courseID") Integer id) {
 		ModelAndView modelAndView = new ModelAndView();
