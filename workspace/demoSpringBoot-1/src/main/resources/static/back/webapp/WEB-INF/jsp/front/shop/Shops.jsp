@@ -58,16 +58,33 @@
  <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
+    
+    	<div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>New product</h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <ul class="filter__controls">
+                    <li class="active mixitup-control-active" data-filter="*">All</li>
+                    <li data-filter=".Jacket">Jacket</li>
+                    <li data-filter=".Clothes">Clothes</li>
+                    <li data-filter=".Pants">Pants</li>
+                </ul>
+            </div>
+        </div>
+    
         <div class="row property__gallery">
         
         <c:forEach items="${shops}" var="shop">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women" style="">
+            <div class="col-lg-3 col-md-4 col-sm-6 mix ${shop.productType}" style="">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="${shop.productImg}" style="background-image: url(&quot;${shop.productImg}&quot;);">
                         <ul class="product__hover">
                             <li><a href="${shop.productImg}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                            <li><a href="/Shopproduct/${shop.productId}"><span class="icon_bag_alt"></span></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">

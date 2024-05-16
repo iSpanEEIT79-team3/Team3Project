@@ -47,32 +47,47 @@
 <body class>
 
 
-    <div class="container-fluid" style="margin-top: 150px;">
-        <h2 class="text-center">標題</h2>
+    <div class="container-fluid" style="margin-top: 75px;">
     </div>
     <!-- <section> -->
     <div class="main">    
-    <p>這裡是shops.jsp</p>
  
  
  <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
+        
+         <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>JFSwing Shop</h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <ul class="filter__controls">
+                    <li class="active mixitup-control-active" data-filter="*">All</li>
+                    <li data-filter=".Jacket">Jacket</li>
+                    <li data-filter=".Clothes">Clothes</li>
+                    <li data-filter=".Pants">Pants</li>
+                </ul>
+            </div>
+        </div>
+        
+        
         <div class="row property__gallery">
         
         <c:forEach items="${shops}" var="shop">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women" style="">
+            <div class="col-lg-3 col-md-4 col-sm-6 mix ${shop.productType}" style="">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="${shop.productImg}" style="background-image: url(&quot;${shop.productImg}&quot;);">
                         <ul class="product__hover">
                             <li><a href="${shop.productImg}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                            <li><a href="/Shopproduct/${shop.productId}"><span class="icon_bag_alt"></span></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
-                        <h6><a href="/Shopproduct/${shop.productId}">${shop.productName}</a></h6>
-                        <div class="product__price">NT$ ${shop.productPrice}</div>
+                        <h4><a href="/Shopproduct/${shop.productId}" style="color: black;">${shop.productName}</a></h4>
+                        <div class="product__price" style="color: red;">NT$ ${shop.productPrice}</div>
                     </div>
                 </div>
             </div>

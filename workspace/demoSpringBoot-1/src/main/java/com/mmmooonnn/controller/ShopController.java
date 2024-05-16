@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -39,16 +40,7 @@ import java.util.Map;
 
 @Controller
 public class ShopController {
-//getAll 			get123 re.GetAllShops
-//getAllShop		get123 re.Shops
-//findByproductid
-//findByproductname
-//findByproducttype
-//
-//
-//
-//
-//
+
     @Autowired
     private ShopService shopService;
     
@@ -59,7 +51,7 @@ public class ShopController {
     private ShopQuantityService shopQuanService;
 
 //搜尋全部
-    @GetMapping("/getAll")
+    @GetMapping("/getAllShops")
     public String getAll(Model model) {
     	List<ShopBean> shops = shopService.findAll();
     	List<ShopImgBean> shopImgs = shopImgService.findAll();
@@ -67,8 +59,9 @@ public class ShopController {
         model.addAttribute("shops", shops);
         model.addAttribute("shopImgs", shopImgs);
         model.addAttribute("shopQuan", shopQuan);
-        return "forward:/WEB-INF/jsp/GetAllShops.jsp";
+        return "forward:/WEB-INF/jsp/back/shop/GetAllShops.jsp";
     	}
+    /*
     @GetMapping("/getAllShop")
     public String getAllShop(Model model) {
     	List<ShopBean> shops = shopService.findAll();
@@ -79,6 +72,7 @@ public class ShopController {
         model.addAttribute("shopQuan", shopQuan);
         return "forward:/WEB-INF/jsp/Shops.jsp";
     	}
+    */
     @GetMapping("/getAllShopTest")
     public String getAllShopTest(Model model) {
     	List<ShopBean> shops = shopService.findAll();
@@ -88,6 +82,17 @@ public class ShopController {
     	model.addAttribute("shopImgs", shopImgs);
     	model.addAttribute("shopQuan", shopQuan);
     	return "forward:/WEB-INF/jsp/front/shop/Shops.jsp";
+    }    
+    @GetMapping("/openbackshop")
+    public String openbackshop(Model model) {
+    	List<ShopBean> shops = shopService.findAll();
+    	List<ShopImgBean> shopImgs = shopImgService.findAll();
+    	List<ShopQuantityBean> shopQuan = shopQuanService.findAll();
+    	model.addAttribute("shops", shops);
+    	model.addAttribute("shopImgs", shopImgs);
+    	model.addAttribute("shopQuan", shopQuan);
+    	return "forward:/WEB-INF/jsp/back/shop/backShop.jsp";
+    	
     }
 
 //用id搜尋
@@ -238,6 +243,14 @@ public class ShopController {
         model.addAttribute("shops", shops);
         model.addAttribute("shopImgs", shopImgs);
         model.addAttribute("shopQuan", shopQuan);
+        
+        List<ShopBean> allShops  = shopService.findAll();
+        // 随机打乱列表
+        Collections.shuffle(allShops );
+        // 取前 4 条数据
+        List<ShopBean> randomShops = allShops.subList(0, Math.min(4, allShops.size()));
+        model.addAttribute("randomShops", randomShops);
+        
         return "forward:/WEB-INF/jsp/front/shop/ShopsDetails.jsp";
     }
     

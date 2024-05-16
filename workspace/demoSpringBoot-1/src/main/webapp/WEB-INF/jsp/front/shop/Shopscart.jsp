@@ -61,13 +61,10 @@
 
 <body>
 
-    <div class="container-fluid" style="margin-top: 150px;">
-        <h2 class="text-center">標題</h2>
+    <div class="container-fluid" style="margin-top: 75px;">
     </div>
     <!-- <section> -->
     <div class="main">    
-    <p>這裡是Shopscart.jsp</p>
-    
        <!-- Shop Cart Section Begin -->
     <section class="shop-cart spad">
         <div class="container">
@@ -111,27 +108,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn">
-                        <a href="#">繼續購物</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn update__btn">
-                        <a href="#"><span class="icon_loading"></span>刷新購物車</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="discount__content">
-                        <h6>輸入優惠碼</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your coupon code">
-                            <button type="submit" class="site-btn">Apply</button>
-                        </form>
-                    </div>
                 </div>
                 <div class="col-lg-4 offset-lg-2">
                     <div class="cart__total__procced">
@@ -214,7 +193,7 @@
 	            });
 	        });
 
-	        // 更新对应商品的总计
+	        // 更新單個商品的總計
 	        function updateProductTotal(input) {
 	            var quantity = parseInt(input.value);
 	            var price = parseFloat(input.getAttribute('data-price'));
@@ -223,7 +202,7 @@
 	            totalCell.textContent = 'NT$' + totalPrice;
 	        }
 
-	        // 更新总价的函数
+	        //更新總價格
 	        function updateTotalPrice() {
 	            var totalPrice = 0;
 
@@ -244,9 +223,10 @@
                     data: { index: index }, //回傳productId 跟serv講說要刪哪行
                     success: function (response) {
                     	alert('刪除成功');
-                        $('tr[data-no="' + index + '"]').remove(); //在網頁上刪除那行
+                        //$('tr[data-no="' + index + '"]').remove(); //在網頁上刪除那行
+                    	//updateTotalPrice();
                         //刷新頁面
-                        //location.reload();
+                        location.reload();
                     },
                     error: function () {
                         alert('刪除失敗');

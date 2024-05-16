@@ -46,12 +46,10 @@
 
 <body>
 
-    <div class="container-fluid" style="margin-top: 150px;">
-        <h2 class="text-center">標題</h2>
+    <div class="container-fluid" style="margin-top: 75px;">
     </div>
     <!-- <section> -->
     <div class="main">    
-    <p>這裡是shopDetails.jsp</p>
 
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
@@ -92,7 +90,7 @@
                         <h3>${shop.productName}</h3>
 
                         <div class="product__details__price">NT$${shop.productPrice}</div>
-                        <p>${shop.productIntroduce}</p>
+                        <p>商品材質:<br>${shop.productIntroduce}</p>
                         <div class="product__details__button">
                             <div class="quantity">
                                 <span>數量</span>
@@ -103,10 +101,6 @@
                                 </div>
                             </div>
                             <a href="#" class="cart-btn"><span class="icon_bag_alt"></span>加入購物車</a>
-                            <ul>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                            </ul>
                         </div>
                         <div class="product__details__widget">
                             <ul>
@@ -141,79 +135,30 @@
                 </div>
                 </c:forEach>
             </div>
-			<br>
-			<br>
-			<br>
+            <div class="container-fluid" style="margin-top: 175px;"></div>
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="related__title">
                         <h3>你可能會喜歡的商品</h3>
                     </div>
-                    <a href="/Shopproduct/getShopcart" class="btn btn-primary">前往購物車</a>
                 </div>
+                    <div class="container-fluid" style="margin-top: 20px;"></div>
+                <c:forEach items="${randomShops}" var="randomShops">
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../images/dog1.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="../${randomShops.productImg}">
                             <ul class="product__hover">
-                                <li><a href="../images/dog1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                <li><a href="../${randomShops.productImg}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                <li><a href="/Shopproduct/${randomShops.productId}"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">Buttons tweed blazer</a></h6>
-                            <div class="product__price">$ 59.0</div>
+                            <h4><a href="/Shopproduct/${randomShops.productId}" style="color: black;">${randomShops.productName}</a></h4>
+                            <div class="product__price" style="color: red;">NT$ ${randomShops.productPrice}</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../images/cat1.jpg">
-                            <ul class="product__hover">
-                                <li><a href="../images/cat1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Flowy striped skirt</a></h6>
-
-                            <div class="product__price">$ 49.0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../images/cat2.jpg">
-                            <ul class="product__hover">
-                                <li><a href="../images/cat2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Cotton T-Shirt</a></h6>
-
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../images/cat3.jpg">
-                            <ul class="product__hover">
-                                <li><a href="../images/cat3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Slim striped pocket shirt</a></h6>
-
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
+       		 </c:forEach>
             </div>
         </div>
     </section>

@@ -161,13 +161,4 @@ public class ShopImgController {
     }
 }
 
-    
-    //修改
-//    @PutMapping("/update")
-//    public ResponseEntity<String> updateShopImg(Model modelm,
-//    											@RequestParam()
-//    											
-//    											){
-//    	
-//    }
 }
