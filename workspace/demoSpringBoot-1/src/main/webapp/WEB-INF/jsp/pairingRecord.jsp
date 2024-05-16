@@ -63,44 +63,60 @@
 
 	</main>
 
-	<script type="text/javascript"
-            src="../../back/js/plugins/jquery.dataTables.min.js"></script>
-        <script type="text/javascript"
-            src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript">$('#page').DataTable();</script>
+	</script>
+
+
 	<!-- Essential javascripts for application to work-->
-    <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="../js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <script type="text/javascript" src="../js/plugins/chart.js"></script>
-    <script type="text/javascript" src="../js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../js/plugins/dataTables.bootstrap.min.js"></script>
-    <script>
-        fetch('/html/exampleBack.html')
-            .then(response => response.text())
-            .then(html => {
-                document.body.insertAdjacentHTML('beforeend', html);
-            });
+	<script src="../../back/js/jquery-3.2.1.min.js"></script>
+	<script src="../../back/js/popper.min.js"></script>
+	<script src="../../back/js/bootstrap.min.js"></script>
+	<script src="../../back/js/main.js"></script>
+	<!-- The javascript plugin to display page loading on top-->
+	<script src="../../back/js/plugins/pace.min.js"></script>
+	<!-- Page specific javascripts-->
+	<script type="text/javascript" src="../../back/js/plugins/chart.js"></script>
+	<script type="text/javascript"
+		src="../../back/js/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
+
+	<script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+	<!-- Google analytics script-->
+	<script type="text/javascript">
+								if (document.location.hostname == 'pratikborsadiya.in') {
+									(function (i, s, o, g, r, a, m) {
+										i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+											(i[r].q = i[r].q || []).push(arguments)
+										}, i[r].l = 1 * new Date(); a = s.createElement(o),
+											m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+									})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+									ga('create', 'UA-72504830-1', 'auto');
+									ga('send', 'pageview');
+								}
+
+							</script>
+
+	<script>
+								fetch('/back/exampleBack.html')
+									.then(response => response.text())
+									.then(html => {
+										document.body.insertAdjacentHTML('beforeend', html);
+									});
 
 
 
-        function RWDTest() {
-            //let RWD = document.getElementsByClassName("RWDTest");
-            let RWD = document.body;
-            if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
-                RWD.className = "app sidebar-mini rtl pace-done";
-            } else {
-                RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
-            }
-        }
+								function RWDTest() {
+									//let RWD = document.getElementsByClassName("RWDTest");
+									let RWD = document.body;
+									if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+										RWD.className = "app sidebar-mini rtl pace-done";
+									} else {
+										RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+									}
+								}
 
-    </script>
-
+							</script>
 </body>
 
-</html>
 </html>
