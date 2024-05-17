@@ -97,6 +97,7 @@
 					                 </c:forEach>
 					                </tbody>
 					              </table>
+					              <button onclick="addProductRow()">新增商品</button>
 					            </div>
 					          </div>
 					        </div>
@@ -210,7 +211,7 @@
                 lSize: $('tr[data-no="' + productId + '"] td:eq(9)').text().trim(),
                 xlSize: $('tr[data-no="' + productId + '"] td:eq(10)').text().trim()
             };
-		        // 創建下拉式選單的 HTML 字串
+		        // 創建下拉式選單的 HTML 字串R
 	        var selectHTML = '<select style="width:75px;" name="productType">';
 	            selectHTML += '<option value="Jacket" ' + (originalValues[productId].productType === 'Jacket' ? 'selected' : '') + '>Jacket</option>';
 		        selectHTML += '<option value="Clothes" ' + (originalValues[productId].productType === 'Clothes' ? 'selected' : '') + '>Clothes</option>';
@@ -314,7 +315,7 @@
 //新增商品
         function addProductRow() {
             // 在表格最後一行插入新的行
-            $('table').append('<tr class="row" data-no="-1">' +
+            $('table').append('<tr data-no="-1">' +
                 '<td name="newNo"></td>' +
                 '<td name="newImg"></td>' +
                 '<td><input type="text" name="newProduct"></td>' +
