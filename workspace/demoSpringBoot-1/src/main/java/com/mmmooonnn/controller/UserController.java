@@ -447,6 +447,7 @@ public class UserController {
 												@RequestParam("address") String address,
 												@RequestParam("danceCharacter") String danceCharacter,
 												@RequestParam("danceAge") String danceAge,
+												@RequestParam("picture") MultipartFile picture,
 												HttpSession session
 												) {
 		
@@ -464,13 +465,11 @@ public class UserController {
 		usersBean.setGender(gender);
 		user.setEmail(users.getUserContact().getEmail());
 		usersBean.setPassword(users.getPassword());
+		System.out.println(birthday+"生日");
+		if(birthday == null || birthday.trim().isEmpty()) {
 		
-		if(birthday != null) {
-			String dateUser =birthday;
-			LocalDate localDate = LocalDate.parse(dateUser,date);
-			usersBean.setBirthday(localDate);			
 		}else {
-			String dateUser ="1911-01-01";
+			String dateUser =birthday;
 			LocalDate localDate = LocalDate.parse(dateUser,date);
 			usersBean.setBirthday(localDate);
 		}
@@ -480,25 +479,99 @@ public class UserController {
 		usersBean.setDanceCharacter(danceCharacter);
 		usersBean.setDanceAge(danceAge);
 		
-
-		usersBean.setPicture(users.getPicture());
-		
+		//圖片
+				try {
+					if(!picture.isEmpty() ) {
+						String fileName = picture.getOriginalFilename();
+						
+						String fileDir = resourceLoader.getResource("classpath:/static/userPicture").getFile().getAbsolutePath();
+						
+						File fileDirPath = new File(fileDir);
+						if (!fileDirPath.exists()) {
+					           fileDirPath.mkdirs();
+					    }
+						
+						//改檔名
+						String newFileName = user.getEmail()+ fileName.substring(fileName.lastIndexOf('.'));
+						
+						File uploadedFile = new File(fileDirPath, newFileName);
+					    // 将檔案寫入本機
+					    picture.transferTo(uploadedFile); 
+					    usersBean.setPicture("/userPicture/"+newFileName);
+					}else {
+						usersBean.setPicture(users.getPicture());
+					}
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		user.setContactId(users.getUserId());
 		
 		usersBean.setUserContact(user);
 		usersBean.setThirdPartyLogin(0);
 		usersBean.setPermission(0);
-			System.out.println(usersBean);
-			if(user.getEmail() != "") {
+
 				uService2.insert(usersBean);
 				session.setAttribute("usersBean", usersBean);
 				modelAndView.setViewName("redirect:/UpdateUser");
 				return modelAndView;
-			}else {
-				System.out.println("修改失敗");
-				modelAndView.setViewName("redirect:/UpdateUser");
-				return modelAndView;
-			}
+
 		
+	}
+	
+	@PutMapping("/UpdatePassword")
+	public ModelAndView processActionUpdateUserPassword(@RequestParam("newpassword") String password,
+												HttpSession session
+												) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		UserContactNew user  = new UserContactNew();
+		UsersBeanNew usersBean = new UsersBeanNew();
+		UsersBeanNew users = (UsersBeanNew) session.getAttribute("usersBean");
+		
+		
+		usersBean.setUserId(users.getUserId());
+		user.setName(users.getUserContact().getName());
+		usersBean.setNickName(users.getNickName());
+		usersBean.setGender(users.getGender());
+		user.setEmail(users.getUserContact().getEmail());
+		usersBean.setBirthday(users.getBirthday());
+		user.setPhone(users.getUserContact().getPhone());
+		user.setAddress(users.getUserContact().getAddress());
+		usersBean.setDanceCharacter(users.getDanceCharacter());
+		usersBean.setDanceAge(users.getDanceAge());
+		usersBean.setPicture(users.getPicture());
+		user.setContactId(users.getUserId());
+		//密碼
+		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());		
+		usersBean.setPassword(encondPassword);
+		
+		
+		
+		
+		
+		usersBean.setUserContact(user);
+		usersBean.setThirdPartyLogin(0);
+		usersBean.setPermission(0);
+		
+		uService2.insert(usersBean);
+		session.setAttribute("usersBean", usersBean);
+		modelAndView.setViewName("redirect:/UpdateUser");
+		return modelAndView;
+		
+	}
+	@PostMapping("/validatePassword")
+	public ResponseEntity<String> validatePassword(@RequestParam("password") String password,
+													HttpSession session){
+		
+		UsersBeanNew usersBean = (UsersBeanNew) session.getAttribute("usersBean");
+		
+		boolean flag = BCrypt.checkpw(password,usersBean.getPassword());
+		if(flag) {
+			return ResponseEntity.ok().body("登入成功");
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("密碼錯誤");
 	}
 }
