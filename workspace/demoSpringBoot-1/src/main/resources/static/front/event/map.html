@@ -22,6 +22,7 @@
         let selectedRestaurant;
         let marker;
         let directionService;
+        let directionsRenderer;
 
 
         function initMap() {
@@ -42,7 +43,7 @@
                 const autocomplete = new google.maps.places.Autocomplete(
                     document.getElementById('search-input'),
                     {
-                        types: ['restaurant'],
+                       
                         bound: {
                             east: currentPosition.lng + 0.001,
                             west: currentPosition.lng - 0.001,
@@ -77,6 +78,30 @@
                     }
 
                     marker.setPosition(selectedRestaurant.location);
+                    
+                    if(!directionsService){
+                    	directionsService = new google.maps.DirectionsService();
+                    	
+                    }
+                    if(!directionsRenderer){
+                    	directionsRender= new google.maps.DirectionsRenderer({
+                    		map:map,
+                    	});
+                    }
+                    
+                    directionRenderer.set('direction',null);
+                    
+                    directionService.route({
+                    	origin:new google.maps.LatLng(
+                    			currentPosition.lat,
+                    			currentPosition.lng
+                    			),
+                    			destination:{
+                    				placeId:selectedRestaurant.placeId,
+                    			},
+	
+                    })
+                    
                 });
 
 

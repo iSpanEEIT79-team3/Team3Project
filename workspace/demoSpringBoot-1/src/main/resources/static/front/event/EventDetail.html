@@ -38,6 +38,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet">
 
 	<title>JFSwing Website</title>
+	<style>
+	.map-container {
+            margin-top: 2px; /* 調整這個值來增加或減少距離 */
+        }
+        
+     </style>
 
 
 </head>
@@ -104,19 +110,21 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								<!-- 								                         <input type="hidden" id="eventName" name="EVENT_NAME" value=${eventName}> -->
 								<button class="btn btn-primary" type="submit">收藏活動到email</button>
 							</form>
+						
 
 						</div>
 
 					</div>
+					
 					<!--------------------------- Map --------------------------------------------------->
 					<div class="row" style="margin:0;">
 
 						<div style="display:flex;">
+					
 							<div id="map" style="width: 100% ;height:50vh;"></div>
-							<div style="padding: 16px;"></div>
-							<div id="mapsearch">
-								<!-- <input type="hidden" id="search-input"> -->
-							</div>
+						</div>
+								
+							
 						</div>
 					</div>
 					<!------------------------------ Map ------------------------------->
@@ -177,13 +185,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 			fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
 				return response.json();
 			}).then(function (data) {
-				console.log("data=" + data);
-				console.log("userId=" + data.userId)
-
-				$('#mapsearch').append(`<input id="search-input" class="form-control" value=${data.eventLocation} name="EVENT_ADDRES">`)
-
-
-				$('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
+			$('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
             		    <input type="hidden" id="eventName" value=${data.eventName} name="EVENT_NAME">`)
 
 				$('#fetchPicture').append(`<img src="${data.picture}"
@@ -226,7 +228,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                             </tr>
                             <tr>
                                 <td class="vertical-header border-bottom">活動地址</td>
-                                <td>${data.eventLocation}</td>
+                                <td id="address">${data.eventLocation}</td>
                             </tr>
                             <tr>
                                 <td class="vertical-header border-bottom">組織者</td>
@@ -242,71 +244,111 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
 		"></script>
 	<script>
-		let map;
-		let currentPosition;
-		let selectedRestaurant;
-		let marker;
-		let directionService;
+// 		let map;
+// 		let currentPosition;
+// 		let selectedRestaurant;
+// 		let marker;
+// 		let directionService;
 
 
-		function initMap() {
-			map = new google.maps.Map(document.getElementById('map'), {
-				center: { lat: 23.553118, lng: 121.0211024 },
-				zoom: 7,
-			});
+		 window.onload = function () {
 
-			navigator.geolocation.getCurrentPosition(function (position) {
-				currentPosition = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				};
+            function getLatLngFromAddress(address) {
+                return new Promise((resolve, reject) => {
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'address': address }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            var latitude = results[0].geometry.location.lat();
+                            var longitude = results[0].geometry.location.lng();
+                            resolve({ lat: latitude, lng: longitude });
+                        } else {
+                            reject(new Error('Geocoding failed: ' + status));
+                        }
+                    });
+                });
+            }
 
-				map.setCenter(currentPosition);
-				map.setZoom(16);
+            var addressText = document.querySelector("#address").innerHTML;
+            console.log(addressText);
+            getLatLngFromAddress(addressText)
+                .then(latLng => {
+                    console.log('Latitude:', latLng.lat);
+                    console.log('Longitude:', latLng.lng);
 
-				const autocomplete = new google.maps.places.Autocomplete(
-					document.getElementById('search-input'),
-					{
-						types: ['restaurant'],
-						bound: {
-							east: currentPosition.lng + 0.001,
-							west: currentPosition.lng - 0.001,
-							south: currentPosition.lat - 0.001,
-							north: currentPosition.lat + 0.001,
-						},
-						strictBounds: false,
-					}
-				);
+                    var mapOptions = {
+                        center: { lat: latLng.lat, lng: latLng.lng }, // 設置地圖的中心位置
+                        zoom: 17 // 設置地圖的縮放級別
+                    };
 
-				autocomplete.addListener('place_changed', function () {
-					const place = autocomplete.getPlace();
+                    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-					selectedRestaurant = {
-						location: place.geometry.location,
-						placeId: place.place_id,
-						name: place.name,
-						address: place.formatted_address,
-						phoneNumber: place.formatted_phone_number,
-						rating: place.rating,
-					};
-
-
-					console.log(selectedRestaurant);
-
-					map.setCenter(selectedRestaurant.location);
-
-					if (!marker) {
-						marker = new google.maps.Marker({
-							map: map,
-						});
-					}
-
-					marker.setPosition(selectedRestaurant.location);
-				});
+                    var marker = new google.maps.Marker({
+                        position: { lat: latLng.lat, lng: latLng.lng },
+                        map: map,
+                        title: '我家'
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                });
 
 
-			});
-		}
+        };
+
+// 			map = new google.maps.Map(document.getElementById('map'), {
+// 				center: { lat: 23.553118, lng: 121.0211024 },
+// 				zoom: 7,
+// 			});
+
+// 			navigator.geolocation.getCurrentPosition(function (position) {
+// 				currentPosition = {
+// 					lat: position.coords.latitude,
+// 					lng: position.coords.longitude,
+// 				};
+
+// 				map.setCenter(currentPosition);
+// 				map.setZoom(16);
+
+// 				const autocomplete = new google.maps.places.Autocomplete(
+// 					document.getElementById('search-input'),
+// 					{
+					
+// 						bound: {
+// 							east: currentPosition.lng + 0.001,
+// 							west: currentPosition.lng - 0.001,
+// 							south: currentPosition.lat - 0.001,
+// 							north: currentPosition.lat + 0.001,
+// 						},
+// 						strictBounds: false,
+// 					}
+// 				);
+
+// 				autocomplete.addListener('place_changed', function () {
+// 					const place = autocomplete.getPlace();
+
+// 					selectedRestaurant = {
+// 						location: place.geometry.location,
+// 						placeId: place.place_id,
+// 						name: place.name,
+// 						address: place.formatted_address,
+// 						phoneNumber: place.formatted_phone_number,
+// 						rating: place.rating,
+// 					};
+// 					console.log(selectedRestaurant);
+// 					map.setCenter(selectedRestaurant.location);
+
+// 					if (!marker) {
+// 						marker = new google.maps.Marker({
+// 							map: map,
+// 						});
+// 					}
+
+// 					marker.setPosition(selectedRestaurant.location);
+// 				});
+
+
+// 			});
+		
 	</script>
 
 	<script async
