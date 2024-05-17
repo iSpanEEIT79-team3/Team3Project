@@ -86,5 +86,11 @@ public class MatchesController {
 		
 		return modelAndView;
 	}
+	
+	@GetMapping("/Openaaaccc")
+	public String processActionAaaccc() {
+		return  "forward:/WEB-INF/jsp/aaaccc.jsp";
+	}
+	
 
 }
