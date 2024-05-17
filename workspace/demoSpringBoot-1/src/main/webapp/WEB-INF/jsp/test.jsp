@@ -249,22 +249,7 @@ body {
 			</c:if>
 		</c:forEach>
 	</table>
-	<footer>
-		<!-- 頁腳內容 -->
-		<div class="footer-content">
-			<div class="social-media">
-				<p>Follow us on social media to get the latest updates</p>
-				<a href="#"><i class="fab fa-youtube"></i></a> <a href="#"><i
-					class="fab fa-facebook"></i></a> <a href="#"><i
-					class="fab fa-instagram"></i></a>
-			</div>
-			<div class="newsletter">
-				<p>Enter your email to view the list of your registered events</p>
-				<input type="email" placeholder="email address">
-				<button>Submit</button>
-			</div>
-		</div>
-	</footer>
+
 	<script>
         fetch('/html/basic.html')
             .then(response => response.text())
