@@ -10,31 +10,19 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <!-- Main CSS-->
-            <link rel="stylesheet" type="text/css" href="../../back/css/main.css">
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/back/css/main.css">
             <!-- Font-icon css-->
             <link rel="stylesheet" type="text/css"
                 href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <style>
                 .course-image {
                     max-width: 88px;
-                    /* Set the maximum width */
                     max-height: 88px;
-                    /* Set the maximum height */
-                    /* Add other styles as needed */
                 }
 
-                lt-container {
+                .lt-container {
                     overflow: auto;
-                    /* 清除浮動 */
                 }
-
-                /*
-.lt {
-    position: absolute;
-    left: 580px;
-    float: center;
-    width: 50%;
-}*/
 
                 .lt-table {
                     width: 100%;
@@ -51,39 +39,33 @@
                 .lt th {
                     background-color: #d8dbd9;
                     padding: 3px;
-
                 }
 
                 input,
                 button {
-                    /* Apply styles to both input and button elements */
                     border: 0;
                     background-color: #4f85a6;
                     color: #fff;
                     border-radius: 10px;
                     padding: 8px 16px;
-                    /* Adjust padding to your liking */
                     cursor: pointer;
-                    /* Makes it clear that the element is clickable */
                 }
 
                 input:hover,
-                button:hover
+                button:hover {
+                    background-color: #3a6a8a;
                 }
 
                 a {
                     text-decoration: none;
-                    /* Removes underline from links */
                 }
 
                 .table {
                     padding: 3px;
-
                 }
 
                 .box {}
             </style>
-
         </head>
 
         <body class="app sidebar-mini rtl pace-done">
@@ -95,8 +77,9 @@
                     <button id="json">匯出json</button>
                     <button id="xml">匯出xml</button>
                     <button id="excel">匯出excel</button>
+
                     <div class="col-12 box">
-                        <table id="coursesTable" class="table">
+                        <table id="coursesTable" class="table lt-table">
                             <thead>
                                 <tr>
                                     <th>用戶ID</th>
@@ -137,7 +120,8 @@
                                         <td>${course.teacherContact}</td>
                                         <td>${course.enrollmentCount}</td>
                                         <td>${course.maxCapacity}</td>
-                                        <td><img src="${course.courseImage}" style="width: 100px; height: 100px;"></td>
+                                        <td><img src="${course.courseImage}" class="course-image" alt="Course Image">
+                                        </td>
                                         <td><a href="/GetCourseById/${course.productId}"><button>修改</button></a></td>
                                         <td>
                                             <form method="post" action="/DeleteById?courseID=${course.productId}">
@@ -150,52 +134,26 @@
                             </tbody>
                         </table>
                     </div>
-
                     <td><a href="/course-insert"><button>新增資料</button></a></td>
                     <td><a href="/index"><button>回首頁</button></a></td>
                 </div>
             </main>
 
-
-            <script type="text/javascript" src="../../back/js/plugins/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
-            <script type="text/javascript">$('#page').DataTable();</script>
-
             <!-- Essential javascripts for application to work-->
-            <script src="../../back/js/jquery-3.2.1.min.js"></script>
-            <script src="../../back/js/popper.min.js"></script>
-            <script src="../../back/js/bootstrap.min.js"></script>
-            <script src="../../back/js/main.js"></script>
+            <script src="${pageContext.request.contextPath}/back/js/jquery-3.2.1.min.js"></script>
+            <script src="${pageContext.request.contextPath}/back/js/popper.min.js"></script>
+            <script src="${pageContext.request.contextPath}/back/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/back/js/main.js"></script>
             <!-- The javascript plugin to display page loading on top-->
-            <script src="../../back/js/plugins/pace.min.js"></script>
-            <!-- Page specific javascripts-->
-            <script type="text/javascript" src="../../back/js/plugins/chart.js"></script>
-            <script type="text/javascript" src="../../back/js/plugins/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-            <script>
-                fetch('../../back/exampleBack.html')
-                    .then(response => response.text())
-                    .then(html => {
-                        document.body.insertAdjacentHTML('beforeend', html);
-                    });
-
-                function RWDTest() {
-                    //let RWD = document.getElementsByClassName("RWDTest");
-                    let RWD = document.body;
-                    if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
-                        RWD.className = "app sidebar-mini rtl pace-done";
-                    } else {
-                        RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
-                    }
-                }
-
-            </script>
+            <script src="${pageContext.request.contextPath}/back/js/plugins/pace.min.js"></script>
+            <!-- DataTables JavaScript -->
+            <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
             <script>
                 $(document).ready(function () {
                     $('#coursesTable').DataTable({
                         "autoWidth": true,
-                        "scrollX": "1300px",
+                        "scrollX": true,
                         "scrollCollapse": true,
                         "language": {
                             "processing": "處理中...",
@@ -256,7 +214,9 @@
                     }
                 })
             </script>
-            </script>
+            <!-- <script src="../../../resources/static/back/js/data.js">
+
+            </script> -->
 
         </body>
 

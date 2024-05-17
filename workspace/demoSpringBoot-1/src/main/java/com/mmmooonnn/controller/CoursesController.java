@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,38 +31,8 @@ public class CoursesController {
 		return modelAndView;
 	}
 	
-
-
-	//html getall所有
-
-	@RestController
-	@RequestMapping("/api")
-	public class CourseApiController {
-	    @Autowired
-	    private CoursesService cService;
-
-	    // 获取所有课程的API
-	    @GetMapping("/courses")
-	    public ResponseEntity<List<CoursesBean>> getAllCourses() {
-	        List<CoursesBean> courses = cService.getAll();
-	        return ResponseEntity.ok(courses);  // 返回JSON格式的课程列表
-	    }
-	}
-	
-	//Thymeleaf html getall所有
-	@GetMapping("/findAllCourses")
-	public ModelAndView findAllCourses() {
-	    ModelAndView mav = new ModelAndView("courses_getall"); // 修改視圖名稱為 "courses_getall"
-	    try {
-	        List<CoursesBean> courses = cService.getAll();
-	        mav.addObject("Courses", courses); // 將課程列表添加到 ModelAndView 中
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return mav;
-	}
-
 	//getid後修改
+
     @GetMapping("/GetCourseById/{id}")
 	public String findCourseById(@PathVariable("id") int id ,Model m){
     	
@@ -69,46 +40,76 @@ public class CoursesController {
 		m.addAttribute("course",coursesBean);
 		return "forward:/WEB-INF/jsp/course_updata.jsp";
 	}
+
     
     //getid後得到詳細資料
     @GetMapping("/courseDetails/{id}")
     public String getCourseDetails(@PathVariable("id") int id, Model model) {
-    	CoursesBean course = cService.findCourseById(id);
-    	if (course != null) {
-    		model.addAttribute("course", course);
-    		return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
-    	}
-    	return "redirect:/error";  // Redirect to an error page if no course is found
-    }
-    
-    // 根据课程ID获取课程详细信息
-    @GetMapping("/courses/detail/{id}")
-    public ModelAndView getCourseDetails(@PathVariable("id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
         CoursesBean course = cService.findCourseById(id);
         if (course != null) {
-            modelAndView.addObject("course", course);
-            modelAndView.setViewName("html/CoursesDetail.html");
-        } else {
-            modelAndView.setViewName("redirect:/error");  // Redirect to an error page if no course is found
+            model.addAttribute("course", course);
+            return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
         }
-        return modelAndView;
+        return "redirect:/error";  // Redirect to an error page if no course is found
+    }
+
+    
+	//修改
+    @PostMapping("/upd")
+    public String updateCourse(@RequestParam("productId") int productId,
+                               @RequestParam("idUser") int idUser,
+                               @RequestParam("courseName") String courseName,
+                               @RequestParam("description") String description,
+                               @RequestParam("courseType") String courseType,
+                               @RequestParam("startDate") String startDate,
+                               @RequestParam("endDate") String endDate,
+                               @RequestParam("deadlineDate") String deadlineDate,
+                               @RequestParam("location") String location,
+                               @RequestParam("price") double price,
+                               @RequestParam("teacherName") String teacherName,
+                               @RequestParam("teacherContact") String teacherContact,
+                               @RequestParam("enrollmentCount") int enrollmentCount,
+                               @RequestParam("maxCapacity") int maxCapacity,
+                               @RequestParam("courseImage") MultipartFile courseImage) {
+
+        CoursesBean coursesBean = new CoursesBean();
+        coursesBean.setProductId(productId);
+        coursesBean.setIdUser(idUser);
+        coursesBean.setCourseName(courseName);
+        coursesBean.setDescription(description);
+        coursesBean.setCourseType(courseType);
+        coursesBean.setStartDate(startDate);
+        coursesBean.setEndDate(endDate);
+        coursesBean.setDeadlineDate(deadlineDate);
+        coursesBean.setLocation(location);
+        coursesBean.setPrice(price);
+        coursesBean.setTeacherName(teacherName);
+        coursesBean.setTeacherContact(teacherContact);
+        coursesBean.setEnrollmentCount(enrollmentCount);
+        coursesBean.setMaxCapacity(maxCapacity);
+
+        // 处理文件上传
+        if (courseImage != null && !courseImage.isEmpty()) {
+            try {
+                String imagesDir = "C:\\Team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
+                String filename = System.currentTimeMillis() + "_" + courseImage.getOriginalFilename();
+                File imagePath = new File(imagesDir, filename);
+                courseImage.transferTo(imagePath);
+                coursesBean.setCourseImage("/images/" + filename); // 设置文件名到课程对象
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "redirect:/error"; // 重定向到错误页面
+            }
+        }
+
+        // 插入课程信息到数据库
+        cService.update(coursesBean);
+
+        return "redirect:/GetAllCourses";
     }
     
-    //修改
 
-	@PostMapping("/upd")
-	public String upd(@ModelAttribute("CoursesBean")CoursesBean coursesBean) {
-		cService.update(coursesBean);
-		
-//		return "redirect:/WEB-INF/jsp/courses_getall.jsp";		
-		//導向網址redirect: 字符串時，Spring MVC 會生成一個 HTTP 重定向響應（HTTP 狀態碼 302），並將用戶的瀏覽器導向到指定的路徑
-		return "redirect:GetAllCourses";		
-	}
-
-
-
-    //刪除
+    
 	@DeleteMapping("/DeleteById")
 	public ModelAndView processActionDeleteCourse(@RequestParam("courseID") Integer id) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -122,6 +123,8 @@ public class CoursesController {
 		modelAndView.setViewName("forward:/WEB-INF/jsp/course_delete.jsp");
 		return modelAndView;
 	}
+	
+
 	
 	
 	//新增 
@@ -138,9 +141,9 @@ public class CoursesController {
         @RequestParam("courseName") String courseName,
         @RequestParam("description") String description,
         @RequestParam("courseType") String courseType,
-        @RequestParam("startDate") Date startDate,
-        @RequestParam("endDate") Date endDate,
-        @RequestParam("deadlineDate") Date deadlineDate,
+        @RequestParam("startDate") String startDate,
+        @RequestParam("endDate") String endDate,
+        @RequestParam("deadlineDate") String deadlineDate,
         @RequestParam("location") String location,
         @RequestParam("price") double price,
         @RequestParam("teacherName") String teacherName,
@@ -196,4 +199,29 @@ public class CoursesController {
 	public String showBackCoursePage() {
     return "back.jsp";
 	}
+	
+    @PostMapping("/export/xml")
+    public ResponseEntity<String> exportXml() {
+        try {
+            cService.saveXml();
+            return ResponseEntity.ok("XML data successfully written");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to save XML data: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/export/excel")
+    public ResponseEntity<String> exportExcel() {
+        try {
+            cService.saveExcel();
+            return ResponseEntity.ok("Excel data successfully written");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to save Excel data: " + e.getMessage());
+        }
+    }
+	
 }

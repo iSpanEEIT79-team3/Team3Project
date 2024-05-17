@@ -92,7 +92,8 @@
     </tr>
     <tr>
         <td>課程圖片:</td>
-<td><input type="text" name="courseImage" value="<c:out value='/images/${course.courseImage}'/>"></td>
+<td><input type="text" name="courseImage" value="/images/"></td>
+
     </tr>
 </table>
             <input type="submit" value="Update Course">

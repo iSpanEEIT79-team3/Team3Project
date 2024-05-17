@@ -30,8 +30,9 @@
     <body style="background-color: #fdf5e6;">
     <div>
         <h1>更新課程</h1>
-    	<form method="post" action="${pageContext.request.contextPath}/upd">
-<table>
+        <form method="post" action="${pageContext.request.contextPath}/upd" enctype="multipart/form-data">
+    	<table>
+    	
     <tr>
         <td>產品ID:</td>
         <td><input style="background-color: #7B7B7B;" type="text" value="${course.productId}" readonly name="productId"></td>
@@ -94,8 +95,8 @@
         <!-- 显示当前课程图片 -->
         <img src="${course.courseImage}" width="100" height="100" alt="Course Image">
         <!-- 文件选择输入框 -->
-        <input type="file" name="courseImage">
-    </td>
+                        <input type="file" name="courseImage" accept="image/*">
+                    </td>
 </table>
             <input type="submit" value="Update Course">
         </form>
