@@ -32,6 +32,11 @@ body {
 	margin: 0 auto;
 }
 
+.big-table-container {
+	width: 70%;
+	margin: 0 auto; /* 使表格容器居中 */
+}
+
 .big-table {
 	width: 100%;
 	border-collapse: collapse;
@@ -40,27 +45,27 @@ body {
 }
 
 .big-table td {
-	padding: 10px;
+	padding: 30px;
 	vertical-align: top; /* 確保所有單元格頂部對齊 */
 }
 
 .card-container {
-	width: 180px; /* 調整寬度 */
-	height: 250px; /* 調整高度 */
+	max-width: 220px; /* 調整寬度 */
+	max-height: 300px; /* 調整高度 */
 	text-align: center;
 	padding: 10px;
-	background-color: white;
+	background-color: #fbf9ec;
 	border-radius: 15px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 	transition: box-shadow 0.3s;
 	margin: 0 auto; /* 確保居中對齊 */
 	position: relative;
 	overflow: hidden; /* 確保圖片塞滿 */
 }
 
-.card-container:hover {
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+/* .card-container:hover { */
+/* 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); */
+/* } */
 
 .card {
 	width: 100%;
@@ -82,15 +87,12 @@ body {
 	border-radius: 15px;
 }
 
-
-
 .card .front {
-    background-image: url("${user.picture}");
-    background-size: contain;
-    background-repeat: no-repeat;
-    border-radius: 15px;
+	background-image: url("${user.picture}");
+	background-size: contain;
+	background-repeat: no-repeat;
+	border-radius: 15px;
 }
-
 
 .card .back {
 	z-index: 1;
@@ -129,11 +131,13 @@ body {
 	transform: scale(1.1);
 }
 
-.img {
+.userimg {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	border-radius: 15px;
+	position: relative;
+	overflow: hidden;
+	border-radius:12px;
 }
 
 .user-details {
@@ -205,50 +209,52 @@ body {
 		</div>
 	</div>
 
-	<table class="big-table">
-		<c:forEach items="${matches}" var="user" varStatus="loop">
-			<c:if test="${loop.index % 10 == 0}">
-				<tr>
-			</c:if>
-			<td>
-				<div class="card-container">
-					<div class="card">
-						<div class="front">
-							<img src="${user.picture}" alt="User Image" class="img">
-						</div>
+	<div class="big-table-container">
+		<table class="big-table">
+			<c:forEach items="${matches}" var="user" varStatus="loop">
+				<c:if test="${loop.index % 4 == 0}">
+					<tr>
+				</c:if>
+				<td>
+					<div class="card-container">
+						<div class="card">
+							<div class="front">
+								<img src="${user.picture}" alt="User Image" class="userimg">
+							</div>
 
-						<!-- 背面 -->
-						<div class="back">
-							<h3>${user.nickName}</h3>
-							<p>Gender: ${user.gender}</p>
-							<p>Birthday: ${user.birthday}</p>
-							<p>Dance Character: ${user.danceCharacter}</p>
-							<p>Dance Age: ${user.danceAge}</p>
-							<div class="button-container">
-								<form action="/createMatch" method="post">
-									<input type="hidden" name="userId1" value="${loginuser.userId}">
-									<input type="hidden" name="userId2" value="${user.userId}">
-									<input type="hidden" name="matchSuccess" value="2"> <input
-										type="hidden" name="matchStatus" value="Y">
-									<button type="submit" class="heart-button">&#x2665;</button>
-								</form>
-								<form action="/createMatch" method="post">
-									<input type="hidden" name="userId1" value="${loginuser.userId}">
-									<input type="hidden" name="userId2" value="${user.userId}">
-									<input type="hidden" name="matchSuccess" value="0"> <input
-										type="hidden" name="matchStatus" value="N">
-									<button type="submit" class="x-button">&#x2716;</button>
-								</form>
+							<!-- 背面 -->
+							<div class="back">
+								<h3>${user.nickName}</h3>
+								<p>Gender: ${user.gender}</p>
+								<p>Birthday: ${user.birthday}</p>
+								<p>Dance Character: ${user.danceCharacter}</p>
+								<p>Dance Age: ${user.danceAge}</p>
+								<div class="button-container">
+									<form action="/createMatch" method="post">
+										<input type="hidden" name="userId1" value="${loginuser.userId}">
+										<input type="hidden" name="userId2" value="${user.userId}">
+										<input type="hidden" name="matchSuccess" value="2"> <input
+											type="hidden" name="matchStatus" value="Y">
+										<button type="submit" class="heart-button">&#x2665;</button>
+									</form>
+									<form action="/createMatch" method="post">
+										<input type="hidden" name="userId1" value="${loginuser.userId}">
+										<input type="hidden" name="userId2" value="${user.userId}">
+										<input type="hidden" name="matchSuccess" value="0"> <input
+											type="hidden" name="matchStatus" value="N">
+										<button type="submit" class="x-button">&#x2716;</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</td>
-			<c:if test="${loop.index % 10 == 9 || loop.last}">
-				</tr>
-			</c:if>
-		</c:forEach>
-	</table>
+				</td>
+				<c:if test="${loop.index % 4 == 3 || loop.last}">
+					</tr>
+				</c:if>
+			</c:forEach>
+		</table>
+	</div>
 
 	<script>
         fetch('/html/basic.html')
