@@ -200,6 +200,20 @@ public class CoursesController {
     return "back.jsp";
 	}
 	
+    @PostMapping("/export/json")
+    public ResponseEntity<String> exportJson() {
+        try {
+            cService.saveJson();
+            return ResponseEntity.ok("JSON data successfully written");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to save JSON data: " + e.getMessage());
+        }
+    }
+	
+	
+	
     @PostMapping("/export/xml")
     public ResponseEntity<String> exportXml() {
         try {
@@ -223,5 +237,7 @@ public class CoursesController {
                     .body("Failed to save Excel data: " + e.getMessage());
         }
     }
+    
+    
 	
 }

@@ -1,88 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <!DOCTYPE html>
-        <html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>所有課程</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="../../back/css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* 控制分頁按鈕的大小和顏色 */
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            margin-top: 15px;
+            border-radius: 4px; /* 按鈕圓角 */
+        }
+        .dataTables_info{
+            margin-top: 12px;
 
-        <head>
-            <meta charset="UTF-8">
-            <title>所有課程</title>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <!-- Main CSS-->
-            <link rel="stylesheet" type="text/css" href="../../back/css/main.css">
-            <!-- Font-icon css-->
-            <link rel="stylesheet" type="text/css"
-                href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <style>
-                .course-image {
-                    max-width: 88px;
-                    /* Set the maximum width */
-                    max-height: 88px;
-                    /* Set the maximum height */
-                    /* Add other styles as needed */
-                }
+        }
+                /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-                lt-container {
-                    overflow: auto;
-                    /* 清除浮動 */
-                }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            
+        }
 
-                /*
-.lt {
-    position: absolute;
-    left: 580px;
-    float: center;
-    width: 50%;
-}*/
+        th {
+        
+            background-color: #009688; /* 表頭背景色 */
+        }
 
-                .lt-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
+        tr:nth-child(even) {
+            background-color: white;
+        }
 
-                .lt th,
-                .lt td {
-                    text-align: center;
-                    padding: 8px;
-                    border: 1px solid #ddd;
-                }
+        tr:hover {
+            background-color: white;
+        }
+        
 
-                .lt th {
-                    background-color: #d8dbd9;
-                    padding: 3px;
-
-                }
-
-                input,
-                button {
-                    /* Apply styles to both input and button elements */
-                    border: 0;
-                    background-color: #4f85a6;
-                    color: #fff;
-                    border-radius: 10px;
-                    padding: 8px 16px;
-                    /* Adjust padding to your liking */
-                    cursor: pointer;
-                    /* Makes it clear that the element is clickable */
-                }
-
-                input:hover,
-                button:hover
-                }
-
-                a {
-                    text-decoration: none;
-                    /* Removes underline from links */
-                }
-
-                .table {
-                    padding: 3px;
-
-                }
-
-                .box {}
-            </style>
+    </style>
 
         </head>
 
@@ -92,9 +59,11 @@
                     <h1>課程管理系統</h1>
                 </div>
                 <div class="row lt">
-                    <button id="json">匯出json</button>
-                    <button id="xml">匯出xml</button>
-                    <button id="excel">匯出excel</button>
+                	<div class="ml-4">
+                    <button class="btn btn-success m-2" id="json">匯出json</button>
+                    <button class="btn btn-success m-2" id="xml">匯出xml</button>
+                    <button class="btn btn-success m-2" id="excel">匯出excel</button>
+                    </div >
                     <div class="col-12 box">
                         <table id="coursesTable" class="table">
                             <thead>
@@ -138,11 +107,11 @@
                                         <td>${course.enrollmentCount}</td>
                                         <td>${course.maxCapacity}</td>
                                         <td><img src="${course.courseImage}" style="width: 100px; height: 100px;"></td>
-                                        <td><a href="/GetCourseById/${course.productId}"><button>修改</button></a></td>
+                                        <td><a href="/GetCourseById/${course.productId}"><button class="btn btn-success">修改</button></a></td>
                                         <td>
                                             <form method="post" action="/DeleteById?courseID=${course.productId}">
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="test">刪除</button>
+                                                <button type="submit" class="btn btn-success test">刪除</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -151,113 +120,98 @@
                         </table>
                     </div>
 
-                    <td><a href="/course-insert"><button>新增資料</button></a></td>
-                    <td><a href="/index"><button>回首頁</button></a></td>
+                    <td><a href="/course-insert"><button class="btn btn-success m-2" >新增資料</button></a></td>
+					<td><a href="http://localhost:8080/back/user/UserGetAll.html"><button class="btn btn-success m-2">回首頁</button></a></td>
                 </div>
             </main>
 
+    <!-- 脚本 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../../back/js/popper.min.js"></script>
+    <script src="../../back/js/bootstrap.min.js"></script>
+    <script src="../../back/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../../back/js/main.js"></script>
+    <script src="../../back/js/plugins/pace.min.js"></script>
+    <script>
+        fetch('../../back/exampleBack.html')
+        .then(response => response.text())
+        .then(html => {
+            document.body.insertAdjacentHTML('beforeend', html);
+        });
 
-            <script type="text/javascript" src="../../back/js/plugins/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
-            <script type="text/javascript">$('#page').DataTable();</script>
-
-            <!-- Essential javascripts for application to work-->
-            <script src="../../back/js/jquery-3.2.1.min.js"></script>
-            <script src="../../back/js/popper.min.js"></script>
-            <script src="../../back/js/bootstrap.min.js"></script>
-            <script src="../../back/js/main.js"></script>
-            <!-- The javascript plugin to display page loading on top-->
-            <script src="../../back/js/plugins/pace.min.js"></script>
-            <!-- Page specific javascripts-->
-            <script type="text/javascript" src="../../back/js/plugins/chart.js"></script>
-            <script type="text/javascript" src="../../back/js/plugins/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../back/js/plugins/dataTables.bootstrap.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-            <script>
-                fetch('../../back/exampleBack.html')
-                    .then(response => response.text())
-                    .then(html => {
-                        document.body.insertAdjacentHTML('beforeend', html);
-                    });
-
-                function RWDTest() {
-                    //let RWD = document.getElementsByClassName("RWDTest");
-                    let RWD = document.body;
-                    if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
-                        RWD.className = "app sidebar-mini rtl pace-done";
-                    } else {
-                        RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+        function RWDTest() {
+            let RWD = document.body;
+            if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+                RWD.className = "app sidebar-mini rtl pace-done";
+            } else {
+                RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#coursesTable').DataTable({
+                "autoWidth": true,
+                "scrollX": "1300px",
+                "scrollCollapse": true,
+                "language": {
+                    "processing": "處理中...",
+                    "loadingRecords": "載入中...",
+                    "lengthMenu": "顯示 _MENU_ 項結果",
+                    "zeroRecords": "沒有符合的結果",
+                    "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                    "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                    "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                    "search": "搜尋:",
+                    "paginate": {
+                        "first": "第一頁",
+                        "previous": "上一頁",
+                        "next": "下一頁",
+                        "last": "最後一頁"
+                    },
+                    "aria": {
+                        "sortAscending": ": 升冪排列",
+                        "sortDescending": ": 降冟排列"
                     }
                 }
-
-            </script>
-            <script>
-                $(document).ready(function () {
-                    $('#coursesTable').DataTable({
-                        "autoWidth": true,
-                        "scrollX": "1300px",
-                        "scrollCollapse": true,
-                        "language": {
-                            "processing": "處理中...",
-                            "loadingRecords": "載入中...",
-                            "lengthMenu": "顯示 _MENU_ 項結果",
-                            "zeroRecords": "沒有符合的結果",
-                            "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
-                            "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
-                            "infoFiltered": "(從 _MAX_ 項結果中過濾)",
-                            "infoPostFix": "",
-                            "search": "搜尋:",
-                            "paginate": {
-                                "first": "第一頁",
-                                "previous": "上一頁",
-                                "next": "下一頁",
-                                "last": "最後一頁"
-                            },
-                            "aria": {
-                                "sortAscending": ": 升冪排列",
-                                "sortDescending": ": 降冪排列"
-                            }
-                        }
+            });
+        });
+        $('#json').click(function () {
+            if (confirm("確定要匯出json嗎？")) {
+                $.post('/export/json')
+                    .done(function () {
+                        alert('JSON匯出成功，位置C:/Downloads')
+                    })
+                    .fail(function (xhr, status, error) {
+                        alert('JSON匯出失敗: ' + xhr.responseText)
                     });
-                });
-                $('#json').click(function () {
-                    if (confirm("確定要匯出json嗎？")) {
-                        $.post('/delivery/json')
-                            .done(function () {
-                                alert('JSON匯出成功，位置C:/Downloads')
-                            })
-                            .fail(function (xhr, status, error) {
-                                alert('JSON匯出失敗')
-                            });
-                    }
-                })
+            }
+        });
 
-                $('#xml').click(function () {
-                    if (confirm("確定要匯出xml嗎？")) {
-                        $.post('/export/xml')
-                            .done(function () {
-                                alert('xml匯出成功，位置C:/Downloads')
-                            })
-                            .fail(function (xhr, status, error) {
-                                alert('xml匯出失敗')
-                            });
-                    }
-                })
+        $('#xml').click(function () {
+            if (confirm("確定要匯出xml嗎？")) {
+                $.post('/export/xml')
+                    .done(function () {
+                        alert('XML匯出成功，位置C:/Downloads')
+                    })
+                    .fail(function (xhr, status, error) {
+                        alert('XML匯出失敗')
+                    });
+            }
+        });
 
-                $('#excel').click(function () {
-                    if (confirm("確定要匯出excel嗎？")) {
-                        $.post('/export/excel')
-                            .done(function () {
-                                alert('excel匯出成功，位置C:/Downloads')
-                            })
-                            .fail(function (xhr, status, error) {
-                                alert('excel匯出失敗')
-                            });
-                    }
-                })
-            </script>
-            </script>
-
-        </body>
-
-        </html>
+        $('#excel').click(function () {
+            if (confirm("確定要匯出excel嗎？")) {
+                $.post('/export/excel')
+                    .done(function () {
+                        alert('Excel匯出成功，位置C:/Downloads')
+                    })
+                    .fail(function (xhr, status, error) {
+                        alert('Excel匯出失敗')
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -10,16 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmmooonnn.model.CourseRepository;
 import com.mmmooonnn.model.CoursesBean;
-import com.thoughtworks.xstream.XStream;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
@@ -30,27 +27,93 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 @Service
 @Transactional
 public class CoursesService {
-	@Autowired
-	private CourseRepository courseRepos;
-	public void insert(CoursesBean course) {
-		courseRepos.save(course);
-	}
-	public void update(CoursesBean course) {
-		courseRepos.save(course);
-	}
-	public void deleteById(Integer id) {
-		courseRepos.deleteById(id);
-	}
-	public CoursesBean findCourseById(Integer id) {
-		Optional<CoursesBean> result = courseRepos.findById(id);
-		if(result.isPresent()) {
-			return result.get();
-		}
-		return null;
-	}
-	public List<CoursesBean> getAll(){
-		return courseRepos.findAll();
-	}
+    @Autowired
+    private CourseRepository courseRepos;
+
+    @Autowired
+    private JavaMailSender mailSender; // 添加郵件發送器
+
+    public void insert(CoursesBean course) {
+        courseRepos.save(course);
+    }
+
+    public void update(CoursesBean course) {
+        courseRepos.save(course);
+    }
+
+    public void deleteById(Integer id) {
+        courseRepos.deleteById(id);
+    }
+
+    public CoursesBean findCourseById(Integer id) {
+        Optional<CoursesBean> result = courseRepos.findById(id);
+        return result.orElse(null);
+    }
+
+    public List<CoursesBean> getAll() {
+        return courseRepos.findAll();
+    }
+
+    public List<CoursesBean> getTeacherCourses() {
+        // Implement this method to retrieve courses for a teacher
+        // You can query the repository based on teacher criteria
+        // For example:
+        // return courseRepos.findByTeacher(teacher);
+        return null; // Placeholder, replace with actual implementation
+    }
+
+    public List<CoursesBean> getAllCourseDetails() {
+        // Implement this method to retrieve all course details
+        // This can be achieved by calling the existing method getAll()
+        return getAll(); // Return all courses as course details
+    }
+
+    // 添加用於發送純文本郵件的方法
+    public void sendPlainText(String to, String subject, String content, String from) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(content);
+        message.setFrom(from); // 設置郵件的發件人
+        mailSender.send(message);
+    }
+
+    public void registerUserToCourse(CoursesBean course, Object user) {
+        // Logic to register the user to the course
+        // Update the course's enrollment count, check for capacity, etc.
+    }
+
+    public void saveJson() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<CoursesBean> courses = courseRepos.findAll();
+
+        String json = gson.toJson(courses);
+
+        String folderPath = "C:/Users/User/Downloads";
+        String fileName = "CoursesData.json";
+
+        try {
+            Path path = Paths.get(folderPath);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+
+            String filePath = folderPath + "/" + fileName;
+
+            try (FileWriter writer = new FileWriter(filePath)) {
+                writer.write(json);
+                System.out.println("JSON data successfully written to file: " + filePath);
+            } catch (IOException e) {
+                System.err.println("Failed to write JSON data to file: " + filePath);
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to create target folder: " + folderPath);
+            e.printStackTrace();
+        }
+    }
+    
+    
     public void saveXml() {
         XStream xstream = new XStream(new DomDriver());
         List<CoursesBean> courses = courseRepos.findAll();
@@ -59,8 +122,8 @@ public class CoursesService {
         
         String xml = xstream.toXML(courses);
 
-	    String folderPath = "C:/Users/User/Downloads";
-	    String fileName = "課程資料.xml";
+        String folderPath = "C:/Users/User/Downloads";
+        String fileName = "課程資料.xml";
 
         try {
             Path path = Paths.get(folderPath);
