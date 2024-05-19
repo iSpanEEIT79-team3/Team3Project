@@ -53,7 +53,6 @@ public class MatchesController {
 
 		return "redirect:/matchIndex"; // 重定向到顯示配對結果的頁面
 	}
-
 	@GetMapping("/matches")
 	public String getMatch(HttpSession session, Model model) {
 		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
