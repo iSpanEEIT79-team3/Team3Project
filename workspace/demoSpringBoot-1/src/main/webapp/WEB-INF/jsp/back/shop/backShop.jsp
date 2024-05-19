@@ -28,6 +28,9 @@
             width: 300px; /* 调整图片大小 */
             height: auto;
         }
+        th{
+        	text-align:center;
+        }
     </style>
 </head>
 
@@ -70,8 +73,8 @@
 									<!--內容-->
 									<c:forEach items="${shops}" var="shop" varStatus="s">
 					                  <tr data-no="${shop.productId}">
-						                    <td>${shop.productId}</td>
-						                    <td>
+						                    <td><a href="/openshopid/${shop.productId}">${shop.productId}</a></td>
+						                    <td style="max-width:80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 											<button id="hoverButton_${shop.productId}" class="btn btn-secondary">顯示圖片</button>
 										    <div class="showImg" id="imageContainer_${shop.productId}">
 										        <img id="hoverImage" src="${shop.productImg}" alt="Hover Image">
@@ -91,13 +94,16 @@
 		                                    <td style="width:50px;">${shopQuan.xlSize}</td>
                                 		</c:if>
                                 		</c:forEach>
-                                		<td><button class="btn btn-success" onclick="editRow(${shop.productId})">修改</button></td>
-                           				 <td><button class="btn btn-danger" onclick="deleteProduct(${shop.productId})">刪除</button></td>
+                                		<td style="position: relative;text-align: center;"><button class="btn btn-success" onclick="editRow(${shop.productId})">修改</button></td>
+                           				 <td style="position: relative;text-align: center;"><button class="btn btn-danger" onclick="deleteProduct(${shop.productId})">刪除</button></td>
 					                  </tr>
 					                 </c:forEach>
 					                </tbody>
 					              </table>
-					              <button onclick="addProductRow()">新增商品</button>
+					             <div style="display: flex; justify-content: center;">
+					              <button style="margin-right: 10px;" class="btn btn-primary" onclick="addProductRow()">新增商品</button>
+					              <button class="btn btn-primary" onclick="autoinput()">一鍵代入</button>					                 
+					            </div>
 					            </div>
 					          </div>
 					        </div>
@@ -167,8 +173,17 @@
             });
 
             hoverButton_${shop.productId}.addEventListener('mousemove', (e) => {
-                imageContainer_${shop.productId}.style.top = (e.clientY -275) + 'px'; // 图片距离鼠标指针10px
-                imageContainer_${shop.productId}.style.left = (e.clientX -275) + 'px'; // 图片距离鼠标指针10px
+                const viewportHeight = window.innerHeight;//目前可視螢幕高度
+                const mouseY = e.clientY; // 获取鼠标在页面中的垂直位置
+            	if(mouseY + 320 < viewportHeight){
+            		console.log("正常");
+            		imageContainer_${shop.productId}.style.top = (e.clientY -275) + 'px'; 
+               	 	imageContainer_${shop.productId}.style.left = (e.clientX -275) + 'px'; 
+ 	           	}else{
+ 	           		console.log("else");
+ 	           		imageContainer_${shop.productId}.style.top = (e.clientY -575) + 'px'; 
+               		imageContainer_${shop.productId}.style.left = (e.clientX -275) + 'px';
+ 	           	}
             });
         </c:forEach>
         });
@@ -184,9 +199,7 @@
                                 data: { productId: productId }, //回傳productId 跟serv講說要刪哪行
                                 success: function (response) {
                                     $('tr[data-no="' + productId + '"]').remove(); //在網頁上刪除那行
-                                    //變更下方查詢到幾件商品的數字
-                                    var currentCount = parseInt($('#Count').text());
-                                    $('#Count').text(currentCount - 1);
+                                    //location.reload();
                                 },
                                 error: function () {
                                     alert('發生錯誤');
@@ -218,7 +231,7 @@
 			    selectHTML += '<option value="Pants" ' + (originalValues[productId].productType === 'Pants' ? 'selected' : '') + '>Pants</option>';
 				selectHTML += '</select>';
 		
-				$('tr[data-no="' + productId + '"] td:eq(2)').html('<input type="text" style="width:75px;" value="' + originalValues[productId].productName + '" name="productName">');
+				$('tr[data-no="' + productId + '"] td:eq(2)').html('<input type="text" style="width:120px;" value="' + originalValues[productId].productName + '" name="productName">');
 				$('tr[data-no="' + productId + '"] td:eq(3)').html('<input type="text" style="width:400px;" value="' + originalValues[productId].productIntroduce + '" name="productIntroduce">');
 				$('tr[data-no="' + productId + '"] td:eq(4)').html('<input type="text" style="width:50px;" value="' + originalValues[productId].productPrice + '" name="productPrice">');
 				$('tr[data-no="' + productId + '"] td:eq(5)').html(selectHTML);
@@ -231,8 +244,8 @@
 				$('tr[data-no="' + productId + '"] td:last-child').remove();
 				$('tr[data-no="' + productId + '"] td:last-child').remove();
 				// 添加確定按鈕
-				$('tr[data-no="' + productId + '"]').append('<td><button class="btn btn-info" onclick="updateRow(' + productId + ')">確定</button>');
-				$('tr[data-no="' + productId + '"]').append('<td><button class="btn btn-danger" onclick="cancelrestoreRow(' + productId + ')">取消</button>');
+				$('tr[data-no="' + productId + '"]').append('<td style="position: relative;text-align: center;"><button class="btn btn-info" onclick="updateRow(' + productId + ')">確定</button>');
+				$('tr[data-no="' + productId + '"]').append('<td style="position: relative;text-align: center;"><button class="btn btn-danger" onclick="cancelrestoreRow(' + productId + ')">取消</button>');
 		}
 //修改商品 >> 按下確認
         function updateRow(productId) {
@@ -289,8 +302,8 @@
             $('tr[data-no="' + productId + '"] td:last-child').remove();
 
             // 增加確定按鈕和輸入元素
-            $('tr[data-no="' + productId + '"]').append('<td><button class="btn btn-success" onclick="editRow(' + productId + ')">修改</button>');
-            $('tr[data-no="' + productId + '"]').append('<td><button class="btn btn-danger" onclick="deleteProduct(' + productId + ')">刪除</button>');
+            $('tr[data-no="' + productId + '"]').append('<td style="position: relative;text-align: center;"><button class="btn btn-success" onclick="editRow(' + productId + ')">修改</button>');
+            $('tr[data-no="' + productId + '"]').append('<td style="position: relative;text-align: center;"><button class="btn btn-danger" onclick="deleteProduct(' + productId + ')">刪除</button>');
         }
 //還原表格 修改商品 >> 按下取消
         function cancelrestoreRow(productId) {
@@ -309,55 +322,75 @@
             $('tr[data-no="' + productId + '"] td:last-child').remove();
 
             // 移除确认按钮和输入元素
-            $('tr[data-no="' + productId + '"]').append('<td><button class="btn btn-success" onclick="editRow(' + productId + ')">修改</button>');
-            $('tr[data-no="' + productId + '"]').append('<td><button class="btn btn-danger" onclick="deleteProduct(' + productId + ')">刪除</button>');
+            $('tr[data-no="' + productId + '"]').append('<td style="position: relative;text-align: center;"><button class="btn btn-success" onclick="editRow(' + productId + ')">修改</button>');
+            $('tr[data-no="' + productId + '"]').append('<td style="position: relative;text-align: center;"><button class="btn btn-danger" onclick="deleteProduct(' + productId + ')">刪除</button>');
         }
 //新增商品
         function addProductRow() {
             // 在表格最後一行插入新的行
             $('table').append('<tr data-no="-1">' +
                 '<td name="newNo"></td>' +
-                '<td name="newImg"></td>' +
-                '<td><input type="text" name="newProduct"></td>' +
-                '<td><input type="text" name="newIntroduce"></td>' +
-                '<td><input type="text" name="productPrice"></td>' +
+                '<td style="max-width:80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" name="productImg">' +                
+                	'<div class="upload-container">' +
+		                '<input type="file" name="productImg" />' +
+            		'</div>' +
+                '</td>' +
+                '<td><input type="text" style="width:80px;" name="newProduct"></td>' +
+                '<td><input type="text" style="width:400px;" name="newIntroduce"></td>' +
+                '<td><input type="text" style="width:50px;" name="productPrice"></td>' +
                 '<td><select name="productType"><option value="Jacket">Jacket</option><option value="Clothes">Clothes</option><option value="Pants">Pants</option></select></td>' +
-                '<td><input type="text" name="xsSize"></td>' +
-                '<td><input type="text" name="sSize"></td>' +
-                '<td><input type="text" name="mSize"></td>' +
-                '<td><input type="text" name="lSize"></td>' +
-                '<td><input type="text" name="xlSize"></td>' +
-                '<td><button class="btn btn-info" onclick="saveNewProduct()">確定</button></td>' +
-                '<td><button class="btn btn-danger" onclick="cancelNewProduct()">取消</button></td>' +
+                '<td><input type="text" style="width:50px;" name="xsSize"></td>' +
+                '<td><input type="text" style="width:50px;" name="sSize"></td>' +
+                '<td><input type="text" style="width:50px;" name="mSize"></td>' +
+                '<td><input type="text" style="width:50px;" name="lSize"></td>' +
+                '<td><input type="text" style="width:50px;" name="xlSize"></td>' +
+                '<td style="position: relative;text-align: center;"><button class="btn btn-info" onclick="saveNewProduct()">確定</button></td>' +
+                '<td style="position: relative;text-align: center;"><button class="btn btn-danger" onclick="cancelNewProduct()">取消</button></td>' +
                 '</tr>');
         }
 //新增後按下確認
         function saveNewProduct() {
-            // 獲取新商品的值
+            
+        	var formData = new FormData();
+			// 獲取新商品的值
+            var fileInput = $('input[name="productImg"]')[0];
+            var files = fileInput.files;
+            if (files.length > 0) {
+                formData.append('productImg', files[0]);
+            } else {
+                alert('請選擇一個圖片');
+                return;
+            }
+            
             var newProduct = $('input[name="newProduct"]').val();
+            formData.append('productName', newProduct);
+            
             var newIntroduce = $('input[name="newIntroduce"]').val();
+            formData.append('productIntroduce', newIntroduce);
+            
             var productPrice = $('input[name="productPrice"]').val();
+            formData.append('productPrice', productPrice);
+            
             var productType = $('select[name="productType"]').val();
+            formData.append('productType', productType);
+            
             var xsSize = $('input[name="xsSize"]').val();
+            formData.append('xsSize', xsSize);
             var sSize = $('input[name="sSize"]').val();
+            formData.append('sSize', sSize);
             var mSize = $('input[name="mSize"]').val();
+            formData.append('mSize', mSize);
             var lSize = $('input[name="lSize"]').val();
+            formData.append('lSize', lSize);
             var xlSize = $('input[name="xlSize"]').val();
+            formData.append('xlSize', xlSize);
 
             $.ajax({
                 type: 'POST',
                 url: 'addShop', //Servlet路徑
-                data: {
-                    productName: newProduct,
-                    productIntroduce: newIntroduce,
-                    productPrice: productPrice,
-                    productType: productType,
-                    xsSize: xsSize,
-                    sSize: sSize,
-                    mSize: mSize,
-                    lSize: lSize,
-                    xlSize: xlSize
-                },
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function (response) {
                     alert('新增成功');
                     //console.log("con:"+response);
@@ -368,12 +401,24 @@
                 }
             });
         }
-        //取消新增商品按鈕做的func
+//取消新增商品按鈕做的func
         function cancelNewProduct() {
             // 移除新商品行
             $('tr[data-no="-1"]').remove();
         }
-	
+//自動帶入值
+function autoinput() {
+            $('input[name="newProduct"]').val('毛毛衣');
+            $('input[name="newIntroduce"]').val('毛毛蟲做的');
+            $('input[name="productPrice"]').val('199');
+            $('select[name="productType"]').val('Pants'); // 默认选择 Jacket 类型
+            $('input[name="xsSize"]').val('10');
+            $('input[name="sSize"]').val('20');
+            $('input[name="mSize"]').val('30');
+            $('input[name="lSize"]').val('40');
+            $('input[name="xlSize"]').val('50');
+        }        
+        
     </script>
 
 </body>

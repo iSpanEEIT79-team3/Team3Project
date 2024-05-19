@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mmmooonnn.model.Quanproduct;
 import com.mmmooonnn.model.ShopBean;
 import com.mmmooonnn.model.ShopImgBean;
 import com.mmmooonnn.model.ShopQuantityBean;
 import com.mmmooonnn.model.ShopcartBean;
+import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.ShopImgService;
 import com.mmmooonnn.service.ShopQuantityService;
 import com.mmmooonnn.service.ShopService;
@@ -50,30 +53,8 @@ public class ShopController {
     @Autowired
     private ShopQuantityService shopQuanService;
 
-//搜尋全部
-    @GetMapping("/getAllShops")
-    public String getAll(Model model) {
-    	List<ShopBean> shops = shopService.findAll();
-    	List<ShopImgBean> shopImgs = shopImgService.findAll();
-    	List<ShopQuantityBean> shopQuan = shopQuanService.findAll();
-        model.addAttribute("shops", shops);
-        model.addAttribute("shopImgs", shopImgs);
-        model.addAttribute("shopQuan", shopQuan);
-        return "forward:/WEB-INF/jsp/back/shop/GetAllShops.jsp";
-    	}
-    /*
+//進前台
     @GetMapping("/getAllShop")
-    public String getAllShop(Model model) {
-    	List<ShopBean> shops = shopService.findAll();
-    	List<ShopImgBean> shopImgs = shopImgService.findAll();
-    	List<ShopQuantityBean> shopQuan = shopQuanService.findAll();
-        model.addAttribute("shops", shops);
-        model.addAttribute("shopImgs", shopImgs);
-        model.addAttribute("shopQuan", shopQuan);
-        return "forward:/WEB-INF/jsp/Shops.jsp";
-    	}
-    */
-    @GetMapping("/getAllShopTest")
     public String getAllShopTest(Model model) {
     	List<ShopBean> shops = shopService.findAll();
     	List<ShopImgBean> shopImgs = shopImgService.findAll();
@@ -94,76 +75,28 @@ public class ShopController {
     	return "forward:/WEB-INF/jsp/back/shop/backShop.jsp";
     	
     }
-
-//用id搜尋
-    @PostMapping("/findByproductid")
-    public String FindById(Model model,@RequestParam(value = "productId", required = false) Integer productId) {
+    @GetMapping("/openshopid/{productId}")
+    public String openshopid(Model model,@PathVariable(value = "productId", required = false) Integer productId) {
     	List<ShopBean> shops = shopService.findById(productId);
     	List<ShopImgBean> shopImgs = shopImgService.findById(productId);
     	List<ShopQuantityBean> shopQuan = shopQuanService.findById(productId);
-        model.addAttribute("shops", shops);
-        model.addAttribute("shopImgs", shopImgs);
-        model.addAttribute("shopQuan", shopQuan);
-        return "forward:/WEB-INF/jsp/GetAllShops.jsp";
-    	}
-//用商品名name搜尋   
-    @PostMapping("/findByproductname")
-    public String FindByProduct(Model model,@RequestParam(value = "productName", required = false) String productName) {
-    	List<ShopBean> shops = shopService.findByproductnameContaining(productName);
-    	int productId = 0;
-    	int count=0;
-        List<ShopImgBean> shopImgs = new ArrayList<>();
-        List<ShopQuantityBean> shopQuan = new ArrayList<>();
-        
-    	for (ShopBean shop : shops) {
-    	    productId = shop.getProductId();
-    	    count++;
-    	}
-    	if(count==1) {
-    		shopImgs = shopImgService.findById(productId);
-    		shopQuan = shopQuanService.findById(productId);
-    		model.addAttribute("shopImgs", shopImgs);
-    		model.addAttribute("shopQuan", shopQuan);
-    	}
-    	
     	model.addAttribute("shops", shops);
-    	return "forward:/WEB-INF/jsp/GetAllShops.jsp";
-    }
-//用類別type搜尋
-    @PostMapping("/findByproducttype")
-    public String FindByproducttype(Model model,@RequestParam(value = "productType", required = false) String productType) {
-    	List<ShopBean> shops = shopService.findByProductType(productType);
-    	int productId = 0;
-    	int count=0;
-        List<ShopImgBean> shopImgs = new ArrayList<>();
-        List<ShopQuantityBean> shopQuan = new ArrayList<>();
-        
-    	for (ShopBean shop : shops) {
-    	    productId = shop.getProductId();
-    	    count++;
-    	}
+    	model.addAttribute("shopImgs", shopImgs);
+    	model.addAttribute("shopQuan", shopQuan);
+    	return "forward:/WEB-INF/jsp/back/shop/backShopID.jsp";
     	
-    	//判斷是否只有一筆 要在前端輸出所有資訊的 有多筆就只要丟商品資訊
-    	if(count==1) {
-    		shopImgs = shopImgService.findById(productId);
-    		shopQuan = shopQuanService.findById(productId);
-    		model.addAttribute("shopImgs", shopImgs);
-    		model.addAttribute("shopQuan", shopQuan);
-    	}
-        model.addAttribute("shops", shops);
-        return "forward:/WEB-INF/jsp/GetAllShops.jsp";
-    	}
+    }
 
     @DeleteMapping("/deleteShop")
     public ResponseEntity<String> del(@RequestParam Integer productId) {
     	shopService.deleteById(productId); 
     	return ResponseEntity.ok("ok");
-//    		return "forward:/WEB-INF/jsp/GetAllShops.jsp";
 }
 
     @PostMapping("/addShop")
-    public String addShop(Model model,
+    public ResponseEntity<String> addShop(Model model,
                           @RequestParam(value="productName", required=true) String productName,
+                          @RequestParam(value="productImg", required=true) MultipartFile file,
                           @RequestParam(value="productIntroduce", required=true) String productIntroduce,
                           @RequestParam(value="productPrice", required=true) Integer productPrice,
                           @RequestParam(value="productType", required=true) String productType,
@@ -178,6 +111,29 @@ public class ShopController {
         newShop.setProductPrice(productPrice);
         newShop.setProductType(productType);
         
+        String uploadDir = "D:/Team3/workspace/demoSpringBoot-1/src/main/resources/static/images";
+        //如果目錄不存在 創建目錄
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // 保存上传的图片文件
+        String filePath =  file.getOriginalFilename();
+        
+        try {
+			System.err.println("filePath: " + filePath);
+			file.transferTo(new File(dir,filePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        String Imgpath = "images/" + file.getOriginalFilename();
+        newShop.setProductImg(Imgpath);
+        
+        
         shopService.insert(newShop);
         
         //抓新增商品自己建立的ID 用這ID插入庫存
@@ -191,7 +147,7 @@ public class ShopController {
         QuanShop.setlSize(lSize);
         QuanShop.setXlSize(xlSize);
 	    shopQuanService.insert(QuanShop);
-        return "forward:/WEB-INF/jsp/GetAllShops.jsp";
+	    return ResponseEntity.ok("更新成功");
     } 
  
     //Restful method update = putMapping, patchMapping
@@ -244,9 +200,10 @@ public class ShopController {
         model.addAttribute("shopImgs", shopImgs);
         model.addAttribute("shopQuan", shopQuan);
         
+        
         List<ShopBean> allShops  = shopService.findAll();
         // 随机打乱列表
-        Collections.shuffle(allShops );
+        Collections.shuffle(allShops);
         // 取前 4 条数据
         List<ShopBean> randomShops = allShops.subList(0, Math.min(4, allShops.size()));
         model.addAttribute("randomShops", randomShops);
@@ -265,7 +222,7 @@ public class ShopController {
         try {
             //設置保存圖片的目標路徑
         	//是否可以抓到最上面 做宣告 方便修改路徑
-            String uploadDir = "C:/action/workspace/demoSpringBoot-1/src/main/webapp/img";
+            String uploadDir = "D:/Team3/workspace/demoSpringBoot-1/src/main/resources/static/images";
             //如果目錄不存在 創建目錄
             File dir = new File(uploadDir);
             if (!dir.exists()) {
@@ -324,9 +281,58 @@ public class ShopController {
     public String getShopcart(HttpSession session,Model model){
     	List<ShopcartBean> productList = (List<ShopcartBean>) session.getAttribute("productData");
     	    model.addAttribute("productList", productList);
-    	   //System.out.println(productList);
-        return "forward:/WEB-INF/jsp/front/shop/Shopscart.jsp";
+    	Object users = session.getAttribute("usersBean");
+    		model.addAttribute("users", users);
+    	    return "forward:/WEB-INF/jsp/front/shop/Shopscart.jsp";
     }
+    
+  //加入購物車
+    @PostMapping("/Shopproduct/updateQuan")
+    public ResponseEntity<String> updateQuan(@RequestBody  List<Quanproduct> Quanproduct){
+        try {
+            // 遍历所有商品信息，处理库存更新逻辑
+            for (Quanproduct product : Quanproduct) {
+                int productId = product.getProductId();
+                String size = (product.getSize()+ "Size" );
+                int quantity = product.getQuantity();
+                List<ShopQuantityBean> shopList = shopQuanService.findById(productId);
+                ShopQuantityBean shopQuan = shopList.get(0);
+                switch (size) {
+				case "xsSize":
+					Integer newShopXs = shopQuan.getXsSize() - quantity;
+					shopQuan.setsSize(newShopXs);
+					shopQuanService.update(shopQuan);
+					break;
+				case "sSize":
+					Integer newShops = shopQuan.getsSize() - quantity;
+					shopQuan.setsSize(newShops);
+					shopQuanService.update(shopQuan);
+					break;
+		        case "mSize":
+		            Integer newShopM = shopQuan.getmSize() - quantity;
+		            shopQuan.setmSize(newShopM);
+		            shopQuanService.update(shopQuan);
+		            break;
+		        case "lSize":
+		            Integer newShopL = shopQuan.getlSize() - quantity;
+		            shopQuan.setlSize(newShopL);
+		            shopQuanService.update(shopQuan);
+		            break;
+		        case "xlSize":
+		            Integer newShopXl = shopQuan.getXlSize() - quantity;
+		            shopQuan.setXlSize(newShopXl);
+		            shopQuanService.update(shopQuan);
+		            break;
+				default:
+					break;
+				}
+            }
+            return ResponseEntity.ok("ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("庫存更新失敗");
+        }
+	}
     
     @GetMapping("/clearSession")
     public ResponseEntity<String> clearSession(HttpSession session) {

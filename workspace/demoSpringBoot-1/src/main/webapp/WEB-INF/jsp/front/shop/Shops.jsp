@@ -126,6 +126,7 @@
         <script src="front/shop/shopjs/owl.carousel.min.js"></script>
         <script src="front/shop/shopjs/jquery.nicescroll.min.js"></script>
         <script src="front/shop/shopjs/main.js"></script>
+        <script src="front/LoginUser.js"></script>
         
 </body>
 
