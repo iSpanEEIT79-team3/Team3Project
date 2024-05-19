@@ -14,6 +14,7 @@ import java.util.UUID;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -354,6 +355,7 @@ public class UserController {
 		try {
 			if(!picture.isEmpty() ) {
 				String fileName = picture.getOriginalFilename();
+				
 				
 				String fileDir = resourceLoader.getResource("classpath:/static/userPicture").getFile().getAbsolutePath();
 				

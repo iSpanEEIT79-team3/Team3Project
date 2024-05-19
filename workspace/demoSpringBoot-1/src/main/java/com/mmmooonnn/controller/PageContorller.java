@@ -23,10 +23,18 @@ public class PageContorller {
 			return "redirect:/html/UserLoginTest.html";
 		}
 		
+		//跳轉到註冊頁面
+		@GetMapping("/registerUser")
+		public String processActionRegisterUser() {
+			return "redirect:/front/user/register.html";
+		}
+		
 		//後端登出
 		@GetMapping("/backLogout")
 		public String processActionLogout() {
 			return "redirect:/html/frontPage.html";
 		}
+		
+		
 		
 }
