@@ -56,6 +56,7 @@ public class MatchesController {
 	@GetMapping("/matches")
 	public String getMatch(HttpSession session, Model model) {
 		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+		
 
 		List<MatchUserDetailsDTO> isMatch = null;
 

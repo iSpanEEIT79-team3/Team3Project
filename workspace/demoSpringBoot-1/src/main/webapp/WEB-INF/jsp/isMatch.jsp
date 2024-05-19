@@ -52,13 +52,14 @@
 
 <!-- JS Bundle for BS  -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7N" crossorigin="anonymous"></script>
+    <script src="/front/LoginUser.js"></script>
 <title>範本</title>
 </head>
 
 <body>
 
     <div class="container-fluid" style="margin-top: 150px;">
-        <h2 class="text-center">標題</h2>
+        <h2 class="text-center">配對成功</h2>
     </div>
     <div class="main">
         <c:forEach items="${isMatch}" var="user" varStatus="loop">
