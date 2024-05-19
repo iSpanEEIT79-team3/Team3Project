@@ -59,6 +59,8 @@
 	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
 	crossorigin="anonymous">
 	        </script>
+	        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $('#user_details').hover(func_1, func_2);
@@ -278,6 +280,7 @@
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous">
 	        </script>
+	        
 	<script>
       
         fetch('/html/basic.html')
@@ -288,6 +291,6 @@
 
         
     </script>
-
+<script src="/front/LoginUser.js"></script>
 </body>
 </html>

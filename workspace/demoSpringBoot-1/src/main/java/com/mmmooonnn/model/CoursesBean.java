@@ -222,6 +222,7 @@ public class CoursesBean implements Serializable {
     public void setCourseImage(String courseImage) {
         this.courseImage = courseImage;
     }
+    
 
     @Override
     public String toString() {
@@ -231,4 +232,5 @@ public class CoursesBean implements Serializable {
                 + ", price=" + price + ", teacherName=" + teacherName + ", teacherContact=" + teacherContact
                 + ", enrollmentCount=" + enrollmentCount + ", maxCapacity=" + maxCapacity + ", courseImage=" + courseImage + "]";
     }
+
 }

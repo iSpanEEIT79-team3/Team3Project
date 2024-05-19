@@ -35,6 +35,17 @@ public class PageContorller {
 			return "redirect:/html/frontPage.html";
 		}
 		
+		//首頁跳轉
+		@GetMapping("/frontPage")
+		public String processActionFrontPage() {
+			return "redirect:/html/frontPage.html";
+		}
 		
+		//會員中心
+		@GetMapping("/UpdateUser")
+		public String processActionUpdateUser() {
+			return "redirect:/front/user/UpdateUser.html";
+		}
+				
 		
 }

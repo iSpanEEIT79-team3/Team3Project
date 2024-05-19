@@ -7,33 +7,7 @@
 <meta charset="UTF-8">
 <title>全部文章</title>
 <style>
-.btn1 {
-	background-color: #4DFFFF; /* Green */
-	border: none;
-	color: black;
-	padding: 8px 16px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 14px;
-	margin: 4px 2px;
-	cursor: pointer;
-	border-radius: 8px;
-}
 
-.btn {
-	background-color: #4DFFFF; /* Green */
-	border: none;
-	color: black;
-	padding: 8px 16px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 14px;
-	margin: 4px 2px;
-	cursor: pointer;
-	border-radius: 8px;
-}
 
 .main {
 	min-height: 55vh;
@@ -121,7 +95,7 @@
 }
 
 .reply-item {
-	width: 800px;
+	width: 990px;
 	background-color: white;
 	border-radius: 8px;
 	padding: 16px;
@@ -141,6 +115,10 @@
 .reply-info-item {
 	margin-right: 20px; /* 调整每个信息项的右边距 */
 }
+ .btn-inner {
+        display: inline-block;
+        white-space: nowrap; /* 避免文字換行 */
+    }
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -155,7 +133,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap"
 	rel="stylesheet">
-<script src="https://kit.fontawesome.com/f5d8105b16.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/f5d8105b16.js"
+	crossorigin="anonymous"></script>
 <!-- For style(All CSS content) -->
 <link rel="stylesheet" type="text/css" href="../styles/home.css" />
 <link rel="stylesheet" type="text/css" href="../styles/footer.css" />
@@ -167,7 +146,11 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
 	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
 	crossorigin="anonymous">
-        </script>
+	
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kit.fontawesome.com/f5d8105b16.js"
+	crossorigin="anonymous"></script>
 </head>
 <body style="background-color: #fdf5e6">
 	<div align="center">
@@ -187,7 +170,8 @@
 					</p>
 				</div>
 				<hr>
-				<div class="article-content">
+				<div class="article-content" style="text-align: left;">
+					文章內容:
 					<p>${items.content}</p>
 				</div>
 				<img src="/${items.picture}"
@@ -216,9 +200,7 @@
 								<p>
 									<strong>回復ID:</strong> ${reply.replyId}
 								</p>
-								<!-- 								<p> -->
-								<%-- 									<strong>文章ID</strong> ${reply.ltBean.ltId} --%>
-								<!-- 								</p> -->
+
 							</div>
 							<div class="reply-info-item">
 								<p>
@@ -231,17 +213,31 @@
 								</p>
 							</div>
 
+								<form method="get" action="/ReplySelectByIdFront.controller/${reply.replyId}">
+    <input type="hidden" name="replyId" value="${reply.replyId}">
+    <button class="btn btn-primary mr-2 editButton" type="submit" ${reply.userId==userid?"":"hidden"}>
+        <span class="btn-inner">修改</span>
+    </button>
+</form>
+<form method="post" action="/ReplyDeleteFront.controller?replyId=${reply.replyId}&LTId=${items.ltId}">
+    <input type="hidden" name="_method" value="DELETE">
+    <button class="btn btn-danger deleteButton" type="submit" ${reply.userId==userid?"":"hidden"}>
+        <span class="btn-inner">刪除</span>
+    </button>
+</form>
 							<form method="post" action="/ReportReplyinsertFront.controller"
 								onsubmit="handleReportSuccess()">
 								<input type="hidden" name="replyId" value="${reply.replyId}">
-								<div style="display: flex; align-items: center;">
-									<button type="submit"
-										style="background-color: transparent; border: none;">
-										<i class="fa-solid fa-triangle-exclamation" style="color:red"></i>
+								<div style="align-items: center;">
+									<button class="btn btn-warning btn-sm" type="submit"
+										style="color: white;">
+										<i class="fa-solid fa-triangle-exclamation" style="color: red"></i>
+										檢舉
 									</button>
 									<input type="text" name="reportContent" placeholder="请输入檢舉內容">
 								</div>
 							</form>
+
 
 
 
@@ -258,18 +254,23 @@
 
 			<a class="btn1" href="/LTSelectAllFront">返回首頁</a>
 		</div>
-		<script>
-    function handleReportSuccess() {
-        alert("檢舉成功！謝謝你的檢舉,我們將盡快處理❗❗");
-    }
-</script>
-		<script>
-    fetch('/html/basic.html')
-    .then(response => response.text())
-    .then(html => {
-        document.body.innerHTML += html;
-    });
-</script>
 	</div>
+	<script>
+		function handleReportSuccess() {
+			alert("檢舉成功！謝謝你的檢舉,我們將盡快處理❗❗");
+		}
+	</script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+	<script>
+		$.get('/html/basic.html', function(html) {
+			$('body').append(html);
+		});
+	</script>
+
+	<script src="/html/LoginUser.js"></script>
+
+
 </body>
 </html>

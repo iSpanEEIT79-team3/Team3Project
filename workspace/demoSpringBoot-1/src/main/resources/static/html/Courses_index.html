@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
   <!-- Required meta tags -->
@@ -149,8 +149,6 @@
 
     }
   </style>
-
-  <title>Eternals Landing Website</title>
 </head>
 
 <body>
@@ -229,86 +227,9 @@
 
   </nav>
 
+
   <!-- 課程 -->
-  <div style="height: 82px"> </div>
-
-  <div class="container mt-5">
-    <h1>All Courses</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>用戶ID</th>
-          <th>產品ID</th>
-          <th>課程名稱</th>
-          <th>描述</th>
-          <th>課程類型</th>
-          <th>開始日期</th>
-          <th>結束日期</th>
-          <th>截止日期</th>
-          <th>地點</th>
-          <th>價格</th>
-          <th>教師名稱</th>
-          <th>教師聯繫方式</th>
-          <th>報名人數</th>
-          <th>最大容量</th>
-          <th>課程圖片</th>
-          <th>修改</th>
-          <th>刪除</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="course : ${courses}">
-          <td th:text="${course.idUser}"></td>
-          <td>
-            <a th:href="@{/courseDetails/{id}(id=${course.productId})}" th:text="${course.productId}"></a>
-          </td>
-          <td th:text="${course.courseName}"></td>
-          <td th:text="${course.description}"></td>
-          <td th:text="${course.courseType}"></td>
-          <td th:text="${#dates.format(course.startDate, 'yyyy-MM-dd')}"></td>
-          <td th:text="${#dates.format(course.endDate, 'yyyy-MM-dd')}"></td>
-          <td th:text="${#dates.format(course.deadlineDate, 'yyyy-MM-dd')}"></td>
-          <td th:text="${course.location}"></td>
-          <td th:text="${course.price}"></td>
-          <td th:text="${course.teacherName}"></td>
-          <td th:text="${course.teacherContact}"></td>
-          <td th:text="${course.enrollmentCount}"></td>
-          <td th:text="${course.maxCapacity}"></td>
-          <td>
-            <img th:src="@{${course.courseImage}}" style="width: 100px; height: 100px;">
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <tbody>
-      <tr th:each="course : ${courses}">
-        <td th:text="${course.productId}"></td>
-        <td>
-          <img th:src="@{${course.courseImage}}" alt="Course Image" />
-        </td>
-      </tr>
-    </tbody>
-    <tbody>
-      <tr th:each="course : ${teacherCourses}">
-        <td th:text="${course.teacherName}"></td>
-        <td th:text="${course.teacherContact}"></td>
-        <td>
-          <img th:src="@{${course.courseImage}}" alt="Course Image" />
-        </td>
-      </tr>
-    </tbody>
-    <tbody>
-      <tr th:each="course : ${courseDetails}">
-        <td th:text="${course.productId}"></td>
-        <td th:text="${course.courseName}"></td>
-        <td th:text="${course.description}"></td>
-        <!-- 其他屬性 -->
-      </tr>
-    </tbody>
-
-
-
+  <div style="height: 214px">
     <div class="box row py-lg-5 text-center vstack border border-dark" style="height: 211px">
       <div class="col-lg-6 col-md-8 mx-auto d-flex flex-column justify-content-center h-100">
         <h1 class="fw-bold custom-font-size mb-0" style="font-size: 64px; color: #4f85a6;">課程</h1>
@@ -317,6 +238,9 @@
       </div>
     </div>
   </div>
+
+
+
   <!-- 精選課程 -->
   <div class="container">
     <div class="d-flex">
@@ -325,18 +249,18 @@
       <h6 class="d-flex align-items-center">一段美好的開始</h3>
     </div>
 
-    <div class="d-flex text-center" style="width: 1900px;height:  400px;">
-
-      <div class="active ratio" style="width: 600px;">
-        <!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
-        <td>${course.productId}</td>
-
-        <img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
-          style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
-      </div>
-
+    <div class="d-flex text-center" style="width: 1900px; height: 400px;">
+      <c:forEach items="${Courses}" var="course" varStatus="status">
+        <c:if test="${status.index < 3}"> <!-- 檢查是否是前三個元素 -->
+          <div class="active ratio" style="width: 600px;">
+            <!-- img 放入 COURSE_IMAGE，根據course對象顯示圖片和產品ID -->
+            <td>${course.productId}</td>
+            <img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
+              style="max-width: 100%; height: 400px;" alt="..." />
+          </div>
+        </c:if>
+      </c:forEach>
     </div>
-
     <!-- 各種索引搜尋 -->
 
     <div class="d-flex container" style="height:30px;">
@@ -367,43 +291,53 @@
         <h6 class="d-flex align-items-center">看看學員們怎麼說</h3>
       </div>
     </div>
-    <!-- 直視圖片區 -->
-
+        <!-- 直視圖片區 -->
     <div class="row d-flex">
-
       <div class="col-md-3">
-        <div class="product-item rounded-3 bs-secondary-color " style="background-color:#F5F7F9">
+        <div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
           <div class="product-thumb">
             <img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg" alt="product-img">
-            <div class="preview-meta">
-
-            </div>
+            <div class="preview-meta"></div>
           </div>
           <div class="product-content m-3">
-            <p>
-              ${course.teacherContact}
-            </p>
-            <!-- <td>${course.teacherName}</td> -->
-            <td>${course.productId}</td>
-
-            <h4><a class="text-reset" href="">${course.teacherName}</a></h4>
+            <p>帶來如詩如畫的舞蹈饗宴。</p>
+            <h4><a class="text-reset" href="#">李舞妍</a></h4>
           </div>
         </div>
       </div>
-
       <div class="col-md-3">
-        <div class="product-item rounded-3 bs-secondary-color " style="background-color:#F5F7F9">
+        <div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
           <div class="product-thumb">
             <img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg" alt="product-img">
-            <div class="preview-meta">
-
-            </div>
+            <div class="preview-meta"></div>
           </div>
           <div class="product-content m-3">
-            <p>
-              韻律的大師，她熟練掌握著每一個節奏。
-            </p>
-            <h4><a class="text-reset" href="">陳舞韻</a></h4>
+            <p>讓每個人都感受到舞蹈的力量。</p>
+            <h4><a class="text-reset" href="#">張舞風</a></h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
+          <div class="product-thumb">
+            <img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg" alt="product-img">
+            <div class="preview-meta"></div>
+          </div>
+          <div class="product-content m-3">
+            <p>如飄逸的雲彩般，輕盈而自由地穿越舞台。</p>
+            <h4><a class="text-reset" href="#">王舞雲</a></h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
+          <div class="product-thumb">
+            <img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg" alt="product-img">
+            <div class="preview-meta"></div>
+          </div>
+          <div class="product-content m-3">
+            <p>韻律的大師，她熟練掌握著每一個節奏。</p>
+            <h4><a class="text-reset" href="#">陳舞韻</a></h4>
           </div>
         </div>
       </div>
@@ -418,62 +352,37 @@
           <div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
           <h6 class="d-flex align-items-center">為每一個學員量身訂做</h3>
         </div>
+        <!-- 循環開始前，確保結構正確並且只包裹一次 -->
         <div class="row">
-          <div class="col-lg-4 col-sm-6 mb-4">
-            <!-- Portfolio item 1-->
-            <div class="portfolio-item">
-              <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                <div class="portfolio-hover">
-                  <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+          <c:forEach items="${Courses}" var="course">
+            <div class="col-4 col-lg-4 col-sm-6 mb-4">
+              <div class="portfolio-item">
+                <a class="portfolio-link"
+                  href="${pageContext.request.contextPath}/courseDetailsFront/${course.productId}">
+                  <div class="portfolio-hover">
+                    <div class="portfolio-hover-content">
+                      <i class="fas fa-plus fa-3x"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="${course.courseImage}" alt="..." />
+                </a>
+                <div class="portfolio-caption">
+                  <h6>${course.productId}</h6>
+                  <h4>${course.courseName}</h4>
+                  <h6>${course.description}</h6>
                 </div>
-                <img class="img-fluid" src="../images/CATQQ.png" alt="..." />
-              </a>
-              <div class="portfolio-caption">
-                <!-- 放入 -->
-                <h6>${course.productId}</h6>
-                <h4>
-                  ${course.courseName}
-                </h4>
-                <!-- 放入-->
-
-                <h6>
-                  ${course.description}
-                </h6>
               </div>
             </div>
-          </div>
-          <div class="col-lg-4 col-sm-6 mb-4">
-            <!-- Portfolio item 2-->
-            <div class="portfolio-item">
-              <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
-                <div class="portfolio-hover">
-                  <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                </div>
-                <img class="img-fluid" src="${course.courseImage}" alt="..." />
-              </a>
-              <div class="portfolio-caption">
-                <!-- 放入 ${course.courseName}-->
-                ${course.courseName}
-                <h4>
-                </h4>
-                <!-- 放入${course.description}-->
-
-                <h6>
-                  ${course.description}
-                </h6>
-              </div>
-            </div>
-          </div>
-
-
-
-
+          </c:forEach>
         </div>
+
       </div>
     </section>
 
 
   </div>
+
+
   <div class="container-fluid w-100 h-100 g-0" style="width: 358px;">
     <footer class="below">
 
@@ -512,16 +421,24 @@
 
   <!-- Optional JavaScript; choose one of the two! -->
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-    crossorigin="anonymous"></script>
-
-  <!-- Option 2: Separate Popper and Bootstrap JS -->
-  <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    -->
-</body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch('/GetTeacherCoursesFront').then(response => {
+        return response.json(); // 解析JSON数据
+      }).then(data => {
+        const container = document.getElementById('coursesContainer');
+        data.forEach(course => {
+          const courseElement = document.createElement('div');
+          courseElement.innerHTML = `
+                    <h3>${course.courseName}</h3>
+                    <p>${course.description}</p>
+                `;
+          container.appendChild(courseElement);
+        });
+      }).catch(error => {
+        console.error('Error fetching data: ', error);
+      });
+    });
+  </script>
 
 </html>

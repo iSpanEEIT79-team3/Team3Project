@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface EventRepository extends JpaRepository<Event, Integer> {
 	
-	   @Query("SELECT e FROM Event e WHERE e.startTime = :startTime")
+	@Query("SELECT e FROM Event e WHERE CAST(e.startTime AS string) LIKE %:startTime%")
 	    List<Event> findByStartTime(@Param("startTime") Date startTime);
 	   
 	   @Query("SELECT e FROM Event e ORDER BY e.startTime ASC")

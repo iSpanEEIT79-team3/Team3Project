@@ -255,16 +255,18 @@
 					<h6 class="d-flex align-items-center">一段美好的開始</h3>
 				</div>
 
-				<div class="d-flex text-center" style="width: 1900px;height:  400px;">
-
-					<div class="active ratio" style="width: 600px;">
-						<!-- img 放入 COURSE_IMAGE '/images/Courses_class4.jpg'讓圖片可以導入-->
-						<td>${course.productId}</td>
-
-						<img src="${course.courseImage}" class="d-block object-fit-cover rounded-5 mx-auto my-auto"
-							style="width: auto; height: auto; max-width: 100%; max-height: 100%;" alt="..." />
-					</div>
-
+				<div class="d-flex text-center" style="width: 1900px; height: 400px;">
+					<c:forEach items="${Courses}" var="course" varStatus="status">
+						<c:if test="${status.index < 3}"> <!-- 檢查是否是前三個元素 -->
+							<div class="active ratio" style="width: 600px;">
+								<!-- img 放入 COURSE_IMAGE，根據course對象顯示圖片和產品ID -->
+								<td>${course.productId}</td>
+								<img src="${course.courseImage}"
+									class="d-block object-fit-cover rounded-5 mx-auto my-auto"
+									style="max-width: 100%; height: 400px;" alt="..." />
+							</div>
+						</c:if>
+					</c:forEach>
 				</div>
 				<!-- 各種索引搜尋 -->
 
@@ -297,83 +299,60 @@
 					</div>
 				</div>
 				    <!-- 直視圖片區 -->
-
-				    <div class="row d-flex">
-
-					      <div class="col-md-3">
-						        <div class="product-item rounded-3 bs-secondary-color "
-							style="background-color:#F5F7F9">
-							          <div class="product-thumb">
-								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
-									src="../images/dancer1.jpg" alt="product-img">
-								            <div class="preview-meta">
-
-									            </div>
-								          </div>
-							          <div class="product-content m-3">
-								            <p>
-									              帶來如詩如畫的舞蹈饗宴。
-									            </p>
-								            <h4><a class="text-reset" href="">李舞妍</a></h4>
-								          </div>
-							        </div>
-						      </div>
-					      <div class="col-md-3">
-						        <div class="product-item rounded-3 bs-secondary-color "
-							style="background-color:#F5F7F9">
-							          <div class="product-thumb">
-								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
-									src="../images/dancer1.jpg" alt="product-img">
-								            <div class="preview-meta">
-
-									            </div>
-								          </div>
-							          <div class="product-content m-3">
-								            <p>
-									              讓每個人都感受到舞蹈的力量。
-									            </p>
-								            <h4><a class="text-reset" href="">張舞風</a></h4>
-								          </div>
-							        </div>
-						      </div>
-					      <div class="col-md-3">
-						        <div class="product-item rounded-3 bs-secondary-color "
-							style="background-color:#F5F7F9">
-							          <div class="product-thumb">
-								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
-									src="../images/dancer1.jpg" alt="product-img">
-								            <div class="preview-meta">
-
-									            </div>
-								          </div>
-							          <div class="product-content m-3">
-								            <p>
-									              如飄逸的雲彩般，輕盈而自由地穿越舞台。
-									            </p>
-								            <h4><a class="text-reset" href="">王舞雲</a></h4>
-								          </div>
-							        </div>
-						      </div>
-					      <div class="col-md-3">
-						        <div class="product-item rounded-3 bs-secondary-color "
-							style="background-color:#F5F7F9">
-							          <div class="product-thumb">
-								            <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
-									src="../images/dancer1.jpg" alt="product-img">
-								            <div class="preview-meta">
-
-									            </div>
-								          </div>
-							          <div class="product-content m-3">
-								            <p>
-									              韻律的大師，她熟練掌握著每一個節奏。
-									            </p>
-								            <h4><a class="text-reset" href="">陳舞韻</a></h4>
-								          </div>
-							        </div>
-						      </div>
-					    </div>
-
+				<div class="row d-flex">
+					<div class="col-md-3">
+						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
+							<div class="product-thumb">
+								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
+									alt="product-img">
+								<div class="preview-meta"></div>
+							</div>
+							<div class="product-content m-3">
+								<p>帶來如詩如畫的舞蹈饗宴。</p>
+								<h4><a class="text-reset" href="#">李舞妍</a></h4>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
+							<div class="product-thumb">
+								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
+									alt="product-img">
+								<div class="preview-meta"></div>
+							</div>
+							<div class="product-content m-3">
+								<p>讓每個人都感受到舞蹈的力量。</p>
+								<h4><a class="text-reset" href="#">張舞風</a></h4>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
+							<div class="product-thumb">
+								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
+									alt="product-img">
+								<div class="preview-meta"></div>
+							</div>
+							<div class="product-content m-3">
+								<p>如飄逸的雲彩般，輕盈而自由地穿越舞台。</p>
+								<h4><a class="text-reset" href="#">王舞雲</a></h4>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="product-item rounded-3 bs-secondary-color" style="background-color:#F5F7F9">
+							<div class="product-thumb">
+								<img class="z-1 object-fit-cover w-100 h-100 img-responsive" src="../images/dancer1.jpg"
+									alt="product-img">
+								<div class="preview-meta"></div>
+							</div>
+							<div class="product-content m-3">
+								<p>韻律的大師，她熟練掌握著每一個節奏。</p>
+								<h4><a class="text-reset" href="#">陳舞韻</a></h4>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<!--課程等級-->
 				<section class="page-section rounded-3" id="portfolio">
@@ -384,41 +363,43 @@
 							<div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
 							<h6 class="d-flex align-items-center">為每一個學員量身訂做</h3>
 						</div>
+						<!-- 循環開始前，確保結構正確並且只包裹一次 -->
 						<div class="row">
-							<div class="col-4 col-lg-4 col-sm-6 mb-4">
-								<!-- Portfolio item 1-->
-								<div class="portfolio-item">
-									<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-										<div class="portfolio-hover">
-											<div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i>
-											</div>
+							<c:forEach items="${Courses}" var="course">
+								<div class="col-4 col-lg-4 col-sm-6 mb-4">
+									<div class="portfolio-item">
+										<!-- 隱藏起來 -->
+
+										<div class="z-n1 d-none">
+											<h6>${course.productId}</h6>
 										</div>
-										<c:forEach items="${Courses}" var="course">
 
+										<a class="portfolio-link"
+											href="${pageContext.request.contextPath}/courseDetailsFront/${course.productId}">
+											<div class="portfolio-hover">
+												<div class="portfolio-hover-content">
+													<i class="fas fa-plus fa-3x"></i>
+												</div>
+											</div>
 											<img class="img-fluid" src="${course.courseImage}" alt="..." />
-									</a>
-									<div class="portfolio-caption">
-										<!-- 放入 -->
-										<h6>${course.productId}</h6>
-										<h4>
-											${course.courseName}
-										</h4>
-										<!-- 放入-->
+										</a>
+										<div class="portfolio-caption">
 
-										<h6>
-											${course.description}
-										</h6>
+											<h4>${course.courseName}</h4>
+											<h6>${course.description}</h6>
+										</div>
 									</div>
-									</c:forEach>
-
 								</div>
-							</div>
+							</c:forEach>
 						</div>
+
 					</div>
 				</section>
 
 
 			</div>
+
+
 			<div class="container-fluid w-100 h-100 g-0" style="width: 358px;">
 				<footer class="below">
 
