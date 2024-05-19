@@ -20,9 +20,9 @@
         }
         .dataTables_info{
             margin-top: 12px;
-
         }
-                /* 表格樣式 */
+
+        /* 表格樣式 */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -32,11 +32,10 @@
             border: 1px solid black;
             padding: 8px;
             text-align: left;
-            
+            white-space: nowrap; /* 保持文字在單行顯示 */
         }
 
         th {
-        
             background-color: #009688; /* 表頭背景色 */
         }
 
@@ -47,7 +46,10 @@
         tr:hover {
             background-color: white;
         }
-        
+
+        .table-responsive {
+            overflow-x: auto;
+        }
 
     </style>
 
@@ -64,7 +66,7 @@
                     <button class="btn btn-success m-2" id="xml">匯出xml</button>
                     <button class="btn btn-success m-2" id="excel">匯出excel</button>
                     </div >
-                    <div class="col-12 box">
+                    <div class="col-12 box table-responsive">
                         <table id="coursesTable" class="table">
                             <thead>
                                 <tr>

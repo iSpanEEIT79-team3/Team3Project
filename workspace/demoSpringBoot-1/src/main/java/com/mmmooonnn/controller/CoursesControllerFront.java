@@ -49,7 +49,14 @@ public class CoursesControllerFront {
 	    return teacherCourses; // 直接返回数据，Spring会使用Jackson转换成JSON
 	}
 
-	
+	//判斷熱門課程
+    @GetMapping("/getTop3CoursesNearFullCapacity")
+    @ResponseBody
+    public ResponseEntity<List<CoursesBean>> getTop3CoursesNearFullCapacity() {
+        List<CoursesBean> courses = cService.getTop3CoursesNearFullCapacity();
+        return ResponseEntity.ok(courses);
+    }
+
 	
 //	@GetMapping("/GetTeacherCoursesFront")
 //	public ModelAndView processActionGetTeacherCourses() {

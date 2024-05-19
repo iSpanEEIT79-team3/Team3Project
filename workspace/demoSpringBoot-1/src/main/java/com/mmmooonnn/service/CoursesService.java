@@ -83,6 +83,15 @@ public class CoursesService {
         // Update the course's enrollment count, check for capacity, etc.
     }
 
+    //判斷熱門課程
+
+    public List<CoursesBean> getTop3CoursesNearFullCapacity() {
+            List<CoursesBean> courses = courseRepos.findTopCloseToFullCourses();
+            return courses.size() > 3 ? courses.subList(0, 3) : courses;
+    }
+    
+    
+    
     public void saveJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<CoursesBean> courses = courseRepos.findAll();

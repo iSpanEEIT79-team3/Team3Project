@@ -29,14 +29,14 @@
         document.getElementById('courseName').value = 'Intermediate';
         document.getElementById('description').value = '將提高舞蹈的技術水平並拓展舞蹈風格。';
         document.getElementById('courseType').value = '多日課程';
-        document.getElementById('startDate').value = '2024-04-01';
-        document.getElementById('endDate').value = '2024-04-30';
-        document.getElementById('deadlineDate').value = '2024-04-07';
-        document.getElementById('location').value = '地點F';
+        document.getElementById('startDate').value = '2024-06-01';
+        document.getElementById('endDate').value = '2024-06-30';
+        document.getElementById('deadlineDate').value = '2024-05-31';
+        document.getElementById('location').value = '傳承排練場二樓';
         document.getElementById('price').value = '4000';
         document.getElementById('teacherName').value = 'Juan Rodriguez';
         document.getElementById('teacherContact').value = 'juan@example.com';
-        document.getElementById('enrollmentCount').value = '28';
+        document.getElementById('enrollmentCount').value = '1';
         document.getElementById('maxCapacity').value = '30';
         document.getElementById('courseImage').value = '/images/Courses_class4.jpg';
 
