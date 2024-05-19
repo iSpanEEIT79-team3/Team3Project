@@ -26,7 +26,7 @@ public class PageContorller {
 		//跳轉到註冊頁面
 		@GetMapping("/registerUser")
 		public String processActionRegisterUser() {
-			return "redirect:/front/user/register.html";
+			return "redirect:/front/user/UserRegister.html";
 		}
 		
 		//後端登出
