@@ -207,28 +207,29 @@
 										</select>
 									</div>
 								</div>
-									<div class="row mb-3">
-										<label for="danceAgeU" class="col-md-4 col-lg-3 col-form-label text-dark"
-											style="font-size: 1.4rem !important;font-weight: bold;">舞齡:</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="danceAge" type="number" class="form-control" id="danceAgeU"
-											min="1" max="50" value="">
-										</div>
-									</div>
-
-
-
-									<div class="text-center">
-										<button type="submit" class="btn btn-primary register">儲存</button>
+								<div class="row mb-3">
+									<label for="danceAgeU" class="col-md-4 col-lg-3 col-form-label text-dark"
+										style="font-size: 1.4rem !important;font-weight: bold;">舞齡:</label>
+									<div class="col-md-8 col-lg-9">
+										<input name="danceAge" type="number" class="form-control" id="danceAgeU" min="1"
+											max="50" value="">
 									</div>
 								</div>
-							</form><!-- End Profile Edit Form -->
 
 
-						</div><!-- End Bordered Tabs -->
-					</div>
+
+								<div class="d-flex align-items-center justify-content-between ">
+									<button type="submit" class="btn btn-primary register mx-5">儲存</button>
+									<button type="button" onclick="onePiceN()" class="onePice btn btn-primary mx-5">一鍵輸入</button>
+								</div>
+						</div>
+						</form><!-- End Profile Edit Form -->
+
+
+					</div><!-- End Bordered Tabs -->
 				</div>
 			</div>
+		</div>
 		</div>
 
 	</section>
@@ -250,10 +251,21 @@
 				$('#loginButton').attr("style", "display: block");
 			});
 
+		$('.onePice').click(function () {
+			console.log('Button clicked');
+			$('#userNameU').val('鄭廷耀');
+		});
+		
+		function onePiceN(){
+			console.log('Button clicked');
+			
+		}
+		
+
 		$('.register').click(function (e) {
 			e.preventDefault(); // 阻止直接提交表單
 
-			if (checkdata()) {
+			if (checkdata() || isEmailValid) {
 				Swal.fire({
 					position: "center",
 					icon: "success",
@@ -299,7 +311,7 @@
 			$.ajax({
 				url: '/validateEmail',
 				type: 'POST',
-				data: {email: email},
+				data: { email: email },
 				success: function () {
 					$('#emailMessage').text('信箱可以使用').removeClass('text-danger').addClass('text-success');
 					isEmailValid = true;

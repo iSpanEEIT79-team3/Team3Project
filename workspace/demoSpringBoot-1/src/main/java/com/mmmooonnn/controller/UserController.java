@@ -159,7 +159,7 @@ public class UserController {
 
 	// 修改密碼畫面
 	@GetMapping("/resetpassword")
-	public ModelAndView checkResetLink(String sid, String userEmail) {
+	public ModelAndView checkResetLink(String sid, String userEmail,HttpSession session) {
 		ModelAndView model = new ModelAndView("error");
 		String msg = "";
 		if (sid.equals("") || userEmail.equals("")) {
@@ -192,9 +192,9 @@ public class UserController {
 			return model;
 		}
 
-		model.setViewName("forward:/front/user/ResetPassword.html");
-		model.addObject("userEmail", userEmail);
-		System.out.println("成功");
+		model.setViewName("redirect:/front/user/ResetPassword.html");
+		
+		session.setAttribute("userEmail", userEmail);
 		return model;
 
 	}
@@ -524,6 +524,28 @@ public class UserController {
 		return modelAndView;
 
 	}
+	@PostMapping("/resetPassword")
+	public ModelAndView processActionResetPassword(@RequestParam("newpassword") String password,HttpSession session) {
+		System.out.println("有進來嗎");
+		ModelAndView modelAndView = new ModelAndView();
+
+		String email = (String) session.getAttribute("userEmail");
+		System.out.println("email:" + email);
+		UsersBeanNew users = uService2.findByEmail(email);
+
+
+		// 密碼
+		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		users.setPassword(encondPassword);
+
+
+		uService2.update(users);
+
+		modelAndView.setViewName("redirect:/UpdateUser");
+		return modelAndView;
+
+	}
+	
 
 	// 驗證密碼
 	@PostMapping("/validatePassword")
