@@ -90,7 +90,16 @@ public class CoursesService {
             return courses.size() > 3 ? courses.subList(0, 3) : courses;
     }
     
-    
+    //增加报名人数
+    public void registerUserToCourse(CoursesBean course) {
+        // 检查报名人数是否已满
+        if (course.getEnrollmentCount() < course.getMaxCapacity()) {
+            course.setEnrollmentCount(course.getEnrollmentCount() + 1);
+            courseRepos.save(course);
+        } else {
+            throw new IllegalStateException("Course is full");
+        }
+    }
     
     public void saveJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

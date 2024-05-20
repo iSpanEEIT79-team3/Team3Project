@@ -37,7 +37,7 @@ public class CoursesControllerFront {
 		ModelAndView modelAndView = new ModelAndView();
 		List<CoursesBean> Courses = cService.getAll();
 		modelAndView.addObject("Courses", Courses);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/courses_getall_Front.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/front/course/courses_getall_Front.jsp");
 		return modelAndView;
 	}
 	
@@ -57,7 +57,8 @@ public class CoursesControllerFront {
         return ResponseEntity.ok(courses);
     }
 
-	
+	//報名後增加人數
+    
 //	@GetMapping("/GetTeacherCoursesFront")
 //	public ModelAndView processActionGetTeacherCourses() {
 //	    ModelAndView modelAndView = new ModelAndView();
@@ -73,7 +74,7 @@ public class CoursesControllerFront {
     	CoursesBean course = cService.findCourseById(id);
     	if (course != null) {
     		model.addAttribute("course", course);
-    		return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
+    		return "forward:/WEB-INF/jsp/front/course/courses_details_Front.jsp";  // Ensure this matches the name of your JSP file
     	}
     	return "redirect:/error";  // Redirect to an error page if no course is found
     }
@@ -118,44 +119,17 @@ public class CoursesControllerFront {
         CoursesBean course = cService.findCourseById(productId);
         UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
         if (course != null && user != null) {
-            cService.registerUserToCourse(course, user);
-            return ResponseEntity.ok("Registration successful");
+            try {
+                cService.registerUserToCourse(course);
+                return ResponseEntity.ok("Registration successful");
+            } catch (IllegalStateException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found or User not logged in");
         }
     }
 
-    
-//    //立即報名
-//    @PostMapping("/registerCourse")
-//    public String registerCourse(@RequestParam("productId") Integer productId, HttpServletRequest request) {
-//        CoursesBean course = cService.findCourseById(productId);
-//        HttpSession session = request.getSession();
-//        // Assume there's a method to register the user to the course
-//        cService.registerUserToCourse(course, session.getAttribute("user"));
-//
-//        return "registerUserToCourse"; // Redirect to a success page
-//    }
-
-    
-    
-    
-//    @GetMapping("/courses")
-//    public ResponseEntity<List<CoursesBean>> getAllCourses() {
-//        List<CoursesBean> courses = cService.getAll();
-//        return ResponseEntity.ok(courses);
-//    }
-//    
-//    @GetMapping("/courses/{id}")
-//    public ResponseEntity<CoursesBean> getCourseById(@PathVariable int id) {
-//        CoursesBean course = cService.findCourseById(id);
-//        if (course != null) {
-//            return ResponseEntity.ok(course);
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
-//    
-//    
     
     
 	@GetMapping("/GetAllCourseDetailsFront")

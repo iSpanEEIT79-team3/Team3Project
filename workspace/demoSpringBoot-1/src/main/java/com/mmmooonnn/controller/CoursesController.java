@@ -27,7 +27,7 @@ public class CoursesController {
 		ModelAndView modelAndView = new ModelAndView();
 		List<CoursesBean> Courses = cService.getAll();
 		modelAndView.addObject("Courses", Courses);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/courses_getall.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/course/courses_index_back.jsp");
 		return modelAndView;
 	}
 	
@@ -38,7 +38,7 @@ public class CoursesController {
     	
     	CoursesBean coursesBean = cService.findCourseById(id);
 		m.addAttribute("course",coursesBean);
-		return "forward:/WEB-INF/jsp/course_updata.jsp";
+		return "forward:/WEB-INF/jsp/back/course/course_updata_back.jsp";
 	}
 
     
@@ -48,7 +48,7 @@ public class CoursesController {
         CoursesBean course = cService.findCourseById(id);
         if (course != null) {
             model.addAttribute("course", course);
-            return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
+            return "forward:/WEB-INF/jsp/back/course/courses_details_back.jsp";  // Ensure this matches the name of your JSP file
         }
         return "redirect:/error";  // Redirect to an error page if no course is found
     }
@@ -120,7 +120,7 @@ public class CoursesController {
 		
 		modelAndView.addObject("Courses", Courses);
 		
-		modelAndView.setViewName("forward:/WEB-INF/jsp/course_delete.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/course/course_delete_back.jsp");
 		return modelAndView;
 	}
 	
@@ -131,7 +131,7 @@ public class CoursesController {
 	
     @GetMapping("/course-insert")
     public String showInsertCoursePage() {
-        return "forward:WEB-INF/jsp/course_insert.jsp";
+        return "forward:WEB-INF/jsp/back/course/course_insert_back.jsp";
     }
 
     @PostMapping("/insert")
