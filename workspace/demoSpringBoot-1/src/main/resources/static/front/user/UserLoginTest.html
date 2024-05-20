@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JFSwing登入</title>
 
-    <link rel="stylesheet" href="../user/css/styles.min.css" />
+    <link rel="stylesheet" href="../css/styles.min.css" />
     <style>
         body {
             background-color: #D4B572;
@@ -110,11 +110,11 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Essential javascripts for application to work-->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="js/plugins/pace.min.js"></script>
+    <script src="../js/plugins/pace.min.js"></script>
     <script type="text/javascript">
         // Login Page Flipbox control
         $(document).ready(function () {
@@ -152,7 +152,7 @@
                         allowOutsideClick: false // 防止用户点击外部关闭弹窗
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "/html/UserLoginTest.html";
+                            window.location.href = "/UserLoginTest";
                         }
                     });
                 },

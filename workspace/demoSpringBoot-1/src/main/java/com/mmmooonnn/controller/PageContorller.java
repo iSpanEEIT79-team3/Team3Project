@@ -20,7 +20,7 @@ public class PageContorller {
 		//跳轉到登入畫面
 		@GetMapping("/UserLoginTest")
 		public String processActionGetUserLoginTest() {
-			return "redirect:/html/UserLoginTest.html";
+			return "redirect:/front/user/UserLoginTest.html";
 		}
 		
 		//跳轉到註冊頁面
