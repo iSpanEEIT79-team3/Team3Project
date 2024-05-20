@@ -91,7 +91,7 @@ public class LikeControllerFront {
 //		        return new ModelAndView("redirect:LTSelectAll");
 //		    }
 
-		return new ModelAndView("redirect:LTSelectAllFront");
+		return new ModelAndView("redirect:/LTSelectAllFront");
 	}
 
 	@DeleteMapping("/LTDeleteByLikeIdFront.controller")
@@ -111,4 +111,9 @@ public class LikeControllerFront {
 
 	}
 
+	
+	
+	
+	
+	
 }

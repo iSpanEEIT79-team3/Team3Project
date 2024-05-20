@@ -43,7 +43,7 @@ public class LTController {
 		System.out.println(resultBean);
 		mm.addAttribute("ltBean", resultBean);
 		
-		return "forward:/WEB-INF/jsp/LTSelect.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/LTSelect.jsp";
 
 	}
 	
@@ -53,7 +53,7 @@ public class LTController {
 		System.out.println(resultBean);
 		m.addAttribute("ltBean", resultBean);
 		
-		return "forward:/WEB-INF/jsp/LTUpdate.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/LTUpdate.jsp";
 
 	}
 
@@ -101,7 +101,7 @@ public class LTController {
 			mv.addObject("errorMessage", "An error occurred: " + e.getMessage());
 
 		}
-		mv.setViewName("redirect:LTSelectAll");
+		mv.setViewName("redirect:/LTSelectAll");
 
 		return mv;
 	}
@@ -109,7 +109,7 @@ public class LTController {
 	@DeleteMapping("/LTDeleteById.controller")
 	public String deleteBYLTId(@RequestParam("ltId") Integer ltId) {
 		lt.deleteById(ltId);
-		return "redirect:LTSelectAll";
+		return "redirect:/LTSelectAll";
 	}
 
 	@PutMapping("/LTUpdate.controller")
@@ -120,18 +120,18 @@ public class LTController {
 		
 		Integer LTID = Integer.parseInt(ltId);
 		Integer USERID = Integer.parseInt(userId);
-
-		try {
-
 			LTBean ltBean = new LTBean();
-			if (!picture.isEmpty()) {
-				String fileurl = "C:\\Spring\\workspace\\SpringMvcWork\\src\\main\\webapp\\images";
-				String fileName = picture.getOriginalFilename();
 
-				File fileurl1 = new File(fileurl, fileName);
-				picture.transferTo(fileurl1);
-				ltBean.setPicture("images/" + fileName);
-			}
+//		try {
+//
+//			if (!picture.isEmpty()) {
+//				String fileurl = "C:\\Spring\\workspace\\SpringMvcWork\\src\\main\\webapp\\images";
+//				String fileName = picture.getOriginalFilename();
+//
+//				File fileurl1 = new File(fileurl, fileName);
+//				picture.transferTo(fileurl1);
+//				ltBean.setPicture("images/" + fileName);
+//			}
 			ltBean.setLtId(LTID);
 			ltBean.setUserId(USERID);
 			
@@ -145,12 +145,12 @@ public class LTController {
 
 			lt.update(ltBean);
 
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
-		return "redirect:LTSelectAll";
+//		} catch (Exception e) {
+//
+//			e.printStackTrace();
+//
+//		}
+		return "redirect:/LTSelectAll";
 
 	}
 	
@@ -160,7 +160,7 @@ public class LTController {
 	public String findByTitle(@RequestParam("title") String title, Model mm) {
 	    List<LTBean> ltBeans = lt.findByTitle(title);
 	    mm.addAttribute("ltBeans", ltBeans);
-	    return "forward:/WEB-INF/jsp/LTTitle.jsp";
+	    return "forward:/WEB-INF/jsp/back/lt/LTTitle.jsp";
 	}
 	
 //	@PostMapping("/Likeinsert1.controller")

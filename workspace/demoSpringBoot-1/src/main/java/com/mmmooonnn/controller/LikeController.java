@@ -48,15 +48,11 @@ public class LikeController {
 	@ResponseBody
 	public ModelAndView InsertLike(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
 
-		System.out.println("1=" + ltId);
-		System.out.println("2=" + userId);
 
 		LTBean ltBean1 = lt.findByLTId(ltId);
-		System.out.println("ltBean1=" + ltBean1);
 		Integer like = ltBean1.getSaveLike();
 		int num = like + 1;
 		ltBean1.setSaveLike(num);
-		//lt.update(ltBean1);
 
 		LikeBean likeBean = new LikeBean();
 		likeBean.setLtId(ltId);
@@ -82,14 +78,10 @@ public class LikeController {
 	
 		
 
-//	
-//			  LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
-//			  System.out.println(existingLike);
-//			    if (existingLike != null) {
-//		        return new ModelAndView("redirect:LTSelectAll");
-//		    }
+	
 
-		return new ModelAndView("redirect:LTSelectAll");
+
+		return new ModelAndView("redirect:/LTSelectAll");
 	}
 
 	@DeleteMapping("/LTDeleteByLikeId.controller")

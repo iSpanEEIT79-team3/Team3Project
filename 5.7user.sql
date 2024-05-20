@@ -53,13 +53,13 @@ VALUES
 
 INSERT INTO USERSNEW (FK_CONTACTID, NICKNAME, GENDER, PASSWORD, BIRTHDAY, USERPICTURE, DANCECHARACTER, DANCEAGE, THIRDPARTYLOGIN, PERMISSION)
 VALUES 
-    (1001, 'JohnDoe123', '男', 'password123', '1990-05-15', NULL, 'Hip Hop', 'Intermediate', 0, 1),
-    (1002, 'JaneSmith456', '女', 'password456', '1985-08-20', NULL, 'Contemporary', 'Beginner', 0, 0),
-    (1003, 'MichaelJ', '男', 'mikepass', '1982-03-10', NULL, 'Salsa', 'Advanced', 0, 0),
-    (1004, 'EmBrownie', '女', 'brownie123', '1995-11-30', NULL, 'Ballet', 'Intermediate', 0, 0),
-    (1005, 'DavidL', '男', 'davidpass', '1988-07-05', NULL, 'Ballroom', 'Advanced', 0, 0),
-    (1006, 'SWilson', '女', 'sarah123', '1992-01-25', NULL, 'Tap', 'Beginner', 0, 0),
-    (1007, 'DanT', '男', 'dantpass', '1983-09-12', NULL, 'Breakdance', 'Intermediate', 0, 0),
+    (1001, 'JohnDoe123456', '男', 'password123', '1990-05-15', NULL, 'Hip Hop', 'Intermediate', 0, 1),
+    (1002, 'JaneSmith456', '女', 'password456', '1985-08-20', NULL, 'Contemporary', 'Beginner', 0, 1),
+    (1003, 'MichaelJ', '男', 'mikepass', '1982-03-10', NULL, 'Salsa', 'Advanced', 0, 1),
+    (1004, 'EmBrownie', '女', 'brownie123', '1995-11-30', NULL, 'Ballet', 'Intermediate', 0, 1),
+    (1005, 'DavidL', '男', 'davidpass', '1988-07-05', NULL, 'Ballroom', 'Advanced', 0, 1),
+    (1006, 'SWilson', '女', 'sarah123', '1992-01-25', NULL, 'Tap', 'Beginner', 0, 1),
+    (1007, 'DanT', '男', 'dantpass', '1983-09-12', NULL, 'Breakdance', 'Intermediate', 0, 1),
     (1008, 'JessMart', '女', 'jesspass', '1987-06-18', NULL, 'Jazz', 'Advanced', 0, 0),
     (1009, 'MattA', '男', 'matt123', '1993-04-08', NULL, 'Swing', 'Beginner', 0, 0),
     (1010, 'AmandaT', '女', 'amandapass', '1998-02-20', NULL, 'Irish Dance', 'Intermediate', 0, 0);
@@ -73,7 +73,7 @@ SET USERNAME = '王小明',
 WHERE CONTACTID = 1001;
 
 UPDATE USERSNEW
-SET NICKNAME = 'JohnDoe123',
+SET NICKNAME = '黃紫軍',
     GENDER = '男',
     PASSWORD = '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm',
     BIRTHDAY = '1990-05-15',
@@ -96,3 +96,5 @@ create table usertoken(
 select * from usertoken;
 drop table usertoken;
 
+Select * from USERSNEW
+Select * from USERCONTACTNEW

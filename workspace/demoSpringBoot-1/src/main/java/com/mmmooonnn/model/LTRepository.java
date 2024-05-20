@@ -17,5 +17,7 @@ public interface LTRepository extends JpaRepository<LTBean, Integer> {
     
 @Query(value = "SELECT* from LT",countQuery="Select count(*)From LT", nativeQuery = true)
 Page<LTBean> findAllPage(Pageable pageable);
-    
+
+@Query(value = "select * from LT where ltid in (select ltId from collect where userId=:userld)",countQuery="Select count(*)From LT", nativeQuery = true)
+Page<LTBean> findCollectPage(Pageable pageable,Integer userld);
 }

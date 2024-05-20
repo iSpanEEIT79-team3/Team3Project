@@ -3,8 +3,11 @@ package com.mmmooonnn.controller;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -30,6 +33,7 @@ import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.model.pageViewsBean;
 import com.mmmooonnn.service.LTService;
 import com.mmmooonnn.service.LikeService;
+import com.mmmooonnn.service.UsersService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -43,6 +47,8 @@ public class LTControllerFront {
 	private LTService lt;
 	@Autowired
 	private LikeService lr;
+	@Autowired
+	private UsersService usersService;
 
 
 	@GetMapping("/LTSelectById1Front.controller")
@@ -51,7 +57,7 @@ public class LTControllerFront {
 		System.out.println(resultBean);
 		mm.addAttribute("ltBean", resultBean);
 
-		return "forward:/WEB-INF/jsp/LTSelectFront.jsp";
+		return "forward:/WEB-INF/jsp/front/lt/LTSelectFront.jsp";
 
 	}
 
@@ -61,27 +67,35 @@ public class LTControllerFront {
 		System.out.println(resultBean);
 		m.addAttribute("ltBean", resultBean);
 
-		return "forward:/WEB-INF/jsp/LTUpdateFront.jsp";
+		return "forward:/WEB-INF/jsp/front/lt/LTUpdateFront.jsp";
 
 	}
 
 	@GetMapping("/LTSelectAllFront")
 	public String LTSelectAll(Model m) {
 		List<LTBean> LTList = lt.findLT();
+//		List<UsersBeanNew> usersNickName= new ArrayList<>();
+//		for (LTBean ltBean : LTList) {
+//			Integer userId = ltBean.getUserId();
+//			UsersBeanNew findUserById = usersService.findUserById(userId);
+//			usersNickName.add(findUserById);
+//			
+//		}
+		
+		
 		m.addAttribute("ltBeans", LTList);
-
-		return "forward:/WEB-INF/jsp/LTSelectAllFront.jsp";
+//		m.addAttribute("usersNickName",usersNickName);
+		return "forward:/WEB-INF/jsp/front/lt/LTSelectAllFront.jsp";
 
 	}
 
 	@PostMapping("/LTinsertFront.controller")
 	@ResponseBody
-	public ModelAndView InsertLT(@RequestParam("title") String title, /* @RequestParam("userId") String userId */
-			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content
-			/* @RequestParam("saveLike") Integer saveLike */, HttpSession session) {
+	public ModelAndView InsertLT(@RequestParam("title") String title, 
+			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
-
+		
 		try {
 			LTBean ltBean = new LTBean();
 			if (!picture.isEmpty()) {
@@ -93,6 +107,9 @@ public class LTControllerFront {
 				ltBean.setPicture("images/" + fileName);
 			}
 			ltBean.setUserId(user.getUserId());
+			ltBean.setUserName(user.getNickName());
+			
+		
 			ltBean.setTitle(title);
 			ltBean.setContent(content);
 			ltBean.setSaveLike(0);
@@ -101,7 +118,7 @@ public class LTControllerFront {
 
 			ltBean.setDate(DATE);
 			lt.insertLT(ltBean);
-			
+		
 
 		} catch (Exception e) {
 
@@ -109,15 +126,15 @@ public class LTControllerFront {
 			mv.addObject("errorMessage", "An error occurred: " + e.getMessage());
 
 		}
-		mv.setViewName("redirect:LTSelectAllFront");
-
+		mv.setViewName("redirect:/LTSelectAllFront");
+		
 		return mv;
 	}
 
 	@DeleteMapping("/LTDeleteByIdFront.controller")
 	public String deleteBYLTId(@RequestParam("ltId") Integer ltId) {
 		lt.deleteById(ltId);
-		return "redirect:LTSelectAllFront";
+		return "redirect:/LTSelectAllFront";
 	}
 
 	@PutMapping("/LTUpdateFront.controller")
@@ -159,7 +176,7 @@ public class LTControllerFront {
 			e.printStackTrace();
 
 		}
-		return "redirect:LTSelectAllFront";
+		return "redirect:/LTSelectAllFront";
 
 	}
 
@@ -170,36 +187,10 @@ public class LTControllerFront {
 		System.out.println(title);
 		System.out.println(88888888);
 		System.out.println(ltBeans);
-		return "forward:/WEB-INF/jsp/LTTitleFront.jsp";
+		return "forward:/WEB-INF/jsp/front/lt/LTTitleFront.jsp";
 	}
 
-//	@PostMapping("/Likeinsert1.controller")
-//	public ModelAndView InsertLike(@RequestParam("userId") Integer userId, @RequestParam("ltId") Integer ltId) {
-//	    ModelAndView mv = new ModelAndView();
-//
-//	    // 檢查是否已經按過讚
-//	    LikeBean existingLike = lr.findByUserIdAndLtId(userId, ltId);
-//	    if (existingLike != null) {
-//	        // 如果已經按過讚，則取消按讚
-//	        lr.deleteByUserIdAndLtId(userId, ltId);
-//	        // 更新文章的按讚數量
-//	        int likeCount = lr.getLikeCount(ltId);
-//	        lt.updateLikeCount(ltId, likeCount - 1);
-//	    } else {
-//	        // 如果還未按讚，則新增一條按讚紀錄
-//	        LikeBean newLike = new LikeBean();
-//	        newLike.setUserId(userId);
-//	        newLike.setLtId(ltId);
-//	        lr.insertLike(newLike);
-//	        // 更新文章的按讚數量
-//	        int likeCount = lr.getLikeCount(ltId);
-//	        lt.updateLikeCount(ltId, likeCount + 1);
-//	    }
-//
-//	    // 重定向到該文章的頁面
-//	    mv.setViewName("redirect:/LTSelectById.controller?ltId=" + ltId);
-//	    return mv;
-//	}
+
 
 	@GetMapping("LTIndex")
 	public String ltIndex() {
@@ -210,11 +201,22 @@ public class LTControllerFront {
 	// 分頁
 	@GetMapping(path = "/pageALL")
 	@ResponseBody
-	public Page<LTBean> LTPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+	public Page<LTBean> LTPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,Model m,HttpSession session) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by("ltId").descending());
 		Page<LTBean> pageL = lt.finPage(pageable);
+		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
 		System.out.println(pageL);
-
+		List<UsersBeanNew> usersNickName= new ArrayList<>();
+		for (LTBean ltBean : pageL) {
+			Integer userId = ltBean.getUserId();
+			UsersBeanNew findUserById = usersService.findUserById(userId);
+			usersNickName.add(findUserById);
+			
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ltbean",pageL );
+		map.put("user",user);
+		m.addAttribute("usersNickName",usersNickName);
 		return pageL;
 
 	}

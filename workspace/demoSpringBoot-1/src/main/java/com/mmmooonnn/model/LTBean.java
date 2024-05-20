@@ -51,88 +51,173 @@ public class LTBean implements Serializable {
 
 	@Column(name = "PAGEVIEWS")
 	private Integer pageViews;
-
+	@Column(name = "COLLECT")
+	private Integer collect;
+	@Column(name = "USERNAME")
+	private String userName;
 	public LTBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getLtId() {
-		return ltId;
-	}
 
-	public void setLtId(Integer ltId) {
-		this.ltId = ltId;
-	}
-
-	public Set<ReplyBean> getReplyBeans() {
-		return ReplyBeans;
-	}
-
-	public void setReplyBeans(Set<ReplyBean> replyBeans) {
-		ReplyBeans = replyBeans;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Integer getSaveLike() {
-		return saveLike;
-	}
-
-	public void setSaveLike(Integer saveLike) {
-		this.saveLike = saveLike;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	
 
 	@Override
 	public String toString() {
 		return "LTBean [ltId=" + ltId + ", ReplyBeans=" + ReplyBeans + ", title=" + title + ", userId=" + userId
 				+ ", date=" + date + ", picture=" + picture + ", content=" + content + ", saveLike=" + saveLike
-				+ ", pageViews=" + pageViews + "]";
+				+ ", pageViews=" + pageViews + ", collect=" + collect + ", userName=" + userName + "]";
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
+
+
+
+	public Integer getLtId() {
+		return ltId;
+	}
+
+
+
+
+	public void setLtId(Integer ltId) {
+		this.ltId = ltId;
+	}
+
+
+
+
+	public Set<ReplyBean> getReplyBeans() {
+		return ReplyBeans;
+	}
+
+
+
+
+	public void setReplyBeans(Set<ReplyBean> replyBeans) {
+		ReplyBeans = replyBeans;
+	}
+
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+
+
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
+
+
+	public String getPicture() {
+		return picture;
+	}
+
+
+
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+
+
+	public Integer getSaveLike() {
+		return saveLike;
+	}
+
+
+
+
+	public void setSaveLike(Integer saveLike) {
+		this.saveLike = saveLike;
+	}
+
+
+
+
+	public Integer getCollect() {
+		return collect;
+	}
+
+
+
+
+	public void setCollect(Integer collect) {
+		this.collect = collect;
+	}
+
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
 
 	public LTBean(Integer ltId, Set<ReplyBean> replyBeans, String title, Integer userId, Date date, String picture,
 			String content, Integer saveLike) {
