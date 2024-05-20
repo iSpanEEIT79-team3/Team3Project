@@ -113,7 +113,7 @@ public class EventController {
 		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		System.out.println(eventBeans);
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
@@ -193,10 +193,10 @@ public class EventController {
 
 		eService.saveEvent(eventBean);
 		System.out.println(eventBean);
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
@@ -206,7 +206,7 @@ public class EventController {
 		ModelAndView modelAndView = new ModelAndView();
 		Event eventBean = eService.findEventById(EventId);
 		modelAndView.addObject("eventBean", eventBean);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSupdateData.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSupdateData.jsp");
 		return modelAndView;
 	}
 	
@@ -288,18 +288,20 @@ public class EventController {
 		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
 	@DeleteMapping("/Event")
 	public ModelAndView processDeleteAction(@RequestParam("PRODUCTID") Integer eventId) {
 		ModelAndView modelAndView = new ModelAndView();
+		
+		System.out.println(eventId);
 		eService.deleteById(eventId);
 
 		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
@@ -315,7 +317,7 @@ public class EventController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 

@@ -7,7 +7,7 @@
 
 					<!DOCTYPE html>
 					<html>
-<!--本頁網址 http://localhost:8080/WSall -->
+<!--本頁網址 http://localhost:8080/back/event/WSall -->
 					<head>
 						<meta charset="UTF-8">
 						<title>活動資訊</title>
@@ -22,30 +22,7 @@
 https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet">
 
-						<script>
-							function upload() {
-								// 取得表單元素
-								var form = document.getElementById('myForm');
 
-
-
-								// 所有欄位都已填滿，執行表單提交
-								var formData = new FormData(form);
-								fetch('/WSinsert', {
-									method: 'POST',
-									body: formData
-								})
-									.then(function (response) {
-										if (response.status != 200) {
-											console.log('response status1:' + response.status);
-											return;
-										}
-										console.log('response status2:' + response.status);
-										window.location.href = "/WSall";
-									});
-							}
-
-						</script>
 
 						<style>
 							td {
@@ -180,7 +157,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 												<div class="modal-footer">
 													<button type="submit" class="btn btn-primary"
-														onclick="upload()">確定</button>
+													>確定</button>
 													<button type="reset" class="btn btn-primary">清除</button>
 													<button type="button" id="fillData"
 														class="fastfilldata-data-btn btn btn-primary">一鍵輸入</button>
@@ -253,7 +230,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 																	pattern="yyyy-MM-dd HH:mm" />
 															</td>
 
-															<td style="width: 400px;">${evBean.eventDetail}</td>
+															<td title="${evBean.eventDetail}" style="max-width:400px;max-height:100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${evBean.eventDetail}</td>
 															<td>${evBean.eventCategory}</td>
 															<td>${evBean.eventPrice}</td>
 															<td>${evBean.eventLocation}</td>
@@ -264,17 +241,18 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 																<form action="Getupdate/${evBean.eventId}"
 																	method="post">
 																	<input type="hidden" name="_method" value="put">
-																	<button type="submit" class="update">更新</button>
+																	<button type="submit" class="update btn btn-success">更新</button>
 																</form>
 															</td>
 
 															<td class="align-middle">
-																<form
+																<form id="deleteForm"
 																	action="${pageContext.request.contextPath}/Event?PRODUCTID=${evBean.eventId}"
+																	
 																	method="post">
 																	<input type="hidden" name="_method" value="delete">
-																	<button onclick="confirmDelete()" type="submit"
-																		class="delete align-middle">刪除</button>
+																	<button type="submit" id="deleteButton"
+																		class="delete align-middle btn btn-danger">刪除</button>
 																</form>
 															</td>
 														</tr>
@@ -327,14 +305,14 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								function fillData() {
 
 									document.getElementById("EVENT_NAME").value = "SwingFever搖擺舞派對";
-									document.getElementById("SIGNUP_STARTIME").value = "2024-05-01T09:18";
-									document.getElementById("SIGNUP_ENDTIME").value = "2024-05-16T00:00";
-									document.getElementById("EVENT_STARTIME").value = "2024-05-24T09:18";
-									document.getElementById("EVENT_ENDTIME").value = "2024-05-26T00:00";
+									document.getElementById("SIGNUP_STARTIME").value = "2024-06-01T09:00";
+									document.getElementById("SIGNUP_ENDTIME").value = "2024-06-16T12:00";
+									document.getElementById("EVENT_STARTIME").value = "2024-06-24T18:00";
+									document.getElementById("EVENT_ENDTIME").value = "2024-06-26T23:30";
 									document.getElementById("EVENT_DETAIL").value = "歡迎加入我們舉辦的 Swing Fever 搖擺舞派對！這是一個讓您盡情跳躍、歡笑和享受音樂的絕佳機會。我們將在 City Dance Studio 舉辦這個活動，活動期間將會有專業的搖擺舞老師為您帶來精彩的教學課程，同時也會有DJ為大家播放熱情歡快的 Swing 音樂。無論您是初學者還是搖擺舞高手，這都是一個與朋友們一起跳舞、放鬆身心的絕佳之夜。不要錯過這個難得的機會，穿上您的最佳舞鞋，加入我們一起搖擺吧！";
 									document.getElementById("EVENT_CATEGORY").value = "BALBOA";
 									document.getElementById("EVENT_PRICE").value = "500";
-									document.getElementById("EVENT_ADDRES").value = "Big Apple studio 復興教室";
+									document.getElementById("EVENT_ADDRES").value = "中山堂";
 									document.getElementById("ORGANIZER").value = "Big Apple";
 
 								}
@@ -345,40 +323,37 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 							<script src="
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
 		"></script>
+							
+						
 							<script>
-								$(document).ready(function () {
-									function confirmDelete() {
-										// 使用 SweetAlert 提示框顯示刪除確認訊息
-										swal.fire({
-											title: "確定要刪除嗎？",
-											text: "刪除後將無法復原！",
-											icon: "warning",
-											buttons: true,
-											showCancelButton: true,
-											dangerMode: true,
-										})
-											.then((result) => {
-												if (result.isConfirmed) {
-													// 使用者點擊確定按鈕後執行刪除動作
-													// 在這裡加入刪除動作的程式碼
-													$("form").submit();
-													swal.fire("已成功刪除！", {
-														icon: "success",
-													});
-												} else {
-													// 使用者點擊取消按鈕
-													swal.fire("已取消刪除。");
-												}
-											});
-									}
+							document.addEventListener('DOMContentLoaded', function () {
+								var deleteButtons = document.querySelectorAll('.delete');
 
-									// 綁定刪除按鈕的點擊事件
-									$(".delete").click(function () {
-										event.preventDefault();
-										confirmDelete();
+								deleteButtons.forEach(function (button) {
+									button.addEventListener('click', function (event) {
+										event.preventDefault(); // 阻止默认行为（即提交表单）
+
+										Swal.fire({
+											title: '確定要刪除嗎?',
+											text: "刪除後將無法復原！",
+											icon: 'question',
+											showCancelButton: true,
+											confirmButtonColor: '#3085d6',
+											cancelButtonColor: '#d33',
+											confirmButtonText: '確認刪除!',
+											cancelButtonText: '取消'
+										}).then((result) => {
+											if (result.isConfirmed) {
+												// 如果用户点击了确认，则提交表单
+												button.closest('form').submit();
+											}
+										});
 									});
 								});
+							});
 							</script>
+
+					
 
 
 							<!-- Essential javascripts for application to work-->
