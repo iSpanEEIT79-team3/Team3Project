@@ -300,7 +300,7 @@ public class ShopController {
                 switch (size) {
 				case "xsSize":
 					Integer newShopXs = shopQuan.getXsSize() - quantity;
-					shopQuan.setsSize(newShopXs);
+					shopQuan.setXsSize(newShopXs);
 					shopQuanService.update(shopQuan);
 					break;
 				case "sSize":
