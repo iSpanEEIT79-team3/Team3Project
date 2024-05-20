@@ -64,6 +64,27 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 								/* table-layout: fixed */
 							}
 						</style>
+								<script>
+								fetch('/back/exampleBack.html')
+									.then(response => response.text())
+									.then(html => {
+										document.body.insertAdjacentHTML('beforeend', html);
+									});
+
+
+
+								function RWDTest() {
+									//let RWD = document.getElementsByClassName("RWDTest");
+									let RWD = document.body;
+									if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+										RWD.className = "app sidebar-mini rtl pace-done";
+									} else {
+										RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+									}
+								}
+
+							</script>
+		
 					</head>
 
 					<body style='background-color: #fdf5e6'>
@@ -77,7 +98,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 									<br>
 									<div class="row justify-content-start">
 										<div class="col-auto">
-											<form method="get" action="/WSSearchByDate" enctype="multipart/form-data">
+											<form method="get"  action="/WSSearchByDate" enctype="multipart/form-data">
 												<h5>活動開始時間 : <input type="date" id="startTime" name="startTime" />
 													<button type="submit" class="btn btn-primary">查詢</button>
 												</h5>
@@ -230,7 +251,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 																	pattern="yyyy-MM-dd HH:mm" />
 															</td>
 
-															<td title="${evBean.eventDetail}" style="max-width:400px;max-height:100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${evBean.eventDetail}</td>
+															<td title="${evBean.eventDetail}" style="max-width:300px;max-height:100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${evBean.eventDetail}</td>
 															<td>${evBean.eventCategory}</td>
 															<td>${evBean.eventPrice}</td>
 															<td>${evBean.eventLocation}</td>
@@ -331,7 +352,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 								deleteButtons.forEach(function (button) {
 									button.addEventListener('click', function (event) {
-										event.preventDefault(); // 阻止默认行为（即提交表单）
+										event.preventDefault(); // 阻止默認行為（即提交表单）
 
 										Swal.fire({
 											title: '確定要刪除嗎?',
@@ -387,26 +408,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 							</script>
 
-							<script>
-								fetch('/back/exampleBack.html')
-									.then(response => response.text())
-									.then(html => {
-										document.body.insertAdjacentHTML('beforeend', html);
-									});
-
-
-
-								function RWDTest() {
-									//let RWD = document.getElementsByClassName("RWDTest");
-									let RWD = document.body;
-									if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
-										RWD.className = "app sidebar-mini rtl pace-done";
-									} else {
-										RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
-									}
-								}
-
-							</script>
+					
 					</body>
 
 					</html>
