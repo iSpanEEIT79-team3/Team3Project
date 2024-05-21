@@ -95,6 +95,9 @@ replay_pid*
 
 ### Maven ###
 target/
+# Except userPicture directory
+!/target/classes/static/static/userPicture
+
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

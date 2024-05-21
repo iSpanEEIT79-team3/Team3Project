@@ -37,14 +37,14 @@ public class ReplyController {
 		ReplyBean resultBean = ry.findByReplyId(replyId);
 		mm.addAttribute("replyBean",resultBean);
 		
-		return "forward:/WEB-INF/jsp/ReplySelect.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/ReplySelect.jsp";
 	}
 	@GetMapping("/ReplySelectById.controller/{replyId}")
 	public String findByReplyIdup(@RequestParam("replyId") Integer replyId,Model m) {
 		ReplyBean resultBean = ry.findByReplyId(replyId);
 		m.addAttribute("replyBean",resultBean);
 		
-		return "forward:/WEB-INF/jsp/ReplyUpdate.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/ReplyUpdate.jsp";
 	}	
 	
 	
@@ -53,7 +53,7 @@ public class ReplyController {
 			List<ReplyBean> replyList = ry.findReply();
 			m.addAttribute("replyBeans", replyList);
 			
-			return "forward:/WEB-INF/jsp/ReplySelectAll.jsp";
+			return "forward:/WEB-INF/jsp/back/lt/ReplySelectAll.jsp";
 			
 	}
 @PostMapping("Replyinsert.controller")
@@ -88,7 +88,7 @@ public ModelAndView InsertReply(
 @DeleteMapping("/ReplyDelete.controller")
     public String deleteBYReplyId(@RequestParam("replyId") Integer replyId) {
        ry.deleteBYReplyId(replyId);
-       return"redirect:ReplySelectAll";
+       return"redirect:/ReplySelectAll";
 	
 	
     }
@@ -120,7 +120,7 @@ public ModelAndView InsertReply(
 				e.printStackTrace();
 			}
 		
-		return "redirect:ReplySelectAll";
+		return "redirect:/ReplySelectAll";
     }
 		
 	@GetMapping("/findLTID/{ltId}")
@@ -134,7 +134,7 @@ public ModelAndView InsertReply(
 		Set<ReplyBean> replyBeans = resultBean.getReplyBeans();
 		System.out.println("ReplyBeans"+resultBean.getReplyBeans());
 	    mm.addAttribute("replyBean", replyBeans);
-	    return "forward:/WEB-INF/jsp/ReplySelectLTId.jsp";
+	    return "forward:/WEB-INF/jsp/back/lt/ReplySelectLTId.jsp";
 	}
 }
 		

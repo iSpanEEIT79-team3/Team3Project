@@ -57,7 +57,7 @@ public class OrdersController {
 	//新增訂單
 	@PostMapping("/orders")
 	@Transactional
-	public Orders addOrder(@RequestBody Orders order) {
+	public Orders addOrder(@RequestBody Orders order,HttpSession session) {
 		System.out.println("order="+order);
 		System.out.println("UserContactNew="+order.getUserContactNew());
 		int ContactId =order.getUserContactNew().getContactId();
@@ -89,6 +89,9 @@ public class OrdersController {
 
 	    ordersDao.save(order);
 	   
+	    session.setAttribute("productData", null);
+	    session.setAttribute("productList", null);
+	    
 		return order;
 
 	}
@@ -97,8 +100,9 @@ public class OrdersController {
 	//刪除訂單
 	@DeleteMapping("/orders/{id}")
 	@Transactional
-	public void deleteOrder(@PathVariable("id") Long id) {
+	public String deleteOrder(@PathVariable("id") Long id) {
 		ordersDao.deleteById(id);
+		return "okay";
 	}
 	
 	

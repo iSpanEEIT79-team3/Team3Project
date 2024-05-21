@@ -35,7 +35,7 @@ public class ReportReplyController {
 		ReportReplyBean resultBean = rr.findById(reportReplyId);
 		
 		m.addAttribute("reportreplyBean", resultBean);
-		return "forward:/WEB-INF/jsp/ReportReplySelect.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/ReportReplySelect.jsp";
 
 	}
 
@@ -43,7 +43,7 @@ public class ReportReplyController {
 	public String findByID(@RequestParam("reportreplyId") Integer reportreplyId, Model m) {
 		ReportReplyBean resultBean = rr.findById(reportreplyId);
 		m.addAttribute("reportreplyBean", resultBean);
-		return "forward:/WEB-INF/jsp/ReportReplyUpdate.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/ReportReplyUpdate.jsp";
 
 	}
 
@@ -52,7 +52,7 @@ public class ReportReplyController {
 		List<ReportReplyBean> reportList = rr.findReportReply();
 		m.addAttribute("reportreplyBeans", reportList);
 
-		return "forward:/WEB-INF/jsp/ReportReplySelectAll.jsp";
+		return "forward:/WEB-INF/jsp/back/lt/ReportReplySelectAll.jsp";
 
 	}
 
@@ -60,7 +60,7 @@ public class ReportReplyController {
 	public ModelAndView InsertReport(@RequestParam("reportContent") String reportContent,
 			@RequestParam("replyId") Integer replyId, Model m) {
 
-		ModelAndView mv = new ModelAndView("redirect:ReportReplySelectAll");
+		ModelAndView mv = new ModelAndView("redirect:/ReportReplySelectAll");
 
 		ReplyBean replyBean = rp.findByReplyId(replyId);
 		ReportReplyBean reportreplyBean = new ReportReplyBean();
@@ -81,7 +81,7 @@ public class ReportReplyController {
 		
 		
 
-		return "redirect:ReportReplySelectAll";
+		return "redirect:/ReportReplySelectAll";
 	}
 
 	@PutMapping("/ReportReplyUpdate.controller")
@@ -96,7 +96,7 @@ public class ReportReplyController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "redirect:ReportReplySelectAll";
+		return "redirect:/ReportReplySelectAll";
 	}
 
 }

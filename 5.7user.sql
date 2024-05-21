@@ -1,7 +1,7 @@
 
 use servdb;
 
---·s·|­û-Ápµ¸¸ê°T
+--ï¿½sï¿½|ï¿½ï¿½-ï¿½pï¿½ï¿½ï¿½ï¿½T
 CREATE TABLE USERCONTACTNEW(
 	CONTACTID INT IDENTITY(1001,1) NOT NULL PRIMARY KEY,
 	USERNAME NVARCHAR(30)  NULL,
@@ -10,7 +10,7 @@ CREATE TABLE USERCONTACTNEW(
 	USERADDRESS NVARCHAR(MAX)  NULL
 	
 )
---·s·|­û-°ò¥»¸ê®Æ
+--ï¿½sï¿½|ï¿½ï¿½-ï¿½ò¥»¸ï¿½ï¿½
 CREATE TABLE USERSNEW(
 	USERID INT IDENTITY(1001,1) NOT NULL PRIMARY KEY ,
 	FK_CONTACTID int not null,
@@ -21,8 +21,8 @@ CREATE TABLE USERSNEW(
 	USERPICTURE NVARCHAR(MAX) NULL,
 	DANCECHARACTER NVARCHAR(20) NULL,
 	DANCEAGE NVARCHAR(20) NULL,
-	THIRDPARTYLOGIN INT NULL, --²Ä¤T¤èµn¤J 0 = µL¨Ï¥Î 1 = ¨Ï¥Î
-	PERMISSION INT NULL,      --Åv­­       0 = ·|­û   1 = ºÞ²zªÌ
+	THIRDPARTYLOGIN INT NULL, --ï¿½Ä¤Tï¿½ï¿½nï¿½J 0 = ï¿½Lï¿½Ï¥ï¿½ 1 = ï¿½Ï¥ï¿½
+	PERMISSION INT NULL,      --ï¿½vï¿½ï¿½       0 = ï¿½|ï¿½ï¿½   1 = ï¿½Þ²zï¿½ï¿½
 	FOREIGN KEY (FK_CONTACTID) REFERENCES USERCONTACTNEW(CONTACTID)
 )
 
@@ -32,49 +32,49 @@ select * from USERSNEW
 drop table USERSNEW
 drop table USERCONTACTNEW
 
---¬d¸ßFk¬ù§ô
+--ï¿½dï¿½ï¿½Fkï¿½ï¿½ï¿½ï¿½
 SELECT name, OBJECT_NAME(parent_object_id) AS referencing_table
 FROM sys.foreign_keys
 WHERE referenced_object_id = OBJECT_ID('ORDER3');
 
---·s¼W«áºÝ±b¤á
+--ï¿½sï¿½Wï¿½ï¿½Ý±bï¿½ï¿½
 INSERT INTO USERCONTACTNEW (USERNAME, USEREMAIL, USERPHONE, USERADDRESS)
 VALUES 
-    ('¤ý¤j©ú', 'john.doe@example.com', '1234567890', '¥x¥_¥«¤¤¥¿°Ï©¾§µ¦è¸ô¤@¬q1¸¹'),
-    ('ªL¤p¬ü', 'jane.smith@example.com', '0987654321', '·s¥_¥«ªO¾ô°Ï¤å¤Æ¸ô2¬q2¸¹'),
-    ('±i¤p°¶', 'michael.johnson@example.com', '1112223333', '¥x¤¤¥«¦è°Ï¤¤¬üµó3¸¹'),
-    ('³¯¤pªÚ', 'emily.brown@example.com', '5556667777', '°ª¶¯¥«ÆQÑL°Ï¤j«i¸ô4¸¹'),
-    ('§õ¤p±j', 'david.lee@example.com', '7778889999', '¥x«n¥«¦w«n°Ï¦w©M¸ô5¸¹'),
-    ('§d¤pµØ', 'sarah.wilson@example.com', '9998887777', '®ç¶é¥«¤¤Ãc°Ï¤¤¤s¸ô6¸¹'),
-    ('¼B¤pÀs', 'daniel.taylor@example.com', '4445556666', '¥xªF¿¤¥xªF¥«¤¤¥¿¸ô7¸¹'),
-    ('¶À¤p¬Â', 'jessica.martinez@example.com', '3332221111', '©yÄõ¿¤©yÄõ¥«¤¯·R¸ô8¸¹'),
-    ('³\¤p°a', 'matthew.anderson@example.com', '2223334444', '¹ü¤Æ¿¤¹ü¤Æ¥«¥Á¥Í¸ô9¸¹'),
-    ('½²¤p®S', 'amanda.thomas@example.com', '6665554444', 'ªá½¬¿¤ªá½¬¥«°êÁp¤@¸ô10¸¹');
+    ('ï¿½ï¿½ï¿½jï¿½ï¿½', 'john.doe@example.com', '1234567890', 'ï¿½xï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½q1ï¿½ï¿½'),
+    ('ï¿½Lï¿½pï¿½ï¿½', 'jane.smith@example.com', '0987654321', 'ï¿½sï¿½_ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Ï¤ï¿½Æ¸ï¿½2ï¿½q2ï¿½ï¿½'),
+    ('ï¿½iï¿½pï¿½ï¿½', 'michael.johnson@example.com', '1112223333', 'ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½'),
+    ('ï¿½ï¿½ï¿½pï¿½ï¿½', 'emily.brown@example.com', '5556667777', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½Lï¿½Ï¤jï¿½iï¿½ï¿½4ï¿½ï¿½'),
+    ('ï¿½ï¿½ï¿½pï¿½j', 'david.lee@example.com', '7778889999', 'ï¿½xï¿½nï¿½ï¿½ï¿½wï¿½nï¿½Ï¦wï¿½Mï¿½ï¿½5ï¿½ï¿½'),
+    ('ï¿½dï¿½pï¿½ï¿½', 'sarah.wilson@example.com', '9998887777', 'ï¿½ï¿½é¥«ï¿½ï¿½ï¿½cï¿½Ï¤ï¿½ï¿½sï¿½ï¿½6ï¿½ï¿½'),
+    ('ï¿½Bï¿½pï¿½s', 'daniel.taylor@example.com', '4445556666', 'ï¿½xï¿½Fï¿½ï¿½ï¿½xï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7ï¿½ï¿½'),
+    ('ï¿½ï¿½ï¿½pï¿½ï¿½', 'jessica.martinez@example.com', '3332221111', 'ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½8ï¿½ï¿½'),
+    ('ï¿½\ï¿½pï¿½a', 'matthew.anderson@example.com', '2223334444', 'ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Í¸ï¿½9ï¿½ï¿½'),
+    ('ï¿½ï¿½ï¿½pï¿½S', 'amanda.thomas@example.com', '6665554444', 'ï¿½á½¬ï¿½ï¿½ï¿½á½¬ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½@ï¿½ï¿½10ï¿½ï¿½');
 
 INSERT INTO USERSNEW (FK_CONTACTID, NICKNAME, GENDER, PASSWORD, BIRTHDAY, USERPICTURE, DANCECHARACTER, DANCEAGE, THIRDPARTYLOGIN, PERMISSION)
 VALUES 
-    (1001, 'JohnDoe123', '¨k', 'password123', '1990-05-15', NULL, 'Hip Hop', 'Intermediate', 0, 1),
-    (1002, 'JaneSmith456', '¤k', 'password456', '1985-08-20', NULL, 'Contemporary', 'Beginner', 0, 0),
-    (1003, 'MichaelJ', '¨k', 'mikepass', '1982-03-10', NULL, 'Salsa', 'Advanced', 0, 0),
-    (1004, 'EmBrownie', '¤k', 'brownie123', '1995-11-30', NULL, 'Ballet', 'Intermediate', 0, 0),
-    (1005, 'DavidL', '¨k', 'davidpass', '1988-07-05', NULL, 'Ballroom', 'Advanced', 0, 0),
-    (1006, 'SWilson', '¤k', 'sarah123', '1992-01-25', NULL, 'Tap', 'Beginner', 0, 0),
-    (1007, 'DanT', '¨k', 'dantpass', '1983-09-12', NULL, 'Breakdance', 'Intermediate', 0, 0),
-    (1008, 'JessMart', '¤k', 'jesspass', '1987-06-18', NULL, 'Jazz', 'Advanced', 0, 0),
-    (1009, 'MattA', '¨k', 'matt123', '1993-04-08', NULL, 'Swing', 'Beginner', 0, 0),
-    (1010, 'AmandaT', '¤k', 'amandapass', '1998-02-20', NULL, 'Irish Dance', 'Intermediate', 0, 0);
+    (1001, 'JohnDoe123456', 'ï¿½k', 'password123', '1990-05-15', NULL, 'Hip Hop', 'Intermediate', 0, 1),
+    (1002, 'JaneSmith456', 'ï¿½k', 'password456', '1985-08-20', NULL, 'Contemporary', 'Beginner', 0, 1),
+    (1003, 'MichaelJ', 'ï¿½k', 'mikepass', '1982-03-10', NULL, 'Salsa', 'Advanced', 0, 1),
+    (1004, 'EmBrownie', 'ï¿½k', 'brownie123', '1995-11-30', NULL, 'Ballet', 'Intermediate', 0, 1),
+    (1005, 'DavidL', 'ï¿½k', 'davidpass', '1988-07-05', NULL, 'Ballroom', 'Advanced', 0, 1),
+    (1006, 'SWilson', 'ï¿½k', 'sarah123', '1992-01-25', NULL, 'Tap', 'Beginner', 0, 1),
+    (1007, 'DanT', 'ï¿½k', 'dantpass', '1983-09-12', NULL, 'Breakdance', 'Intermediate', 0, 1),
+    (1008, 'JessMart', 'ï¿½k', 'jesspass', '1987-06-18', NULL, 'Jazz', 'Advanced', 0, 0),
+    (1009, 'MattA', 'ï¿½k', 'matt123', '1993-04-08', NULL, 'Swing', 'Beginner', 0, 0),
+    (1010, 'AmandaT', 'ï¿½k', 'amandapass', '1998-02-20', NULL, 'Irish Dance', 'Intermediate', 0, 0);
 
-	--­×§ï
+	--ï¿½×§ï¿½
 	UPDATE USERCONTACTNEW
-SET USERNAME = '¤ý¤p©ú',
+SET USERNAME = 'ï¿½ï¿½ï¿½pï¿½ï¿½',
     USEREMAIL = 'mhou6vm000@gmail.com',
     USERPHONE = '1234567890',
-    USERADDRESS = '¥x¥_¥«¤¤¥¿°Ï©¾§µ¦è¸ô¤@¬q1¸¹'
+    USERADDRESS = 'ï¿½xï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½q1ï¿½ï¿½'
 WHERE CONTACTID = 1001;
 
 UPDATE USERSNEW
-SET NICKNAME = 'JohnDoe123',
-    GENDER = '¨k',
+SET NICKNAME = 'ï¿½ï¿½ï¿½ï¿½ï¿½x',
+    GENDER = 'ï¿½k',
     PASSWORD = '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm',
     BIRTHDAY = '1990-05-15',
     USERPICTURE = NULL,
@@ -85,7 +85,7 @@ SET NICKNAME = 'JohnDoe123',
 WHERE FK_CONTACTID = 1001;
 
 
---¬ö¿ý¥Î¤á½Ð¨Dµo°e¶l¥ó®É ¥Í¦¨ªºtoken«H®§ ¥H¤Î²£¥Í®É¶¡¡A§PÂ_³sµ²¬O§_¥¿½T¥H¤Î¥¢®Ä
+--ï¿½ï¿½ï¿½ï¿½ï¿½Î¤ï¿½Ð¨Dï¿½oï¿½eï¿½lï¿½ï¿½ï¿½ ï¿½Í¦ï¿½ï¿½ï¿½tokenï¿½Hï¿½ï¿½ ï¿½Hï¿½Î²ï¿½ï¿½Í®É¶ï¿½ï¿½Aï¿½Pï¿½_ï¿½sï¿½ï¿½ï¿½Oï¿½_ï¿½ï¿½ï¿½Tï¿½Hï¿½Î¥ï¿½ï¿½ï¿½
 create table usertoken(
 	id int identity(1,1) not null PRIMARY KEY,
 	userid int null,
@@ -96,3 +96,5 @@ create table usertoken(
 select * from usertoken;
 drop table usertoken;
 
+Select * from USERSNEW
+Select * from USERCONTACTNEW

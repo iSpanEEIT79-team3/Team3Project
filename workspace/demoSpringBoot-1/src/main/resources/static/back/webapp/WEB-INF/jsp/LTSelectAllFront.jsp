@@ -200,7 +200,7 @@
 			<div class="add-form">
 
 				<form method="Get" action="/html/LTInsertFront.html">
-					<button class="btn btn-info btn-sm add" type="submit">發布文章</button>
+					<button class="btn btn-info btn-sm add" type="submit">發布文章8888888</button>
 				</form>
 			</div>
 

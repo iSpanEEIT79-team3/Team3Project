@@ -100,10 +100,9 @@ function submitForm(event) {
 			let rowData = [
 				order.orderId,
 				order.userContactNew.contactId,
-				order.totalPrice,
+				order.orderDate,
 				order.payStatus,
 				order.shippingStatus,
-				order.orderDate,
 				order.shippingDate,
 				order.payDeadline,
 				order.orderNote,

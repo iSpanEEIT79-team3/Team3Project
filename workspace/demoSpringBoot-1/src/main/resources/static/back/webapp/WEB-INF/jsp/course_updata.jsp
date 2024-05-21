@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,15 +56,15 @@
     </tr>
     <tr>
         <td>開始日期:</td>
-        <td><input type="text" name="startDate" value="${course.startDate}"></td>
+        <td><input type="date" name="startDate" value="${course.startDate}"></td>
     </tr>
     <tr>
         <td>結束日期:</td>
-        <td><input type="text" name="endDate" value="${course.endDate}"></td>
+        <td><input type="date" name="endDate" value="${course.endDate}"></td>
     </tr>
     <tr>
         <td>截止日期:</td>
-        <td><input type="text" name="deadlineDate" value="${course.deadlineDate}"></td>
+        <td><input type="date" name="deadlineDate" value="${course.deadlineDate}"></td>
     </tr>
     <tr>
         <td>地點:</td>
@@ -90,12 +92,9 @@
     </tr>
     <tr>
         <td>課程圖片:</td>
-    <td>
-        <!-- 显示当前课程图片 -->
-        <img src="${course.courseImage}" width="100" height="100" alt="Course Image">
-        <!-- 文件选择输入框 -->
-        <input type="file" name="courseImage">
-    </td>
+<td><input type="text" name="courseImage" value="/images/"></td>
+
+    </tr>
 </table>
             <input type="submit" value="Update Course">
         </form>

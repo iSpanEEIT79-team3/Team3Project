@@ -287,13 +287,14 @@ h1 {
 }
 
 .card {
-  background-color: black;
+  background-color:#FFDCB9;
   border-radius: 10px;
   /* display: block;
     margin: auto;
     font: 16px;
     width:55%; */
   padding: 30px 20px;
+  margin: 50px;
 
 }
 

@@ -25,6 +25,7 @@
 
 .nav-item {
   padding: 0 20px 0 0;
+  
 }
 
 .nav-link {
@@ -33,6 +34,9 @@
 
 }
 
+.nav-link.active{
+ border-radius: 10px;
+}
 
 .dropdown-item,
 .dropdown-menu {

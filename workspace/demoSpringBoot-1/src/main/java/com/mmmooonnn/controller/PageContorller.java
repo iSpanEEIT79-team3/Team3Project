@@ -20,7 +20,13 @@ public class PageContorller {
 		//跳轉到登入畫面
 		@GetMapping("/UserLoginTest")
 		public String processActionGetUserLoginTest() {
-			return "redirect:/html/UserLoginTest.html";
+			return "redirect:/front/user/UserLoginTest.html";
+		}
+		
+		//跳轉到註冊頁面
+		@GetMapping("/registerUser")
+		public String processActionRegisterUser() {
+			return "redirect:/front/user/UserRegister.html";
 		}
 		
 		//後端登出
@@ -30,9 +36,16 @@ public class PageContorller {
 		}
 		
 		//首頁跳轉
-				@GetMapping("/frontPage")
-				public String processActionFrontPage() {
-					return "redirect:/html/frontPage.html";
-				}
+		@GetMapping("/frontPage")
+		public String processActionFrontPage() {
+			return "redirect:/html/frontPage.html";
+		}
+		
+		//會員中心
+		@GetMapping("/UpdateUser")
+		public String processActionUpdateUser() {
+			return "redirect:/front/user/UpdateUser.html";
+		}
+				
 		
 }
