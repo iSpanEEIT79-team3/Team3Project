@@ -253,7 +253,7 @@
 				data: {captcha: captcha},
 				success: function (isValid) {
 					if (isValid) {
-						// 验证码正确，执行后台登录操作
+					
 						$.ajax({
 							url: "/backstage",
 							type: 'POST',
