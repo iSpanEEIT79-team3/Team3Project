@@ -230,15 +230,11 @@ public class UserController {
 					modelAndView.setViewName("redirect:/html/frontPage.html");
 					uService2.insert(usersBean);
 					session.setAttribute("usersBean", usersBean);
-					System.out.println("新增會員");
 					return modelAndView;
 				} else {
 					UsersBeanNew usersBean = uService2.findByEmail(email);
 					session.setAttribute("usersBean", usersBean);
 					modelAndView.setViewName("redirect:/html/frontPage.html");
-					System.out.println("google登入");
-					//Object user = session.getAttribute("usersBean");
-					//System.out.println(session.getAttribute());
 					return modelAndView;
 				}
 
@@ -478,6 +474,25 @@ public class UserController {
 		session.setAttribute("usersBean", usersBean);
 		modelAndView.setViewName("redirect:/UpdateUser");
 		return modelAndView;
+
+	}
+	
+	@PutMapping("/updatePermission")
+	public ResponseEntity<String> processActionUpdateUser(@RequestParam("USERID") Integer userId,
+			@RequestParam("permission") Integer permission,
+			HttpSession session) {
+
+		UsersBeanNew user = uService2.findUserById(userId);
+		if(user !=null) {
+			user.setPermission(permission);
+			uService2.update(user);
+			return ResponseEntity.ok().body("ok");
+		}
+		
+		
+		
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("錯誤");
 
 	}
 

@@ -219,7 +219,7 @@
 
 
 								<div class="d-flex align-items-center justify-content-between ">
-									<button type="submit" class="btn btn-primary register mx-5">儲存</button>
+									<button type="button" class="btn btn-primary register mx-5">儲存</button>
 									<button type="button" onclick="onePiceN()" class="onePice btn btn-primary mx-5">一鍵輸入</button>
 								</div>
 						</div>
@@ -250,14 +250,20 @@
 				$('#memberDropdown').attr("style", "display: none");
 				$('#loginButton').attr("style", "display: block");
 			});
-
-		$('.onePice').click(function () {
-			console.log('Button clicked');
-			$('#userNameU').val('鄭廷耀');
-		});
-		
+	
 		function onePiceN(){
-			console.log('Button clicked');
+			$('#userNameU').val('鄭廷耀');
+			$('#nickNameU').val('耀');
+			$('#emailU').val('mhou6vm0@gmail.com').trigger('input');;
+			$('#currentPassword').val('123456');
+			$('#renewPassword').val('123456').trigger('input');
+			$('#birthdayU').val('1995-02-11');
+			$('#phoneU').val('0976163963');
+			$('#addressU').val('桃園市楊梅區');
+			$('#phoneU').val('0976163963');
+			$('#danceCharacterU').prop('selectedIndex',2);
+			$('#danceAgeU').val('3');
+			
 			
 		}
 		
