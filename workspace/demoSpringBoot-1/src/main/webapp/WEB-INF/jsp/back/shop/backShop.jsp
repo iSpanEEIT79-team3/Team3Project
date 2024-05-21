@@ -1,147 +1,167 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta name="description"
-        content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-    <title>JFSwing後台</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="../html/css/main.css">
-    <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css"
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .showImg{
-            display: none; /* 初始状态下隐藏图片 */
-            position: absolute;
-            z-index: 100;
-            border:2px solid black;
-        }
+<meta name="description"
+	content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+<title>JFSwing後台</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Main CSS-->
+<link rel="stylesheet" type="text/css" href="../html/css/main.css">
+<!-- Font-icon css-->
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.showImg {
+	display: none; /* 初始状态下隐藏图片 */
+	position: absolute;
+	z-index: 100;
+	border: 2px solid black;
+}
 
-        #hoverImage {
-            width: 300px; /* 调整图片大小 */
-            height: auto;
-        }
-        th{
-        	text-align:center;
-        }
-    </style>
+#hoverImage {
+	width: 300px; /* 调整图片大小 */
+	height: auto;
+}
+
+th {
+	text-align: center;
+}
+</style>
 </head>
 
 <body class="app sidebar-mini rtl pace-done">
-    <main class="app-content">
-        <div class="app-title">
-            <h1>JF Swing 商城後臺管理</h1>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-title">
-                        <h2>商品管理</h2>
-                    </div>
-                    <div class="tile-body">
-<!-- row start -->
+	<main class="app-content">
+		<div class="app-title">
+			<h1>JF Swing 商城後臺管理</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="tile-title">
+						<h2>商品管理</h2>
+					</div>
+					<div class="tile-body">
+						<!-- row start -->
 						<div class="row">
-					        <div class="col-md-12">
-					          <div class="tile">
-					            <div class="tile-body">
-					              <table class="table table-hover table-bordered" id="sampleTable">
-					                <thead>
-					                  <tr>
-					                    <th>商品ID</th>
-					                    <th>照片</th>
-					                    <th>商品名稱</th>
-					                    <th>商品材質</th>
-					                    <th>價格</th>
-					                    <th>分類</th>
-					                    <th>XSsize</th>
-					                    <th>Ssize</th>
-					                    <th>Msize</th>
-					                    <th>Lsize</th>
-					                    <th>XLsize</th>
-					                    <th>修改</th>
-					                    <th>刪除</th>
-					                  </tr>
-					                </thead>
-					                <tbody>
-									<!--內容-->
-									<c:forEach items="${shops}" var="shop" varStatus="s">
-					                  <tr data-no="${shop.productId}">
-						                    <td><a href="/openshopid/${shop.productId}">${shop.productId}</a></td>
-						                    <td style="max-width:80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-											<button id="hoverButton_${shop.productId}" data-product-id="${shop.productId}" class="btn btn-secondary">顯示圖片</button>
-										    <div class="showImg" id="imageContainer_${shop.productId}">
-										        <img id="hoverImage" src="${shop.productImg}" alt="Hover Image">
-										    </div>
-											</td>
-						                    <td title="${shop.productName}" style="max-width:100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${shop.productName}</td>
-						                    <td title="${shop.productIntroduce}" style="max-width:400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${shop.productIntroduce}</td>
-						                    <td style="width:50px;">${shop.productPrice}</td>
-						                    <td style="width:75px;">${shop.productType}</td>
-					                    
-					                    <c:forEach items="${shopQuan}" var="shopQuan" varStatus="s">
-                                		<c:if test="${shop.productId == shopQuan.productId}">
-	                                		<td style="width:50px;">${shopQuan.xsSize}</td>
-		                                    <td style="width:50px;">${shopQuan.sSize}</td>
-		                                    <td style="width:50px;">${shopQuan.mSize}</td>
-		                                    <td style="width:50px;">${shopQuan.lSize}</td>
-		                                    <td style="width:50px;">${shopQuan.xlSize}</td>
-                                		</c:if>
-                                		</c:forEach>
-                                		<td style="position: relative;text-align: center;"><button class="btn btn-success" onclick="editRow(${shop.productId})">修改</button></td>
-                           				 <td style="position: relative;text-align: center;"><button class="btn btn-danger" onclick="deleteProduct(${shop.productId})">刪除</button></td>
-					                  </tr>
-					                 </c:forEach>
-					                </tbody>
-					              </table>
-					             <div style="display: flex; justify-content: center;">
-					              <button style="margin-right: 10px;" class="btn btn-primary" onclick="addProductRow()">新增商品</button>
-					              <button class="btn btn-primary" onclick="autoinput()">一鍵代入</button>					                 
-					            </div>
-					            </div>
-					          </div>
-					        </div>
-					      </div>
-<!-- row end -->
-                    </div>
-                </div>
-            </div>
-        </div>
+							<div class="col-md-12">
+								<div class="tile">
+									<div class="tile-body">
+										<table class="table table-hover table-bordered"
+											id="sampleTable">
+											<thead>
+												<tr>
+													<th>商品ID</th>
+													<th>照片</th>
+													<th>商品名稱</th>
+													<th>商品材質</th>
+													<th>價格</th>
+													<th>分類</th>
+													<th>XSsize</th>
+													<th>Ssize</th>
+													<th>Msize</th>
+													<th>Lsize</th>
+													<th>XLsize</th>
+													<th>修改</th>
+													<th>刪除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!--內容-->
+												<c:forEach items="${shops}" var="shop" varStatus="s">
+													<tr data-no="${shop.productId}">
+														<td><a href="/openshopid/${shop.productId}">${shop.productId}</a></td>
+														<td
+															style="max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+															<button id="hoverButton_${shop.productId}"
+																data-product-id="${shop.productId}"
+																class="btn btn-secondary">顯示圖片</button>
+															<div class="showImg"
+																id="imageContainer_${shop.productId}">
+																<img id="hoverImage" src="${shop.productImg}"
+																	alt="Hover Image">
+															</div>
+														</td>
+														<td title="${shop.productName}"
+															style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${shop.productName}</td>
+														<td title="${shop.productIntroduce}"
+															style="max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${shop.productIntroduce}</td>
+														<td style="width: 50px;">${shop.productPrice}</td>
+														<td style="width: 75px;">${shop.productType}</td>
+
+														<c:forEach items="${shopQuan}" var="shopQuan"
+															varStatus="s">
+															<c:if test="${shop.productId == shopQuan.productId}">
+																<td style="width: 50px;">${shopQuan.xsSize}</td>
+																<td style="width: 50px;">${shopQuan.sSize}</td>
+																<td style="width: 50px;">${shopQuan.mSize}</td>
+																<td style="width: 50px;">${shopQuan.lSize}</td>
+																<td style="width: 50px;">${shopQuan.xlSize}</td>
+															</c:if>
+														</c:forEach>
+														<td style="position: relative; text-align: center;"><button
+																class="btn btn-success"
+																onclick="editRow(${shop.productId})">修改</button></td>
+														<td style="position: relative; text-align: center;"><button
+																class="btn btn-danger"
+																onclick="deleteProduct(${shop.productId})">刪除</button></td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+										<div style="display: flex; justify-content: center;">
+											<button style="margin-right: 10px;" class="btn btn-primary"
+												onclick="addProductRow()">新增商品</button>
+											<button class="btn btn-primary" onclick="autoinput()">一鍵代入</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- row end -->
+					</div>
+				</div>
+			</div>
+		</div>
 
 
-    </main>
+	</main>
 
 
-    <!-- Essential javascripts for application to work-->
-    <script src="../html/js/jquery-3.2.1.min.js"></script>
-    <script src="../html/js/popper.min.js"></script>
-    <script src="../html/js/bootstrap.min.js"></script>
-    <script src="../html/js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="../html/js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <script type="text/javascript" src="../html/js/plugins/chart.js"></script>
-    <script type="text/javascript" src="../html/js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../html/js/plugins/dataTables.bootstrap.min.js"></script>
-        <!-- Essential javascripts for application to work-->
-    <script src="back/shop/js/jquery-3.2.1.min.js"></script>
-    <script src="back/shop/js/popper.min.js"></script>
-    <script src="back/shop/js/bootstrap.min.js"></script>
-    <script src="back/shop/js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="back/shop/js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <!-- Data table plugin-->
-    <script type="text/javascript" src="back/shop/js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="back/shop/js/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
-    <script>
+	<!-- Essential javascripts for application to work-->
+	<script src="../html/js/jquery-3.2.1.min.js"></script>
+	<script src="../html/js/popper.min.js"></script>
+	<script src="../html/js/bootstrap.min.js"></script>
+	<script src="../html/js/main.js"></script>
+	<!-- The javascript plugin to display page loading on top-->
+	<script src="../html/js/plugins/pace.min.js"></script>
+	<!-- Page specific javascripts-->
+	<script type="text/javascript" src="../html/js/plugins/chart.js"></script>
+	<script type="text/javascript"
+		src="../html/js/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="../html/js/plugins/dataTables.bootstrap.min.js"></script>
+	<!-- Essential javascripts for application to work-->
+	<script src="back/shop/js/jquery-3.2.1.min.js"></script>
+	<script src="back/shop/js/popper.min.js"></script>
+	<script src="back/shop/js/bootstrap.min.js"></script>
+	<script src="back/shop/js/main.js"></script>
+	<!-- The javascript plugin to display page loading on top-->
+	<script src="back/shop/js/plugins/pace.min.js"></script>
+	<!-- Page specific javascripts-->
+	<!-- Data table plugin-->
+	<script type="text/javascript"
+		src="back/shop/js/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="back/shop/js/plugins/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript">$('#sampleTable').DataTable();</script>
+	<script>
     
         fetch('../back/exampleBack.html')
             .then(response => response.text())

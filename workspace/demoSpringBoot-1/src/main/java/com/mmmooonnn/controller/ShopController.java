@@ -286,7 +286,7 @@ public class ShopController {
     	    return "forward:/WEB-INF/jsp/front/shop/Shopscart.jsp";
     }
     
-  //加入購物車
+  //扣庫存
     @PostMapping("/Shopproduct/updateQuan")
     public ResponseEntity<String> updateQuan(@RequestBody  List<Quanproduct> Quanproduct){
         try {
