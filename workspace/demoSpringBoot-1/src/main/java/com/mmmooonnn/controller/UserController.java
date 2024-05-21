@@ -390,25 +390,15 @@ public class UserController {
 		usersBean.setUserContact(user);
 		usersBean.setThirdPartyLogin(0);
 		usersBean.setPermission(0);
-		System.out.println(usersBean);
-		if (uService2.isEmailExist(user.getEmail())) {
-			System.out.println("比對信箱");
-			modelAndView.addObject("emailExists", true);
-			modelAndView.setViewName("/confirmRegister");
-			return modelAndView;
-		} else {
-			if (user.getEmail() != "") {
+	
+		
+	
 				uService2.insert(usersBean);
-				modelAndView.addObject("emailExists", false);
-				modelAndView.setViewName("/confirmRegister");
+			
+				modelAndView.setViewName("redirect:/UserLoginTest");
 				return modelAndView;
-			} else {
-				System.out.println("信箱為空");
-				modelAndView.addObject("emailExists", true);
-				modelAndView.setViewName("/confirmRegister");
-				return modelAndView;
-			}
-		}
+		
+		
 	}
 
 	@PutMapping("/Update")

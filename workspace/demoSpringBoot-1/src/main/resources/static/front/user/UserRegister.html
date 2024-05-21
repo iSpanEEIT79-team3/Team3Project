@@ -265,7 +265,7 @@
 		$('.register').click(function (e) {
 			e.preventDefault(); // 阻止直接提交表單
 
-			if (checkdata() || isEmailValid) {
+			if (checkdata() && isEmailValid) {
 				Swal.fire({
 					position: "center",
 					icon: "success",
