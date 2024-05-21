@@ -50,7 +50,7 @@ img {
 			<div class="col-md-12">
 				<div class="tile">
 					<div class="tile-title">
-						<h2>小標題</h2>
+						<h2>商品管理</h2>
 					</div>
 					<div class="tile">
 						<table class="table table-bordered">

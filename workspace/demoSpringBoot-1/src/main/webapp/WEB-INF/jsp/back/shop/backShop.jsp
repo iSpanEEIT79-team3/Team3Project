@@ -43,7 +43,7 @@
             <div class="col-md-12">
                 <div class="tile">
                     <div class="tile-title">
-                        <h2>小標題</h2>
+                        <h2>商品管理</h2>
                     </div>
                     <div class="tile-body">
 <!-- row start -->
@@ -75,7 +75,7 @@
 					                  <tr data-no="${shop.productId}">
 						                    <td><a href="/openshopid/${shop.productId}">${shop.productId}</a></td>
 						                    <td style="max-width:80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-											<button id="hoverButton_${shop.productId}" class="btn btn-secondary">顯示圖片</button>
+											<button id="hoverButton_${shop.productId}" data-product-id="${shop.productId}" class="btn btn-secondary">顯示圖片</button>
 										    <div class="showImg" id="imageContainer_${shop.productId}">
 										        <img id="hoverImage" src="${shop.productImg}" alt="Hover Image">
 										    </div>
@@ -143,7 +143,7 @@
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
     <script>
     
-        fetch('../html/exampleBack.html')
+        fetch('../back/exampleBack.html')
             .then(response => response.text())
             .then(html => {
                 document.body.insertAdjacentHTML('beforeend', html);
@@ -187,7 +187,8 @@
             });
         </c:forEach>
         });
-			
+
+
 //刪除
         function deleteProduct(productId) {
             //跳出對話框
@@ -417,8 +418,8 @@ function autoinput() {
             $('input[name="mSize"]').val('30');
             $('input[name="lSize"]').val('40');
             $('input[name="xlSize"]').val('50');
-        }        
-        
+        }  
+   
     </script>
 
 </body>
