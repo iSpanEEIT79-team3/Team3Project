@@ -41,20 +41,20 @@ public class CoursesBean implements Serializable {
     @Column(name = "COURSE_TYPE")
     private String courseType;
 
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	@JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "START_DATE")
-    private Date startDate;
+    private String startDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "END_DATE")
-    private Date endDate;
+    private String endDate;
     
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DEADLINE_DATE")
-    private Date deadlineDate;
+    private String deadlineDate;
 
     @Column(name = "LOCATION")
     private String location;
@@ -82,8 +82,8 @@ public class CoursesBean implements Serializable {
     }
 
     // All-args constructor
-    public CoursesBean(int productId, int idUser, String courseName, String description, String courseType, Date startDate,
-                       Date endDate, Date deadlineDate, String location, double price, String teacherName, String teacherContact,
+    public CoursesBean(int productId, int idUser, String courseName, String description, String courseType, String startDate,
+    		String endDate, String deadlineDate, String location, double price, String teacherName, String teacherContact,
                        int enrollmentCount, int maxCapacity, String courseImage) {
         this.productId = productId;
         this.idUser = idUser;
@@ -143,27 +143,27 @@ public class CoursesBean implements Serializable {
         this.courseType = courseType;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public Date getDeadlineDate() {
+    public String getDeadlineDate() {
         return deadlineDate;
     }
 
-    public void setDeadlineDate(Date deadlineDate) {
+    public void setDeadlineDate(String deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
 

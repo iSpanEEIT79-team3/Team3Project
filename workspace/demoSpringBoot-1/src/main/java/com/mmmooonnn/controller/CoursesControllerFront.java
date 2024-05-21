@@ -31,14 +31,16 @@ public class CoursesControllerFront {
     @Autowired
     private JavaMailSender mailSender; // 添加郵件發送器
 	
+    //得到所有資訊
 	@GetMapping("/GetAllCoursesFront")
 	public ModelAndView processActionGetAllCourses() {
 		ModelAndView modelAndView = new ModelAndView();
 		List<CoursesBean> Courses = cService.getAll();
 		modelAndView.addObject("Courses", Courses);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/courses_getall_Front.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/front/course/courses_getall_Front.jsp");
 		return modelAndView;
 	}
+	
 	
 	@GetMapping("/GetTeacherCoursesFront")
 	@ResponseBody
@@ -47,14 +49,22 @@ public class CoursesControllerFront {
 	    return teacherCourses; // 直接返回数据，Spring会使用Jackson转换成JSON
 	}
 
-	
-//	
+	//判斷熱門課程
+    @GetMapping("/getTop3CoursesNearFullCapacity")
+    @ResponseBody
+    public ResponseEntity<List<CoursesBean>> getTop3CoursesNearFullCapacity() {
+        List<CoursesBean> courses = cService.getTop3CoursesNearFullCapacity();
+        return ResponseEntity.ok(courses);
+    }
+
+	//報名後增加人數
+    
 //	@GetMapping("/GetTeacherCoursesFront")
 //	public ModelAndView processActionGetTeacherCourses() {
 //	    ModelAndView modelAndView = new ModelAndView();
 //	    List<CoursesBean> teacherCourses = cService.getTeacherCourses();
 //	    modelAndView.addObject("teacherCourses", teacherCourses);
-//	    modelAndView.setViewName("Courses_index.html");
+//	    modelAndView.setViewName("courses_back_index.html");
 //	    return modelAndView;
 //	}
 
@@ -64,7 +74,7 @@ public class CoursesControllerFront {
     	CoursesBean course = cService.findCourseById(id);
     	if (course != null) {
     		model.addAttribute("course", course);
-    		return "forward:/WEB-INF/jsp/courses_details.jsp";  // Ensure this matches the name of your JSP file
+    		return "forward:/WEB-INF/jsp/front/course/courses_details_Front.jsp";  // Ensure this matches the name of your JSP file
     	}
     	return "redirect:/error";  // Redirect to an error page if no course is found
     }
@@ -103,37 +113,47 @@ public class CoursesControllerFront {
             return ResponseEntity.ok().body("good");
         }
 
-    
-    //立即報名
-    @PostMapping("/registerCourse")
-    public String registerCourse(@RequestParam("productId") Integer productId, HttpServletRequest request) {
-        CoursesBean course = cService.findCourseById(productId);
-        HttpSession session = request.getSession();
-        // Assume there's a method to register the user to the course
-        cService.registerUserToCourse(course, session.getAttribute("user"));
+//    @PostMapping("/registerCourse")
+//    @ResponseBody
+//    public ResponseEntity<String> registerCourse(@RequestParam("productId") Integer productId, HttpSession session) {
+//        CoursesBean course = cService.findCourseById(productId);
+//        UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+//        if (course != null && user != null) {
+//            try {
+//                cService.registerUserToCourse(course);
+//                return ResponseEntity.ok("Registration successful");
+//            } catch (IllegalStateException e) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//            }
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found or User not logged in");
+//        }
+//    }
 
-        return "registerUserToCourse"; // Redirect to a success page
+    @PostMapping("/registerCourse")
+    public ModelAndView registerCourse(@RequestParam("productId") Integer productId, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        CoursesBean course = cService.findCourseById(productId);
+        UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+        if (course != null && user != null) {
+            try {
+                cService.registerUserToCourse(course);
+                modelAndView.addObject("message", "報名成功");
+                modelAndView.setViewName("redirect:/nextPage");  // Assuming "nextPage" is the URL to which you want to redirect
+                return modelAndView;
+            } catch (IllegalStateException e) {
+                modelAndView.addObject("errorMessage", "報名失敗：" + e.getMessage());
+                modelAndView.setViewName("currentCoursePage");  // Replace "currentCoursePage" with the JSP page you want to return to
+                return modelAndView;
+            }
+        } else {
+            modelAndView.addObject("errorMessage", "報名失敗：課程未找到或用戶未登錄");
+            modelAndView.setViewName("currentCoursePage");
+            return modelAndView;
+        }
     }
 
     
-    
-    
-//    @GetMapping("/courses")
-//    public ResponseEntity<List<CoursesBean>> getAllCourses() {
-//        List<CoursesBean> courses = cService.getAll();
-//        return ResponseEntity.ok(courses);
-//    }
-//    
-//    @GetMapping("/courses/{id}")
-//    public ResponseEntity<CoursesBean> getCourseById(@PathVariable int id) {
-//        CoursesBean course = cService.findCourseById(id);
-//        if (course != null) {
-//            return ResponseEntity.ok(course);
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
-//    
-//    
     
     
 	@GetMapping("/GetAllCourseDetailsFront")
