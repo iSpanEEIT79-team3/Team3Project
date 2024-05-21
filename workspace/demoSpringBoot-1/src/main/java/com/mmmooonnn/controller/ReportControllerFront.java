@@ -32,7 +32,7 @@ public class ReportControllerFront {
 		System.out.println(resultBean);
 		
 		m.addAttribute("reportBean", resultBean);
-		return "forward:/WEB-INF/jsp/ReportSelect.jsp";
+		return "forward:/WEB-INF/jsp/front/lt/ReportSelect.jsp";
 
 	}
 
@@ -40,7 +40,7 @@ public class ReportControllerFront {
 	public String findByID(@RequestParam("reportId") Integer reportId, Model m) {
 		ReportBean resultBean = rp.findById(reportId);
 		m.addAttribute("reportBean", resultBean);
-		return "forward:/WEB-INF/jsp/ReportUpdate.jsp";
+		return "forward:/WEB-INF/jsp/front/lt/ReportUpdate.jsp";
 
 	}
 
@@ -49,7 +49,7 @@ public class ReportControllerFront {
 		List<ReportBean> reportList = rp.findReport();
 		m.addAttribute("reportBeans", reportList);
 
-		return "forward:/WEB-INF/jsp/ReportSelectAll.jsp";
+		return "forward:/WEB-INF/jsp/front/lt/ReportSelectAll.jsp";
 
 	}
 
@@ -57,7 +57,7 @@ public class ReportControllerFront {
 	public ModelAndView InsertReport(@RequestParam("reportContent") String reportContent,
 			@RequestParam("ltId") Integer ltId, Model m) {
 
-		ModelAndView mv = new ModelAndView("redirect:LTSelectAllFront");
+		ModelAndView mv = new ModelAndView("redirect:/LTSelectAllFront");
 
 		LTBean ltBean = lt.findByLTId(ltId);
 		ReportBean reportBean = new ReportBean();
@@ -78,7 +78,7 @@ public class ReportControllerFront {
 		
 		
 
-		return "redirect:ReportSelectAllFront";
+		return "redirect:/ReportSelectAllFront";
 	}
 
 	@PutMapping("/ReportUpdateFront.controller")
@@ -93,7 +93,7 @@ public class ReportControllerFront {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "redirect:ReportSelectAllFront";
+		return "redirect:/ReportSelectAllFront";
 	}
 
 }
