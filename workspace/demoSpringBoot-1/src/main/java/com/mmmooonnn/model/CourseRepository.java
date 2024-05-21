@@ -13,6 +13,7 @@ public interface CourseRepository extends JpaRepository<CoursesBean, Integer> {
     @Query("SELECT c FROM CoursesBean c ORDER BY (c.maxCapacity - c.enrollmentCount) ASC")
     List<CoursesBean> findTopCloseToFullCourses();
 
-	
+    List<CoursesBean> findByCourseNameContainingOrDescriptionContaining(String courseName, String description);
+
 	
 }

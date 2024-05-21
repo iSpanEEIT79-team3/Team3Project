@@ -229,25 +229,8 @@
                             </div>
                             <div class="product-content m-3"
                                 style="height: 30%; display: flex; flex-direction: column; justify-content: center;">
-                                <p>讓每個人都感受到舞蹈的力量，舞動人生。</p>
-                                <h4>Carlos Martinez</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product-item rounded-3 bs-secondary-color"
-                            style="background-color: #F5F7F9; height: 500px;">
-                            <div class="product-thumb" style="height: 70%; overflow: hidden;">
-                                <a href="#">
-                                    <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
-                                        src="../images/Teacher6.jpg" alt="product-img"
-                                        style="height: 100%; object-fit: cover;">
-                                </a>
-                            </div>
-                            <div class="product-content m-3"
-                                style="height: 30%; display: flex; flex-direction: column; justify-content: center;">
                                 <p>帶來如詩如畫的舞蹈饗宴，展現優雅和美麗。</p>
-                                <h4>Michael Johnson</h4>
+                                <h4>Carlos Martinez</h4>
                             </div>
                         </div>
                     </div>
@@ -263,7 +246,24 @@
                             </div>
                             <div class="product-content m-3"
                                 style="height: 30%; display: flex; flex-direction: column; justify-content: center;">
-                                <p>韻律的大師，她熟練掌握著每一個節奏。</p>
+                                <p>讓每個人都感受到舞蹈的力量，舞動人生。</p>
+                                <h4>Michael Johnson</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-item rounded-3 bs-secondary-color"
+                            style="background-color: #F5F7F9; height: 500px;">
+                            <div class="product-thumb" style="height: 70%; overflow: hidden;">
+                                <a href="#">
+                                    <img class="z-1 object-fit-cover w-100 h-100 img-responsive"
+                                        src="../images/Teacher6.jpg" alt="product-img"
+                                        style="height: 100%; object-fit: cover;">
+                                </a>
+                            </div>
+                            <div class="product-content m-3"
+                                style="height: 30%; display: flex; flex-direction: column; justify-content: center;">
+                                <p>如飄逸的雲彩般，輕盈而自由地穿越舞台。</p>
                                 <h4>Emily Davis</h4>
                             </div>
                         </div>
@@ -280,7 +280,7 @@
                             </div>
                             <div class="product-content m-3"
                                 style="height: 30%; display: flex; flex-direction: column; justify-content: center;">
-                                <p>如飄逸的雲彩般，輕盈而自由地穿越舞台。</p>
+                                <p>韻律的大師，她熟練掌握著每一個節奏。</p>
                                 <h4>Jessica Brown</h4>
                             </div>
                         </div>
@@ -317,16 +317,7 @@
                             </div>
                         </div>
 
-
-
-
-
                         <div style="height: 50px;"></div>
-
-
-
-
-
 
                         <div class="d-flex">
                             <h2 class="section-heading text-uppercase">難度分級</h2>

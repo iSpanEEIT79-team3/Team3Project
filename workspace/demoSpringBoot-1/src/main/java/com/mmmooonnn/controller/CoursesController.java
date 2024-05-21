@@ -31,6 +31,21 @@ public class CoursesController {
 		return modelAndView;
 	}
 	
+
+
+    
+    //getid後得到詳細資料
+    @GetMapping("/courseDetails/{id}")
+    public String getCourseDetails(@PathVariable("id") int id, Model model) {
+        CoursesBean course = cService.findCourseById(id);
+        if (course != null) {
+            model.addAttribute("course", course);
+            return "forward:/WEB-INF/jsp/back/course/course_get_id_back.jsp";  // Ensure this matches the name of your JSP file
+        }
+        return "redirect:/error";  // Redirect to an error page if no course is found
+    }
+    
+    
 	//getid後修改
 
     @GetMapping("/GetCourseById/{id}")
@@ -40,19 +55,6 @@ public class CoursesController {
 		m.addAttribute("course",coursesBean);
 		return "forward:/WEB-INF/jsp/back/course/course_updata_back.jsp";
 	}
-
-    
-    //getid後得到詳細資料
-    @GetMapping("/courseDetails/{id}")
-    public String getCourseDetails(@PathVariable("id") int id, Model model) {
-        CoursesBean course = cService.findCourseById(id);
-        if (course != null) {
-            model.addAttribute("course", course);
-            return "forward:/WEB-INF/jsp/back/course/courses_details_back.jsp";  // Ensure this matches the name of your JSP file
-        }
-        return "redirect:/error";  // Redirect to an error page if no course is found
-    }
-
     
 	//修改
     @PostMapping("/upd")

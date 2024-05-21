@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刪除成功</title> <!-- 去除了重複的title和meta charset -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap.min.css"> <!-- 確保引入DataTable的Bootstrap樣式 -->
+</head>
+
+<body>
+    <div id="content"></div> <!-- 增加一個容器來更好地控制加載的HTML -->
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/plugins/pace.min.js"></script>
+    <script src="js/plugins/chart.js"></script>
+    <script src="js/plugins/jquery.dataTables.min.js"></script>
+    <script src="js/plugins/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        // 確保所有外部資源已加載完成再運行
+        $(document).ready(function () {
+            fetch('exampleBack.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('content').innerHTML = html;
+                    $('#sampleTable').DataTable(); // 確保table已經被加載到DOM中
+                })
+                .catch(error => console.error('Error loading the HTML: ', error));
+        });
+    </script>
+</body>
+
+</html>

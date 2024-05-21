@@ -90,6 +90,10 @@ public class CoursesService {
             return courses.size() > 3 ? courses.subList(0, 3) : courses;
     }
     
+    public List<CoursesBean> searchCourses(String keyword) {
+        return courseRepos.findByCourseNameContainingOrDescriptionContaining(keyword, keyword);
+    }
+    
     //增加报名人数
     public void registerUserToCourse(CoursesBean course) {
         // 检查报名人数是否已满

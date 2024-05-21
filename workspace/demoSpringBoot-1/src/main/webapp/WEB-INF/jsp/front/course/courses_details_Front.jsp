@@ -83,26 +83,38 @@
         <body>
             <div style="height: 114px;"></div>
             <div class="row justify-content-center">
-                <div class="col-7 m-2 border border-dark">
-                    <div class="course-image-container">
-                        <img src="${course.courseImage}" class="course-image" alt="Course Image">
-                        <div class="d-flex flex-column justify-content-end align-items-start position-absolute"
-                            style="width: 100%; height: 100%; top: 0; left: 0; z-index: 1;">
+                <div class="col-7 m-2">
+                    <div class=" border border-dark">
+                        <div class="course-image-container">
+                            <img src="${course.courseImage}" class="course-image" alt="Course Image">
+                            <div class="d-flex flex-column justify-content-end align-items-start position-absolute"
+                                style="width: 100%; height: 100%; top: 0; left: 0; z-index: 1;">
+                            </div>
+
                         </div>
+
+                        <div class="course-content">
+                            <div class="mt-2 course-description">
+                                <h1>${course.courseName}</h1>
+                                <h3>${course.courseType}</h3>
+                                ${course.description}
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" border border-dark">
+
+
+
+
 
                     </div>
 
-                    <div class="course-content">
-                        <div class="mt-2 course-description">
-                            <h1>${course.courseName}</h1>
-                            <h3>${course.courseType}</h3>
-                            ${course.description}
-                        </div>
-                    </div>
+
 
                 </div>
-                <div class="col-3 d-flex flex-column align-items-center border border-dark"
+                <div class="z-n1 col-3 d-flex flex-column align-items-center border border-dark fixed sticky-top"
                     style="width: 300px; height: 900px;">
+
                     <div class="align-items-center m-1" style="width: 250px; height: 80px;">
 
                         <div class="mt-2 ml-2" id="deadline" style="display: none;">
