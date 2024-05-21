@@ -7,7 +7,7 @@
 
 					<!DOCTYPE html>
 					<html>
-<!--本頁網址 http://localhost:8080/back/event/WSall -->
+<!--本頁網址 http://localhost:8080/WSall -->
 					<head>
 						<meta charset="UTF-8">
 						<title>活動資訊</title>
@@ -330,7 +330,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 									document.getElementById("SIGNUP_ENDTIME").value = "2024-06-16T12:00";
 									document.getElementById("EVENT_STARTIME").value = "2024-06-24T18:00";
 									document.getElementById("EVENT_ENDTIME").value = "2024-06-26T23:30";
-									document.getElementById("EVENT_DETAIL").value = "歡迎加入我們舉辦的 Swing Fever 搖擺舞派對！這是一個讓您盡情跳躍、歡笑和享受音樂的絕佳機會。我們將在 City Dance Studio 舉辦這個活動，活動期間將會有專業的搖擺舞老師為您帶來精彩的教學課程，同時也會有DJ為大家播放熱情歡快的 Swing 音樂。無論您是初學者還是搖擺舞高手，這都是一個與朋友們一起跳舞、放鬆身心的絕佳之夜。不要錯過這個難得的機會，穿上您的最佳舞鞋，加入我們一起搖擺吧！";
+									document.getElementById("EVENT_DETAIL").value = "歡迎加入我們舉辦的 Swing Fever 搖擺舞派對！這是一個讓您盡情跳躍、歡笑和享受音樂的絕佳機會。<br>我們將在中山堂舉辦這個活動，活動期間將會有專業的搖擺舞老師為您帶來精彩的教學課程，同時也會有DJ為大家播放熱情歡快的 Swing 音樂。<br>無論您是初學者還是搖擺舞高手，這都是一個與朋友們一起跳舞、放鬆身心的絕佳之夜。不要錯過這個難得的機會，穿上您的最佳舞鞋，加入我們一起搖擺吧！";
 									document.getElementById("EVENT_CATEGORY").value = "BALBOA";
 									document.getElementById("EVENT_PRICE").value = "500";
 									document.getElementById("EVENT_ADDRES").value = "中山堂";
