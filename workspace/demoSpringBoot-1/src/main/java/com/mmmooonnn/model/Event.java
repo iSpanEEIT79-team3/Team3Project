@@ -43,6 +43,7 @@ public class Event {
 	public Integer getUserId() {
 		return userId;
 	}
+	
 
 
 

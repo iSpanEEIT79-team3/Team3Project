@@ -1,6 +1,7 @@
 package com.mmmooonnn.service;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -58,16 +59,23 @@ public class EventService {
 	
 	
 	
-	public List<Event> findEventsByStartTime(Date startTime) {
+	public List<Event> findEventsByStartTime(Date startTime,Date endTime) {
 //	  Date startDate = parseStartTime(startTime);
+		
+		
+
+//        return eRepos.findEventsByStartTime(startTime, endTime);
+	        
+	        
 		List<Event> resultList = eRepos.findAll();
 		
 		if(!resultList.isEmpty()) {
-			return eRepos.findByStartTime(startTime);
+			return eRepos.findByStartTime(startTime, endTime);
 		}		
 		return resultList;
         
-    }
+	}
+
 	
 	//按照活動日期進行升序排序
 	public List<Event> findAllByOrderByStartTimeAsc() {

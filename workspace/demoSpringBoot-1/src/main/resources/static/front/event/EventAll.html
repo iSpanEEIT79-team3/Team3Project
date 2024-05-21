@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+
+<!-- 本頁網址http://localhost:8080/front/event/EventAll.html -->
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -143,12 +146,11 @@
   </script>
   <script>
 
-    fetch('basic.html')
-      .then(response => response.text())
-      .then(html => {
-        document.body.innerHTML += html;
-      });
-
+  fetch('../basic.html')
+	.then(response => response.text())
+	.then(html => {
+		document.body.insertAdjacentHTML('beforeend', html);
+	});
 
   </script>
 </body>

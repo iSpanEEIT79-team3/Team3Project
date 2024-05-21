@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,7 +113,7 @@ public class EventController {
 		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		System.out.println(eventBeans);
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
@@ -192,10 +193,10 @@ public class EventController {
 
 		eService.saveEvent(eventBean);
 		System.out.println(eventBean);
-		List<Event> eventBeans = eService.findAll();
+		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
@@ -205,7 +206,7 @@ public class EventController {
 		ModelAndView modelAndView = new ModelAndView();
 		Event eventBean = eService.findEventById(EventId);
 		modelAndView.addObject("eventBean", eventBean);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSupdateData.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSupdateData.jsp");
 		return modelAndView;
 	}
 	
@@ -287,28 +288,36 @@ public class EventController {
 		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
 	@DeleteMapping("/Event")
 	public ModelAndView processDeleteAction(@RequestParam("PRODUCTID") Integer eventId) {
 		ModelAndView modelAndView = new ModelAndView();
+		
+		System.out.println(eventId);
 		eService.deleteById(eventId);
 
 		List<Event> eventBeans = eService.findAllByOrderByStartTimeAsc();
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
 	@GetMapping("/WSSearchByDate")
-	public ModelAndView WSSearchByDate(@RequestParam("startTime") Date startTime) {
-		ModelAndView modelAndView = new ModelAndView();
-		List<Event> eventBeans = eService.findEventsByStartTime(startTime);
+	public ModelAndView WSSearchByDate(@RequestParam("startTime")@DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime)  {
+		
 
+		System.out.println(startTime);
+		
+		Date endTime=new Date(startTime.getTime() + (1000*60*60*24-1));
+		
+		List<Event> eventBeans = eService.findEventsByStartTime(startTime,endTime);
+		
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("eventBeans", eventBeans);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/WSGetAllEmps.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/event/WSGetAllEmps.jsp");
 		return modelAndView;
 	}
 
