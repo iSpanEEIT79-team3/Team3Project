@@ -50,7 +50,7 @@ public class MatchesController {
 		System.out.println(matches);
 		model.addAttribute("matches", matches);
 		model.addAttribute("loginuser", user);
-		return "forward:/WEB-INF/jsp/test.jsp";
+		return "forward:/WEB-INF/jsp/front/match/MatchIndex.jsp";
 	}
 
 	@PostMapping("/createMatch")
@@ -81,7 +81,7 @@ public class MatchesController {
 		model.addAttribute("isMatch", isMatch);
 		model.addAttribute("loginuser", user);
 
-		return "forward:/WEB-INF/jsp/isMatch.jsp";
+		return "forward:/WEB-INF/jsp/front/match/IsMatch.jsp";
 	}
 	@GetMapping("GetAllMatches")
 	public ModelAndView processActionGetAllMatches() {
@@ -90,7 +90,7 @@ public class MatchesController {
 		List<MatchesBean> Allmatches = matchesService.getAll();
 		System.out.println(Allmatches);
 		modelAndView.addObject("Allmatches", Allmatches);
-		modelAndView.setViewName("forward:/WEB-INF/jsp/pairingRecord.jsp");
+		modelAndView.setViewName("forward:/WEB-INF/jsp/back/match/PairingRecord.jsp");
 		
 		return modelAndView;
 	}
@@ -102,7 +102,7 @@ public class MatchesController {
 		model.addAttribute("user2id", request.getParameter("user2id"));
 		model.addAttribute("nickName2", request.getParameter("nickName2"));
 		model.addAttribute("picture2", request.getParameter("picture2"));
-		return "forward:/WEB-INF/jsp/Chatroom_text.jsp";
+		return "forward:/WEB-INF/jsp/front/match/Chatroom.jsp";
 	}
 
     @MessageMapping("/sendMsg")

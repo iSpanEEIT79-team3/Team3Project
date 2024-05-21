@@ -84,7 +84,7 @@
 			<div class="small-table">
 				<div class="user-container">
 					<img id="user_image_${loop.index}" src="${user.picture}"
-						alt="User Image" class="img">
+							 class="img">
 					<div id="user_details_${loop.index}" class="user-details">
 						<p>Nickname: ${user.nickName}</p>
 						<p>Gender: ${user.gender}</p>
