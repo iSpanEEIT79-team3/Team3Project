@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.weaving.DefaultContextLoadTimeWeaver;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mmmooonnn.config.SocketModel;
 import com.mmmooonnn.model.MatchUserDetailsDTO;
 import com.mmmooonnn.model.MatchesBean;
+import com.mmmooonnn.model.MessageEntity;
 import com.mmmooonnn.model.UsersBeanNew;
 import com.mmmooonnn.service.MatchesService;
+import com.mmmooonnn.service.MessageService;
 import com.mmmooonnn.service.UsersService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -32,6 +38,8 @@ public class MatchesController {
 	private MatchesService matchesService;
 	@Autowired
 	private UsersService usersService3;
+	@Autowired
+	MessageService messageService;
 
 //	@RequestMapping("/index")
 	@GetMapping("/matchIndex")
@@ -86,5 +94,20 @@ public class MatchesController {
 		
 		return modelAndView;
 	}
+	
+	@GetMapping("/chatroomIndex")
+	public String chatroomIndex(HttpSession session, Model model ,HttpServletRequest request) {
+		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+		model.addAttribute("loginuser", user);
+		model.addAttribute("user2id", request.getParameter("user2id"));
+		model.addAttribute("nickName2", request.getParameter("nickName2"));
+		return "forward:/WEB-INF/jsp/Chatroom.jsp";
+	}
+
+    @MessageMapping("/sendMsg")
+    public void sendMsg(MessageEntity messageEntity) {
+        messageService.sendToUser(messageEntity);
+    }
+
 
 }

@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Main CSS-->
-<link rel="stylesheet" type="text/css" href="../css/main.css">
+<link rel="stylesheet" type="text/css" href="../html/css/main.css">
 <!-- Font-icon css-->
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,7 +29,7 @@
 					<div class="tile-title">
 						<h2>配對紀錄</h2>
 					</div>
-					<table class="table table-hover">
+					<table class="table table-hover" id="page">
 						<thead>
 							<tr>
 								<th>配對紀錄</th>
@@ -58,45 +58,49 @@
 				</div>
 			</div>
 		</div>
-		</div>
 
 
 	</main>
 
 
 	<!-- Essential javascripts for application to work-->
-    <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="../js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <script type="text/javascript" src="../js/plugins/chart.js"></script>
-    <script type="text/javascript" src="../js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../js/plugins/dataTables.bootstrap.min.js"></script>
-    <script>
-        fetch('/html/exampleBack.html')
-            .then(response => response.text())
-            .then(html => {
-                document.body.insertAdjacentHTML('beforeend', html);
-            });
+	<script src="/html/js/jquery-3.2.1.min.js"></script>
+	<script src="/html/js/popper.min.js"></script>
+	<script src="/html/js/bootstrap.min.js"></script>
+	<script src="/html/js/main.js"></script>
+	<!-- The javascript plugin to display page loading on top-->
+	<script src="/html/js/plugins/pace.min.js"></script>
+	<!-- Page specific javascripts-->
+	<script type="text/javascript" src="/html/js/plugins/chart.js"></script>
+	<script type="text/javascript"
+		src="/html/js/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="/html/js/plugins/dataTables.bootstrap.min.js"></script>
+		
+		<script>
+	$('#page').DataTable();
+		</script>
+	<script>
+				fetch('/html/exampleBack.html')
+					.then(response => response.text())
+					.then(html => {
+						document.body.insertAdjacentHTML('beforeend', html);
+					});
 
 
 
-        function RWDTest() {
-            //let RWD = document.getElementsByClassName("RWDTest");
-            let RWD = document.body;
-            if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
-                RWD.className = "app sidebar-mini rtl pace-done";
-            } else {
-                RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
-            }
-        }
+				function RWDTest() {
+					//let RWD = document.getElementsByClassName("RWDTest");
+					let RWD = document.body;
+					if (RWD.className === "app sidebar-mini rtl sidenav-toggled pace-done") {
+						RWD.className = "app sidebar-mini rtl pace-done";
+					} else {
+						RWD.className = "app sidebar-mini rtl sidenav-toggled pace-done";
+					}
+				}
 
-    </script>
+			</script>
 
 </body>
 
-</html>
 </html>
