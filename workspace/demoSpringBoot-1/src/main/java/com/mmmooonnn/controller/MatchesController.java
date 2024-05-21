@@ -101,7 +101,8 @@ public class MatchesController {
 		model.addAttribute("loginuser", user);
 		model.addAttribute("user2id", request.getParameter("user2id"));
 		model.addAttribute("nickName2", request.getParameter("nickName2"));
-		return "forward:/WEB-INF/jsp/Chatroom.jsp";
+		model.addAttribute("picture2", request.getParameter("picture2"));
+		return "forward:/WEB-INF/jsp/Chatroom_text.jsp";
 	}
 
     @MessageMapping("/sendMsg")

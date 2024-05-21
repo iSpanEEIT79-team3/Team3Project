@@ -93,7 +93,7 @@
 						<p>Dance Age: ${user.danceAge}</p>
 						<p>
 							<a
-								href="http://localhost:8080/chatroomIndex?user2id=${user.user2id}&nickName2=${user.nickName}">聊天室</a>
+								href="http://localhost:8080/chatroomIndex?user2id=${user.user2id}&nickName2=${user.nickName}&picture2=${user.picture}">聊天室</a>
 						</p>
 					</div>
 				</div>

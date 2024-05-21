@@ -17,7 +17,7 @@
 
 .user-container {
 	text-align: center;
-    padding-left: 300px;
+    padding-left: 300px; 
     padding-right: 300px;
  	flex-direction: column; 
     width:100%;
