@@ -104,7 +104,7 @@ public class MatchesController {
 		return "forward:/WEB-INF/jsp/Chatroom.jsp";
 	}
 
-    @MessageMapping("/sendMsgs")
+    @MessageMapping("/sendMsg")
     public void sendMsg(MessageEntity messageEntity) {
         messageService.sendToUser(messageEntity);
     }
