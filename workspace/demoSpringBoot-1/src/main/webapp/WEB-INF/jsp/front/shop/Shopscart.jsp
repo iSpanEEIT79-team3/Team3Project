@@ -61,13 +61,10 @@
 
 <body>
 
-    <div class="container-fluid" style="margin-top: 150px;">
-        <h2 class="text-center">標題</h2>
+    <div class="container-fluid" style="margin-top: 75px;">
     </div>
     <!-- <section> -->
     <div class="main">    
-    <p>這裡是Shopscart.jsp</p>
-    
        <!-- Shop Cart Section Begin -->
     <section class="shop-cart spad">
         <div class="container">
@@ -111,25 +108,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn">
-                        <a href="#">繼續購物</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn update__btn">
-                        <a href="#"><span class="icon_loading"></span>刷新購物車</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="discount__content">
-                        <h6>輸入優惠碼</h6>
+                <div class="discount__content">
+                        <h6>備註</h6>
                         <form action="#">
-                            <input type="text" placeholder="Enter your coupon code">
-                            <button type="submit" class="site-btn">Apply</button>
+                            <input id="note" type="text" placeholder="備註">
                         </form>
                     </div>
                 </div>
@@ -214,7 +199,7 @@
 	            });
 	        });
 
-	        // 更新对应商品的总计
+	        // 更新單個商品的總計
 	        function updateProductTotal(input) {
 	            var quantity = parseInt(input.value);
 	            var price = parseFloat(input.getAttribute('data-price'));
@@ -223,7 +208,7 @@
 	            totalCell.textContent = 'NT$' + totalPrice;
 	        }
 
-	        // 更新总价的函数
+	        //更新總價格
 	        function updateTotalPrice() {
 	            var totalPrice = 0;
 
@@ -244,9 +229,10 @@
                     data: { index: index }, //回傳productId 跟serv講說要刪哪行
                     success: function (response) {
                     	alert('刪除成功');
-                        $('tr[data-no="' + index + '"]').remove(); //在網頁上刪除那行
+                        //$('tr[data-no="' + index + '"]').remove(); //在網頁上刪除那行
+                    	//updateTotalPrice();
                         //刷新頁面
-                        //location.reload();
+                        location.reload();
                     },
                     error: function () {
                         alert('刪除失敗');
@@ -256,61 +242,117 @@
 //整個畫面跑好 更新總價格
 	        window.onload = function() {
 	            updateTotalPrice(); // 页面加载完成后更新总价
+	            
+	            console.log("你到底有沒有近來");
+	            $('#memberDropdown').attr("style", "display: none");
+	            $('#loginButton').attr("style", "display: block");
+
+
+	            $.ajax({
+	                url: "../checkUserLogin",
+	                type: 'get',
+	                success: function () {
+	        			console.log("成功");
+	                    $('#memberDropdown').show();
+	                    $('#loginButton').hide();
+	                },
+	                error: function () {
+	        			console.log("失敗");
+	                    $('#memberDropdown').hide();
+	                    $('#loginButton').show();
+	                }
+	            });
 	        };
-	
+//送出訂單
 	        function submitOrder() {
 	            // 收集需要发送的数据
+	            var Quanproduct = [];
 	            var productList = [];
 	            var rows = document.querySelectorAll('.shop__cart__table tbody tr');
+	            var userId = "${users.userId}";
+	            var note = document.getElementById('note').value;
+	            
 	            rows.forEach(function(row) {
 	                var productId = row.getAttribute('data-product-id');
 	                var productName = row.querySelector('.cart__product__item__title h6').textContent;
-	                var productPrice = parseFloat(row.querySelector('.cart__price').textContent.replace('NT$', ''));
+	                var parts = productName.split('-');
+	                var size = parts[1]; // 获取尺寸部分
 	                var productQuantity = parseInt(row.querySelector('.quantity-input').value);
-	                var totalPrice = parseFloat(row.querySelector('.cart__total').textContent.replace('NT$', ''));
-	                
-	                var product = {
+                
+                
+	                var productList = {
 	                    productId: productId,
-	                    productName: productName,
-	                    productPrice: productPrice,
-	                    productQuantity: productQuantity,
-	                    totalPrice: totalPrice
+	                    size: size,
+	                    quantity: productQuantity,
 	                };
-	                productList.push(product);
+	                Quanproduct.push(productList);
 	            });
 	            
-	            // 计算总价
-	            var orderTotalPrice = 0;
-	            productList.forEach(function(product) {
-	                orderTotalPrice += product.totalPrice;
+	            $.ajax({
+	                type: 'POST',
+	                url: 'updateQuan',
+	                data: JSON.stringify(Quanproduct),
+	                contentType: 'application/json',
+	                success: function(response) {
+	                    alert('庫存扣除成功');
+	                    
+	     	            rows.forEach(function(row) {
+	 	                var productId = row.getAttribute('data-product-id');
+	 	                var productName = row.querySelector('.cart__product__item__title h6').textContent;
+	 	                var productPrice = parseFloat(row.querySelector('.cart__price').textContent.replace('NT$', ''));
+	 	                var productQuantity = parseInt(row.querySelector('.quantity-input').value);
+	 	                var totalPrice = parseFloat(row.querySelector('.cart__total').textContent.replace('NT$', ''));
+		                
+		                
+	 	                var product = {
+	 	                    productNum: productId,
+	 	                    productName: productName,
+	 	                    productPrice: productPrice,
+	 	                    productQuantity: productQuantity,
+	 	                   	orderTotalPrice: totalPrice
+	 	                };
+	 	                productList.push(product);
+	 	            });
+		            
+// 		            //計算總價
+// 	 	            var orderTotalPrice = 0;
+// 	 	            productList.forEach(function(product) {
+// 	 	                orderTotalPrice += product.totalPrice;
+// 	 	            });
+	 	            
+	 	           // 组装订单数据对象
+	 	           var orderData = {
+	 	               userContactNew: {
+	 	                   contactId: userId
+	 	               },
+	 	               orderNote: note,
+	 	               orderDetails: productList
+	 	           };
+		            	
+	 	            	console.log(JSON.stringify(orderData));
+	 	            	//console.log("orderTotalPrice: " +orderTotalPrice);
+	 	            	console.log("usersID: " +userId);
+	 	            	console.log("note: " +note);
+		            	
+	 	               // 发送 AJAX 请求
+	 	               $.ajax({
+	 	                   type: 'POST',
+	 	                   url: '../orders', // 替换为你的服务器端处理订单的 URL
+	 	                   data: JSON.stringify(orderData),
+	 	                   contentType: 'application/json', // 指定数据类型为 JSON
+	 	                   success: function(response) {
+	 	                       alert('訂單提交成功');
+	 	                   },
+	 	                   error: function() {
+	 	                       alert('訂單提交失敗');
+	 	                   }
+	 	               });
+        //以下為 上面success的 不能刪
+	                },
+	                error: function() {
+	                    alert('扣除庫存錯誤');
+	                }
 	            });
-	            	
-	            	console.log("productlist: " + JSON.stringify(productList));
-	            	console.log("product: " + productList);
-	            	console.log("orderTotalPrice: " +orderTotalPrice);
-	            // 构造要发送的数据对象
-// 	            var data = {
-// 	                productList: productList,
-// 	                orderTotalPrice: orderTotalPrice
-// 	            };
-	            
-// 	            // 发送 AJAX 请求
-// 	            $.ajax({
-// 	                type: 'POST',
-// 	                url: 'submitOrderServlet', // 后端处理请求的 URL
-// 	                data: JSON.stringify(data), // 将 JavaScript 对象转换为 JSON 字符串
-// 	                contentType: 'application/json', // 指定发送的数据类型为 JSON
-// 	                success: function(response) {
-// 	                    // 请求成功时的处理
-// 	                    console.log('Order submitted successfully');
-// 	                    // 可以在这里进行页面跳转或者显示成功消息等操作
-// 	                },
-// 	                error: function(xhr, status, error) {
-// 	                    // 请求失败时的处理
-// 	                    console.error('Error submitting order:', error);
-// 	                    // 可以在这里显示错误消息等操作
-// 	                }
-// 	            });
 	        }
     
     </script>
@@ -325,7 +367,7 @@
         <script src="../front/shop/shopjs/owl.carousel.min.js"></script>
         <script src="../front/shop/shopjs/jquery.nicescroll.min.js"></script>
         <script src="../front/shop/shopjs/main.js"></script>
-        
+<!--         <script src="../front/LoginUser.js"></script> -->
         
 </body>
 

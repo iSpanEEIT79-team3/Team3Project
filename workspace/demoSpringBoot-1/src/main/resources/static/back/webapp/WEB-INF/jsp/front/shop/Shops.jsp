@@ -14,6 +14,7 @@
 	    }  
 
     </style>
+    <script src="front/shop/testtest.js"></script>
 	<!-- Bootstrap CSS -->
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
 	        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -23,7 +24,7 @@
 	    <link rel="preconnect" href="https://fonts.gstatic.com">
 	    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
 	
-	    <link rel="stylesheet" href="front/shop/shopcss/bootstrap.min.css" type="text/css">
+	    <link rel="stylesheet" href="<!-- front/shop/shopcss -->/bootstrap.min.css" type="text/css">
 	    <link rel="stylesheet" href="front/shop/shopcss/font-awesome.min.css" type="text/css">
 	    <link rel="stylesheet" href="front/shop/shopcss/elegant-icons.css" type="text/css">
 	    <link rel="stylesheet" href="front/shop/shopcss/jquery-ui.min.css" type="text/css">
@@ -44,10 +45,11 @@
     <title>範本</title>
 </head>
 
-<body class>
+<body>
 
 
-    <div class="container-fluid" style="margin-top: 75px;">
+    <div class="container-fluid" style="margin-top: 150px;">
+        <h2 class="text-center">標題</h2>
     </div>
     <!-- <section> -->
     <div class="main">    
@@ -56,11 +58,11 @@
  <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
-        
-         <div class="row">
+    
+    	<div class="row">
             <div class="col-lg-4 col-md-4">
                 <div class="section-title">
-                    <h4>JFSwing Shop</h4>
+                    <h4>New product</h4>
                 </div>
             </div>
             <div class="col-lg-8 col-md-8">
@@ -72,8 +74,7 @@
                 </ul>
             </div>
         </div>
-        
-        
+    
         <div class="row property__gallery">
         
         <c:forEach items="${shops}" var="shop">
@@ -82,12 +83,13 @@
                     <div class="product__item__pic set-bg" data-setbg="${shop.productImg}" style="background-image: url(&quot;${shop.productImg}&quot;);">
                         <ul class="product__hover">
                             <li><a href="${shop.productImg}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                             <li><a href="/Shopproduct/${shop.productId}"><span class="icon_bag_alt"></span></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
-                        <h4><a href="/Shopproduct/${shop.productId}" style="color: black;">${shop.productName}</a></h4>
-                        <div class="product__price" style="color: red;">NT$ ${shop.productPrice}</div>
+                        <h6><a href="/Shopproduct/${shop.productId}">${shop.productName}</a></h6>
+                        <div class="product__price">NT$ ${shop.productPrice}</div>
                     </div>
                 </div>
             </div>
@@ -106,11 +108,11 @@
 	        </script>
     <script>
       
-			fetch('/html/basic.html')
-		    .then(response => response.text())
-		    .then(html => {
-		        document.body.insertAdjacentHTML('beforeend', html);
-		    });
+        fetch('html/basic.html')
+            .then(response => response.text())
+            .then(html => {
+                document.body.innerHTML += html;
+            });
 
         
     </script>
@@ -126,7 +128,6 @@
         <script src="front/shop/shopjs/owl.carousel.min.js"></script>
         <script src="front/shop/shopjs/jquery.nicescroll.min.js"></script>
         <script src="front/shop/shopjs/main.js"></script>
-        <script src="front/LoginUser.js"></script>
         
 </body>
 
