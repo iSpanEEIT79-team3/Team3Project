@@ -52,18 +52,11 @@
                     height: 100%;
                 }
 
-                #registerNowButton {
-                    outline: none;
-                    background-color: #B15A5E;
-                    border: none;
-                    /* 如果也想去掉邊框，可以添加這一行 */
-                }
-
+                #registerNowButton,
                 #mail {
                     outline: none;
                     background-color: #B15A5E;
                     border: none;
-                    /* 如果也想去掉邊框，可以添加這一行 */
                 }
             </style>
             <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
@@ -186,6 +179,7 @@
                         <div class="mt-2 ml-2">
                             ${course.maxCapacity}
                         </div>
+
                     </div>
 
                     <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
@@ -282,14 +276,18 @@
                                 url: form.attr("action"),
                                 data: form.serialize(),
                                 success: function (response) {
-                                    Swal.fire("Success", response, "success");
-                                    location.reload();
+                                    if (response === "Registration successful") {
+                                        Swal.fire("Success", "報名成功", "success");
+                                    } else {
+                                        Swal.fire("Error", "報名失敗", "error");
+                                    }
                                 },
                                 error: function (xhr, status, error) {
-                                    Swal.fire("Error", "Registration failed: " + xhr.responseText, "error");
+                                    Swal.fire("Error", "報名失敗: " + xhr.responseText, "error");
                                 }
                             });
                         });
+
 
                         $("#sendCourseEmailForm").submit(function (event) {
                             event.preventDefault();

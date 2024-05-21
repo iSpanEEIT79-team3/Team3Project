@@ -113,23 +113,47 @@ public class CoursesControllerFront {
             return ResponseEntity.ok().body("good");
         }
 
+//    @PostMapping("/registerCourse")
+//    @ResponseBody
+//    public ResponseEntity<String> registerCourse(@RequestParam("productId") Integer productId, HttpSession session) {
+//        CoursesBean course = cService.findCourseById(productId);
+//        UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
+//        if (course != null && user != null) {
+//            try {
+//                cService.registerUserToCourse(course);
+//                return ResponseEntity.ok("Registration successful");
+//            } catch (IllegalStateException e) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//            }
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found or User not logged in");
+//        }
+//    }
+
     @PostMapping("/registerCourse")
-    @ResponseBody
-    public ResponseEntity<String> registerCourse(@RequestParam("productId") Integer productId, HttpSession session) {
+    public ModelAndView registerCourse(@RequestParam("productId") Integer productId, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
         CoursesBean course = cService.findCourseById(productId);
         UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
         if (course != null && user != null) {
             try {
                 cService.registerUserToCourse(course);
-                return ResponseEntity.ok("Registration successful");
+                modelAndView.addObject("message", "報名成功");
+                modelAndView.setViewName("redirect:/nextPage");  // Assuming "nextPage" is the URL to which you want to redirect
+                return modelAndView;
             } catch (IllegalStateException e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+                modelAndView.addObject("errorMessage", "報名失敗：" + e.getMessage());
+                modelAndView.setViewName("currentCoursePage");  // Replace "currentCoursePage" with the JSP page you want to return to
+                return modelAndView;
             }
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found or User not logged in");
+            modelAndView.addObject("errorMessage", "報名失敗：課程未找到或用戶未登錄");
+            modelAndView.setViewName("currentCoursePage");
+            return modelAndView;
         }
     }
 
+    
     
     
 	@GetMapping("/GetAllCourseDetailsFront")

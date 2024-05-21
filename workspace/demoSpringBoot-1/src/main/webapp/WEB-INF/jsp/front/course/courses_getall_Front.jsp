@@ -290,21 +290,6 @@
 
 
                 <!-- 各種索引搜尋 -->
-                <div class="d-flex container" style="height:30px;">
-                    <div class="smallbox border border-dark m-2" style="width: 60px;height:30px;" id="sortByDate">
-                        <h5 class="text-center m-1">日期</h5>
-                    </div>
-                    <div class="smallbox border border-dark m-2" style="width: 82px;height:30px;" id="searchBasic">
-                        <h5 class="text-center m-1">基礎課</h5>
-                    </div>
-                    <div class="smallbox border border-dark m-2" style="width: 150px;height:30px;" id="filterDate">
-                        <h5 class="text-center m-1">更多篩選條件</h5>
-                    </div>
-                    <div class="smallbox border border-dark m-2" style="width: 82px;height:30px;"
-                        id="searchIntermediate">
-                        <h5 class="text-center m-1">中級課</h5>
-                    </div>
-                </div>
 
 
 
@@ -312,6 +297,28 @@
                 <!--課程等級-->
                 <section class="page-section rounded-3" id="portfolio">
                     <div class="container">
+
+                        <div class="d-flex container mt-5" style="height:30px;">
+                            <div class="smallbox border border-dark m-2" style="width: 60px;height:30px;"
+                                id="sortByDate">
+                                <h5 class="text-center m-1">日期</h5>
+                            </div>
+                            <div class="smallbox border border-dark m-2" style="width: 82px;height:30px;"
+                                id="searchBasic">
+                                <h5 class="text-center m-1">基礎課</h5>
+                            </div>
+                            <div class="smallbox border border-dark m-2" style="width: 150px;height:30px;"
+                                id="filterDate">
+                                <h5 class="text-center m-1">更多篩選條件</h5>
+                            </div>
+                            <div class="smallbox border border-dark m-2" style="width: 82px;height:30px;"
+                                id="searchIntermediate">
+                                <h5 class="text-center m-1">中級課</h5>
+                            </div>
+                        </div>
+
+                        <div style="height: 50px;"></div>
+
                         <div class="d-flex">
                             <h2 class="section-heading text-uppercase">難度分級</h2>
                             <div class="separator d-flex align-items-center m-3"></div> <!-- 這是分隔線 -->
