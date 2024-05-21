@@ -183,6 +183,9 @@
 			margin-right: 10px;
 			/* Adjust margin as needed */
 		}
+		button:hover {
+    transform: scale(1.1);
+}
 	</style>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -429,12 +432,12 @@
 												+ '<form class="col-auto" method="post" action="/ReportinsertFront.controller" onsubmit="handleReportSuccess()">'
 												+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
 												+ '<input type="text" name="reportContent" placeholder="请输入檢舉內容">'
-												+ '<button class="btn btn-warning btn-sm" type="submit" style="border-radius: 10px;" >'
+												+ '<button class="btn btn-warning btn-sm" type="submit" style="border-radius: 10px;font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); " >'
 												+ '<i class="fa-solid fa-triangle-exclamation" style="color: red "></i> 檢舉'
 												+ '</button>'
 												+ '</form>'
 												+ '<form class="col-auto editForm" method="Get" action="/LTSelectByIdFront.controller/' + content.ltId + '">'
-												+ '<button class="btn btn-primary btn-sm editButton" type="submit" style="border-radius: 10px;"'
+												+ '<button class="btn btn-primary btn-sm editButton" type="submit" style="border-radius: 10px;  font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 15px;"'
 												+ choose(content.userId, userID)
 												+ ' > 修改</button> '
 												+ '</form>'
@@ -444,18 +447,18 @@
 												+ content.ltId 
 												+ '" onsubmit="return confirmDelete();">'
 												+ '<input type="hidden" name="_method" value="DELETE">'
-												+ '<button class="btn btn-danger btn-sm deleteButton" type="submit" style="border-radius: 10px;" ' 
+												+ '<button class="btn btn-danger btn-sm deleteButton" type="submit" style="border-radius: 10px; font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); " ' 
 												+ choose(content.userId, userID) 
 												+ ' onclick="alert(\'確定要刪除嗎？\')">刪除</button>'
 												+ '</form>'
 												+ '<form class="col-auto" method="get" action="/findLTIDFront/' + content.ltId + '">'
-												+ '<button  style="background-color: #0DCAF0; border-radius: 15px;" type="submit" >'
+												+ '<button  style="background-color: #0DCAF0; font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 15px;" type="submit" >'
 												+ '<i class="fa-solid fa-comments"></i> 回復區'
 												+ '</button>'
 												+ '</form>'
 												+ '<form class="col-auto" method="POST" action="/LikeinsertFront.controller">'
 												+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
-												+ '<button style="background-color: #FFC0CB; border-radius: 10px;" type="submit">'
+												+ '<button style="background-color: #FFC0CB; font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 10px; transition: transform 0.3s ease; transform: scale(1.1);" type="submit">'
 												+ '<i class="fa-solid fa-thumbs-up"></i> 讚'
 												+ '</button>'
 												+ '<span class="like-count">'
@@ -464,7 +467,7 @@
 												+ '</form>'
 												+ '<form class="col-auto" method="POST" action="/collectFront.controller">'
 												+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
-												+ '<button   style="background-color: #FFC0CB; border-radius: 10px;" type="submit">'
+												+ '<button   style="background-color: #FFC0CB;font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); " border-radius: 10px;" type="submit">'
 												+ '<i class="fa-solid fa-heart"></i>收藏'
 												+ '</button>'
 												+ '<span class="collect-count">'
@@ -475,7 +478,8 @@
 												+ '</div>'
 												+ '</div>'
 												+ '</div>'
-												+ '<span class="page-views" style="float: right;margin-top: -35px;  ">瀏覽次數: '
+												+ '<span class="page-views" style="float: right;margin-top: -35px ; font-size:13px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); "> '
+												+'<i class="fa-solid fa-eye"></i>瀏覽次數:'
 												+ content.pageViews
 												+ '</span>'
 
@@ -719,7 +723,7 @@
 					console.log("1234", response);
 					userID = response;
 					if (userID == "") {
-						window.location.href = "/html/UserLoginTest.html";
+						window.location.href = "/UserLoginTest";
 					} else {
 						window.location.href = "/front/lt/LTInsertFront.html";
 					}
