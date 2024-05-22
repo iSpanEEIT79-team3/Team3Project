@@ -158,8 +158,15 @@ public class CoursesControllerFront {
     	}
     	return "redirect:/error";  // Redirect to an error page if no course is found
     }
-    
-
+    //老師名字
+    @GetMapping("/getTeacherCoursesFront")
+    public ModelAndView getTeacherCourses(@RequestParam("teacherName") String teacherName) {
+        List<CoursesBean> teacherCourses = cService.findByTeacherName(teacherName);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("teacherCourses", teacherCourses);
+        modelAndView.setViewName("forward:/WEB-INF/jsp/front/course/courses_teacher_Front.jsp");
+        return modelAndView;
+    }
     
     
 }

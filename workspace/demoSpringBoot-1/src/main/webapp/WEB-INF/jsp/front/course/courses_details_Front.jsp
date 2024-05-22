@@ -95,24 +95,19 @@
 
                         <div class="course-content">
                             <div class="mt-2 course-description">
-                                <h1>${course.courseName}</h1>
-                                <h3>${course.courseType}</h3>
-                                ${course.description}
+                                <h1 class="m-1">${course.courseName}</h1>
+                                <h3 class="m-1">${course.courseType}</h3>
+                                <h6 class="m-2">${course.description}</h6>
                             </div>
                         </div>
                     </div>
-                    <div class=" border border-dark">
 
-
-
-
-
-                    </div>
 
 
 
                 </div>
-                <div class="z-n1 col-3 d-flex flex-column align-items-center border border-dark fixed sticky-top"
+
+                <div class="col-3 d-flex flex-column align-items-center border border-dark fixed"
                     style="width: 300px; height: 900px;">
 
                     <div class="align-items-center m-1" style="width: 250px; height: 80px;">
@@ -299,7 +294,6 @@
                                 }
                             });
                         });
-
 
                         $("#sendCourseEmailForm").submit(function (event) {
                             event.preventDefault();

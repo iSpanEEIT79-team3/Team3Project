@@ -33,6 +33,8 @@ public class CoursesService {
     @Autowired
     private JavaMailSender mailSender; // 添加郵件發送器
 
+    
+    //基本CRUD
     public void insert(CoursesBean course) {
         courseRepos.save(course);
     }
@@ -53,7 +55,14 @@ public class CoursesService {
     public List<CoursesBean> getAll() {
         return courseRepos.findAll();
     }
-
+    //以上
+    
+    //老師名字搜尋
+    public List<CoursesBean> findByTeacherName(String teacherName) {
+        return courseRepos.findByTeacherName(teacherName);
+    }
+    
+    
     public List<CoursesBean> getTeacherCourses() {
         // Implement this method to retrieve courses for a teacher
         // You can query the repository based on teacher criteria
@@ -94,6 +103,7 @@ public class CoursesService {
         return courseRepos.findByCourseNameContainingOrDescriptionContaining(keyword, keyword);
     }
     
+
     //增加报名人数
     public void registerUserToCourse(CoursesBean course) {
         // 检查报名人数是否已满

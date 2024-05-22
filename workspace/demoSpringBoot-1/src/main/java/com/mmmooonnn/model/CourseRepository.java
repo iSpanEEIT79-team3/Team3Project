@@ -15,5 +15,6 @@ public interface CourseRepository extends JpaRepository<CoursesBean, Integer> {
 
     List<CoursesBean> findByCourseNameContainingOrDescriptionContaining(String courseName, String description);
 
-	
+    List<CoursesBean> findByTeacherName(String teacherName);
+
 }

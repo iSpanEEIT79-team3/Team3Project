@@ -125,8 +125,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		<!--正确解析 fn 前缀-->
 
-   
+   	<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+   	
+   	
 
 		<!--多張照片-->
 		<dependency>
