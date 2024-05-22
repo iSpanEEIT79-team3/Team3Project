@@ -81,7 +81,7 @@
         </head>
 
         <body>
-            <div style="height: 114px;"></div>
+            <div style="height: 140px;"></div>
             <div class="row justify-content-center">
                 <div class="col-7 m-2">
                     <div class=" border border-dark">
@@ -106,114 +106,118 @@
 
 
                 </div>
+                <div class="col-3">
+                    <div style="height: 8px;"></div>
+                    <div class=" d-flex flex-column align-items-center border border-dark fixed"
+                        style="width: 300px; height: 900px;">
 
-                <div class="col-3 d-flex flex-column align-items-center border border-dark fixed"
-                    style="width: 300px; height: 900px;">
+                        <div class="align-items-center m-1" style="width: 250px; height: 80px;">
 
-                    <div class="align-items-center m-1" style="width: 250px; height: 80px;">
-
-                        <div class="mt-2 ml-2" id="deadline" style="display: none;">
-                            ${course.deadlineDate}
-                        </div>
-                        <div id="countdown" class="row g-0 mt-1 text-center">
-                            <div class="col border border-dark">
-                                <h2 class="mt-1" id="days"></h2>
-                                <small>Days</small>
+                            <div class="mt-2 ml-2" id="deadline" style="display: none;">
+                                ${course.deadlineDate}
                             </div>
-                            <div class="col border border-dark">
-                                <h2 class="mt-1" id="hours"></h2>
-                                <small>Hours</small>
+                            <div id="countdown" class="row g-0 mt-1 text-center">
+                                <div class="col border border-dark">
+                                    <h2 class="mt-1" id="days"></h2>
+                                    <small>Days</small>
+                                </div>
+                                <div class="col border border-dark">
+                                    <h2 class="mt-1" id="hours"></h2>
+                                    <small>Hours</small>
+                                </div>
+                                <div class="col border border-dark">
+                                    <h2 class="mt-1" id="minutes"></h2>
+                                    <small>Minutes</small>
+                                </div>
+                                <div class="col border border-dark">
+                                    <h2 class="mt-1" id="seconds"></h2>
+                                    <small>Seconds</small>
+                                </div>
                             </div>
-                            <div class="col border border-dark">
-                                <h2 class="mt-1" id="minutes"></h2>
-                                <small>Minutes</small>
+                        </div>
+                        <div class="d-flex align-items-center m-1 border border-dark"
+                            style="width: 250px; height: 40px;">
+                            <h6 class="m-2">SHOW DETAILS</h6>
+                        </div>
+                        <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
+                            <div class="mt-2 ml-2">
+                                <h6>時間</h6>
                             </div>
-                            <div class="col border border-dark">
-                                <h2 class="mt-1" id="seconds"></h2>
-                                <small>Seconds</small>
+                            <div class="mt-2 ml-2">
+                                ${course.startDate}
+                                ${course.endDate}
+                            </div>
+                            <div class="mt-2 ml-2">
+                                <h6>地點</h6>
+                            </div>
+                            <div class="mt-2 ml-2">
+                                <a href="https://maps.google.com/?q=${course.location}"
+                                    target="_blank">${course.location}</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="d-flex align-items-center m-1 border border-dark" style="width: 250px; height: 40px;">
-                        <h6 class="m-2">SHOW DETAILS</h6>
-                    </div>
-                    <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
-                        <div class="mt-2 ml-2">
-                            <h6>時間</h6>
+                        <div class="d-flex align-items-center m-1 border border-dark"
+                            style="width: 250px; height: 40px;">
+                            <h6 class="m-2">TEACHER DETAILS</h6>
                         </div>
-                        <div class="mt-2 ml-2">
-                            ${course.startDate}
-                            ${course.endDate}
+                        <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
+                            <div class="mt-2 ml-2">
+                                <h6>教師名稱</h6>
+                            </div>
+                            <div class="mt-2 ml-2">
+                                ${course.teacherName}
+                            </div>
+                            <div class="mt-2 ml-2">
+                                <h6>教師聯繫方式</h6>
+                            </div>
+                            <div class="mt-2 ml-2">
+                                ${course.teacherContact}
+                            </div>
                         </div>
-                        <div class="mt-2 ml-2">
-                            <h6>地點</h6>
+                        <div class="d-flex align-items-center m-1 border border-dark"
+                            style="width: 250px; height: 40px;">
+                            <h6 class="m-2">人數</h6>
                         </div>
-                        <div class="mt-2 ml-2">
-                            <a href="https://maps.google.com/?q=${course.location}"
-                                target="_blank">${course.location}</a>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center m-1 border border-dark" style="width: 250px; height: 40px;">
-                        <h6 class="m-2">TEACHER DETAILS</h6>
-                    </div>
-                    <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
-                        <div class="mt-2 ml-2">
-                            <h6>教師名稱</h6>
-                        </div>
-                        <div class="mt-2 ml-2">
-                            ${course.teacherName}
-                        </div>
-                        <div class="mt-2 ml-2">
-                            <h6>教師聯繫方式</h6>
-                        </div>
-                        <div class="mt-2 ml-2">
-                            ${course.teacherContact}
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center m-1 border border-dark" style="width: 250px; height: 40px;">
-                        <h6 class="m-2">人數</h6>
-                    </div>
-                    <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
-                        <div class="mt-2 ml-2">
-                            <h6>目前報名人數</h6>
-                        </div>
-                        <div class="mt-2 ml-2">
-                            ${course.enrollmentCount}
-                        </div>
-                        <div class="mt-2 ml-2">
-                            <h6>上限名額</h6>
-                        </div>
-                        <div class="mt-2 ml-2">
-                            ${course.maxCapacity}
+                        <div class="d-flex flex-column align-items-start m-1" style="width: 250px; height: 160px;">
+                            <div class="mt-2 ml-2">
+                                <h6>目前報名人數</h6>
+                            </div>
+                            <div class="mt-2 ml-2">
+                                ${course.enrollmentCount}
+                            </div>
+                            <div class="mt-2 ml-2">
+                                <h6>上限名額</h6>
+                            </div>
+                            <div class="mt-2 ml-2">
+                                ${course.maxCapacity}
+                            </div>
+
                         </div>
 
-                    </div>
+                        <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+                            <form id="registerCourseForm" action="${pageContext.request.contextPath}/registerCourse"
+                                method="post" style="width: 100%; height: 100%;">
+                                <input type="hidden" name="productId" value="${course.productId}" />
+                                <input type="hidden" name="courseName" value="${course.courseName}" />
+                                <button id="registerNowButton" type="submit" class="btn btn-primary custom-button"
+                                    style="width: 100%; height: 100%;background-color:#B15A5E;">
+                                    <h4 class=" mt-2">立即報名</h4>
+                                </button>
+                            </form>
+                        </div>
 
-                    <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
-                        <form id="registerCourseForm" action="${pageContext.request.contextPath}/registerCourse"
-                            method="post" style="width: 100%; height: 100%;">
-                            <input type="hidden" name="productId" value="${course.productId}" />
-                            <input type="hidden" name="courseName" value="${course.courseName}" />
-                            <button id="registerNowButton" type="submit" class="btn btn-primary custom-button"
-                                style="width: 100%; height: 100%;background-color:#B15A5E;">
-                                <h4 class=" mt-2">立即報名</h4>
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
-                        <form id="mail1" action="${pageContext.request.contextPath}/sendCourseEmail" method="post"
-                            style="width: 100%; height: 100%;">
-                            <input type="hidden" name="START_DATE" value="${course.startDate}" />
-                            <input type="hidden" name="COURSE_NAME" value="${course.courseName}" />
-                            <button id="mail2" type="submit" class="btn btn-primary custom-button"
-                                style="width: 100%; height: 100%; background-color: #B15A5E;">
-                                <h4 class="mt-1">將課程收藏至Email</h4>
-                            </button>
-                        </form>
+                        <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+                            <form id="mail1" action="${pageContext.request.contextPath}/sendCourseEmail" method="post"
+                                style="width: 100%; height: 100%;">
+                                <input type="hidden" name="START_DATE" value="${course.startDate}" />
+                                <input type="hidden" name="COURSE_NAME" value="${course.courseName}" />
+                                <button id="mail2" type="submit" class="btn btn-primary custom-button"
+                                    style="width: 100%; height: 100%; background-color: #B15A5E;">
+                                    <h4 class="mt-1">將課程收藏至Email</h4>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
                 <script>
 
                     function calculateCountdown(deadline) {
