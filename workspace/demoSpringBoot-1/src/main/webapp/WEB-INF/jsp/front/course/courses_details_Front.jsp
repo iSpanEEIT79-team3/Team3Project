@@ -304,7 +304,7 @@
                                             error: function (xhr, status, error) {
                                                 Swal.fire({
                                                     title: "Error",
-                                                    text: isRegisterForm ? "報名失敗: " + xhr.responseText : "Email 發送失敗: " + xhr.responseText,
+                                                    text: isRegisterForm ? "報名失敗: " + "已額滿" : "Email 發送失敗: " + "請等侯再發送訊息",
                                                     icon: "error"
                                                 });
                                             }
