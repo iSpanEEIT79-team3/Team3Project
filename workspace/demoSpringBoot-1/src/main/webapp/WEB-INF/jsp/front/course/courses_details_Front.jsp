@@ -202,11 +202,11 @@
                     </div>
 
                     <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
-                        <form action="${pageContext.request.contextPath}/sendCourseEmail" method="post"
+                        <form id="mail1" action="${pageContext.request.contextPath}/sendCourseEmail" method="post"
                             style="width: 100%; height: 100%;">
                             <input type="hidden" name="START_DATE" value="${course.startDate}" />
                             <input type="hidden" name="COURSE_NAME" value="${course.courseName}" />
-                            <button id="mail" type="submit" class="btn btn-primary custom-button"
+                            <button id="mail2" type="submit" class="btn btn-primary custom-button"
                                 style="width: 100%; height: 100%; background-color: #B15A5E;">
                                 <h4 class="mt-1">將課程收藏至Email</h4>
                             </button>
@@ -267,52 +267,55 @@
                         updateCountdown();
                         setInterval(updateCountdown, 1000); // 每秒更新一次倒计时
                     });
+
+
                 </script>
-
-
-
-
-
                 <script>
-                    $(document).ready(function () {
-                        $("#registerCourseForm").submit(function (event) {
-                            event.preventDefault();
-                            var form = $(this);
-                            $.ajax({
-                                type: "POST",
-                                url: form.attr("action"),
-                                data: form.serialize(),
-                                success: function (response) {
-                                    if (response === "Registration successful") {
-                                        Swal.fire("Success", "報名成功", "success");
-                                    } else {
-                                        Swal.fire("Error", "報名失敗", "error");
-                                    }
-                                },
-                                error: function (xhr, status, error) {
-                                    Swal.fire("Error", "報名失敗: " + xhr.responseText, "error");
-                                }
-                            });
-                        });
 
-                        $("#sendCourseEmailForm").submit(function (event) {
-                            event.preventDefault();
-                            var form = $(this);
-                            $.ajax({
-                                type: "POST",
-                                url: form.attr("action"),
-                                data: form.serialize(),
-                                success: function (response) {
-                                    Swal.fire("Success", response, "success");
-                                },
-                                error: function (xhr, status, error) {
-                                    Swal.fire("Error", "Email sending failed: " + xhr.responseText, "error");
-                                }
+
+                    $(document).ready(function () {
+                        $(document).on('click', '#registerCourseForm, #mail2', function () {
+                            var formId = $(this).attr('id') === 'registerCourseForm' ? '#registerCourseForm' : '#mail1';
+                            var isRegisterForm = formId === '#registerCourseForm';
+
+                            $(formId).submit(function (event) {
+                                event.preventDefault(); // 先阻止默认提交行为
+                                var form = $(this);
+
+                                Swal.fire({
+                                    title: isRegisterForm ? '確定要報名嗎？' : '確定要將課程收藏至Email嗎？',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: '確定',
+                                    cancelButtonText: '取消'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: form.attr("action"),
+                                            data: form.serialize(),
+                                            success: function (response) {
+                                                Swal.fire({
+                                                    title: "Success",
+                                                    text: isRegisterForm ? "報名成功" : "Email 已成功發送",
+                                                    icon: "success"
+                                                });
+                                            },
+                                            error: function (xhr, status, error) {
+                                                Swal.fire({
+                                                    title: "Error",
+                                                    text: isRegisterForm ? "報名失敗: " + xhr.responseText : "Email 發送失敗: " + xhr.responseText,
+                                                    icon: "error"
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
                             });
                         });
                     });
-                </script>
-                <script>
+
+
                     fetch('/html/basic.html')
                         .then(response => response.text())
                         .then(html => {
