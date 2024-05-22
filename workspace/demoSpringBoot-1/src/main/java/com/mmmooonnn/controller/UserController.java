@@ -65,9 +65,9 @@ public class UserController {
 	// 會員登出
 	@GetMapping("/loginOutUser")
 	public String processActionLogOut(HttpSession session) {
-		session.setAttribute("usersBean", null);
+		session.removeAttribute("usersBean");
 		System.out.println("登出");
-		return "redirect:/html/frontPage.html";
+		return "redirect:/frontPage";
 	}
 
 	// 查詢會員登入狀態
@@ -129,7 +129,6 @@ public class UserController {
 				userTokenService.insert(userToken);
 			} catch (Exception e) {
 				Optional<UserTokenBean> result = userTokenService.findByUserid(user.getUserId());
-				System.out.println(result.get());
 				UserTokenBean userTokenBean = result.get();
 				userTokenBean.setOutTime(outDate);
 				userTokenBean.setToken(secretKey);
@@ -144,22 +143,21 @@ public class UserController {
 			String resetPassHref = basePath + "resetpassword?sid=" + digitalSignature + "&userEmail=" + email;
 			String emailContent = "請勿回覆此郵件。點擊下面的連結來重設密碼：<br/><a href=" + resetPassHref + " target='_BLANK'>點擊我重設密碼</a>"
 					+ "<br/>提示：此郵件的連結將在30分鐘後失效，若需要重新申請找回密碼，請重新操作。";
-			System.out.println(resetPassHref);
 
 			mailService.sendHtmlMail("重置密碼", emailContent, "mhou6vm0@gmail.com");
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("信箱錯誤");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("錯誤");
 		}
 
-		return ResponseEntity.ok().body("登入成功");
+		return ResponseEntity.ok().body("發送信件");
 
 	}
 
 	// 修改密碼畫面
 	@GetMapping("/resetpassword")
-	public ModelAndView checkResetLink(String sid, String userEmail,HttpSession session) {
+	public ModelAndView checkResetLink(String sid, String userEmail, HttpSession session) {
 		ModelAndView model = new ModelAndView("error");
 		String msg = "";
 		if (sid.equals("") || userEmail.equals("")) {
@@ -193,7 +191,7 @@ public class UserController {
 		}
 
 		model.setViewName("redirect:/front/user/ResetPassword.html");
-		
+
 		session.setAttribute("userEmail", userEmail);
 		return model;
 
@@ -227,21 +225,21 @@ public class UserController {
 					usersBean.setUserContact(user);
 					usersBean.setPermission(0);
 					usersBean.setThirdPartyLogin(1);
-					modelAndView.setViewName("redirect:/html/frontPage.html");
+					modelAndView.setViewName("redirect:/frontPage");
 					uService2.insert(usersBean);
 					session.setAttribute("usersBean", usersBean);
 					return modelAndView;
 				} else {
 					UsersBeanNew usersBean = uService2.findByEmail(email);
 					session.setAttribute("usersBean", usersBean);
-					modelAndView.setViewName("redirect:/html/frontPage.html");
+					modelAndView.setViewName("redirect:/frontPage");
 					return modelAndView;
 				}
 
 			} else {
 				System.out.println("Invalid ID token");
 
-				modelAndView.setViewName("redirect:/html/UserLoginTest.html");
+				modelAndView.setViewName("redirect:/UserLoginTest");
 				return modelAndView;
 			}
 		} catch (GeneralSecurityException e) {
@@ -249,7 +247,7 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		modelAndView.setViewName("redirect:/html/UserLoginTest.html");
+		modelAndView.setViewName("redirect:/UserLoginTest");
 		return modelAndView;
 	}
 
@@ -257,7 +255,6 @@ public class UserController {
 	@PostMapping("/backstage")
 	public ResponseEntity<String> backstage(@RequestParam("email") String email,
 			@RequestParam("password") String password, HttpSession session) {
-		System.out.println("進入backstageLogin");
 		boolean result = uService2.isEmailExist(email);
 		if (result) {
 
@@ -277,10 +274,7 @@ public class UserController {
 	@GetMapping("/GetAllUser")
 	@ResponseBody
 	public List<UsersBeanNew> processActionGetAllUser() {
-//		ModelAndView modelAndView = new ModelAndView();
-
 		List<UsersBeanNew> users = uService2.getAll();
-//		modelAndView.addObject(users);		
 		return users;
 	}
 
@@ -288,9 +282,7 @@ public class UserController {
 	@PostMapping("/UsersLogin")
 	public ResponseEntity<String> usersLogin(@RequestParam("email") String email,
 			@RequestParam("password") String password, HttpSession session) {
-		System.out.println("進入UserLogin");
 		boolean result = uService2.isEmailExist(email);
-		System.out.println(result);
 		if (result) {
 
 			UsersBeanNew usersBean = uService2.findByEmail(email);
@@ -311,14 +303,8 @@ public class UserController {
 	@DeleteMapping("/DeleteUser")
 	public ModelAndView processActionDeleteUser(@RequestParam("idUser") Integer id) {
 		ModelAndView modelAndView = new ModelAndView();
-
 		uService2.deleteById(id);
-
-		List<UsersBeanNew> users = uService2.getAll();
-
-		modelAndView.addObject("users", users);
-
-		modelAndView.setViewName("redirect:/html/allUsers.html");
+		modelAndView.setViewName("redirect:/back");
 		return modelAndView;
 	}
 
@@ -390,15 +376,12 @@ public class UserController {
 		usersBean.setUserContact(user);
 		usersBean.setThirdPartyLogin(0);
 		usersBean.setPermission(0);
-	
-		
-	
-				uService2.insert(usersBean);
-			
-				modelAndView.setViewName("redirect:/UserLoginTest");
-				return modelAndView;
-		
-		
+
+		uService2.insert(usersBean);
+
+		modelAndView.setViewName("redirect:/UserLoginTest");
+		return modelAndView;
+
 	}
 
 	@PutMapping("/Update")
@@ -476,21 +459,17 @@ public class UserController {
 		return modelAndView;
 
 	}
-	
+
 	@PutMapping("/updatePermission")
 	public ResponseEntity<String> processActionUpdateUser(@RequestParam("USERID") Integer userId,
-			@RequestParam("permission") Integer permission,
-			HttpSession session) {
+			@RequestParam("permission") Integer permission, HttpSession session) {
 
 		UsersBeanNew user = uService2.findUserById(userId);
-		if(user !=null) {
+		if (user != null) {
 			user.setPermission(permission);
 			uService2.update(user);
 			return ResponseEntity.ok().body("ok");
 		}
-		
-		
-		
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("錯誤");
 
@@ -503,50 +482,30 @@ public class UserController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		UserContactNew user = new UserContactNew();
-		UsersBeanNew usersBean = new UsersBeanNew();
 		UsersBeanNew users = (UsersBeanNew) session.getAttribute("usersBean");
 
-		usersBean.setUserId(users.getUserId());
-		user.setName(users.getUserContact().getName());
-		usersBean.setNickName(users.getNickName());
-		usersBean.setGender(users.getGender());
-		user.setEmail(users.getUserContact().getEmail());
-		usersBean.setBirthday(users.getBirthday());
-		user.setPhone(users.getUserContact().getPhone());
-		user.setAddress(users.getUserContact().getAddress());
-		usersBean.setDanceCharacter(users.getDanceCharacter());
-		usersBean.setDanceAge(users.getDanceAge());
-		usersBean.setPicture(users.getPicture());
-		user.setContactId(users.getUserId());
 		// 密碼
 		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-		usersBean.setPassword(encondPassword);
+		users.setPassword(encondPassword);
 
-		usersBean.setUserContact(user);
-		usersBean.setThirdPartyLogin(0);
-		usersBean.setPermission(0);
-
-		uService2.insert(usersBean);
-		session.setAttribute("usersBean", usersBean);
+		uService2.update(users);
+		session.setAttribute("usersBean", users);
 		modelAndView.setViewName("redirect:/UpdateUser");
 		return modelAndView;
 
 	}
+
 	@PostMapping("/resetPassword")
-	public ModelAndView processActionResetPassword(@RequestParam("newpassword") String password,HttpSession session) {
-		System.out.println("有進來嗎");
+	public ModelAndView processActionResetPassword(@RequestParam("newpassword") String password, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		String email = (String) session.getAttribute("userEmail");
 		System.out.println("email:" + email);
 		UsersBeanNew users = uService2.findByEmail(email);
 
-
 		// 密碼
 		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 		users.setPassword(encondPassword);
-
 
 		uService2.update(users);
 
@@ -554,7 +513,6 @@ public class UserController {
 		return modelAndView;
 
 	}
-	
 
 	// 驗證密碼
 	@PostMapping("/validatePassword")

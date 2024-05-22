@@ -328,7 +328,6 @@
 			.then(response => response.text())
 			.then(html => {
 				document.body.innerHTML += html;
-				console.log("你到底有沒有近來");
 				$('#memberDropdown').attr("style", "display: none");
 				$('#loginButton').attr("style", "display: block");
 
@@ -413,6 +412,7 @@
 						console.error('失敗', error);
 						$('#memberDropdown').hide();
 						$('#loginButton').show();
+						window.location.href = '/UserLoginTest';
 					});
 
 			});
@@ -425,7 +425,7 @@
 			$.ajax({
 				url: '/validatePassword',
 				type: 'POST',
-				data: { password: password },
+				data: {password: password},
 				success: function () {
 					$('#passwordMessage').text('密碼正確').removeClass('text-danger').addClass('text-success');
 					isCurrentPasswordValid = true;

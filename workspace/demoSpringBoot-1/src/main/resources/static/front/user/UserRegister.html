@@ -107,7 +107,8 @@
 										style="font-size: 1.4rem !important;font-weight: bold;">選擇照片</label>
 									<input type="file" name="picture" id="fileInput" onchange="display()"
 										style="display: none">
-									<div class="img img-container col-md-5 col-lg-4" style="padding: 0;">
+									<div class="img img-container col-md-5 col-lg-4" style="padding: 0;"
+										onclick="fileUpdate()">
 										<img class="imgInput img-fluid w-100" id="profileImage">
 									</div>
 								</div>
@@ -220,7 +221,8 @@
 
 								<div class="d-flex align-items-center justify-content-between ">
 									<button type="button" class="btn btn-primary register mx-5">儲存</button>
-									<button type="button" onclick="onePiceN()" class="onePice btn btn-primary mx-5">一鍵輸入</button>
+									<button type="button" onclick="onePiceN()"
+										class="onePice btn btn-primary mx-5">一鍵輸入</button>
 								</div>
 						</div>
 						</form><!-- End Profile Edit Form -->
@@ -250,8 +252,8 @@
 				$('#memberDropdown').attr("style", "display: none");
 				$('#loginButton').attr("style", "display: block");
 			});
-	
-		function onePiceN(){
+
+		function onePiceN() {
 			$('#userNameU').val('鄭廷耀');
 			$('#nickNameU').val('耀');
 			$('#emailU').val('mhou6vm0@gmail.com').trigger('input');;
@@ -261,12 +263,12 @@
 			$('#phoneU').val('0976163963');
 			$('#addressU').val('桃園市楊梅區');
 			$('#phoneU').val('0976163963');
-			$('#danceCharacterU').prop('selectedIndex',2);
+			$('#danceCharacterU').prop('selectedIndex', 2);
 			$('#danceAgeU').val('3');
-			
-			
+
+
 		}
-		
+
 
 		$('.register').click(function (e) {
 			e.preventDefault(); // 阻止直接提交表單
@@ -317,7 +319,7 @@
 			$.ajax({
 				url: '/validateEmail',
 				type: 'POST',
-				data: { email: email },
+				data: {email: email},
 				success: function () {
 					$('#emailMessage').text('信箱可以使用').removeClass('text-danger').addClass('text-success');
 					isEmailValid = true;
@@ -357,6 +359,12 @@
 				reader.readAsDataURL(fileInput[0].files[0]);
 			}
 		}
+		
+		
+		function fileUpdate(){
+			document.getElementById('fileInput').click();
+		}
+
 	</script>
 </body>
 
