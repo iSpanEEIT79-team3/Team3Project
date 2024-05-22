@@ -81,7 +81,7 @@
 	$('#page').DataTable();
 		</script>
 	<script>
-				fetch('/html/exampleBack.html')
+				fetch('/back/exampleBack.html')
 					.then(response => response.text())
 					.then(html => {
 						document.body.insertAdjacentHTML('beforeend', html);

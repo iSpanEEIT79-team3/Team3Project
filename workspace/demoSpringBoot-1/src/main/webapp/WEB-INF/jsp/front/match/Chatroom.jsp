@@ -394,6 +394,12 @@ ul {
 	margin-bottom: 2rem;
 	box-shadow: none;
 }
+.user-msg {
+    background-color: #E6F0F2;
+}
+.card m-0 {
+	d-flex: align-items-center;
+}
 </style>
 <link href="/front/match/matchcss/rotating-card.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -457,17 +463,20 @@ $( document ).ready(function() {
 
 
             function showGreeting(message) {
+            	
+            	var currentTime = new Date().toLocaleTimeString();
+            	
             	 $("#chatBox").html($("#chatBox").html() + 
             		        '<li class="chat-left">' +
             		            '<div class="chat-avatar">' +
             		                '<img src="${picture2}" alt="User Image">' +
             		                '<div class="chat-name">${nickName2}</div>' +
             		            '</div>' +
-            		            '<div class="chat-text" id="userMsg">' +
+            		            '<div class="chat-text" style="background-color:#F0EFF0;" id="userMsg">' +
             		            message  +
             		            '</div>' +
             		            '<div class="chat-hour">' +
-            		                '08:55 <span class="fa fa-check-circle"></span>' +
+            		            currentTime + '<span class="fa fa-check-circle"></span>' +
             		            '</div>' +
             		        '</li>'
             		    );
@@ -476,13 +485,14 @@ $( document ).ready(function() {
 
         function sendMsg() {
             var msg = document.getElementById('message').value;
+            var currentTime = new Date().toLocaleTimeString();
 
             $("#chatBox").html($("#chatBox").html() + 
                 '<li class="chat-right">' +
                     '<div class="chat-hour">' +
-                        '08:56 <span class="fa fa-check-circle"></span>' +
+                    currentTime + '<span class="fa fa-check-circle"></span>' +
                     '</div>' +
-                    '<div class="chat-text" id="toMsg">' +
+                    '<div class="chat-text" style="background-color:#E6F0F2;" id="toMsg">' +
                     msg  +
                     '</div>' +
                     '<div class="chat-avatar">' +
@@ -491,15 +501,17 @@ $( document ).ready(function() {
                     '</div>' +
                 '</li>'
             );
-	
-  
 
+            // 發送訊息到服務器
             stompClient.send("/sendMsg", {}, JSON.stringify({
                 from: "${loginuser.userId}",
                 to: "${user2id}",
                 message: msg,
                 time: new Date()
             }));
+
+            // 清空訊息輸入框
+            document.getElementById('message').value = '';
         }
         
         function toMsg(){
@@ -533,7 +545,7 @@ $( document ).ready(function() {
 
 			<div class="row gutters">
 				<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<div class="card m-0">
+					<div class="card m-0" style="background-color:white;">
 
 						<div class="row no-gutters">
 							
@@ -548,7 +560,7 @@ $( document ).ready(function() {
 													alt="User Image">
 												<div class="chat-name">${nickName2}</div>
 											</div>
-											<div class="chat-text" id="userMsg">
+											<div class="chat-text user-msg" id="userMsg">
 												Hello, I'm Russell. <br>How can I help you today?
 											</div>
 											<div class="chat-hour">
@@ -559,7 +571,7 @@ $( document ).ready(function() {
 											<div class="chat-hour">
 												08:56 <span class="fa fa-check-circle"></span>
 											</div>
-											<div class="chat-text" id="toMsg">
+											<div class="chat-text user-msg" style="background-color:#E6F0F2;"id="toMsg">
 												Hi, Russell <br> I need more information about
 												Developer Plan.
 											</div>
@@ -596,24 +608,7 @@ $( document ).ready(function() {
 
     </script>
 
-	<div class="container-fluid" style="margin-top: 150px;">
-		<h2 class="text-center">聊天室</h2>
-	</div>
-	<div class="main">
-		<div class="user-container">
-			<div class="row" style="padding-left: 150px; padding-right: 150px;">
-				<div>
-					<input type="text" placeholder="請輸入文字" id="message" />
-					<button onclick="sendMsg()">發送</button>
-				</div>
-			</div>
-			<div class="row" style="background-color: #DDDDDD;">
-				<div id="userMsg" class="col"></div>
-				<div id="toMsg" class="col"></div>
-			</div>
 
-		</div>
-	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"

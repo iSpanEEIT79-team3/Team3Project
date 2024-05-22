@@ -273,17 +273,21 @@ body {
 				</c:if>
 			</c:forEach>
 		</table>
-		<a href="http://localhost:8080/matches">跳轉至配對成功頁</a>
+		
 
 	</div>
-<script src="/front/LoginUser.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+		crossorigin="anonymous"></script>
 	<script>
-        fetch('/html/basic.html')
+        fetch('/front/basic.html')
             .then(response => response.text())
             .then(html => {
                 document.body.innerHTML += html;
             });
     </script>
+<script src="/front/LoginUser.js"></script>
 
 </body>
 </html>

@@ -76,7 +76,7 @@
 
 <body>
 	<div class="container-fluid" style="margin-top: 150px;">
-		<h2 class="text-center">標題</h2>
+		<h2 class="text-center">配對成功</h2>
 	</div>
 
 	<div class="main">
@@ -105,7 +105,7 @@
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
 	<script>
-        fetch('html/basic.html')
+        fetch('/front/basic.html')
             .then(response => response.text())
             .then(html => {
                 document.body.innerHTML += html;
