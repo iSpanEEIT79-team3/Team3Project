@@ -400,6 +400,9 @@ ul {
 .card m-0 {
 	d-flex: align-items-center;
 }
+.chat-box{
+	overflow-y: auto;
+}
 </style>
 <link href="/front/match/matchcss/rotating-card.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.7.1.js"
