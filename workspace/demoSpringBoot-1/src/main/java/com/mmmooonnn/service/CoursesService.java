@@ -33,6 +33,8 @@ public class CoursesService {
     @Autowired
     private JavaMailSender mailSender; // 添加郵件發送器
 
+    
+    //基本CRUD
     public void insert(CoursesBean course) {
         courseRepos.save(course);
     }
@@ -53,7 +55,14 @@ public class CoursesService {
     public List<CoursesBean> getAll() {
         return courseRepos.findAll();
     }
-
+    //以上
+    
+    //老師名字搜尋
+    public List<CoursesBean> findByTeacherName(String teacherName) {
+        return courseRepos.findByTeacherName(teacherName);
+    }
+    
+    
     public List<CoursesBean> getTeacherCourses() {
         // Implement this method to retrieve courses for a teacher
         // You can query the repository based on teacher criteria
@@ -69,7 +78,7 @@ public class CoursesService {
     }
 
     // 添加用於發送純文本郵件的方法
-    public void sendPlainText(String to, String subject, String content, String from) {
+    public void sendemail(String to, String subject, String content, String from) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
@@ -90,12 +99,18 @@ public class CoursesService {
             return courses.size() > 3 ? courses.subList(0, 3) : courses;
     }
     
-    //增加报名人数
+    public List<CoursesBean> searchCourses(String keyword) {
+        return courseRepos.findByCourseNameContainingOrDescriptionContaining(keyword, keyword);
+    }
+    
+
+    //增加報名人數
     public void registerUserToCourse(CoursesBean course) {
-        // 检查报名人数是否已满
+        // 檢查是否已額滿
         if (course.getEnrollmentCount() < course.getMaxCapacity()) {
             course.setEnrollmentCount(course.getEnrollmentCount() + 1);
             courseRepos.save(course);
+            
         } else {
             throw new IllegalStateException("Course is full");
         }

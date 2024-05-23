@@ -1,144 +1,131 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>更新課程</title>
-    <style>
-        body {
-            background-color: #fdf5e6;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .container {
-            width: 50%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        td {
-            padding: 10px;
-            vertical-align: middle;
-        }
-        td:first-child {
-            text-align: right;
-            font-weight: bold;
-            color: #333;
-        }
-        input, button {
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 12px 20px;
-            margin: 5px 0;
-            font-size: 16px;
-            width: 100%;
-        }
-        input[type="file"] {
-            padding: 0;
-        }
-        input:hover, button:hover {
-            background-color: #4f85a6;
-            color: #fff;
-        }
-        .submit-btn {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>更新課程</h1>
-        <form method="post" action="${pageContext.request.contextPath}/upd" enctype="multipart/form-data">
-            <table>
-                <tr>
-                    <td>產品ID:</td>
-                    <td><input type="text" value="${course.productId}" readonly name="productId" style="background-color: #ddd;"></td>
-                </tr>
-                <tr>
-                    <td>用戶ID:</td>
-                    <td><input type="text" name="idUser" value="${course.idUser}"></td>
-                </tr>
-                <tr>
-                    <td>課程名稱:</td>
-                    <td><input type="text" name="courseName" value="${course.courseName}"></td>
-                </tr>
-                <tr>
-                    <td>描述:</td>
-                    <td><input type="text" name="description" value="${course.description}"></td>
-                </tr>
-                <tr>
-                    <td>課程類型:</td>
-                    <td><input type="text" name="courseType" value="${course.courseType}"></td>
-                </tr>
-                <tr>
-                    <td>開始日期:</td>
-                    <td><input type="text" name="startDate" value="${course.startDate}"></td>
-                </tr>
-                <tr>
-                    <td>結束日期:</td>
-                    <td><input type="text" name="endDate" value="${course.endDate}"></td>
-                </tr>
-                <tr>
-                    <td>截止日期:</td>
-                    <td><input type="text" name="deadlineDate" value="${course.deadlineDate}"></td>
-                </tr>
-                <tr>
-                    <td>地點:</td>
-                    <td><input type="text" name="location" value="${course.location}"></td>
-                </tr>
-                <tr>
-                    <td>價格:</td>
-                    <td><input type="text" name="price" value="${course.price}"></td>
-                </tr>
-                <tr>
-                    <td>教師名稱:</td>
-                    <td><input type="text" name="teacherName" value="${course.teacherName}"></td>
-                </tr>
-                <tr>
-                    <td>教師聯繫方式:</td>
-                    <td><input type="text" name="teacherContact" value="${course.teacherContact}"></td>
-                </tr>
-                <tr>
-                    <td>報名人數:</td>
-                    <td><input type="text" name="enrollmentCount" value="${course.enrollmentCount}"></td>
-                </tr>
-                <tr>
-                    <td>最大容量:</td>
-                    <td><input type="text" name="maxCapacity" value="${course.maxCapacity}"></td>
-                </tr>
-                <tr>
-                    <td>課程圖片:</td>
-                    <td>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>更新課程</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            body {
+                background-color: #f8f9fa;
+            }
+
+            .container {
+                max-width: 600px;
+                margin-top: 50px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                font-family: 'Nunito', sans-serif;
+                font-weight: 700;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .form-group label {
+                font-weight: 600;
+            }
+
+            .btn-primary,
+            .btn-success {
+                font-weight: 600;
+                border-radius: 50px;
+                padding: 10px 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1 class="mb-4">更新課程</h1>
+            <form method="post" action="${pageContext.request.contextPath}/upd" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="productId">產品ID:</label>
+                    <input type="text" class="form-control" id="productId" name="productId" value="${course.productId}"
+                        readonly style="background-color: #ddd;">
+                </div>
+                <div class="form-group">
+                    <label for="idUser">用戶ID:</label>
+                    <input type="text" class="form-control" id="idUser" name="idUser" value="${course.idUser}" required>
+                </div>
+                <div class="form-group">
+                    <label for="courseName">課程名稱:</label>
+                    <input type="text" class="form-control" id="courseName" name="courseName"
+                        value="${course.courseName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">描述:</label>
+                    <textarea class="form-control" id="description" name="description"
+                        rows="3">${course.description}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="courseType">課程類型:</label>
+                    <input type="text" class="form-control" id="courseType" name="courseType"
+                        value="${course.courseType}" required>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">開始日期:</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" value="${course.startDate}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="endDate">結束日期:</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" value="${course.endDate}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="deadlineDate">截止日期:</label>
+                    <input type="date" class="form-control" id="deadlineDate" name="deadlineDate"
+                        value="${course.deadlineDate}" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">地點:</label>
+                    <input type="text" class="form-control" id="location" name="location" value="${course.location}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="price">價格:</label>
+                    <input type="number" class="form-control" id="price" name="price" step="0.01"
+                        value="${course.price}" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacherName">教師名稱:</label>
+                    <input type="text" class="form-control" id="teacherName" name="teacherName"
+                        value="${course.teacherName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacherContact">教師聯繫方式:</label>
+                    <input type="text" class="form-control" id="teacherContact" name="teacherContact"
+                        value="${course.teacherContact}">
+                </div>
+                <div class="form-group">
+                    <label for="enrollmentCount">報名人數:</label>
+                    <input type="number" class="form-control" id="enrollmentCount" name="enrollmentCount"
+                        value="${course.enrollmentCount}" required>
+                </div>
+                <div class="form-group">
+                    <label for="maxCapacity">最大容量:</label>
+                    <input type="number" class="form-control" id="maxCapacity" name="maxCapacity"
+                        value="${course.maxCapacity}" required>
+                </div>
+                <div class="form-group">
+                    <label for="courseImage">課程圖片:</label>
+                    <div class="mb-2">
                         <img src="${course.courseImage}" width="100" height="100" alt="Course Image">
-                        <input type="file" name="courseImage" accept="image/*">
-                    </td>
-                </tr>
-            </table>
-            <button type="submit" class="submit-btn">更新課程</button>
-        </form>
-    </div>
-</body>
-</html>
+                    </div>
+                    <input type="file" class="form-control-file" id="courseImage" name="courseImage" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-success btn-block">更新課程</button>
+            </form>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+
+    </html>

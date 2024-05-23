@@ -110,7 +110,7 @@
                                     <tr>
                                         <td>${course.idUser}</td>
                                         <td><a
-                                                href="${pageContext.request.contextPath}/courseDetails/${course.productId}">${course.productId}</a>
+                                        href="${pageContext.request.contextPath}/courseDetails/${course.productId}">${course.productId}</a>
                                         </td>
                                         <td>${course.courseName}</td>
                                         <td>${course.description}</td>
