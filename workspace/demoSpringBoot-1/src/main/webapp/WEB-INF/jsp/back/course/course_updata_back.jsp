@@ -50,8 +50,7 @@
                         readonly style="background-color: #ddd;">
                 </div>
                 <div class="form-group">
-                    <label for="idUser">用戶ID:</label>
-                    <input type="text" class="form-control" id="idUser" name="idUser" value="${course.idUser}" required>
+                    <input type="text" class="form-control" id="idUser" name="idUser" value="${course.idUser}" required style="display: none;">
                 </div>
                 <div class="form-group">
                     <label for="courseName">課程名稱:</label>

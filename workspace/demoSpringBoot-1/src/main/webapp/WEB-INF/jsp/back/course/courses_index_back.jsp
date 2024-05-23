@@ -27,22 +27,25 @@
                 }
 
                 /* 表格樣式 */
-                table {
-                    width: 100%;
+                .table {
+                    width: 80%;
                     border-collapse: collapse;
                 }
 
                 th,
                 td {
                     border: 1px solid black;
-                    padding: 8px;
+                    padding: 6px;
                     text-align: left;
                     white-space: nowrap;
+                    width:80%;
+                    
                     /* 保持文字在單行顯示 */
                 }
 
                 th {
                     background-color: #009688;
+                    width:80%;
                     /* 表頭背景色 */
                 }
 
@@ -55,7 +58,6 @@
                 }
 
                 .table-responsive {
-                    overflow-x: auto;
                 }
 
                 .zoom {
@@ -83,13 +85,12 @@
                         <button class="btn btn-success m-2" id="excel">匯出excel</button>
                     </div>
                     <div class="col-12 box table-responsive">
-                        <table id="coursesTable" class="table">
+                        <table id="coursesTable" class="table" style="width:80%;">
                             <thead>
                                 <tr>
-                                    <th>用戶ID</th>
                                     <th>產品ID</th>
                                     <th>課程名稱</th>
-                                    <th>描述</th>
+                                    <th style="width: 50px">描述</th>
                                     <th>課程類型</th>
                                     <th>開始日期</th>
                                     <th>結束日期</th>
@@ -108,12 +109,11 @@
                             <tbody>
                                 <c:forEach items="${Courses}" var="course">
                                     <tr>
-                                        <td>${course.idUser}</td>
                                         <td><a
                                         href="${pageContext.request.contextPath}/courseDetails/${course.productId}">${course.productId}</a>
                                         </td>
                                         <td>${course.courseName}</td>
-                                        <td>${course.description}</td>
+                                        <td style="width: 50px">${course.description}</td>
                                         <td>${course.courseType}</td>
                                         <td>${course.startDate}</td>
                                         <td>${course.endDate}</td>

@@ -51,6 +51,9 @@
             <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
                 async>
                 </script>
+                  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
 
         </head>
 
@@ -93,6 +96,7 @@
                         document.getElementById('new-content-container').innerHTML += html;
                     });
             </script>
+              <script src="front/LoginUser.js"></script>
         </body>
 
         </html>

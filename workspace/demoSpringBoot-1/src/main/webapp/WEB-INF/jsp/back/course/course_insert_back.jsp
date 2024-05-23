@@ -63,8 +63,7 @@
             <button class="btn btn-primary mb-3" onclick="autofillForm()">一鍵填寫</button>
             <form method="post" action="${pageContext.request.contextPath}/insert" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="idUser">會員ID:</label>
-                    <input type="text" class="form-control" id="idUser" name="idUser" required />
+                    <input type="text" class="form-control" id="idUser" name="idUser" required style="display: none;"/>
                 </div>
                 <div class="form-group">
                     <label for="courseName">課程名稱:</label>

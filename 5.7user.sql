@@ -39,7 +39,7 @@ WHERE referenced_object_id = OBJECT_ID('ORDER3');
 --�s�W��ݱb��
 INSERT INTO USERCONTACTNEW (USERNAME, USEREMAIL, USERPHONE, USERADDRESS)
 VALUES 
-    ('王大明', 'mhou6vm000@gmail.com', '0912345678', '台北市信義區忠孝東路'),
+('王大明', 'mhou6vm000@gmail.com', '0912345678', '台北市信義區忠孝東路'),
 ('林小美', 'lin.xiaomei@example.com', '0923456789', '新北市板橋區文化路'),
 ('陳阿財', 'chen.acai@example.com', '0934567890', '台中市西屯區市政北路'),
 ('張美麗', 'zhang.meili@example.com', '0945678901', '台南市安南區樹林路'),
@@ -52,7 +52,7 @@ VALUES
 
 INSERT INTO USERSNEW (FK_CONTACTID, NICKNAME, GENDER, PASSWORD, BIRTHDAY, USERPICTURE, DANCECHARACTER, DANCEAGE, THIRDPARTYLOGIN, PERMISSION)
 VALUES 
-    (1001, 'JD', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1985-01-15', '/images/user1.jpg', 'Leader', '5', 0, 1),
+(1001, 'JD', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1985-01-15', '/images/user1.jpg', 'Leader', '5', 0, 1),
 (1002, 'JS', '女', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1990-03-20', '/images/user2.jpg', 'Follower', '3', 0, 1),
 (1003, 'MJ', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1978-09-25', '/images/user3.jpg', 'Leader', '7', 0, 1),
 (1004, 'ED', '女', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1982-07-10', '/images/user4.jpg', 'Follower', '4', 0, 1),

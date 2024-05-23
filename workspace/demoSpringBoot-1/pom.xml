@@ -212,11 +212,7 @@
 			<artifactId>spring-security-config</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>tw.hicamp</groupId>
-			<artifactId>HiCamp</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 	</dependencies>
 
 	<build>

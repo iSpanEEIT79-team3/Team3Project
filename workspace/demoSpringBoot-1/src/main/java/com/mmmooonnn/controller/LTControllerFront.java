@@ -97,7 +97,7 @@ public class LTControllerFront {
 		try {
 			LTBean ltBean = new LTBean();
 			if (!picture.isEmpty()) {
-				String fileurl = "C:\\Spring\\workspace\\SpringMvcWork\\src\\main\\webapp\\images";
+				String fileurl = "C:\\team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
 				String fileName = picture.getOriginalFilename();
 
 				File fileurl1 = new File(fileurl, fileName);
@@ -146,7 +146,7 @@ public class LTControllerFront {
 
 			LTBean ltBean = new LTBean();
 			if (!picture.isEmpty()) {
-				String fileurl = "C:\\Spring\\workspace\\SpringMvcWork\\src\\main\\webapp\\images";
+				String fileurl = "C:\\team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
 				String fileName = picture.getOriginalFilename();
 
 				File fileurl1 = new File(fileurl, fileName);

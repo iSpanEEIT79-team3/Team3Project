@@ -9,35 +9,32 @@
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-                <!-- Bootstrap CSS -->
-                <!-- 引入Bootstrap CSS -->
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-                    rel="stylesheet" crossorigin="anonymous">
-                <script src="https://kit.fontawesome.com/4287c80df9.js" crossorigin="anonymous"></script>
-                <!-- Favicon-->
-                <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-                <!--Google Font : Nunito-->
-                <link rel="preconnect" href="https://fonts.gstatic.com">
-                <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
-                <!-- Font Awesome icons (free version)-->
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-                <!-- For style(All CSS content) -->
-                <link rel="stylesheet" type="text/css" href="../styles/home.css" />
-                <link rel="stylesheet" type="text/css" href="../styles/footer.css" />
-                <link rel="stylesheet" type="text/css" href="../styles/navbar.css" />
-                <link rel="icon" href="images/favicon.ico">
-                <link href="../Course_All/css/styles.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/4287c80df9.js" crossorigin="anonymous"></script>
 
-                <!-- JS Bundle for BS  -->
-                <!-- 引入JQuery -->
-                <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
-                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-                    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-                    crossorigin="anonymous"></script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-                    integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
-                    crossorigin="anonymous"></script>
+    <!--Google Font : Nunito-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- For style(All CSS content) -->
+    <link rel="stylesheet" type="text/css" href="../styles/home.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/footer.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/navbar.css" />
+    <link rel="icon" href="images/favicon.ico">
+    <link href="../Course_All/css/styles.css" rel="stylesheet" />
+
+    <!-- JS Bundle for BS  -->
+    <!-- jQuery -->
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
 
                 <style>
                     .main {
@@ -217,8 +214,10 @@
                     crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
                     crossorigin="anonymous"></script>
-
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
             </head>
 
             <body>
@@ -518,16 +517,10 @@
 
 
                     <!-- Option 1: Bootstrap Bundle with Popper -->
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-                        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-                        crossorigin="anonymous"></script>
+                     
 
-                    <!-- Option 2: Separate Popper and Bootstrap JS -->
-                    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    -->
-
+                    
+  <script src="front/LoginUser.js"></script>
             </body>
 
             </html>

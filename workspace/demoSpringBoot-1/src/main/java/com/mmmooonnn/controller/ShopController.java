@@ -111,7 +111,7 @@ public class ShopController {
         newShop.setProductPrice(productPrice);
         newShop.setProductType(productType);
         
-        String uploadDir = "D:/Team3/workspace/demoSpringBoot-1/src/main/resources/static/images";
+        String uploadDir = "C:\\team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
         //如果目錄不存在 創建目錄
         File dir = new File(uploadDir);
         if (!dir.exists()) {
@@ -222,7 +222,7 @@ public class ShopController {
         try {
             //設置保存圖片的目標路徑
         	//是否可以抓到最上面 做宣告 方便修改路徑
-            String uploadDir = "D:/Team3/workspace/demoSpringBoot-1/src/main/resources/static/images";
+            String uploadDir = "C:\\team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
             //如果目錄不存在 創建目錄
             File dir = new File(uploadDir);
             if (!dir.exists()) {

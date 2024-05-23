@@ -94,7 +94,9 @@ public class CoursesController {
         if (courseImage != null && !courseImage.isEmpty()) {
             try {
                 String imagesDir = "C:\\Team3\\workspace\\demoSpringBoot-1\\src\\main\\resources\\static\\images";
+                //String filename = courseImage.getOriginalFilename();
                 String filename = System.currentTimeMillis() + "_" + courseImage.getOriginalFilename();
+                System.out.println(filename );
                 File imagePath = new File(imagesDir, filename);
                 courseImage.transferTo(imagePath);
                 coursesBean.setCourseImage("/images/" + filename); // 设置文件名到课程对象
@@ -115,7 +117,7 @@ public class CoursesController {
 	@DeleteMapping("/DeleteById")
 	public ModelAndView processActionDeleteCourse(@RequestParam("courseID") Integer id) {
 		ModelAndView modelAndView = new ModelAndView();
-		
+		System.out.println(id);
 		cService.deleteById(id);
 		
 		List<CoursesBean> Courses = cService.getAll();
