@@ -83,7 +83,7 @@ public class MatchesController {
 
 		return "forward:/WEB-INF/jsp/front/match/IsMatch.jsp";
 	}
-	@GetMapping("/GetAllMatches")
+	@GetMapping("GetAllMatches")
 	public ModelAndView processActionGetAllMatches() {
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -102,7 +102,7 @@ public class MatchesController {
 		model.addAttribute("user2id", request.getParameter("user2id"));
 		model.addAttribute("nickName2", request.getParameter("nickName2"));
 		model.addAttribute("picture2", request.getParameter("picture2"));
-		return "forward:/WEB-INF/jsp/Chatroom_text.jsp";
+		return "forward:/WEB-INF/jsp/front/match/Chatroom.jsp";
 	}
 
     @MessageMapping("/sendMsg")
