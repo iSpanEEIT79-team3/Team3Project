@@ -83,7 +83,7 @@ public class MatchesController {
 
 		return "forward:/WEB-INF/jsp/isMatch.jsp";
 	}
-	@GetMapping("GetAllMatches")
+	@GetMapping("/GetAllMatches")
 	public ModelAndView processActionGetAllMatches() {
 		ModelAndView modelAndView = new ModelAndView();
 		

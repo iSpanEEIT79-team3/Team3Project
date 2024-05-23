@@ -1,7 +1,6 @@
 
 use servdb;
 
---�s�|��-�p����T
 CREATE TABLE USERCONTACTNEW(
 	CONTACTID INT IDENTITY(1001,1) NOT NULL PRIMARY KEY,
 	USERNAME NVARCHAR(30)  NULL,
@@ -10,7 +9,7 @@ CREATE TABLE USERCONTACTNEW(
 	USERADDRESS NVARCHAR(MAX)  NULL
 	
 )
---�s�|��-�򥻸��
+
 CREATE TABLE USERSNEW(
 	USERID INT IDENTITY(1001,1) NOT NULL PRIMARY KEY ,
 	FK_CONTACTID int not null,
@@ -21,8 +20,8 @@ CREATE TABLE USERSNEW(
 	USERPICTURE NVARCHAR(MAX) NULL,
 	DANCECHARACTER NVARCHAR(20) NULL,
 	DANCEAGE NVARCHAR(20) NULL,
-	THIRDPARTYLOGIN INT NULL, --�ĤT��n�J 0 = �L�ϥ� 1 = �ϥ�
-	PERMISSION INT NULL,      --�v��       0 = �|��   1 = �޲z��
+	THIRDPARTYLOGIN INT NULL, 
+	PERMISSION INT NULL,     
 	FOREIGN KEY (FK_CONTACTID) REFERENCES USERCONTACTNEW(CONTACTID)
 )
 
@@ -40,50 +39,29 @@ WHERE referenced_object_id = OBJECT_ID('ORDER3');
 --�s�W��ݱb��
 INSERT INTO USERCONTACTNEW (USERNAME, USEREMAIL, USERPHONE, USERADDRESS)
 VALUES 
-    ('���j��', 'john.doe@example.com', '1234567890', '�x�_�������ϩ�������@�q1��'),
-    ('�L�p��', 'jane.smith@example.com', '0987654321', '�s�_���O���Ϥ�Ƹ�2�q2��'),
-    ('�i�p��', 'michael.johnson@example.com', '1112223333', '�x������Ϥ�����3��'),
-    ('���p��', 'emily.brown@example.com', '5556667777', '�������Q�L�Ϥj�i��4��'),
-    ('���p�j', 'david.lee@example.com', '7778889999', '�x�n���w�n�Ϧw�M��5��'),
-    ('�d�p��', 'sarah.wilson@example.com', '9998887777', '��饫���c�Ϥ��s��6��'),
-    ('�B�p�s', 'daniel.taylor@example.com', '4445556666', '�x�F���x�F��������7��'),
-    ('���p��', 'jessica.martinez@example.com', '3332221111', '�y�����y�������R��8��'),
-    ('�\�p�a', 'matthew.anderson@example.com', '2223334444', '���ƿ����ƥ����͸�9��'),
-    ('���p�S', 'amanda.thomas@example.com', '6665554444', '�Ὤ���Ὤ�����p�@��10��');
+    ('王大明', 'mhou6vm000@gmail.com', '0912345678', '台北市信義區忠孝東路'),
+('林小美', 'lin.xiaomei@example.com', '0923456789', '新北市板橋區文化路'),
+('陳阿財', 'chen.acai@example.com', '0934567890', '台中市西屯區市政北路'),
+('張美麗', 'zhang.meili@example.com', '0945678901', '台南市安南區樹林路'),
+('李大為', 'li.dawei@example.com', '0956789012', '高雄市前鎮區興中路'),
+('吳小花', 'wu.xiaohua@example.com', '0967890123', '桃園市中壢區中北路'),
+('劉阿英', 'liu.aaying@example.com', '0978901234', '新竹市東區中華路'),
+('黃小龍', 'huang.xiaolong@example.com', '0989012345', '苗栗縣苗栗市國華路'),
+('蔡大山', 'cai.dashan@example.com', '0990123456', '彰化縣彰化市中正路'),
+('楊小明', 'yang.xiaoming@example.com', '0911122334', '南投縣南投市中興路');
 
 INSERT INTO USERSNEW (FK_CONTACTID, NICKNAME, GENDER, PASSWORD, BIRTHDAY, USERPICTURE, DANCECHARACTER, DANCEAGE, THIRDPARTYLOGIN, PERMISSION)
 VALUES 
-    (1001, 'JohnDoe123456', '�k', 'password123', '1990-05-15', NULL, 'Hip Hop', 'Intermediate', 0, 1),
-    (1002, 'JaneSmith456', '�k', 'password456', '1985-08-20', NULL, 'Contemporary', 'Beginner', 0, 1),
-    (1003, 'MichaelJ', '�k', 'mikepass', '1982-03-10', NULL, 'Salsa', 'Advanced', 0, 1),
-    (1004, 'EmBrownie', '�k', 'brownie123', '1995-11-30', NULL, 'Ballet', 'Intermediate', 0, 1),
-    (1005, 'DavidL', '�k', 'davidpass', '1988-07-05', NULL, 'Ballroom', 'Advanced', 0, 1),
-    (1006, 'SWilson', '�k', 'sarah123', '1992-01-25', NULL, 'Tap', 'Beginner', 0, 1),
-    (1007, 'DanT', '�k', 'dantpass', '1983-09-12', NULL, 'Breakdance', 'Intermediate', 0, 1),
-    (1008, 'JessMart', '�k', 'jesspass', '1987-06-18', NULL, 'Jazz', 'Advanced', 0, 0),
-    (1009, 'MattA', '�k', 'matt123', '1993-04-08', NULL, 'Swing', 'Beginner', 0, 0),
-    (1010, 'AmandaT', '�k', 'amandapass', '1998-02-20', NULL, 'Irish Dance', 'Intermediate', 0, 0);
-
-	--�ק�
-	UPDATE USERCONTACTNEW
-SET USERNAME = '���p��',
-    USEREMAIL = 'mhou6vm000@gmail.com',
-    USERPHONE = '1234567890',
-    USERADDRESS = '�x�_�������ϩ�������@�q1��'
-WHERE CONTACTID = 1001;
-
-UPDATE USERSNEW
-SET NICKNAME = '�����x',
-    GENDER = '�k',
-    PASSWORD = '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm',
-    BIRTHDAY = '1990-05-15',
-    USERPICTURE = NULL,
-    DANCECHARACTER = 'Hip Hop',
-    DANCEAGE = 'Intermediate',
-    THIRDPARTYLOGIN = 0,
-    PERMISSION = 1
-WHERE FK_CONTACTID = 1001;
-
+    (1001, 'JD', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1985-01-15', '/images/user1.jpg', 'Leader', '5', 0, 1),
+(1002, 'JS', '女', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1990-03-20', '/images/user2.jpg', 'Follower', '3', 0, 1),
+(1003, 'MJ', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1978-09-25', '/images/user3.jpg', 'Leader', '7', 0, 1),
+(1004, 'ED', '女', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1982-07-10', '/images/user4.jpg', 'Follower', '4', 0, 1),
+(1005, 'CB', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1995-05-12', '/images/user5.jpg', 'Leader', '6', 0, 1),
+(1006, 'JW', '女', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1989-11-30', '/images/user6.jpg', 'Follower', '2', 0, 1),
+(1007, 'DT', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1987-04-03', '/images/user7.jpg', 'Leader', '8', 0, 1),
+(1008, 'AM', '女', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1992-12-18', '/images/user8.jpg', 'Follower', '5', 0, 1),
+(1009, 'MA', '女', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1984-08-08', '/images/user9.jpg', 'Leader', '3', 0, 1),
+(1010, 'JR', '男', '$2a$10$O8Hkpldxv2SqkJMgQGVf1uFlomsnI469Chx7xd3KyfqO8wkSpCYGm', '1997-02-28', '/images/user10.jpg', 'Follower', '6', 0, 0);
 
 --�����Τ�ШD�o�e�l��� �ͦ���token�H�� �H�β��ͮɶ��A�P�_�s���O�_���T�H�Υ���
 create table usertoken(

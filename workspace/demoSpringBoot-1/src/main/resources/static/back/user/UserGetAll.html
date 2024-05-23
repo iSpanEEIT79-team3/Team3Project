@@ -13,22 +13,28 @@
 
 		thead {
 			background-color: #EEBA7E;
-			
+
 			font-size: 22.5px;
 		}
-		
+
 		th {
 			border: 1px solid white;
 		}
-		
+
 		td {
-		           border: 1px solid black;
-				   font-size: 16px;
+			border: 1px solid black;
+			font-size: 16px;
+		}
+		
+		.image-popup {
+		           position: absolute;
+		           display: none;
+		           border: 1px solid #ddd;
+		           padding: 10px;
+		           background-color: #fff;
+		           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		           z-index: 1000;
 		       }
-		
-
-
-		
 	</style>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,6 +44,7 @@
 	<!-- Font-icon css-->
 	<link rel="stylesheet" type="text/css"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body class="app sidebar-mini rtl pace-done">
@@ -61,7 +68,7 @@
 
 
 	</main>
-
+	<div id="image-popup" class="image-popup"></div>
 
 	<!-- Essential javascripts for application to work-->
 	<script src="../js/jquery-3.2.1.min.js"></script>
@@ -93,110 +100,167 @@
 			}
 		}
 
-		$.ajax({
-			url: '/GetAllUser',
-			type: 'GET',
-			dataType: 'json',
-			success: function (data) {
-				console.log(data);
-				$('.table').DataTable({
-					"autoWidth": true,
-					"scrollX": "1300px",
-					"scrollCollapse": true,
-					"language": {
-						"processing": "處理中...",
-						"loadingRecords": "載入中...",
-						"lengthMenu": "顯示 _MENU_ 項結果",
-						"zeroRecords": "沒有符合的結果",
-						"info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
-						"infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
-						"infoFiltered": "(從 _MAX_ 項結果中過濾)",
-						"infoPostFix": "",
-						"search": "搜尋:",
-						"paginate": {
-							"first": "第一頁",
-							"previous": "上一頁",
-							"next": "下一頁",
-							"last": "最後一頁"
-						},
+		var table; // 確保 table 變數在全域範圍內定義
 
-						"aria": {
-							"sortAscending": ": 升冪排列",
-							"sortDescending": ": 降冪排列"
-						}
+		$(document).ready(function () {
+			table = $('.table').DataTable({
+				"autoWidth": true,
+				"scrollX": "1300px",
+				"scrollCollapse": true,
+				"language": {
+					"processing": "處理中...",
+					"loadingRecords": "載入中...",
+					"lengthMenu": "顯示 _MENU_ 項結果",
+					"zeroRecords": "沒有符合的結果",
+					"info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+					"infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+					"infoFiltered": "(從 _MAX_ 項結果中過濾)",
+					"infoPostFix": "",
+					"search": "搜尋:",
+					"paginate": {
+						"first": "第一頁",
+						"previous": "上一頁",
+						"next": "下一頁",
+						"last": "最後一頁"
 					},
-					"data": data,
-					"columns": [{
-							data: 'userId',
-							title: "編號"
-						},
-						{
-							data: "userContact.name",
-							title: "姓名"
-						},
-						{
-							data: 'gender',
-							title: "姓別"
-						},
-						{
-							data: 'userContact.email',
-							title: "信箱"
-						},
-						{
-							data: 'birthday',
-							title: "出生年月日"
-						},
-						{
-							data: 'userContact.phone',
-							title: "電話"
-						},
-						{
-							data: 'userContact.address',
-							title: "地址"
-						},
-						{
-							data: 'danceCharacter',
-							title: "跳舞角色"
-						},
-						{
-							data: 'danceAge',
-							title: "舞齡"
-						},
-						{
-							title: "照片",
-							render: function (data, type, row, meta) {
-								return '<td><a href="' + row.picture +
-									'">圖片</a></td>';
-							}
-						},
-						{
-							title: "修改",
-							render: function (data, type, row, meta) {
-								return '<form method="get" action="/UpdateUser/' +
-									row.userId + '">' +
-									'<button class="btn btn-primary" type="submit">修改</button>' +
-									'</form>';
-							}
-						},
-						{
-							title: "刪除",
-							render: function (data, type, row, meta) {
-								return '<form method="post" action="/DeleteUser?idUser=' +
-									row.userId + '">' +
-									'<input type="hidden" name="_method" value="DELETE">' +
-									' <button class="btn btn-primary" type="submit">刪除</button>' +
-									' </form>';
-							}
+					"aria": {
+						"sortAscending": ": 升冪排列",
+						"sortDescending": ": 降冪排列"
+					}
+				},
+				"ajax": {
+					"url": "/GetAllUser",
+					"type": "GET",
+					"dataType": "json",
+					"dataSrc": ""
+				},
+				"columns": [{
+					data: 'userId',
+					title: "編號"
+				},
+				{
+					data: "userContact.name",
+					title: "姓名"
+				},
+				{
+					data: 'gender',
+					title: "姓別"
+				},
+				{
+					data: 'userContact.email',
+					title: "信箱"
+				},
+				{
+					data: 'birthday',
+					title: "出生年月日"
+				},
+				{
+					data: 'userContact.phone',
+					title: "電話"
+				},
+				{
+					data: 'userContact.address',
+					title: "地址"
+				},
+				{
+					data: 'danceCharacter',
+					title: "跳舞角色"
+				},
+				{
+					data: 'danceAge',
+					title: "舞齡"
+				},
+				{
+					title: "照片",
+					render: function (data, type, row, meta) {
+						return '<a href="' + row.picture + '" class="image-link">圖片</a>';
+					}
+				},
+				{
+					title: "管理者權限",
+					render: function (data, type, row, meta) {
+						var memberChecked = '';
+						var adminChecked = '';
+
+						// 根據權限狀態設置 checkbox 的勾選狀態
+						if (row.permission === 0) {
+							memberChecked = 'checked';
+						} else if (row.permission === 1) {
+							adminChecked = 'checked';
 						}
-					]
+
+						return '<div>' +
+							'  <div class="form-check form-switch">' +
+							'    <input class="form-check-input" type="checkbox" id="memberSwitch_' + row.userId + '" onchange="updatePermission(' + row.userId + ', false, this.checked)" ' + memberChecked + '>' +
+							'    <label class="form-check-label" for="memberSwitch_' + row.userId + '">會員</label>' +
+							'  </div>' +
+							'  <div class="form-check form-switch">' +
+							'    <input class="form-check-input" type="checkbox" id="adminSwitch_' + row.userId + '" onchange="updatePermission(' + row.userId + ', true, this.checked)" ' + adminChecked + '>' +
+							'    <label class="form-check-label" for="adminSwitch_' + row.userId + '">管理者</label>' +
+							'  </div>' +
+							'</div>';
+					}
+				},
+				{
+					title: "刪除",
+					render: function (data, type, row, meta) {
+						return '<form method="post" action="/DeleteUser?idUser=' + row.userId + '">' +
+							'<input type="hidden" name="_method" value="DELETE">' +
+							' <button class="btn btn-primary" type="submit">刪除</button>' +
+							' </form>';
+					}
+				}
+				]
+			});
+
+			// 將 updatePermission 函數設為全域範圍內定義
+			window.updatePermission = function (userId, isAdmin, isChecked) {
+				var newPermission = isAdmin ? 1 : 0; // 如果是管理者，則權限為 1，否則為 0
+
+				// 如果是勾選操作，才執行更新操作
+				if (isChecked) {
+					$.ajax({
+						url: '/updatePermission',
+						type: 'PUT',
+						data: {
+							USERID: userId,
+							permission: newPermission
+						},
+						success: function (response) {
+							alert('權限已更新！');
+							// 重新載入資料表格
+							table.ajax.reload();
+						},
+						error: function (xhr, status, error) {
+							alert('更新權限時發生錯誤：' + error);
+						}
+					});
+				}
+			};
+
+			$(document).on('mouseenter', '.image-link', function (e) {
+				var imageUrl = $(this).attr('href');
+				$('#image-popup').html('<img src="' + imageUrl + '" style="max-width: 300px; max-height: 300px;">');
+				$('#image-popup').css({
+					top: e.pageY + 10 + 'px',
+					left: e.pageX + 10 + 'px'
 				});
-			},
-			error: function (xhr, status, error) {
-				console.error(status, error);
-				alert('錯誤！');
-			}
+				$('#image-popup').show();
+			});
+
+			$(document).on('mousemove', '.image-link', function (e) {
+				$('#image-popup').css({
+					top: e.pageY + 10 + 'px',
+					left: e.pageX + 10 + 'px'
+				});
+			});
+
+			$(document).on('mouseleave', '.image-link', function () {
+				$('#image-popup').hide();
+			});
 		});
-	</script>
+
+</script>
 
 </body>
 
