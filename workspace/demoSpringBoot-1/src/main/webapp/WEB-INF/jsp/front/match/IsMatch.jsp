@@ -76,7 +76,7 @@
 
 <body>
 	<div class="container-fluid" style="margin-top: 150px;">
-		<h2 class="text-center">標題</h2>
+		<h2 class="text-center">配對成功</h2>
 	</div>
 
 	<div class="main">
@@ -84,7 +84,7 @@
 			<div class="small-table">
 				<div class="user-container">
 					<img id="user_image_${loop.index}" src="${user.picture}"
-						alt="User Image" class="img">
+							 class="img">
 					<div id="user_details_${loop.index}" class="user-details">
 						<p>Nickname: ${user.nickName}</p>
 						<p>Gender: ${user.gender}</p>
@@ -93,7 +93,7 @@
 						<p>Dance Age: ${user.danceAge}</p>
 						<p>
 							<a
-								href="http://localhost:8080/chatroomIndex?user2id=${user.user2id}&nickName2=${user.nickName}">聊天室</a>
+								href="http://localhost:8080/chatroomIndex?user2id=${user.user2id}&nickName2=${user.nickName}&picture2=${user.picture}">聊天室</a>
 						</p>
 					</div>
 				</div>
@@ -105,7 +105,7 @@
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
 	<script>
-        fetch('html/basic.html')
+        fetch('/front/basic.html')
             .then(response => response.text())
             .then(html => {
                 document.body.innerHTML += html;
