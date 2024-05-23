@@ -218,7 +218,7 @@
 							action="/ReplySelectByIdFront.controller/${reply.replyId}">
 							<input type="hidden" name="replyId" value="${reply.replyId}">
 							<button class="btn btn-primary mr-2 editButton" type="submit"
-								${reply.userId==userid?"":"hidden"}>
+								${reply.userId==userid?"":"hidden"} style=" font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 15px;">
 								<i class="fa-solid fa-pen "></i>修改
 							</button>
 						</form>
@@ -227,7 +227,7 @@
 							onsubmit="return confirmDelete();">
 							<input type="hidden" name="_method" value="DELETE">
 							<button class="btn btn-danger deleteButton" type="submit"
-								${reply.userId==userid ? "" : "hidden"}>
+								${reply.userId==userid ? "" : "hidden"} style=" font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 15px;">
 								<span class="btn-inner"></span> <i class="fa-solid fa-trash"></i>刪除
 							</button>
 						</form>
@@ -236,7 +236,7 @@
 							<input type="hidden" name="replyId" value="${reply.replyId}">
 							<div style="align-items: center;">
 								<button class="btn btn-warning btn-sm" type="submit"
-									style="color: white;">
+									style="color: white;  font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 15px;">
 									<i class="fa-solid fa-triangle-exclamation" style="color: red"></i>
 									檢舉
 								</button>
@@ -262,6 +262,9 @@
 			style="background-color: #D4B572; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px;">返回首頁</a>
 	</div>
 	<script src="/html/LoginUser.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+    </script>
 
 	<script>
 		function handleReportSuccess() {
@@ -290,10 +293,10 @@
 					console.log("1234", response);
 					userID = response;
 					if (userID == "") {
-						window.location.href = "/html/UserLoginTest.html";
+						window.location.href = "/UserLoginTest";
 					} else {
 						console.log("1234", response);
-						// 如果需要在某些条件下继续提交表单，可以使用以下代码：
+						// 如果需要在某些条件下继续提交表单，可以使用以下代码： 	
 						form.submit();
 					}
 				},

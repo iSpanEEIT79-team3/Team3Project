@@ -227,40 +227,50 @@ input[name="reportContent"] {
 	<div class="main">
 		<div class="back-content">
 
-			<div style="float: right; ">
-				
-				<form method="get" action="/front/lt/LTInsertFront.html" >
-					<button type="submit" style="margin-bottom: 10px; background-color: #0DCAF0; font-size: 20px; border-radius: 15px;">
-						<i class="fa-brands fa-discourse"></i>發布文章
-					</button>
-				</form>
+			<div style="float: right;">
+
+
+				<button class="insertbtn" type="submit"
+					style="margin-bottom: 10px; background-color: #0DCAF0; font-size: 20px; border-radius: 15px;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;">
+					<i class="fa-brands fa-discourse"></i>發布文章
+				</button>
 
 
 				<form method="get" action="/front/lt/LTTitleFront.html"
-					style="margin-bottom: 10px; font-size: 20px;">
+					style="margin-bottom: 10px; font-size: 20px;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;">
 					<input type="hidden" name="title" />
-					<button style="background-color: #0DCAF0; border-radius: 15px;" type="submit">
+					<button style="background-color: #0DCAF0; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;"
+						type="submit">
 						<i class="fa-solid fa-magnifying-glass"></i>搜尋標題
 					</button>
 				</form>
 				<form method="Get" action="/front/lt/LTSelectFront.html">
-					<button style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px;"
+					<button
+						style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;"
 						type="submit">
 						<i class="fa-solid fa-magnifying-glass"></i>搜尋文章ID
 					</button>
 				</form>
 
 				<div class="styl" style="margin-top: 10px;">
-					<form method="post" action="/checkIfUserHasCollected">
-						<button style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px;"
+					<form method="post" action="/Collectgo">
+						<button
+							style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;"
 							type="submit">
 							<i class="fa-solid fa-heart"></i>收藏區
 						</button>
 					</form>
-				</div>
-			</div>
-			</div>
 
+				</div>
+			<div class="styl" style="margin-top: 10px;">
+					<button
+						style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;"
+						type="submit" id="hotButton">
+						<i class="fa-solid fa-fire"></i>熱門
+					</button>
+					</div>
+			</div>
+		</div>
 
 			<div id="LT" class="col-auto ml-auto mx-auto">
 				>
@@ -398,104 +408,111 @@ input[name="reportContent"] {
 																	console
 																			.log(content.userId == userID);
 																	var row = '<div class="article-item">'
-																			+ '<div class="article-info">'
-																			+ '<p>文章ID: '
-																			+ content.ltId
-																			+ '</p>'
-																			+ // 文章ID
+																		+ '<div class="article-info">'
+																		+ '<p>文章ID: '
+																		+ content.ltId
+																		+ '</p>'
+																		+ // 文章ID
 
-																			'<p>標題: '
-																			+ content.title
-																			+ '</p>'
-																			+ // 標題
-																			'<p>發文者ID: '
-																			+ content.userId
-																			+ '</p>'
-																			+ // 發文者ID
-																			'<p>發文時間: '
-																			+ content.date
-																			+ '</p>'
-																			+ // 發文時間
-																			'</div>'
-																			+ '<br>'
-																			+ '<hr>'
-																			+ '<div >'
-																			+ // 將內容和操作置中
-																			'<div class="col-md-12">'
-																			+ '<div>'
-																			+ '<p>文章內容: '
-																			+ content.content
-																			+ '</p>'
-																			+ // 文章內容
-																			'</div>'
-																			+ '<div style="  margin-left: 30%;">'
-																			+ '<img src="' + content.picture + '" width="300" height="300">'
-																			+ // 文章圖片
-																			'</div>'
-																			+ '</div>'
-																			+ '<hr>'
-																			+ '<div>'
+																		'<p>標題: '
+																		+ content.title
+																		+ '</p>'
+																		+ // 標題
+																		'<p>發文人: '
+																		+ content.userName
+																		+ '</p>'
+																		+ //12
+																		'<p>發文者ID: '
+																		+ content.userId
+																		+ '</p>'
+																		+ // 發文者ID
+																		'<p>發文時間: '
+																		+ content.date
+																		+ '</p>'
+																		+ // 發文時間
+																		'</div>'
+																		+ '<br>'
+																		+ '<hr>'
+																		+ '<div >'
+																		+ // 將內容和操作置中
+																		'<div class="col-md-12">'
+																		+ '<div>'
+																		+ '<p>文章內容: '
+																		+ content.content
+																		+ '</p>'
+																		+ // 文章內容
+																		'</div>'
+																		+ '<div style="  margin-left: 30%;">'
+																		+ '<img src="' + content.picture + '" width="300" height="300">'
+																		+ // 文章圖片
+																		'</div>'
+																		+ '</div>'
+																		+ '<hr>'
+																		+ '<div>'
 
-																			+ // 將操作置中
-																			'<div class="col-md-12">'
-																			+ '<div class="row"> <!-- 功能按钮水平排列 -->'
-																			+ '<form class="col-auto" method="post" action="/ReportinsertFront.controller" onsubmit="handleReportSuccess()">'
-																			+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
-																			+ '<input type="text" name="reportContent" placeholder="请输入檢舉內容">'
-																			+ '<button class="btn btn-warning btn-sm" type="submit" style="border-radius: 10px;" >'
-																			+ '<i class="fa-solid fa-triangle-exclamation" style="color: red "></i> 檢舉'
-																			+ '</button>'
-																			+ '</form>'
-																			+ '<form class="col-auto editForm" method="Get" action="/LTSelectByIdFront.controller/' + content.ltId + '">'
-																			+ '<button class="btn btn-primary btn-sm editButton" type="submit" style="border-radius: 10px;"'
-																			+ choose(content.userId,userID)
-																			+ ' > 修改</button> '
-																			+ '</form>'
-																			+ '<form class="col-auto deleteFrom" data-article-user-id="'
-																			+ content.userId
-																			+ '" method="post" action="/LTDeleteByIdFront.controller?ltId='
-																			+ content.ltId
-																			+ '">'
-																			+ '<input type="hidden" name="_method" value="DELETE">'
-																			+ '<button class="btn btn-danger btn-sm deleteButton" type="submit" style="border-radius: 10px;" '
-																			+ choose(
-																					content.userId,
-																					userID)
-																			+ '>刪除</button>'
-																			+ '</form>'
-																			+ '<form class="col-auto" method="get" action="/findLTIDFront/' + content.ltId + '">'
-																			+ '<button style="background-color: #0DCAF0; border-radius: 15px;" type="submit" >'
-																			+ '<i class="fa-solid fa-comments"></i> 回復區'
-																			+ '</button>'
-																			+ '</form>'
-																			+ '<form class="col-auto" method="POST" action="/LikeinsertFront.controller">'
-																			+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
-																			+ '<button style="background-color: #FFC0CB; border-radius: 10px;" type="submit">'
-																			+ '<i class="fa-solid fa-thumbs-up"></i> 讚'
-																			+ '</button>'
-																			+ '<span class="like-count">'
-																			+ content.saveLike
-																			+ '</span>'
-																			+ '</form>'
-																			+ '<form class="col-auto" method="POST" action="/collectFront.controller">'
-																			+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
-																			+ '<button   style="background-color: #FFC0CB; border-radius: 10px;" type="submit">'
-																			+ '<i class="fa-solid fa-heart"></i>收藏'
-																			+ '</button>'
-																			+ '<span class="collect-count">'
-																			+ (content.collect == null ? 0
-																					: content.collect)
-																			+ '</span>'
-																			+ '</form>'
-																			+ '</div>'
-																			+ '</div>'
-																			+ '</div>'
-																			+ '<span class="page-views" style="float: right;margin-top: -35px;  ">瀏覽次數: '
-																			+ content.pageViews
-																			+ '</span>'
+																		+ // 將操作置中
+																		'<div class="col-md-12">'
+																		+ '<div class="row"> <!-- 功能按钮水平排列 -->'
+																		+ '<form class="col-auto" method="post" action="/ReportinsertFront.controller" onsubmit="handleReportSuccess()">'
+																		+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
+																		+ '<input type="text" name="reportContent" placeholder="请输入檢舉內容">'
+																		+ '<button class="btn btn-warning btn-sm" type="submit" style="border-radius: 10px;font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); " >'
+																		+ '<i class="fa-solid fa-triangle-exclamation" style="color: red "></i> 檢舉'
+																		+ '</button>'
+																		+ '</form>'
+																		+ '<form class="col-auto editForm" method="Get" action="/LTSelectByIdFront.controller/' + content.ltId + '">'
+																		+ '<button class="btn btn-primary btn-sm editButton" type="submit" style="border-radius: 10px;  font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 15px;"'
+																		+ choose(
+																				content.userId,
+																				userID)
+																		+ ' > 修改</button> '
+																		+ '</form>'
+																		+ '<form class="col-auto deleteFrom" data-article-user-id="'
+																		+ content.userId
+																		+ '" method="post" action="/LTDeleteByIdFront.controller?ltId='
+																		+ content.ltId
+																		+ '" onsubmit="return confirmDelete();">'
+																		+ '<input type="hidden" name="_method" value="DELETE">'
+																		+ '<button class="btn btn-danger btn-sm deleteButton" type="submit" style="border-radius: 10px; font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); " '
+																		+ choose(
+																				content.userId,
+																				userID)
+																		+ ' onclick="alert(\'確定要刪除嗎？\')">刪除</button>'
+																		+ '</form>'
+																		+ '<form class="col-auto" method="get" action="/findLTIDFront/' + content.ltId + '">'
+																		+ '<button  style="background-color: #0DCAF0; font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 15px;" type="submit" >'
+																		+ '<i class="fa-solid fa-comments"></i> 回復區'
+																		+ '</button>'
+																		+ '</form>'
+																		+ '<form class="col-auto" method="POST" action="/LikeinsertFront.controller">'
+																		+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
+																		+ '<button style="background-color: #FFC0CB; font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  border-radius: 10px; transition: transform 0.3s ease; transform: scale(1.1);" type="submit">'
+																		+ '<i class="fa-solid fa-thumbs-up"></i> 讚'
+																		+ '</button>'
+																		+ '<span class="like-count">'
+																		+ content.saveLike
+																		+ '</span>'
+																		+ '</form>'
+																		+ '<form class="col-auto" method="POST" action="/collectFront.controller">'
+																		+ '<input type="hidden" name="ltId" value="' + content.ltId + '">'
+																		+ '<button   style="background-color: #FFC0CB;font-size:15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); " border-radius: 10px;" type="submit">'
+																		+ '<i class="fa-solid fa-heart"></i>收藏'
+																		+ '</button>'
+																		+ '<span class="collect-count">'
+																		+ (content.collect == null ? 0
+																				: content.collect)
+																		+ '</span>'
+																		+ '</form>'
+																		+ '</div>'
+																		+ '</div>'
+																		+ '</div>'
+																		+ '<span class="page-views" style="float: right;margin-top: -35px ; font-size:13px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); "> '
+																		+ '<i class="fa-solid fa-eye"></i>瀏覽次數:'
+																		+ content.pageViews
+																		+ '</span>'
 
-																	'</div>'
-																			+ '<br>'; // 添加分隔符
+																'</div>'
+																		+ '<br>'; // 添加分隔符
 																	$('#LT')
 																			.append(
 																					row);

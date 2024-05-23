@@ -310,3 +310,4 @@ BEGIN
     (GETDATE(), '小豬好溫柔！', 351, 23),
     (GETDATE(), '我也想和小豬一起曬太陽！', 352, 23);
 END
+SELECT * FROM LT  ORDER BY saveLike DESC
