@@ -294,8 +294,7 @@
 	                data: JSON.stringify(Quanproduct),
 	                contentType: 'application/json',
 	                success: function(response) {
-	                    alert('庫存扣除成功');
-	                    
+	                	//alert('庫存扣除成功');
 	     	            rows.forEach(function(row) {
 	 	                var productId = row.getAttribute('data-product-id');
 	 	                var productName = row.querySelector('.cart__product__item__title h6').textContent;
@@ -341,7 +340,8 @@
 	 	                   data: JSON.stringify(orderData),
 	 	                   contentType: 'application/json', // 指定数据类型为 JSON
 	 	                   success: function(response) {
-	 	                       alert('訂單提交成功');
+	 	                	  alert('訂單提交成功');
+	 	                	  window.location.href = 'http://localhost:8080/front/order/OrderForClient.html';
 	 	                   },
 	 	                   error: function() {
 	 	                       alert('訂單提交失敗');
