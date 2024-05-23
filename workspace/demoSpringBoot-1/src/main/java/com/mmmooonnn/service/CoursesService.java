@@ -78,7 +78,7 @@ public class CoursesService {
     }
 
     // 添加用於發送純文本郵件的方法
-    public void sendPlainText(String to, String subject, String content, String from) {
+    public void sendemail(String to, String subject, String content, String from) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
@@ -104,12 +104,13 @@ public class CoursesService {
     }
     
 
-    //增加报名人数
+    //增加報名人數
     public void registerUserToCourse(CoursesBean course) {
-        // 检查报名人数是否已满
+        // 檢查是否已額滿
         if (course.getEnrollmentCount() < course.getMaxCapacity()) {
             course.setEnrollmentCount(course.getEnrollmentCount() + 1);
             courseRepos.save(course);
+            
         } else {
             throw new IllegalStateException("Course is full");
         }

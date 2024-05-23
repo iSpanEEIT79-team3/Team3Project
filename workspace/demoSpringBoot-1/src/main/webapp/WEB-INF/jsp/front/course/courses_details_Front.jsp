@@ -109,7 +109,7 @@
                 <div class="col-3">
                     <div style="height: 8px;"></div>
                     <div class=" d-flex flex-column align-items-center border border-dark fixed"
-                        style="width: 300px; height: 900px;">
+                        style="width: 300px; height: 820px;">
 
                         <div class="align-items-center m-1" style="width: 250px; height: 80px;">
 
@@ -205,17 +205,7 @@
                             </form>
                         </div>
 
-                        <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
-                            <form id="mail1" action="${pageContext.request.contextPath}/sendCourseEmail" method="post"
-                                style="width: 100%; height: 100%;">
-                                <input type="hidden" name="START_DATE" value="${course.startDate}" />
-                                <input type="hidden" name="COURSE_NAME" value="${course.courseName}" />
-                                <button id="mail2" type="submit" class="btn btn-primary custom-button"
-                                    style="width: 100%; height: 100%; background-color: #B15A5E;">
-                                    <h4 class="mt-1">將課程收藏至Email</h4>
-                                </button>
-                            </form>
-                        </div>
+
                     </div>
                 </div>
                 <script>
