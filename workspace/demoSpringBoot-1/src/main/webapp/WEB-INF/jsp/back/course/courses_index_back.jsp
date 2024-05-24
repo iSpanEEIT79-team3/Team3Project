@@ -23,24 +23,22 @@
                 }
 
                 .dataTables_info {
-                    margin-top: 12px;
+                    margin-top: 6px;
                 }
 
                 /* 表格樣式 */
                 .table {
-                    width: 80%;
                     border-collapse: collapse;
                 }
 
                 th,
                 td {
                     border: 1px solid black;
-                    padding: 6px;
+                    padding: 3px;
                     text-align: left;
                     white-space: nowrap;
                     width:80%;
                     
-                    /* 保持文字在單行顯示 */
                 }
 
                 th {
@@ -80,17 +78,17 @@
                 </div>
                 <div class="row lt">
                     <div class="ml-4">
-                        <button class="btn btn-success m-2" id="json">匯出json</button>
-                        <button class="btn btn-success m-2" id="xml">匯出xml</button>
-                        <button class="btn btn-success m-2" id="excel">匯出excel</button>
+                        <button class="btn btn-success m-1" id="json">匯出json</button>
+                        <button class="btn btn-success m-" id="xml">匯出xml</button>
+                        <button class="btn btn-success m-1" id="excel">匯出excel</button>
                     </div>
                     <div class="col-12 box table-responsive">
-                        <table id="coursesTable" class="table" style="width:80%;">
+                        <table id="coursesTable">
                             <thead>
                                 <tr>
-                                    <th>產品ID</th>
+                                    <th style="width: 40px; height: 38px;">產品ID</th>
                                     <th>課程名稱</th>
-                                    <th style="width: 50px">描述</th>
+                                    <th>描述</th>
                                     <th>課程類型</th>
                                     <th>開始日期</th>
                                     <th>結束日期</th>
@@ -109,11 +107,11 @@
                             <tbody>
                                 <c:forEach items="${Courses}" var="course">
                                     <tr>
-                                        <td><a
+                                        <td style="width: 40px; height: 38px;"><a
                                         href="${pageContext.request.contextPath}/courseDetails/${course.productId}">${course.productId}</a>
                                         </td>
                                         <td>${course.courseName}</td>
-                                        <td style="width: 50px">${course.description}</td>
+                                        <td>${course.description}</td>
                                         <td>${course.courseType}</td>
                                         <td>${course.startDate}</td>
                                         <td>${course.endDate}</td>
@@ -125,7 +123,7 @@
                                         <td>${course.enrollmentCount}</td>
                                         <td>${course.maxCapacity}</td>
                                         <td><img src="${course.courseImage}" class="zoom"
-                                                style="width: 100px; height: 100px;"></td>
+                                                style="width: 60px; height: 60px;"></td>
                                         <td><a href="/GetCourseById/${course.productId}"><button
                                                     class="btn btn-success">修改</button></a></td>
                                         <td>

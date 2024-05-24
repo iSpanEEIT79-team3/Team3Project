@@ -543,7 +543,7 @@ $( document ).ready(function() {
 
 		<div class="content-wrapper">
 
-			<div class="row gutters">
+			<div class="row gutters  d-flex justify-content-center">
 				<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<div class="card m-0" style="background-color:white;">
 
@@ -592,8 +592,9 @@ $( document ).ready(function() {
 								</div>
 							</div>
 						</div>
-					</div>
 
+					</div>
+						<div style="height:60px;"></div>
 				</div>
 			</div>
 		</div>

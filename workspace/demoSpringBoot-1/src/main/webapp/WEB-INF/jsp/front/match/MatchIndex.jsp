@@ -14,17 +14,16 @@ body {
 }
 
 .main {
-	min-height: 55vh;
+	min-height: 30vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 20px; /* 底部外边距 */
 	background-color: #fbf9ec; /* 设置柔色背景 */
 }
 
 .main-content {
 	width: 80%;
-	height: 300px; /* 调整高度 */
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -217,7 +216,7 @@ body {
 
 </head>
 <body>
-	<div class="container-fluid" style="margin-top: 50px;"></div>
+	<div class="container-fluid"></div>
 	<div class="main">
 		<div class="main-content">
 			<!-- Adding the heading here -->

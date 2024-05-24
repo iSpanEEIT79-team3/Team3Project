@@ -209,34 +209,39 @@ img {
         }
         
 //滑鼠foucs的顯示圖片        
-		document.addEventListener('DOMContentLoaded', (event) => {
-		<c:forEach items="${shops}" var="shop">
-            const hoverButton_${shop.productId} = document.getElementById('hoverButton_${shop.productId}');
-            const imageContainer_${shop.productId} = document.getElementById('imageContainer_${shop.productId}');
+document.addEventListener('DOMContentLoaded', (event) => {
+    <c:forEach items="${shops}" var="shop">
+        const hoverButton_${shop.productId} = document.getElementById('hoverButton_${shop.productId}');
+        const imageContainer_${shop.productId} = document.getElementById('imageContainer_${shop.productId}');
 
-            hoverButton_${shop.productId}.addEventListener('mouseover', () => {
-                imageContainer_${shop.productId}.style.display = 'block';
-            });
-
-            hoverButton_${shop.productId}.addEventListener('mouseout', () => {
-                imageContainer_${shop.productId}.style.display = 'none';
-            });
-
-            hoverButton_${shop.productId}.addEventListener('mousemove', (e) => {
-                const viewportHeight = window.innerHeight;//目前可視螢幕高度
-                const mouseY = e.clientY; // 获取鼠标在页面中的垂直位置
-            	if(mouseY + 320 < viewportHeight){
-            		console.log("正常");
-            		imageContainer_${shop.productId}.style.top = (e.clientY -145) + 'px'; // 图片距离鼠标指针10px
-               	 	imageContainer_${shop.productId}.style.left = (e.clientX -250) + 'px'; // 图片距离鼠标指针10px
- 	           	}else{
- 	           		console.log("else");
- 	           		imageContainer_${shop.productId}.style.top = (e.clientY -575) + 'px'; // 图片距离鼠标指针10px
-               		imageContainer_${shop.productId}.style.left = (e.clientX -275) + 'px'; // 图片距离鼠标指针10px
- 	           	}
-            });
-        </c:forEach>
+        hoverButton_${shop.productId}.addEventListener('mouseover', () => {
+            imageContainer_${shop.productId}.style.display = 'block';
         });
+
+        hoverButton_${shop.productId}.addEventListener('mouseout', () => {
+            imageContainer_${shop.productId}.style.display = 'none';
+        });
+
+        hoverButton_${shop.productId}.addEventListener('mousemove', (e) => {
+            const viewportHeight = window.innerHeight; // 当前视窗高度
+            const mouseY = e.clientY; // 获取鼠标在页面中的垂直位置
+            const scrollY = window.scrollY; // 获取页面滚动的垂直偏移量
+            let topPosition, leftPosition;
+
+            if (mouseY + 320 < viewportHeight) {
+                console.log("正常");
+                topPosition = mouseY + scrollY - 220;
+            } else {
+                console.log("else");
+                topPosition = mouseY + scrollY - 525;
+            }
+            leftPosition = e.clientX - 270;
+
+            imageContainer_${shop.productId}.style.top = topPosition + 'px';
+            imageContainer_${shop.productId}.style.left = leftPosition + 'px';
+        });
+    </c:forEach>
+});
 			
 //刪除
         function deleteProduct(productId) {

@@ -11,18 +11,7 @@
 <style>
 .main {
 	min-height: 55vh;
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	gap: 10px; /* 格子之间的间距 */
-	justify-items: center; /* 使格子居中对齐 */
-	align-items: start; /* 使内容顶部对齐 */
-}
 
-.small-table {
-	width: 100%; /* 让小表格填满格子 */
-	padding: 10px; /* 内边距 */
-	box-sizing: border-box; /* 包括内边距和边框在内的宽度和高度 */
-	text-align: center; /* 使内容居中 */
 }
 
 .user-container {
@@ -37,6 +26,11 @@
 	height: 100px; /* 固定图片高度 */
 	object-fit: cover; /* 保持图片比例，剪裁多余部分 */
 	border-radius: 50%; /* 可选：使图片为圆形 */
+}
+.custom-box {
+    background-color: #FCFCFC;
+    border: 2px solid #B15A5E; /* 調整邊框寬度和顏色 */
+
 }
 </style>
 <!-- Bootstrap CSS -->
@@ -75,16 +69,21 @@
 </head>
 
 <body>
-	<div class="container-fluid" style="margin-top: 150px;">
-		<h2 class="text-center">配對成功</h2>
+	<div style="height: 114px;"></div>
+	<div class=" text-center m-3" style="font-size: 48px; font-weight: bold;">
+		配對成功
 	</div>
 
-	<div class="main">
+	<div class="main row" >
+		
 		<c:forEach items="${isMatch}" var="user" varStatus="loop">
-			<div class="small-table">
-				<div class="user-container">
+			<div class="col-3 text-center" style="height:440px;">
+			
+				<div class="custom-box m-4 text-center" style="white:120px;height:380px;border-radius: 20px;"  >
+					<div class="mt-4">
 					<img id="user_image_${loop.index}" src="${user.picture}"
 							 class="img">
+					</div>
 					<div id="user_details_${loop.index}" class="user-details">
 						<p>Nickname: ${user.nickName}</p>
 						<p>Gender: ${user.gender}</p>

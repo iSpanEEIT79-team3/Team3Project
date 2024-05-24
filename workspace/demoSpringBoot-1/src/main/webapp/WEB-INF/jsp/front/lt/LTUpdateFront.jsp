@@ -83,15 +83,15 @@
                 <input type="text" name="title" id="title" value="${ltBean.title}" class="form-control">
             </div>
             <div class="form-group">
-                <label for="userId">使用者ID</label>
-                <input type="text" name="userId" id="userId" value="${ltBean.userId}" class="form-control" readonly>
+              
+                <input type="hidden" name="userId" id="userId" value="${ltBean.userId}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label for="content">文章內容</label>
                 <input type="text" name="content" id="content" value="${ltBean.content}" class="form-control">
             </div>
             <div class="form-group">
-                <label for="date">日期</label>
+          
                 <input type="hidden" name="date" id="date" value="${ltBean.date}" readonly class="form-control" readonly>
             </div>
             <div class="form-group">
@@ -106,9 +106,15 @@
                 <label for="pageViews">瀏覽次數</label>
                 <input type="text" name="pageViews" id="pageViews" value="${ltBean.pageViews}" class="form-control"readonly>
             </div>
+            <div class="form-group">
+                <label for="pageViews">發文人</label>
+                <input type="text" name="userName" id="pageViews" value="${ltBean.userName}" class="form-control"readonly>
+            </div>
             
             <div class="d-flex justify-content-between">
                 <input type="submit" class="btn" value="確定" />
                 <a href="/LTSelectAllFront" class="btn">返回首頁</a>
             </div>
-        </
+        </form>
+        </div>
+        </div>

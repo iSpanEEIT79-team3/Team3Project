@@ -137,7 +137,7 @@ public class LTControllerFront {
 	public String update(@RequestParam("ltId") String ltId, @RequestParam("title") String title,
 			@RequestParam("userId") String userId, @RequestParam("date") String date,
 			@RequestParam("picture") MultipartFile picture, @RequestParam("content") String content,
-			@RequestParam("pageViews") Integer pageViews) {
+			@RequestParam("pageViews") Integer pageViews, @RequestParam("userName") String userName) {
 
 		Integer LTID = Integer.parseInt(ltId);
 		Integer USERID = Integer.parseInt(userId);
@@ -158,6 +158,7 @@ public class LTControllerFront {
 			ltBean.setPageViews(pageViews);
 			ltBean.setTitle(title);
 			ltBean.setContent(content);
+			ltBean.setUserName(userName);
 
 			ltBean.setSaveLike(0);
 			Date DATE = new Date(System.currentTimeMillis());

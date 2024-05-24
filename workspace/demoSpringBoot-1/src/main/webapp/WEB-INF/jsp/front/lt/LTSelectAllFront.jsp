@@ -444,10 +444,8 @@ button:hover {
 																			'<p>發文人: '
 																			+ content.userName
 																			+ '</p>'
-																			+ //12
-																			'<p>發文者ID: '
-																			+ content.userId
-																			+ '</p>'
+																	
+																	
 																			+ // 發文者ID
 																			'<p>發文時間: '
 																			+ content.date

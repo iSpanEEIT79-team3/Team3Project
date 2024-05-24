@@ -294,6 +294,7 @@
                                             url: form.attr("action"),
                                             data: form.serialize(),
                                             success: function (response) {
+
                                                 Swal.fire({
                                                     title: "Success",
                                                     text: isRegisterForm ? "報名成功" : "Email 已成功發送",
