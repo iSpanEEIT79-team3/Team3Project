@@ -70,6 +70,37 @@ public class CoursesControllerFront {
     	return "redirect:/error";  // Redirect to an error page if no course is found
     }
     
+	@GetMapping("/ajaxcourseDetailsFront/{id}")
+	@ResponseBody
+	public CoursesBean ajaxFindEvenDataByID(@PathVariable("id") Integer id,HttpSession session) {
+		
+		if (session != null && session.getAttribute("usersBean") != null) {
+			
+			System.out.println(456);
+			
+			UsersBeanNew user = (UsersBeanNew)session.getAttribute("usersBean");
+			
+			Integer userId=user.getUserId();
+			
+			CoursesBean course = cService.findCourseById(id);
+			
+			course.setIdUser(userId);
+			
+		System.out.println(course);
+		
+			return course;
+		    
+		} else {		    
+			System.out.println(123);
+			CoursesBean course = cService.findCourseById(id);
+			
+			return course;
+		
+		}
+	}	
+
+    
+    
     //進行課程報名報名成功寄送mail
     @PostMapping("/registerCourse")
     @ResponseBody

@@ -39,11 +39,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 	<title>JFSwing Website</title>
 	<style>
-	.map-container {
-            margin-top: 2px; /* 調整這個值來增加或減少距離 */
-        }
-        
-     </style>
+		.map-container {
+			margin-top: 2px;
+			/* 調整這個值來增加或減少距離 */
+		}
+	</style>
+
 
 
 </head>
@@ -65,7 +66,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                         class="d-block" style="width:100%"> -->
 				</div>
 				<div class="col-5">
-				<h3 class="neon-yellow">距離活動開始時間</h3>
+					<h3 class="neon-yellow">距離活動開始時間</h3>
 					<div id="countdown" class="countdown">
 
 						<div class="time">
@@ -115,21 +116,18 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 						</div>
 
 					</div>
-					
-					<!--------------------------- Map --------------------------------------------------->
+
+
 					<div class="row" style="margin:0;">
 
 
-						<div style="display:flex; margin:20px">
-						<h3 class="neon-yellow">活<br>動<br>地點</h3>
-
-					
-							<div id="map" style="width: 100% ;height:50vh;"></div>
-				
-
+						<div style="display:flex;margin:20px">
+							<h3 class="neon-yellow">活<br>動<br>地<br>點</h3>
+							<div id="map" style="width:100%;height:50vh;"></div>
+							<!--							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7276604777917!2d121.50703081116819!3d25.043314737823437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a909a4acec8b%3A0x7c34275cfedcc1c5!2z6KW_6ZaA57SF5qiT!5e0!3m2!1szh-TW!2stw!4v1716540403367!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;margin:20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
 						</div>
 					</div>
-					<!------------------------------ Map ------------------------------->
+
 				</div>
 
 				<div class="row">
@@ -187,7 +185,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 			fetch("/ajaxFindEvenDataByID/" + evenID).then(function (response) {
 				return response.json();
 			}).then(function (data) {
-			$('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
+				$('#eventCollectionForm').append(`<input type="hidden" name="EVENT_STARTIME" id="eventDate" value=${data.startTime}>
             		    <input type="hidden" id="eventName" value=${data.eventName} name="EVENT_NAME">`)
 
 				$('#fetchPicture').append(`<img src="${data.picture}"
@@ -237,68 +235,81 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                                 <td>${data.organizer}</td>
                             </tr>`)
 
+			}).then(function(){
+				console.log("嘗試抓地址 : " + $("#address").text());
+				initMap();
 			});
 		}
+
 
 
 	</script>
 	<script src="
 		https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
 		"></script>
-	<script>
-
-		 window.onload = function () {
-
-            function getLatLngFromAddress(address) {
-                return new Promise((resolve, reject) => {
-                    var geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({ 'address': address }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            var latitude = results[0].geometry.location.lat();
-                            var longitude = results[0].geometry.location.lng();
-                            resolve({ lat: latitude, lng: longitude });
-                        } else {
-                            reject(new Error('Geocoding failed: ' + status));
-                        }
-                    });
-                });
-            }
-
-            var addressText = document.querySelector("#address").innerHTML;
-            console.log(addressText);
-            getLatLngFromAddress(addressText)
-                .then(latLng => {
-                    console.log('Latitude:', latLng.lat);
-                    console.log('Longitude:', latLng.lng);
-
-                    var mapOptions = {
-                        center: { lat: latLng.lat, lng: latLng.lng }, // 設置地圖的中心位置
-                        zoom: 17 // 設置地圖的縮放級別
-                    };
-
-                    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-                    var marker = new google.maps.Marker({
-                        position: { lat: latLng.lat, lng: latLng.lng },
-                        map: map,
-                        title: '地址'
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error.message);
-                });
-
-
-        };
-
-
-		
-	</script>
-
 	<script async
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAgqI1p1boHUwEIE395YECgaaYngF9FIE&libraries=places&callback=initMap&region=TW&language=zh-TW">
 		</script>
 	<!-- Map -->
+
+	<script>
+
+		function getLatLngFromAddress(address) {
+			return new Promise((resolve, reject) => {
+				var geocoder = new google.maps.Geocoder();
+				geocoder.geocode({'address': address}, function (results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						var latitude = results[0].geometry.location.lat();
+						var longitude = results[0].geometry.location.lng();
+						resolve({lat: latitude, lng: longitude});
+					} else {
+						reject(new Error('Geocoding failed: ' + status));
+					}
+				});
+			});
+		}
+
+		window.onload = function () { };
+
+
+
+		function initMap() {
+			var addressText = $("#address").text();
+			console.log("google抓地址 : " + addressText);
+
+
+			getLatLngFromAddress(addressText)
+				.then(latLng => {
+					console.log('Latitude:', latLng.lat);
+					console.log('Longitude:', latLng.lng);
+
+					var mapOptions = {
+						center: {lat: latLng.lat, lng: latLng.lng}, // 設置地圖的中心位置
+						zoom: 17 // 設置地圖的縮放級別
+					};
+
+					var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+					var marker = new google.maps.Marker({
+						position: {lat: latLng.lat, lng: latLng.lng},
+						map: map,
+						title: '地址'
+					});
+				})
+				.catch(error => {
+					console.error('Error:', error.message);
+				});
+		};
+
+
+
+
+
+
+
+	</script>
+
+
 
 
 	<script>
@@ -323,7 +334,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 					console.log(jsonObject);
 
 					let dataTest = {
-						"userContactNew": { "contactId": data.userId },
+						"userContactNew": {"contactId": data.userId},
 						"orderNote": "",
 						"orderDetails": [jsonObject]
 					};
@@ -343,7 +354,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
 						}) // 處理錯誤
 						.then((response) => {
-							console.log("Success:", response); swal.fire({ title: "已加入購物車", html: `跳轉點擊 <a href="http://localhost:8080/front/order/OrderForClient.html">結帳畫面</a>`, icon: "success" });
+							console.log("Success:", response); swal.fire({title: "已加入購物車", html: `跳轉點擊 <a href="http://localhost:8080/front/order/OrderForClient.html">結帳畫面</a>`, icon: "success"});
 
 						}); // 處理成功響應
 

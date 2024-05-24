@@ -213,8 +213,8 @@ button:hover {
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
 	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
 	crossorigin="anonymous">
-
-		</script>
+	
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://kit.fontawesome.com/f5d8105b16.js"
 	crossorigin="anonymous"></script>
@@ -233,22 +233,23 @@ button:hover {
 
 
 				<button class="insertbtn" type="submit"
-					style="margin-bottom: 10px; background-color: #0DCAF0; font-size: 20px; border-radius: 15px;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;">
+					style="margin-bottom: 10px; background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;">
 					<i class="fa-brands fa-discourse"></i>發布文章
 				</button>
 
 
 				<form method="get" action="/front/lt/LTTitleFront.html"
-					style="margin-bottom: 10px; font-size: 20px;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;">
+					style="margin-bottom: 10px; font-size: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;">
 					<input type="hidden" name="title" />
-					<button style="background-color: #0DCAF0; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;"
+					<button
+						style="background-color: #0DCAF0; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;"
 						type="submit">
 						<i class="fa-solid fa-magnifying-glass"></i>搜尋標題
 					</button>
 				</form>
 				<form method="Get" action="/front/lt/LTSelectFront.html">
 					<button
-						style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;"
+						style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;"
 						type="submit">
 						<i class="fa-solid fa-magnifying-glass"></i>搜尋文章ID
 					</button>
@@ -257,20 +258,20 @@ button:hover {
 				<div class="styl" style="margin-top: 10px;">
 					<form method="post" action="/Collectgo">
 						<button
-							style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;"
+							style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;"
 							type="submit">
 							<i class="fa-solid fa-heart"></i>收藏區
 						</button>
 					</form>
 
 				</div>
-			<div class="styl" style="margin-top: 10px;">
+				<div class="styl" style="margin-top: 10px;">
 					<button
-						style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;"
+						style="background-color: #0DCAF0; font-size: 20px; border-radius: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight: bold;"
 						type="submit" id="hotButton">
 						<i class="fa-solid fa-fire"></i>熱門
 					</button>
-					</div>
+				</div>
 			</div>
 		</div>
 
@@ -311,8 +312,8 @@ button:hover {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous">
-
-		</script>
+		
+	</script>
 
 
 	<!-- 分页控件 -->
@@ -360,45 +361,45 @@ button:hover {
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
 		$(document)
-			.ready(
-				function () {
-					function choose(u1, u2) {
-						return (u1 == u2) ? '' : 'hidden';
-					}
-					let userID = "";
-					$.ajax({
-						url: "/getuserId",
-						type: "GET",
-						success: function (response) {
-							console.log("1234", response);
-							userID = response;
-							// 									if(userID==""){
-							// 										window.location.href="/html/UserLoginTest.html";
-							// 									}else{
-							// 										window.location.href="";
-							// 									}
-						},
-						error: function (xhr, status, error) {
-							console.error(error);
-						}
-					});
+				.ready(
+						function() {
+							function choose(u1, u2) {
+								return (u1 == u2) ? '' : 'hidden';
+							}
+							let userID = "";
+							$.ajax({
+								url : "/getuserId",
+								type : "GET",
+								success : function(response) {
+									console.log("1234", response);
+									userID = response;
+									// 									if(userID==""){
+									// 										window.location.href="/html/UserLoginTest.html";
+									// 									}else{
+									// 										window.location.href="";
+									// 									}
+								},
+								error : function(xhr, status, error) {
+									console.error(error);
+								}
+							});
 
-					$.get('/html/basic.html', function (html) {
-						$('body').append(html);
-					});
-					var pageSize = 5; // 顯示的筆數
-					var currentPage = 0; // 目前頁碼
+							$.get('/html/basic.html', function(html) {
+								$('body').append(html);
+							});
+							var pageSize = 5; // 顯示的筆數
+							var currentPage = 0; // 目前頁碼
 
-					var condition = false; // 初始化为 false
+							var condition = false; // 初始化为 false
 
-				    // 监听按钮点击事件
-				    $('#hotButton').click(function() {
-				        condition = true; // 当按钮点击时，将 condition 设置为 true
-						fetchOrders();
-				    });
-					
-					// 发送 AJAX 请求
-					function fetchOrders(page) {
+							// 监听按钮点击事件
+							$('#hotButton').click(function() {
+								condition = true; // 当按钮点击时，将 condition 设置为 true
+								fetchOrders();
+							});
+
+							// 发送 AJAX 请求
+							function fetchOrders(page) {
 								console.log('page' + page);
 								var url;
 								if (condition) {
@@ -444,8 +445,7 @@ button:hover {
 																			'<p>發文人: '
 																			+ content.userName
 																			+ '</p>'
-																	
-																	
+
 																			+ // 發文者ID
 																			'<p>發文時間: '
 																			+ content.date
@@ -464,9 +464,14 @@ button:hover {
 																			+ // 文章內容
 																			'</div>'
 																			+ '<div style="  margin-left: 30%;">'
-																			+ '<img src="' + content.picture + '" width="300" height="300">'
-																			+ // 文章圖片
-																			'</div>'
+																			+ '<img src="'
+																			+ (content.picture != null ? content.picture
+																					: '')
+																			+ '" width="300" height="300" '
+																			+ (content.picture == null ? 'hidden'
+																					: '')
+																			+ '>'
+																			+'</div>'
 																			+ '</div>'
 																			+ '<hr>'
 																			+ '<div>'
@@ -707,21 +712,21 @@ button:hover {
 
 	<script>
 		// 使用 AJAX 發送 GET 請求獲取使用者 ID
-		$(document).ready(function () {
+		$(document).ready(function() {
 			// 綁定修改按鈕的點擊事件
-			$(".editButton").click(function () {
+			$(".editButton").click(function() {
 				// 獲取文章 ID
 				var ltId = $(this).data("ltId");
 				// 使用 AJAX 發送 GET 請求獲取使用者 ID
 				$.ajax({
-					url: "/getuserId",
-					type: "GET",
-					success: function (response) {
+					url : "/getuserId",
+					type : "GET",
+					success : function(response) {
 						var userId = response; // 從後端獲取使用者 ID
 						var articleUserId = $(this).data("articleUserId"); // 從按鈕上獲取文章的發布者 ID
 						//                
 					},
-					error: function (xhr, status, error) {
+					error : function(xhr, status, error) {
 						console.error(error);
 					}
 				});
@@ -733,20 +738,20 @@ button:hover {
 		function checkIfUserHasCollected(ltId, userID) {
 			// 發送POST請求到後端
 			$.ajax({
-				type: "POST",
-				url: "/checkIfUserHasCollected", // 替換為後端路由
-				data: {
-					ltId: ltId,
-					userID: userID
+				type : "POST",
+				url : "/checkIfUserHasCollected", // 替換為後端路由
+				data : {
+					ltId : ltId,
+					userID : userID
 				}, // 傳遞ltId和userID給後端
-				success: function (response) {
+				success : function(response) {
 					if (response.hasCollected) {
 						alert("您已經收藏過該文章！"); // 使用者已經收藏過該文章
 					} else {
 						alert("您還沒有收藏過該文章！"); // 使用者尚未收藏該文章
 					}
 				},
-				error: function () {
+				error : function() {
 					alert("發生錯誤，無法檢查收藏狀態。");
 				}
 			});
@@ -754,21 +759,21 @@ button:hover {
 
 		// 在收藏按鈕點擊事件中呼叫檢查函數
 		$('.collect-button').click(
-			function () {
-				var ltId = $(this).closest('form').find(
-					'input[name="ltId"]').val();
-				var userID = '這裡填寫使用者ID'; // 這裡填寫當前使用者的ID，可能需要從後端獲取
-				checkIfUserHasCollected(ltId, userID);
-			});
+				function() {
+					var ltId = $(this).closest('form').find(
+							'input[name="ltId"]').val();
+					var userID = '這裡填寫使用者ID'; // 這裡填寫當前使用者的ID，可能需要從後端獲取
+					checkIfUserHasCollected(ltId, userID);
+				});
 	</script>
 
 	<script>
-		$('.insertbtn').click(function () {
+		$('.insertbtn').click(function() {
 			let userID = "";
 			$.ajax({
-				url: "/getuserId",
-				type: "GET",
-				success: function (response) {
+				url : "/getuserId",
+				type : "GET",
+				success : function(response) {
 					console.log("1234", response);
 					userID = response;
 					if (userID == "") {
@@ -777,7 +782,7 @@ button:hover {
 						window.location.href = "/front/lt/LTInsertFront.html";
 					}
 				},
-				error: function (xhr, status, error) {
+				error : function(xhr, status, error) {
 					console.error(error);
 				}
 			})
@@ -785,10 +790,10 @@ button:hover {
 	</script>
 
 	<script>
-function confirmDelete() {
-    return confirm("確定要刪除嗎？");
-}
-</script>
+		function confirmDelete() {
+			return confirm("確定要刪除嗎？");
+		}
+	</script>
 	<!-- 分頁部分 -->
 
 	<script src="/html/LoginUser.js"></script>

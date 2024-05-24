@@ -205,6 +205,15 @@
                                 </button>
                             </form>
                         </div>
+                        <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
+
+                            <button onclick="buy(`${course.productId}`)" type="submit"
+                                class="btn btn-primary custom-button"
+                                style="width: 100%; height: 100%;background-color:#B15A5E;">
+                                <h4 class=" mt-2">加入購物車</h4>
+                            </button>
+
+                        </div>
 
 
                     </div>
@@ -266,6 +275,65 @@
                         setInterval(updateCountdown, 1000); // 每秒更新一次倒计时
                     });
 
+
+                </script>
+                
+                                <script>
+
+                    function buy(num) {
+                        var url = "http://localhost:8080/orders"; // 請求的 URL
+                        console.log(num);
+                        fetch("/ajaxcourseDetailsFront/" + num).then(function (response) {
+                            return response.json();
+                        }).then(function (data) {
+                            console.log(data);
+
+                            if (data.idUser != null) {
+
+                                var jsonObject = {
+                                    productNum: data.productId,
+                                    productName: data.courseName,
+                                    productPrice: data.price,
+                                    productQuantity: '1',
+                                    orderTotalPrice: data.price
+                                };
+
+                                console.log(jsonObject);
+
+                                let dataTest = {
+                                    "userContactNew": { "contactId": data.idUser },
+                                    "orderNote": "",
+                                    "orderDetails": [jsonObject]
+                                };
+
+
+                                // 使用 fetch 函數發送 POST 請求
+                                fetch(url, {
+                                    method: "POST", // 使用 POST 方法
+                                    body: JSON.stringify(dataTest), // 將 JSON 數據轉換為字符串並指定為請求主體
+                                    headers: new Headers({
+                                        "Content-Type": "application/json", // 指定 Content-Type 為 application/json
+                                    }),
+                                })
+                                    .then((res) => res.json()) // 解析服務器的 JSON 響應
+                                    .catch((error) => {
+                                        console.error("Error:", error); swal.fire("Error", "加入購物車的過程發生錯誤", "error");
+
+                                    }) // 處理錯誤
+                                    .then((response) => {
+                                        console.log("Success:", response); swal.fire({ title: "已加入購物車", html: `跳轉點擊 <a href="http://localhost:8080/front/order/OrderForClient.html">結帳畫面</a>`, icon: "success" });
+
+                                    }); // 處理成功響應
+
+                            } else {
+                                swal.fire("Error", "您尚未登入", "error");
+                            }
+
+
+                        }
+
+                        );
+                    }
 
                 </script>
                 
