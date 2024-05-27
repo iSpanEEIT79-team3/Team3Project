@@ -352,7 +352,7 @@ public class UserController {
 			if (!picture.isEmpty()) {
 				String fileName = picture.getOriginalFilename();
 
-				String fileDir = resourceLoader.getResource("classpath:/static/userPicture").getFile()
+				String fileDir = resourceLoader.getResource("classpath:/static/images").getFile()
 						.getAbsolutePath();
 
 				File fileDirPath = new File(fileDir);
@@ -366,7 +366,7 @@ public class UserController {
 				File uploadedFile = new File(fileDirPath, newFileName);
 				// 将檔案寫入本機
 				picture.transferTo(uploadedFile);
-				usersBean.setPicture("/userPicture/" + newFileName);
+				usersBean.setPicture("/images/" + newFileName);
 			}
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
@@ -424,7 +424,7 @@ public class UserController {
 			if (!picture.isEmpty()) {
 				String fileName = picture.getOriginalFilename();
 
-				String fileDir = resourceLoader.getResource("classpath:/static/userPicture").getFile()
+				String fileDir = resourceLoader.getResource("classpath:/static/images").getFile()
 						.getAbsolutePath();
 
 				File fileDirPath = new File(fileDir);
@@ -438,7 +438,7 @@ public class UserController {
 				File uploadedFile = new File(fileDirPath, newFileName);
 				// 将檔案寫入本機
 				picture.transferTo(uploadedFile);
-				usersBean.setPicture("/userPicture/" + newFileName);
+				usersBean.setPicture("/images/" + newFileName);
 			} else {
 				usersBean.setPicture(users.getPicture());
 			}

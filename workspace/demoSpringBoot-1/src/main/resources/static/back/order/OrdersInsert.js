@@ -97,19 +97,26 @@ function submitForm(event) {
 			//let flds = [order.orderId, order.userContactNew.contactId, order.totalPrice, order.payStatus, order.shippingStatus, order.orderDate, order.shippingDate, order.payDeadline, order.orderNote];
 
 			// 添加新行的数据
-			let rowData = [
-				order.orderId,
-				order.userContactNew.contactId,
-				order.orderDate,
-				order.payStatus,
-				order.shippingStatus,
-				order.shippingDate,
-				order.payDeadline,
-				order.orderNote,
-				'<button class="btn btn-primary onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>',
-				'<button class="btn btn-primary onclick="deleteOrder(' + order.orderId + ')">刪除</button>',
-				'<button class="btn btn-primary onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>'
-			];
+		let rowData = [
+    order.orderId,
+    order.userContactNew.contactId,
+    order.orderDate,
+    `<select>
+        <option value="未付款" ${order.payStatus === '未付款' ? 'selected' : ''}>未付款</option>
+        <option value="已付款" ${order.payStatus === '已付款' ? 'selected' : ''}>已付款</option>
+    </select>`,
+    `<select>
+        <option value="未出貨" ${order.shippingStatus === '未出貨' ? 'selected' : ''}>未出貨</option>
+        <option value="已出貨" ${order.shippingStatus === '已出貨' ? 'selected' : ''}>已出貨</option>
+        <option value="不須出貨" ${order.shippingStatus === '不須出貨' ? 'selected' : ''}>不須出貨</option>
+    </select>`,
+    order.shippingDate,
+    order.payDeadline,
+    order.orderNote,
+    '<button class="btn btn-primary" onclick="updateOrder(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">更改</button>',
+    '<button class="btn btn-primary" onclick="deleteOrder(' + order.orderId + ')">刪除</button>',
+    '<button class="btn btn-primary" onclick="readmore(' + JSON.stringify(order).replace(/"/g, '&quot;') + ')">詳細資料</button>'
+];
 
 			// 使用 DataTable API 添加新行
 			table.row.add(rowData).draw(false);

@@ -31,6 +31,9 @@ select * from USERSNEW
 drop table USERSNEW
 drop table USERCONTACTNEW
 
+DBCC CHECKIDENT (USERCONTACTNEW, RESEED, 1011);
+DBCC CHECKIDENT (USERSNEW, RESEED, 1011);
+
 --�d��Fk����
 SELECT name, OBJECT_NAME(parent_object_id) AS referencing_table
 FROM sys.foreign_keys

@@ -200,7 +200,7 @@
                     if (confirm("確定要匯出json嗎？")) {
                         $.post('/export/json')
                             .done(function () {
-                                alert('JSON匯出成功，位置C:/Downloads')
+                                alert('JSON匯出成功，位置C:/Users/User/Downloads')
                             })
                             .fail(function (xhr, status, error) {
                                 alert('JSON匯出失敗: ' + xhr.responseText)
@@ -212,7 +212,7 @@
                     if (confirm("確定要匯出xml嗎？")) {
                         $.post('/export/xml')
                             .done(function () {
-                                alert('XML匯出成功，位置C:/Downloads')
+                                alert('XML匯出成功，位置C:/Users/User/Downloads')
                             })
                             .fail(function (xhr, status, error) {
                                 alert('XML匯出失敗')
@@ -224,7 +224,7 @@
                     if (confirm("確定要匯出excel嗎？")) {
                         $.post('/export/excel')
                             .done(function () {
-                                alert('Excel匯出成功，位置C:/Downloads')
+                                alert('Excel匯出成功，位置C:/Users/User/Downloads')
                             })
                             .fail(function (xhr, status, error) {
                                 alert('Excel匯出失敗')

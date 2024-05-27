@@ -205,15 +205,6 @@
                                 </button>
                             </form>
                         </div>
-                        <div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;">
-
-                            <button onclick="buy(`${course.productId}`)" type="submit"
-                                class="btn btn-primary custom-button"
-                                style="width: 100%; height: 100%;background-color:#B15A5E;">
-                                <h4 class=" mt-2">加入購物車</h4>
-                            </button>
-
-                        </div>
 
 
                     </div>

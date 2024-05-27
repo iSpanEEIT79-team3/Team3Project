@@ -10,9 +10,9 @@ function updateOrder(element,orderData) {
 	
 	 let payStatus = row.cells[3].querySelector('select').value;
 	let shippingStatus = row.cells[4].querySelector('select').value;
-	let shippingDate = row.cells[5].querySelector('input').value;
-	let payDeadline = row.cells[6].querySelector('input').value;
-	let orderNote = row.cells[7].querySelector('input').value;
+	let shippingDate = row.cells[5].value;
+	let payDeadline = row.cells[6].value;
+	let orderNote = row.cells[7].value;
 
 
 	// 创建包含表单数据的 JavaScript 对象
