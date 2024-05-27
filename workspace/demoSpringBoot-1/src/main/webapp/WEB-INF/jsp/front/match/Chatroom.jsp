@@ -400,6 +400,23 @@ ul {
 .card m-0 {
 	d-flex: align-items-center;
 }
+.chatContainerScroll {
+    height: calc(300px + 4 * 1.5rem); /* 增加兩行高度 */
+    overflow-y: auto;
+}
+.btn-custom {
+    background-color: #4CAF50; /* 綠色 */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
 </style>
 <link href="/front/match/matchcss/rotating-card.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -441,86 +458,109 @@ ul {
 <!-- JS Bundle for BS  -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7N" crossorigin="anonymous"></script> -->
 <script type="text/javascript">
-$( document ).ready(function() {
-	login()
-});
-        let stompClient
-        function login() {
-        	var uid = ${loginuser.userId};
-        	alert(uid);
-            let socket = new WebSocket(`ws://localhost:8080/websocket/`+uid)
-            stompClient = Stomp.over(socket)	
-            stompClient.connect({}, function () {
-                // 所有想要接收给指定用户发送的信息的订阅地址都必须加上/user前缀
-                // 这里是为了配合后台的 convertAndSendToUser 方法，如果使用
-                // convertAndSend，就不需要 /user 前缀了，下面会再介绍
-                stompClient.subscribe(`/chat/contact/`+uid, function (msg) {
-                    let entity = JSON.parse(msg.body)
-                    showGreeting(entity.message)
-                })
-                
-            })
+    $(document).ready(function() {
+        login();
 
-
-            function showGreeting(message) {
-            	
-            	var currentTime = new Date().toLocaleTimeString();
-            	
-            	 $("#chatBox").html($("#chatBox").html() + 
-            		        '<li class="chat-left">' +
-            		            '<div class="chat-avatar">' +
-            		                '<img src="${picture2}" alt="User Image">' +
-            		                '<div class="chat-name">${nickName2}</div>' +
-            		            '</div>' +
-            		            '<div class="chat-text" style="background-color:#F0EFF0;" id="userMsg">' +
-            		            message  +
-            		            '</div>' +
-            		            '<div class="chat-hour">' +
-            		            currentTime + '<span class="fa fa-check-circle"></span>' +
-            		            '</div>' +
-            		        '</li>'
-            		    );
+        // 為聊天框容器添加滾輪事件監聽器
+        $(".chatContainerScroll").on('scroll', function() {
+            // 檢查用戶是否已滾動到底部
+            if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                // 用戶已滾動到底部
+                // 在此處你可以執行任何操作，比如加載更多訊息
+                console.log("已滾動到底部");
             }
-        }
+        });
 
-        function sendMsg() {
-            var msg = document.getElementById('message').value;
+        // 添加鍵盤事件監聽器，當按下 Enter 鍵時發送訊息
+        $("#message").keypress(function(event) {
+            if (event.which === 13) { // Enter 鍵的按鍵代碼為13
+                event.preventDefault(); // 防止預設的 Enter 換行行為
+                sendMsg(); // 調用發送訊息的函數
+            }
+        });
+    });
+
+    let stompClient;
+
+    function login() {
+        var uid = ${loginuser.userId};
+        alert(uid);
+        let socket = new WebSocket(`ws://localhost:8080/websocket/` + uid);
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function() {
+            // 所有想要接收给指定用户发送的信息的订阅地址都必须加上/user前缀
+            // 这里是为了配合后台的 convertAndSendToUser 方法，如果使用
+            // convertAndSend，就不需要 /user 前缀了，下面会再介绍
+            stompClient.subscribe(`/chat/contact/` + uid, function(msg) {
+                let entity = JSON.parse(msg.body);
+                showGreeting(entity.message);
+            });
+
+        });
+
+        function showGreeting(message) {
+
             var currentTime = new Date().toLocaleTimeString();
 
-            $("#chatBox").html($("#chatBox").html() + 
-                '<li class="chat-right">' +
-                    '<div class="chat-hour">' +
-                    currentTime + '<span class="fa fa-check-circle"></span>' +
-                    '</div>' +
-                    '<div class="chat-text" style="background-color:#E6F0F2;" id="toMsg">' +
-                    msg  +
-                    '</div>' +
-                    '<div class="chat-avatar">' +
-                        '<img src="${loginuser.picture}" alt="User Image">' +
-                        '<div class="chat-name">${loginuser.nickName}</div>' +
-                    '</div>' +
+            $("#chatBox").html($("#chatBox").html() +
+                '<li class="chat-left">' +
+                '<div class="chat-avatar">' +
+                '<img src="${picture2}" alt="User Image">' +
+                '<div class="chat-name">${nickName2}</div>' +
+                '</div>' +
+                '<div class="chat-text" style="background-color:#F0EFF0;" id="userMsg">' +
+                message +
+                '</div>' +
+                '<div class="chat-hour">' +
+                currentTime + '<span class="fa fa-check-circle"></span>' +
+                '</div>' +
                 '</li>'
             );
-
-            // 發送訊息到服務器
-            stompClient.send("/sendMsg", {}, JSON.stringify({
-                from: "${loginuser.userId}",
-                to: "${user2id}",
-                message: msg,
-                time: new Date()
-            }));
-
-            // 清空訊息輸入框
-            document.getElementById('message').value = '';
         }
-        
-        function toMsg(){
-            ws.on('message', data => {
-                //data 為 Client 發送的訊息，現在將訊息原封不動發送出去
-                ws.send(data)
-            })
-        }
-    </script>
+    }
+
+    function sendMsg() {
+        var msg = document.getElementById('message').value;
+        var currentTime = new Date().toLocaleTimeString();
+
+        $("#chatBox").append(
+            '<li class="chat-right">' +
+            '<div class="chat-hour">' +
+            currentTime + '<span class="fa fa-check-circle"></span>' +
+            '</div>' +
+            '<div class="chat-text user-msg" style="background-color:#E6F0F2;" id="toMsg">' +
+            msg +
+            '</div>' +
+            '<div class="chat-avatar">' +
+            '<img src="${loginuser.picture}" alt="User Image">' +
+            '<div class="chat-name">${loginuser.nickName}</div>' +
+            '</div>' +
+            '</li>'
+        );
+
+        // 發送訊息到服務器
+        stompClient.send("/sendMsg", {}, JSON.stringify({
+            from: "${loginuser.userId}",
+            to: "${user2id}",
+            message: msg,
+            time: new Date()
+        }));
+
+        // 清空訊息輸入框
+        document.getElementById('message').value = '';
+
+        // 自動滾動到底部
+        var chatContainer = document.getElementById("chatBox");
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+	
+    function toMsg() {
+        ws.on('message', data => {
+            //data 為 Client 發送的訊息，現在將訊息原封不動發送出去
+            ws.send(data);
+        });
+    }
+</script>
 
 <title>範本</title>
 </head>
@@ -531,77 +571,70 @@ $( document ).ready(function() {
 		rel="stylesheet">
 	<div class="container">
 
-		<div class="page-title">
-			<div class="row gutters">
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-					<h5 class="title">Chat App</h5>
-				</div>
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"></div>
-			</div>
-		</div>
+    <div class="page-title">
+        <div class="row gutters">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                <h5 class="title">Chat App</h5>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"></div>
+        </div>
+    </div>
 
 
-		<div class="content-wrapper">
+    <div class="content-wrapper">
 
-			<div class="row gutters  d-flex justify-content-center">
-				<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<div class="card m-0" style="background-color:white;">
+        <div class="row gutters">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+                <div class="card m-0" style="background-color:white;">
 
-						<div class="row no-gutters">
-							
-							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								
-								<div class="chat-container">
-									<ul class="chat-box chatContainerScroll" id="chatBox">
-										<li class="chat-left">
-											<div class="chat-avatar">
-												<img
-													src="${picture2}"
-													alt="User Image">
-												<div class="chat-name">${nickName2}</div>
-											</div>
-											<div class="chat-text user-msg" id="userMsg">
-												Hello, I'm Russell. <br>How can I help you today?
-											</div>
-											<div class="chat-hour">
-												08:55 <span class="fa fa-check-circle"></span>
-											</div>
-										</li>
-										<li class="chat-right">
-											<div class="chat-hour">
-												08:56 <span class="fa fa-check-circle"></span>
-											</div>
-											<div class="chat-text user-msg" style="background-color:#E6F0F2;"id="toMsg">
-												Hi, Russell <br> I need more information about
-												Developer Plan.
-											</div>
-											<div class="chat-avatar">
-												<img
-													src="${loginuser.picture}"
-													alt="User Image">
+                    <div class="row no-gutters">
 
-												<div class="chat-name">${loginuser.nickName}</div>
-											</div>
-										</li>
-										</ul>
-										<div class="form-group mt-3 mb-0">
-											<textarea class="form-control" rows="3"
-												placeholder="Type your message here..." id="message"></textarea>
-											<button onclick="sendMsg()">發送</button>
-										</div>
-								</div>
-							</div>
-						</div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-					</div>
-						<div style="height:60px;"></div>
-				</div>
-			</div>
-		</div>
+                            <div class="chat-container">
+                               <ul class="chat-box chatContainerScroll" id="chatBox">
+                                    <li class="chat-left">
+                                        <div class="chat-avatar">
+                                            <img src="${picture2}" alt="User Image">
+                                            <div class="chat-name">${nickName2}</div>
+                                        </div>
+                                        <div class="chat-text user-msg" id="userMsg">
+                                            Hello, I'm Russell. <br>How can I help you today?
+                                        </div>
+                                        <div class="chat-hour">
+                                            08:55 <span class="fa fa-check-circle"></span>
+                                        </div>
+                                    </li>
+                                    <li class="chat-right">
+                                        <div class="chat-hour">
+                                            08:56 <span class="fa fa-check-circle"></span>
+                                        </div>
+                                        <div class="chat-text user-msg" style="background-color:#E6F0F2;" id="toMsg">
+                                            Hi, Russell <br> I need more information about
+                                            Developer Plan.
+                                        </div>
+                                        <div class="chat-avatar">
+                                            <img src="${loginuser.picture}" alt="User Image">
 
-	</div>
+                                            <div class="chat-name">${loginuser.nickName}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="form-group mt-3 mb-0">
+                                    <textarea class="form-control" rows="3" placeholder="Type your message here..."
+                                        id="message"></textarea>
+                             <button onclick="sendMsg()" class="btn-custom">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-	</div>
+            </div>
+        </div>
+    </div>
+
+</div>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
