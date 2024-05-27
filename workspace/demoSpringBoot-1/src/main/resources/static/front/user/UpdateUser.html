@@ -30,6 +30,11 @@
 		.img-container img.loaded {
 			display: block;
 		}
+
+		.form-control {
+			max-width: 300px;
+			/* 或任何你想要的寬度 */
+		}
 	</style>
 	<link rel="stylesheet" href="OrdersStyles.css">
 	<!-- Bootstrap CSS -->
@@ -182,15 +187,15 @@
 											style="font-size: 1.4rem !important;font-weight: bold;">選擇照片</label>
 										<input type="file" name="picture" id="fileInput" onchange="display()"
 											style="display: none">
-										<div class="img img-container col-md-5 col-lg-4" style="padding: 0;">
-											<img class="imgInput img-fluid w-100" id="profileImage">
+										<div class="col-md-5 col-lg-4" style="padding: 0;">
+											<img class="imgInput rounded-circle img-fluid w-75" id="profileImage" onclick="fileUpdate()">
 										</div>
 									</div>
 
 									<div class="row mb-3">
 										<label for="userNameU" class="col-md-4 col-lg-3 col-form-label text-dark"
 											style="font-size: 1.4rem !important;font-weight: bold;">姓名:</label>
-										<div class="col-md-8 col-lg-9">
+										<div class="col-md-8 col-lg-9" style="max-width: 140px;">
 											<input name="userName" type="text" class="form-control" id="userNameU"
 												value="">
 										</div>
@@ -199,7 +204,7 @@
 									<div class="row mb-3">
 										<label for="nickNameU" class="col-md-4 col-lg-3 col-form-label text-dark"
 											style="font-size: 1.4rem !important;font-weight: bold;">暱名:</label>
-										<div class="col-md-8 col-lg-9">
+										<div class="col-md-8 col-lg-9" style="max-width: 180px;">
 											<input name="nickName" type="text" class="form-control" id="nickNameU"
 												value="">
 										</div>
@@ -208,7 +213,7 @@
 									<div class="row mb-3">
 										<label for="gender" class="col-md-4 col-lg-3 col-form-label text-dark"
 											style="font-size: 1.4rem !important;font-weight: bold;">性別:</label>
-										<div class="col-md-8 col-lg-9">
+										<div class="col-md-8 col-lg-9" style="max-width: 100px;">
 											<select name="gender" class="form-select" id="genderU">
 												<option value="男">男</option>
 												<option value="女">女</option>
@@ -219,7 +224,7 @@
 									<div class="row mb-3">
 										<label for="birthdayU" class="col-md-4 col-lg-3 col-form-label text-dark"
 											style="font-size: 1.4rem !important;font-weight: bold;">生日:</label>
-										<div class="col-md-8 col-lg-9">
+										<div class="col-md-8 col-lg-9" style="max-width: 200px;">
 											<input name="birthday" type="date" class="form-control" id="birthdayU"
 												value="">
 										</div>
@@ -228,7 +233,7 @@
 									<div class="row mb-3">
 										<label for="phoneU" class="col-md-4 col-lg-3 col-form-label text-dark"
 											style="font-size: 1.4rem !important;font-weight: bold;">電話:</label>
-										<div class="col-md-8 col-lg-9">
+										<div class="col-md-8 col-lg-9" style="max-width: 200px;">
 											<input name="phone" type="text" class="form-control" id="phoneU" value="">
 										</div>
 									</div>
@@ -245,18 +250,22 @@
 									<div class="row mb-3">
 										<label for="danceCharacterU" class="col-md-4 col-lg-3 col-form-label text-dark"
 											style="font-size: 1.4rem !important;font-weight: bold;">跳舞角色:</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="danceCharacter" type="text" class="form-control"
-												id="danceCharacterU" value="">
+										<div class="col-md-8 col-lg-9" style="max-width: 160px;">
+											<select name="danceCharacter" type="text" class="form-control"
+												id="danceCharacterU">
+												<option value="">請選擇角色</option>
+												<option value="leader">Leader</option>
+												<option value="follower">Follower</option>
+											</select>
 										</div>
 									</div>
 
 									<div class="row mb-3">
 										<label for="danceAgeU" class="col-md-4 col-lg-3 col-form-label text-dark"
 											style="font-size: 1.4rem !important;font-weight: bold;">舞齡:</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="danceAge" type="text" class="form-control" id="danceAgeU"
-												value="">
+										<div class="col-md-8 col-lg-9" style="max-width: 100px;">
+											<input name="danceAge" type="number" class="form-control" id="danceAgeU"
+												min="1" max="50" value="">
 										</div>
 									</div>
 
@@ -483,6 +492,10 @@
 				};
 				reader.readAsDataURL(fileInput[0].files[0]);
 			}
+		}
+
+		function fileUpdate() {
+			document.getElementById('fileInput').click();
 		}
 	</script>
 </body>
