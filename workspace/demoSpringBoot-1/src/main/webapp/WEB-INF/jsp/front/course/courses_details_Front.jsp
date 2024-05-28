@@ -205,6 +205,13 @@
                                 </button>
                             </form>
                         </div>
+                        
+<div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;" onclick="buy(${course.productId})">
+    <a href="http://localhost:8080/front/order/OrderForClient.html" type="submit" class="btn btn-primary custom-button"
+        style="width: 100%; height: 100%; background-color: #B15A5E;">
+        <h4 class="mt-2">訂單</h4>
+    </a>
+</div>
 
 
                     </div>
@@ -315,6 +322,7 @@
                                         console.log("Success:", response); swal.fire({ title: "已加入購物車", html: `跳轉點擊 <a href="http://localhost:8080/front/order/OrderForClient.html">結帳畫面</a>`, icon: "success" });
 
                                     }); // 處理成功響應
+                                    
 
                             } else {
                                 swal.fire("Error", "您尚未登入", "error");
@@ -359,6 +367,7 @@
                                                     text: isRegisterForm ? "報名成功" : "Email 已成功發送",
                                                     icon: "success"
                                                 });
+                                                
                                             },
                                             error: function (xhr, status, error) {
                                                 Swal.fire({

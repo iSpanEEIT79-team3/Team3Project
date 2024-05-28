@@ -69,7 +69,7 @@ public class CoursesControllerFront {
     	}
     	return "redirect:/error";  // Redirect to an error page if no course is found
     }
-    
+    //報名
 	@GetMapping("/ajaxcourseDetailsFront/{id}")
 	@ResponseBody
 	public CoursesBean ajaxFindEvenDataByID(@PathVariable("id") Integer id,HttpSession session) {
