@@ -36,4 +36,7 @@ public class MatchesService {
 	 public List<MatchesBean> getAll(){
 		 return matchesRepository.findAll();
 	 }
+	 public void updateMatchStatus(Integer userId1, Integer userId2, String matchStatus, String matchSuccess) {
+	        matchesRepository.updateMatchStatus(userId1, userId2, matchStatus, matchSuccess);
+	    }
 }

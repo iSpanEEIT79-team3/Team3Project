@@ -318,7 +318,8 @@ public class UserController {
 			@RequestParam("email") String email, @RequestParam("password") String password,
 			@RequestParam("birthday") String birthday, @RequestParam("phone") String phone,
 			@RequestParam("address") String address, @RequestParam("danceCharacter") String danceCharacter,
-			@RequestParam("danceAge") String danceAge, @RequestParam("picture") MultipartFile picture) {
+			@RequestParam("danceAge") String danceAge, @RequestParam("picture") MultipartFile picture,
+			HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -331,7 +332,6 @@ public class UserController {
 		user.setEmail(email);
 
 		// 密碼加密 bcrypt
-		// 加密
 		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 		usersBean.setPassword(encondPassword);
 
@@ -379,10 +379,10 @@ public class UserController {
 		usersBean.setUserContact(user);
 		usersBean.setThirdPartyLogin(0);
 		usersBean.setPermission(0);
-
+		session.setAttribute("usersBean", usersBean);
 		uService2.insert(usersBean);
 
-		modelAndView.setViewName("redirect:/UserLoginTest");
+		modelAndView.setViewName("redirect:/UpdateUser");
 		return modelAndView;
 
 	}
@@ -454,10 +454,14 @@ public class UserController {
 
 		usersBean.setUserContact(user);
 		usersBean.setThirdPartyLogin(0);
-		usersBean.setPermission(0);
 
-		uService2.insert(usersBean);
+	
+	    usersBean.setPermission(users.getPermission());
+
+		
+
 		session.setAttribute("usersBean", usersBean);
+		uService2.update(usersBean);
 		modelAndView.setViewName("redirect:/UpdateUser");
 		return modelAndView;
 

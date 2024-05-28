@@ -5,18 +5,6 @@
 <html>
 
 <head>
-<style>
-  .d-flex {
-        display: flex;
-    }
-    .justify-content-between {
-        justify-content: space-between;
-    }
-    .align-items-center {
-        align-items: center;
-    }
-
-</style>
 <meta name="description"
 	content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
 <title>JFSwing後台</title>
@@ -33,16 +21,13 @@
 <body class="app sidebar-mini rtl pace-done">
 	<main class="app-content">
 		<div class="app-title">
-			<h1>JFSwing配對紀錄後台</h1>
+			<h1>JFSwing檢舉紀錄後台</h1>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="tile">
-					<div
-						class="tile-title d-flex justify-content-between align-items-center">
-						<h2>配對紀錄</h2>
-						<button type="button" onclick="reportMatch(${match.matchid})"
-							class="btn btn-primary">檢舉紀錄</button>
+					<div class="tile-title">
+						<h2>檢舉紀錄</h2>
 					</div>
 					<table class="table table-hover" id="page">
 						<thead>
@@ -52,30 +37,27 @@
 								<th>會員2</th>
 								<th>配對時間</th>
 								<th>配對狀態</th>
-								<th>配對成功</th>
-								<th>操作</th>
+								
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${Allmatches}" var="match">
+							<c:forEach items="${reports}" var="report">
 								<tr>
-									<td>${match.matchid}</td>
-									<td>${match.user1id}</td>
-									<td>${match.user2id}</td>
-									<td>${match.matchdate}</td>
-									<td>${match.matchsuccess}</td>
-									<td>${match.matchstatus}</td>
+									<td>${report.reportid}</td>
+									<td>${report.reporterid}</td>
+									<td>${report.reporteduserid}</td>
+									<td>${report.reportreason}</td>
 									<td>
 										<!-- 刪除按鈕 -->
-										<form id="deleteForm_${match.matchid}" action="/DeleteById"
+										<form id="deleteForm_${report.reportid}" action="/reports/DeleteById"
 											method="post">
-											<input type="hidden" name="_method" value="put" /> <input
-												type="hidden" name="userId1" value="${match.user1id}" /> <input
-												type="hidden" name="userId2" value="${match.user2id}" /> <input
-												type="hidden" name="matchSuccess" value="0" /> <input
-												type="hidden" name="matchStatus" value="N" />
-											<button type="button" onclick="deleteMatch(${match.matchid})">刪除</button>
-
+											<input type="hidden" name="_method" value="put" /> 
+											<input type="hidden" name="userId1" value="${report.reporterid}" /> 
+											<input type="hidden" name="userId2" value="${report.reporteduserid}" />
+											<input type="hidden" name="reportid" value="${report.reportid}" />
+											<input type="hidden" name="matchSuccess" value="0" /> 
+											<input type="hidden" name="matchStatus" value="N" />
+											<button type="button" onclick="deleteMatch(${report.reportid})">解除配對</button>
 										</form>
 									</td>
 								</tr>
@@ -115,11 +97,6 @@
             .then(html => {
                 document.body.insertAdjacentHTML('beforeend', html);
             });
-        
-        function reportMatch(matchId) {
-            // 跳轉到檢舉頁面
-            window.location.href = 'http://localhost:8080/reports?matchId=' + matchId;
-        }
 
         function RWDTest() {
             let RWD = document.body;

@@ -89,3 +89,36 @@ CREATE TABLE MATCHES (
     MATCH_SUCCESS BIT,
     MATCH_STATUS VARCHAR(10)
 );
+CREATE TABLE MATCHESREPORT (
+    REPORT_ID INT IDENTITY(1,1) PRIMARY KEY,   -- 檢舉的唯一標識，自動遞增
+    REPORTER_ID INT NOT NULL,                  -- 檢舉人的用戶ID
+    REPORTED_USER_ID INT NOT NULL,             -- 被檢舉人的用戶ID
+    REPORT_REASON VARCHAR(255) NOT NULL,       -- 檢舉原因
+ );
+
+ --商品
+CREATE TABLE shop (
+product_id int IDENTITY(100001,1) primary key NOT NULL, --商品ID
+product_name NVARCHAR(50) NOT NULL, --商品名稱
+product_img NVARCHAR(MAX) NULL, --照片
+product_price int NULL, --價格
+product_introduce NVARCHAR(MAX) NULL, --詳細介紹
+product_type NVARCHAR(20) NULL, --分類    
+);
+--商品圖片
+CREATE TABLE shop_img(
+image_id int IDENTITY(1,1) primary key NOT NULL,
+product_id int NULL, -- 連結到 shop 表的 PRODUCTID
+product_images NVARCHAR(MAX) NULL, --照片
+FOREIGN KEY (product_id) REFERENCES shop(product_id) ON DELETE CASCADE --ON DELETE CASCADE 如果SHOP刪除 這邊相關id 也一起刪除
+);
+--商品庫存
+CREATE TABLE shop_quantity(
+product_id int NULL, -- 連結到 shop 表的 PRODUCTID
+xs_size int NULL,
+s_size int NULL,
+m_size int NULL,
+l_size int NULL,
+xl_size int NULL,
+FOREIGN KEY (product_id) REFERENCES shop(product_id) ON DELETE CASCADE --ON DELETE CASCADE 如果SHOP刪除 這邊相關id 也一起刪除
+);

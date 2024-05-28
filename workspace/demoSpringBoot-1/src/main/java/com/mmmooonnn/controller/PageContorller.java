@@ -52,6 +52,7 @@ public class PageContorller {
 			return "redirect:/front/user/UpdateUser.html";
 
 		}
+		System.out.println("沒有登入會員");
 		return "redirect:/UserLoginTest";
 	}
 

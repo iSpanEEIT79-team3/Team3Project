@@ -433,9 +433,9 @@ button:hover {
 																			.log(content.userId == userID);
 																	var row = '<div class="article-item">'
 																			+ '<div class="article-info">'
-																			+ '<p>文章ID: '
+																			+ '<p>'
 																			+ content.ltId
-																			+ '</p>'
+																			+ '樓</p>'
 																			+ // 文章ID
 
 																			'<p>標題: '

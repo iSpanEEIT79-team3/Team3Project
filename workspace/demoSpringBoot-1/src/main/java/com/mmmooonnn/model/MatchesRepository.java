@@ -32,7 +32,9 @@ public interface MatchesRepository extends JpaRepository<MatchesBean, Integer> {
 	List<MatchUserDetailsDTO> findMatchUserDetails(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
 
 	
-}
+	 @Query(value = "UPDATE matches SET match_status = :matchStatus, match_success = :matchSuccess WHERE (user1_id = :userId1 AND user2_id = :userId2) OR (user1_id = :userId2 AND user2_id = :userId1)" , nativeQuery = true)
+	    void updateMatchStatus(@Param("userId1")Integer userId1, @Param("userId2")Integer userId2, @Param("matchStatus")String matchStatus, @Param("matchSuccess")String matchSuccess);
+	}
 
 //	@Query("SELECT NEW com.mmmooonnn.model.MatchUserDetailsDTO("
 //			+ "m.matchid, m.user1id, m.user2id, m.matchdate, m.matchsuccess, "

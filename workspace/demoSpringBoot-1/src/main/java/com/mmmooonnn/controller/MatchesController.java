@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -83,20 +84,48 @@ public class MatchesController {
 
 		return "forward:/WEB-INF/jsp/front/match/IsMatch.jsp";
 	}
-	@GetMapping("GetAllMatches")
+
+	@GetMapping("/GetAllMatches")
 	public ModelAndView processActionGetAllMatches() {
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		List<MatchesBean> Allmatches = matchesService.getAll();
 		System.out.println(Allmatches);
 		modelAndView.addObject("Allmatches", Allmatches);
 		modelAndView.setViewName("forward:/WEB-INF/jsp/back/match/PairingRecord.jsp");
-		
+
 		return modelAndView;
 	}
+
+	@PutMapping("/DeleteById")
+	public ModelAndView processActionDeleteById(@RequestParam("userId1") Integer userId1, 
+	                                            @RequestParam("userId2") Integer userId2
+	                                           /* @RequestParam("matchSuccess") String matchSuccess, 
+	                                            @RequestParam("matchStatus") String matchStatus*/) {
+	    ModelAndView view = new ModelAndView("redirect:/GetAllMatches");
+	    try {
+	        // 設定更新的狀態
+	        String updatedMatchStatus = "N";
+	        String updatedMatchSuccess = "0";
+
+	        // 調用 MatchesService 中的方法來更新狀態
+	        matchesService.updateMatchStatus(userId1, userId2, updatedMatchStatus, updatedMatchSuccess);
+
+	        // 向 ModelAndView 對象添加任何必要的屬性
+//	        view.addObject("message", "記錄更新成功。");
+
+	    } catch (Exception e) {
+	        // 處理異常並向視圖添加錯誤消息
+//	        view.addObject("error", "更新記錄時發生錯誤: " + e.getMessage());
+	    }
+	    return view;
+	}
 	
+	
+	
+
 	@GetMapping("/chatroomIndex")
-	public String chatroomIndex(HttpSession session, Model model ,HttpServletRequest request) {
+	public String chatroomIndex(HttpSession session, Model model, HttpServletRequest request) {
 		UsersBeanNew user = (UsersBeanNew) session.getAttribute("usersBean");
 		model.addAttribute("loginuser", user);
 		model.addAttribute("user2id", request.getParameter("user2id"));
@@ -105,10 +134,9 @@ public class MatchesController {
 		return "forward:/WEB-INF/jsp/front/match/Chatroom.jsp";
 	}
 
-    @MessageMapping("/sendMsg")
-    public void sendMsg(MessageEntity messageEntity) {
-        messageService.sendToUser(messageEntity);
-    }
-
+	@MessageMapping("/sendMsg")
+	public void sendMsg(MessageEntity messageEntity) {
+		messageService.sendToUser(messageEntity);
+	}
 
 }

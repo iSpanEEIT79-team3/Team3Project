@@ -394,28 +394,32 @@ ul {
 	margin-bottom: 2rem;
 	box-shadow: none;
 }
+
 .user-msg {
-    background-color: #E6F0F2;
+	background-color: #E6F0F2;
 }
+
 .card m-0 {
 	d-flex: align-items-center;
 }
+
 .chatContainerScroll {
-    height: calc(300px + 4 * 1.5rem); /* 增加兩行高度 */
-    overflow-y: auto;
+	height: calc(300px + 4 * 1.5rem); /* 增加兩行高度 */
+	overflow-y: auto;
 }
+
 .btn-custom {
-    background-color: #4CAF50; /* 綠色 */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
+	background-color: #4CAF50; /* 綠色 */
+	border: none;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 12px;
 }
 </style>
 <link href="/front/match/matchcss/rotating-card.css" rel="stylesheet" />
@@ -457,110 +461,6 @@ ul {
 
 <!-- JS Bundle for BS  -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7N" crossorigin="anonymous"></script> -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        login();
-
-        // 為聊天框容器添加滾輪事件監聽器
-        $(".chatContainerScroll").on('scroll', function() {
-            // 檢查用戶是否已滾動到底部
-            if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-                // 用戶已滾動到底部
-                // 在此處你可以執行任何操作，比如加載更多訊息
-                console.log("已滾動到底部");
-            }
-        });
-
-        // 添加鍵盤事件監聽器，當按下 Enter 鍵時發送訊息
-        $("#message").keypress(function(event) {
-            if (event.which === 13) { // Enter 鍵的按鍵代碼為13
-                event.preventDefault(); // 防止預設的 Enter 換行行為
-                sendMsg(); // 調用發送訊息的函數
-            }
-        });
-    });
-
-    let stompClient;
-
-    function login() {
-        var uid = ${loginuser.userId};
-        alert(uid);
-        let socket = new WebSocket(`ws://localhost:8080/websocket/` + uid);
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, function() {
-            // 所有想要接收给指定用户发送的信息的订阅地址都必须加上/user前缀
-            // 这里是为了配合后台的 convertAndSendToUser 方法，如果使用
-            // convertAndSend，就不需要 /user 前缀了，下面会再介绍
-            stompClient.subscribe(`/chat/contact/` + uid, function(msg) {
-                let entity = JSON.parse(msg.body);
-                showGreeting(entity.message);
-            });
-
-        });
-
-        function showGreeting(message) {
-
-            var currentTime = new Date().toLocaleTimeString();
-
-            $("#chatBox").html($("#chatBox").html() +
-                '<li class="chat-left">' +
-                '<div class="chat-avatar">' +
-                '<img src="${picture2}" alt="User Image">' +
-                '<div class="chat-name">${nickName2}</div>' +
-                '</div>' +
-                '<div class="chat-text" style="background-color:#F0EFF0;" id="userMsg">' +
-                message +
-                '</div>' +
-                '<div class="chat-hour">' +
-                currentTime + '<span class="fa fa-check-circle"></span>' +
-                '</div>' +
-                '</li>'
-            );
-        }
-    }
-
-    function sendMsg() {
-        var msg = document.getElementById('message').value;
-        var currentTime = new Date().toLocaleTimeString();
-
-        $("#chatBox").append(
-            '<li class="chat-right">' +
-            '<div class="chat-hour">' +
-            currentTime + '<span class="fa fa-check-circle"></span>' +
-            '</div>' +
-            '<div class="chat-text user-msg" style="background-color:#E6F0F2;" id="toMsg">' +
-            msg +
-            '</div>' +
-            '<div class="chat-avatar">' +
-            '<img src="${loginuser.picture}" alt="User Image">' +
-            '<div class="chat-name">${loginuser.nickName}</div>' +
-            '</div>' +
-            '</li>'
-        );
-
-        // 發送訊息到服務器
-        stompClient.send("/sendMsg", {}, JSON.stringify({
-            from: "${loginuser.userId}",
-            to: "${user2id}",
-            message: msg,
-            time: new Date()
-        }));
-
-        // 清空訊息輸入框
-        document.getElementById('message').value = '';
-
-        // 自動滾動到底部
-        var chatContainer = document.getElementById("chatBox");
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-	
-    function toMsg() {
-        ws.on('message', data => {
-            //data 為 Client 發送的訊息，現在將訊息原封不動發送出去
-            ws.send(data);
-        });
-    }
-</script>
 
 <title>範本</title>
 </head>
@@ -570,91 +470,232 @@ ul {
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
 		rel="stylesheet">
 	<div class="container">
+		<div class="page-title">
+			<div class="row gutters">
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+					<h5 class="title">Chat App</h5>
+				</div>
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"></div>
+			</div>
+		</div>
 
-    <div class="page-title">
-        <div class="row gutters">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <h5 class="title">Chat App</h5>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"></div>
-        </div>
-    </div>
+		<div class="content-wrapper">
+			<div class="row gutters">
+				<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<div class="card m-0" style="background-color: white;">
+						<div class="row no-gutters">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<div class="chat-container">
+									<ul class="chat-box chatContainerScroll" id="chatBox">
+										<li class="chat-left">
+											<div class="chat-avatar">
+												<img src="${picture2}" alt="User Image">
+												<div class="chat-name">${nickName2}</div>
+											</div>
+											<div class="chat-text user-msg" id="userMsg">
+												Hello, I'm Russell. <br>How can I help you today?
+											</div>
+											<div class="chat-hour">
+												08:55 <span class="fa fa-check-circle"></span>
+											</div>
+										</li>
+										<li class="chat-right">
+											<div class="chat-hour">
+												08:56 <span class="fa fa-check-circle"></span>
+											</div>
+											<div class="chat-text user-msg"
+												style="background-color: #E6F0F2;" id="toMsg">
+												Hi, Russell <br> I need more information about
+												Developer Plan.
+											</div>
+											<div class="chat-avatar">
+												<img src="${loginuser.picture}" alt="User Image">
+												<div class="chat-name">${loginuser.nickName}</div>
+											</div>
+										</li>
+									</ul>
+									<div class="form-group mt-3 mb-0">
+										<textarea class="form-control" rows="3"
+											placeholder="Type your message here..." id="message"></textarea>
+										<button onclick="sendMsg()" class="btn-custom">Send</button>
+									</div>
+									<button class="btn btn-danger" data-toggle="modal"
+										data-target="#reportModal">Report User</button>
 
-
-    <div class="content-wrapper">
-
-        <div class="row gutters">
-            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-                <div class="card m-0" style="background-color:white;">
-
-                    <div class="row no-gutters">
-
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-                            <div class="chat-container">
-                               <ul class="chat-box chatContainerScroll" id="chatBox">
-                                    <li class="chat-left">
-                                        <div class="chat-avatar">
-                                            <img src="${picture2}" alt="User Image">
-                                            <div class="chat-name">${nickName2}</div>
-                                        </div>
-                                        <div class="chat-text user-msg" id="userMsg">
-                                            Hello, I'm Russell. <br>How can I help you today?
-                                        </div>
-                                        <div class="chat-hour">
-                                            08:55 <span class="fa fa-check-circle"></span>
-                                        </div>
-                                    </li>
-                                    <li class="chat-right">
-                                        <div class="chat-hour">
-                                            08:56 <span class="fa fa-check-circle"></span>
-                                        </div>
-                                        <div class="chat-text user-msg" style="background-color:#E6F0F2;" id="toMsg">
-                                            Hi, Russell <br> I need more information about
-                                            Developer Plan.
-                                        </div>
-                                        <div class="chat-avatar">
-                                            <img src="${loginuser.picture}" alt="User Image">
-
-                                            <div class="chat-name">${loginuser.nickName}</div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="form-group mt-3 mb-0">
-                                    <textarea class="form-control" rows="3" placeholder="Type your message here..."
-                                        id="message"></textarea>
-                             <button onclick="sendMsg()" class="btn-custom">Send</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-</div>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
+			aria-labelledby="reportModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="reportModalLabel">Report User</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="reportForm">
+							<div class="form-group">
+								<label for="reportReason">Reason</label>
+								<textarea class="form-control" id="reportReason" rows="3"
+									required></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit
+								Report</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript">
 
     </script>
 
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-		crossorigin="anonymous"></script>
-	<script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+			crossorigin="anonymous"></script>
+		<script>
         fetch('html/basic.html')
             .then(response => response.text())
             .then(html => {
                 document.body.innerHTML += html;
             });
     </script>
-	<script src="/front/LoginUser.js"></script>
+		<script type="text/javascript">
+$(document).ready(function() {
+    // Submit report form
+    $('#reportForm').on('submit', function(event) {
+        event.preventDefault();
+        var reportReason = $('#reportReason').val();
+        var reportedUserId = ${user2id};  
+        var reporterId = ${loginuser.userId};  
+
+        var reportData = {
+            reporterid: reporterId,
+            reporteduserid: reportedUserId,
+            reportreason: reportReason
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/reports/submit',
+            contentType: 'application/json',
+            data: JSON.stringify(reportData),
+            success: function(response) {
+                console.log('Modal hidden');
+                alert('Report submitted successfully.');
+                $('#reportReason').val('');
+                $('#reportModal').hide();
+                $('.modal-backdrop').hide();
+// 				const modal = document.getElementById("reportModal");
+// 				modal.style.display = "none";
+// 				document.querySelector(".modal-backdrop").classList.remove("show");	
+                $('#message').focus();
+            },
+            error: function(error) {
+                alert('Error submitting report.');
+            }
+        });
+    });
+
+    // Chat scroll and enter key event
+    $(".chatContainerScroll").on('scroll', function() {
+        if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+            console.log("已滾動到底部");
+        }
+    });
+
+    $("#message").keypress(function(event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            sendMsg();
+        }
+    });
+
+    // Initialize WebSocket connection
+    login();
+});
+
+let stompClient;
+
+function login() {
+    var uid = ${loginuser.userId};
+    alert(uid);
+    let socket = new WebSocket(`ws://localhost:8080/websocket/` + uid);
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function() {
+        stompClient.subscribe(`/chat/contact/` + uid, function(msg) {
+            let entity = JSON.parse(msg.body);
+            showGreeting(entity.message);
+        });
+    });
+
+    function showGreeting(message) {
+        var currentTime = new Date().toLocaleTimeString();
+
+        $("#chatBox").html($("#chatBox").html() +
+            '<li class="chat-left">' +
+            '<div class="chat-avatar">' +
+            '<img src="${picture2}" alt="User Image">' +
+            '<div class="chat-name">${nickName2}</div>' +
+            '</div>' +
+            '<div class="chat-text" style="background-color:#F0EFF0;" id="userMsg">' +
+            message +
+            '</div>' +
+            '<div class="chat-hour">' +
+            currentTime + '<span class="fa fa-check-circle"></span>' +
+            '</div>' +
+            '</li>'
+        );
+    }
+}
+
+function sendMsg() {
+    var msg = document.getElementById('message').value;
+    var currentTime = new Date().toLocaleTimeString();
+
+    $("#chatBox").append(
+        '<li class="chat-right">' +
+        '<div class="chat-hour">' +
+        currentTime + '<span class="fa fa-check-circle"></span>' +
+        '</div>' +
+        '<div class="chat-text user-msg" style="background-color:#E6F0F2;" id="toMsg">' +
+        msg +
+        '</div>' +
+        '<div class="chat-avatar">' +
+        '<img src="${loginuser.picture}" alt="User Image">' +
+        '<div class="chat-name">${loginuser.nickName}</div>' +
+        '</div>' +
+        '</li>'
+    );
+
+    stompClient.send("/sendMsg", {}, JSON.stringify({
+        from: "${loginuser.userId}",
+        to: "${user2id}",
+        message: msg,
+        time: new Date()
+    }));
+
+    document.getElementById('message').value = '';
+
+    var chatContainer = document.getElementById("chatBox");
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+    </script>
+
+		<script src="/front/LoginUser.js"></script>
 </body>
 
 </html>

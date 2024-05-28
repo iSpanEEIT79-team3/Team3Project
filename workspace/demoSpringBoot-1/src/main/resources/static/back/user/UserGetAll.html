@@ -35,8 +35,6 @@
 			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 			z-index: 1000;
 		}
-
-	
 	</style>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,6 +69,19 @@
 
 	</main>
 	<div id="image-popup" class="image-popup"></div>
+	<div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="contentModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="contentModalLabel">圖片</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- 顯示完整內容 -->
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Essential javascripts for application to work-->
 	<script src="../js/jquery-3.2.1.min.js"></script>
@@ -175,7 +186,7 @@
 				{
 					title: "照片",
 					render: function (data, type, row, meta) {
-						return '<a href="' + row.picture + '" class="image-link">圖片</a>';
+						return '<a href="' + row.picture + '" class="image-link btn btn-primary" onclick="showImg(event)" data-toggle="modal" data-target="#contentModal" >圖片</a>';
 					}
 				},
 				{
@@ -260,6 +271,21 @@
 			$(document).on('mouseleave', '.image-link', function () {
 				$('#image-popup').hide();
 			});
+
+			window.showImg = function (e) {
+				e.preventDefault();
+				let path = e.target.getAttribute('href');
+				console.log(path);
+				let img = document.createElement("img");
+				let body = document.querySelector(".modal-body");
+				body.innerHTML = ""; // 清空模態框中的內容
+
+				// 創建圖像元素
+				img.src = path;
+				img.style.maxWidth = "100%"; // 設置圖像的最大寬度為模態框的寬度
+				img.style.height = "auto"; // 設置圖像的高度自動適應
+				body.appendChild(img); // 將圖像添加到模態框中
+			};
 		});
 
 	</script>
