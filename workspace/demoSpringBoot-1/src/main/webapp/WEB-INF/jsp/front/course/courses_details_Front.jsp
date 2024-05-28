@@ -205,13 +205,6 @@
                                 </button>
                             </form>
                         </div>
-                        
-<div class="d-flex align-items-center m-1" style="width: 250px; height: 60px;" onclick="buy(${course.productId})">
-    <a href="http://localhost:8080/front/order/OrderForClient.html" type="submit" class="btn btn-primary custom-button"
-        style="width: 100%; height: 100%; background-color: #B15A5E;">
-        <h4 class="mt-2">訂單</h4>
-    </a>
-</div>
 
 
                     </div>
