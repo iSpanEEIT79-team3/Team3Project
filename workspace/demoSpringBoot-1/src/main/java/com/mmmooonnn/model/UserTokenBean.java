@@ -21,6 +21,8 @@ public class UserTokenBean {
 	private String token;
 	
 	private Timestamp outTime;
+	
+	private Integer statu;
 
 	public Integer getId() {
 		return id;
@@ -53,6 +55,14 @@ public class UserTokenBean {
 	public void setOutTime(Timestamp outTime) {
 		this.outTime = outTime;
 	}
+	
+	public Integer getStatu() {
+		return statu;
+	}
+
+	public void setStatu(Integer statu) {
+		this.statu = statu;
+	}
 
 	@Override
 	public String toString() {
@@ -65,8 +75,11 @@ public class UserTokenBean {
 		builder.append(token);
 		builder.append(", outTime=");
 		builder.append(outTime);
+		builder.append(", statu=");
+		builder.append(statu);
 		builder.append("]");
 		return builder.toString();
 	}
+
 
 }

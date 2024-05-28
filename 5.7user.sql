@@ -71,7 +71,8 @@ create table usertoken(
 	id int identity(1,1) not null PRIMARY KEY,
 	userid int null,
 	token varchar(max)  null,
-	out_time datetime2 null
+	out_time datetime2 null,
+	statu int null,
 	CONSTRAINT uc_userid UNIQUE (userid)
 )
 select * from usertoken;
@@ -79,3 +80,12 @@ drop table usertoken;
 
 Select * from USERSNEW
 Select * from USERCONTACTNEW
+
+CREATE TABLE MATCHES (
+    MATCH_ID INT IDENTITY(2001,1) NOT NULL PRIMARY KEY, 
+    USER1_ID INT NOT NULL, 
+    USER2_ID INT NOT NULL, 
+    MATCH_DATE DATETIME NOT NULL,
+    MATCH_SUCCESS BIT,
+    MATCH_STATUS VARCHAR(10)
+);

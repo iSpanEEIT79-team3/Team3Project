@@ -12,7 +12,7 @@
 		}
 
 		thead {
-			background-color:#00AEAE;
+			background-color: #00AEAE;
 
 			font-size: 22.5px;
 		}
@@ -25,16 +25,18 @@
 			border: 1px solid black;
 			font-size: 16px;
 		}
-		
+
 		.image-popup {
-		           position: absolute;
-		           display: none;
-		           border: 1px solid #ddd;
-		           padding: 10px;
-		           background-color: #fff;
-		           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-		           z-index: 1000;
-		       }
+			position: absolute;
+			display: none;
+			border: 1px solid #ddd;
+			padding: 10px;
+			background-color: #fff;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			z-index: 1000;
+		}
+
+	
 	</style>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -105,7 +107,7 @@
 		$(document).ready(function () {
 			table = $('.table').DataTable({
 				"autoWidth": true,
-				"scrollX": "1300px",
+				"scrollX": "1100px",
 				"scrollCollapse": true,
 				"language": {
 					"processing": "處理中...",
@@ -209,8 +211,8 @@
 							' <button class="btn btn-primary" type="submit">刪除</button>' +
 							' </form>';
 					}
-				}
-				]
+				}],
+
 			});
 
 			// 將 updatePermission 函數設為全域範圍內定義
@@ -260,7 +262,7 @@
 			});
 		});
 
-</script>
+	</script>
 
 </body>
 

@@ -124,6 +124,7 @@ public class UserController {
 			userToken.setUserid(user.getUserId());
 			userToken.setToken(secretKey);
 			userToken.setOutTime(outDate);
+			userToken.setStatu(0);	
 
 			try {
 				userTokenService.insert(userToken);
@@ -132,6 +133,8 @@ public class UserController {
 				UserTokenBean userTokenBean = result.get();
 				userTokenBean.setOutTime(outDate);
 				userTokenBean.setToken(secretKey);
+				userTokenBean.setStatu(0);
+							
 				userTokenService.insert(userTokenBean);
 			}
 
@@ -225,14 +228,14 @@ public class UserController {
 					usersBean.setUserContact(user);
 					usersBean.setPermission(0);
 					usersBean.setThirdPartyLogin(1);
-					modelAndView.setViewName("redirect:/frontPage");
+					modelAndView.setViewName("redirect:/UpdateUser");
 					uService2.insert(usersBean);
 					session.setAttribute("usersBean", usersBean);
 					return modelAndView;
 				} else {
 					UsersBeanNew usersBean = uService2.findByEmail(email);
 					session.setAttribute("usersBean", usersBean);
-					modelAndView.setViewName("redirect:/frontPage");
+					modelAndView.setViewName("redirect:/UpdateUser");
 					return modelAndView;
 				}
 
@@ -496,21 +499,30 @@ public class UserController {
 	}
 
 	@PostMapping("/resetPassword")
-	public ModelAndView processActionResetPassword(@RequestParam("newpassword") String password, HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
+	public ResponseEntity<String> processActionResetPassword(@RequestParam("newpassword") String password, HttpSession session) {
+	
 
 		String email = (String) session.getAttribute("userEmail");
 		System.out.println("email:" + email);
 		UsersBeanNew users = uService2.findByEmail(email);
-
-		// 密碼
-		String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-		users.setPassword(encondPassword);
-
-		uService2.update(users);
-
-		modelAndView.setViewName("redirect:/UpdateUser");
-		return modelAndView;
+		
+		UserTokenBean userTokenBean = userTokenService.findByUserid(users.getUserId()).get();
+		
+		
+		
+		if(userTokenBean.getStatu() == 0 ) {
+			String encondPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+			users.setPassword(encondPassword);
+			
+			uService2.update(users);	
+			userTokenBean.setStatu(1);
+			userTokenService.insert(userTokenBean);
+			return ResponseEntity.ok().body("第一次修改");
+		}
+		
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("第二次修改");
+	
 
 	}
 

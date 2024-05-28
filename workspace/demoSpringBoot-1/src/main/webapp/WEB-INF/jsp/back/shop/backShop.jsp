@@ -433,8 +433,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 //自動帶入值
 function autoinput() {
-            $('input[name="newProduct"]').val('毛毛衣');
-            $('input[name="newIntroduce"]').val('毛毛蟲做的');
+            $('input[name="newProduct"]').val('帽子給我好嗎');
+            $('input[name="newIntroduce"]').val('棉50%，海綿50%');
             $('input[name="productPrice"]').val('199');
             $('select[name="productType"]').val('Pants'); // 默认选择 Jacket 类型
             $('input[name="xsSize"]').val('10');
