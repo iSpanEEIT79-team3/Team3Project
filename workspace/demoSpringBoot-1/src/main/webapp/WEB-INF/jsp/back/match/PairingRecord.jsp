@@ -74,7 +74,7 @@
 												type="hidden" name="userId2" value="${match.user2id}" /> <input
 												type="hidden" name="matchSuccess" value="0" /> <input
 												type="hidden" name="matchStatus" value="N" />
-											<button type="button" onclick="deleteMatch(${match.matchid})">刪除</button>
+											<button type="button" onclick="deleteMatch(${match.matchid})">更新</button>
 
 										</form>
 									</td>
@@ -105,7 +105,7 @@
 	<script>
         $('#page').DataTable();
         function deleteMatch(matchId) {
-            if (confirm('確定要刪除這條記錄嗎？')) {
+            if (confirm('確定要更新這條記錄嗎？')) {
                 // 提交表單
                 document.getElementById('deleteForm_' + matchId).submit();
             }

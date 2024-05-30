@@ -124,7 +124,7 @@ body {
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="contentModalLabel">文章內容</h5>
+										<h5 class="modal-title" id="contentModalLabel">照片</h5>
 										<button type="button" class="btn-close" data-dismiss="modal"
 											aria-label="Close"></button>
 									</div>

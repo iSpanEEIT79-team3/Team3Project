@@ -147,7 +147,7 @@ public class UserController {
 			String emailContent = "請勿回覆此郵件。點擊下面的連結來重設密碼：<br/><a href=" + resetPassHref + " target='_BLANK'>點擊我重設密碼</a>"
 					+ "<br/>提示：此郵件的連結將在30分鐘後失效，若需要重新申請找回密碼，請重新操作。";
 
-			mailService.sendHtmlMail("重置密碼", emailContent, "mhou6vm0@gmail.com");
+			mailService.sendHtmlMail("重置密碼", emailContent, email);
 
 		} catch (Exception e) {
 			e.printStackTrace();

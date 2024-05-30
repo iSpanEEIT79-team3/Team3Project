@@ -67,7 +67,7 @@ public class PayController {
 		obj.setTradeDesc("Test Description");
 		obj.setItemName("TestItem");
 		// 交易結果回傳網址，只接受 https 開頭的網站，可以使用 ngrok
-		obj.setReturnURL("https://8ff8-61-222-34-1.ngrok-free.app/PayResult");
+		obj.setReturnURL("https://c9d2-61-222-34-1.ngrok-free.app/PayResult");
 		obj.setNeedExtraPaidInfo("N");
 		// 商店轉跳網址 (Optional)
 		obj.setClientBackURL("http://localhost:8080/front/order/OrderForClient.html");
